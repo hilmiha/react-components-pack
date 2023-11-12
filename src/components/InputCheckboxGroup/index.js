@@ -1,7 +1,7 @@
 import './styles.css'
 import { Fragment } from 'react'
-import CheckBox from '../CheckBox'
 import { compact, isEmpty, map } from 'lodash'
+import InputCheckbox from '../InputCheckbox'
 
 const InputCheckBoxGroup = ({
     value,
@@ -90,7 +90,7 @@ const InputCheckBoxGroup = ({
                     const selected = value[item.value]
                     return(
                         <Fragment key={index}>
-                            <CheckBox
+                            <InputCheckbox
                                 label={item.label}
                                 isDisabled={item.disabled}
                                 value={selected}
@@ -102,7 +102,7 @@ const InputCheckBoxGroup = ({
                                 item.children?.map((itemchildren, index)=>{
                                     const selected = value[item.value]?.includes(itemchildren.value)
                                     return(
-                                        <CheckBox
+                                        <InputCheckbox
                                             key={index}
                                             className={'input-checkbox-group-children'}
                                             label={itemchildren.label}

@@ -56,11 +56,11 @@ export const getColorList = async (viewState) =>{
             let tampColorList = []
             
             if(tampColorListPaginationConfig.searchKey){
-                // if(tampColorListPaginationConfig.page===1){
-                //     tampColorList = tampColorList.concat(colorListSearchResultPag1)
-                // }else if(tampColorListPaginationConfig.page===2){
-                //     tampColorList = [...viewState.colorList, ...colorListSearchResultPag2]
-                // }
+                if(tampColorListPaginationConfig.page===1){
+                    tampColorList = tampColorList.concat(colorListSearchResultPag1)
+                }else if(tampColorListPaginationConfig.page===2){
+                    tampColorList = [...viewState.colorList, ...colorListSearchResultPag2]
+                }
             }else{
                 if(tampColorListPaginationConfig.page===1){
                     tampColorList.push({id:'_empty', label:'-- Select --', value:''},)

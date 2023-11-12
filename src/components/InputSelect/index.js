@@ -223,7 +223,8 @@ const InputSelect = ({
                                 config={{
                                     type:'text',
                                     placeholder:'Search',
-                                    isDisabledTyping:!isOptionReady
+                                    isDisabledTyping:!isOptionReady,
+                                    isFullWidth:true
                                 }}
                                 value={searchKey}
                                 onChangeField={onChangeSearchKey}

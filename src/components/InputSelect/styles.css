@@ -1,0 +1,119 @@
+.input-select-wrapper{
+    display: flex;
+}
+
+.input-select-button{
+    flex-grow: 1;
+    align-items: center;
+    border: solid 1px;
+    height: 36px;
+    flex-grow: 1;
+    width: 0px;
+    padding: 0px;
+    outline: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.input-select-button-icon{
+    pointer-events: none;
+    margin-left: 8px;
+}
+
+.input-select-dropdown-wrapper{
+    background-color: white;
+    border: 1px solid;
+    display: none;
+    z-index: 10000;
+    border-radius: 6px;
+    padding: 2.5px 0.5px;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.input-select-dropdown-wrapper[data-show] {
+    display: block;
+}
+
+.input-select-dropdown-search-bar{
+    padding: 8px 12px 8px 12px;
+}
+.input-select-dropdown-list-wrapper{
+    max-height: 180px;
+    overflow: auto;
+    scroll-snap-type: both proximity;
+    padding: 2px;
+}
+
+.input-select-dropdown-item{
+    background-color: white;
+    width: 100%;
+    height: 36px;
+    padding: 4px 12px;
+    text-align: start;
+    outline: 0;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    scroll-snap-align: start;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.input-select-dropdown-item + .input-select-dropdown-item{
+    margin-top: 2px;
+}
+
+.input-select-dropdown-item > .icons-wrapper{
+    margin-left: 8px;
+
+}
+
+.input-select-dropdown-item:disabled:hover{
+    background-color: white;
+    cursor: default;
+}
+
+.input-select-dropdown-item.item-selected, .input-select-dropdown-item.item-selected:focus, .input-select-dropdown-item.item-selected:hover{
+    background-color: #EEF2FF;
+}
+
+.input-select-dropdown-item:focus{
+    background-color: #F9FAFB;
+    border: 1px solid #818CF8;
+    box-shadow: 0px 0px 2px 2px #E0E7FF;
+    border-radius: 6px;
+}
+
+.input-select-dropdown-item:hover{
+    background-color: #F9FAFB;
+}
+
+.input-select-dropdown-spinner-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0px;
+    /* scroll-snap-align: end; */
+}
+
+.input-select-empty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}

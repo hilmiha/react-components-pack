@@ -1,0 +1,49 @@
+.input-text-wrapper{
+    display: flex;
+    align-items: center;
+    border: solid 1px;
+    height: 36px;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.input-text-input{
+    background-color: transparent;
+    flex-grow: 1;
+    width: 0px;
+    padding: 0px;
+    outline: 0;
+    border: 0px;
+}
+
+.input-text-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #9CA3AF;
+    opacity: 1; /* Firefox */
+}
+
+.input-text-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #9CA3AF;
+}
+
+.input-text-input[disabled]::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #D1D5DB;
+    opacity: 1; /* Firefox */
+}
+
+.input-text-prefix{
+    margin-right: 6px;
+}
+
+.input-text-sufix{
+    margin-left: 6px;
+}
+
+.input-text-count{
+    margin-left: 6px;
+}
+
+.input-text-count .text-text{
+    width: max-content !important;
+}

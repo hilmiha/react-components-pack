@@ -1,0 +1,16 @@
+.tooltip-target{
+    width: 16px;
+}
+
+.tooltip-wrapper{
+    background-color: white;
+    padding: 4px 8px;
+    border: 1px solid;
+    display: none;
+    z-index: 10000;
+    border-radius: 6px;
+}
+
+.tooltip-wrapper[data-show] {
+    display: block;
+}

@@ -1,0 +1,17 @@
+.form-field-wrapper + .form-field-wrapper{
+    margin-top: 18px;
+}
+
+.form-field-label-wraper{
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.form-field-label-tooltip{
+    margin-left: 4px;
+}
+
+.form-field-error-message{
+    margin-top: 8px
+}

@@ -1,64 +1,9 @@
 import './styles.css'
-import { COLORS } from '../../constant/theme'
-import Icons from '../Icons'
-import Text from '../Text'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import CheckBox from '../CheckBox'
 import { compact, isEmpty, map } from 'lodash'
 
-
-
-const listOfCheckBoxConfig = [
-    {
-        label:'Parent Alpabet',
-        value:'parentAlpabet',
-        disabled:false,
-        children:[
-            {
-                label:'Children A',
-                value:'children_a',
-                disabled:false
-            },
-            {
-                label:'Children B',
-                value:'children_b',
-                disabled:false
-            },
-            {
-                label:'Children C',
-                value:'children_c',
-                disabled:false
-            }
-        ]
-    },
-    {
-        label:'Parent Number',
-        value:'paerent_number',
-        disabled:false,
-        children:[
-            {
-                label:'Label 1',
-                value:'label_1',
-                disabled:false
-            },
-            {
-                label:'Label 2',
-                value:'label_2',
-                disabled:false
-            },
-        ]
-    },
-    {
-        label:'Other',
-        value:'other'
-    }
-]
-const valueList = {
-    parentAlpabet:['children_a', 'children_c'],
-    other:['other']
-}
-
-const CheckBoxGroup = ({
+const InputCheckBoxGroup = ({
     value,
     listCheckbox,
     onSelectOption,
@@ -159,7 +104,7 @@ const CheckBoxGroup = ({
                                     return(
                                         <CheckBox
                                             key={index}
-                                            className={'input-checkbox-chilred'}
+                                            className={'input-checkbox-group-children'}
                                             label={itemchildren.label}
                                             isDisabled={itemchildren.disabled || item.disabled}
                                             isEllipsistatic={isEllipsistatic}
@@ -177,4 +122,4 @@ const CheckBoxGroup = ({
     )
 }
 
-export default CheckBoxGroup
+export default InputCheckBoxGroup

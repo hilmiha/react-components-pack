@@ -4,12 +4,10 @@ import InputText from '../InputText'
 import Text from '../Text'
 import Tooltip from '../Tooltip'
 import { useEffect, useState } from 'react'
-import { formatText } from '../../untils/textFormatterUtils'
 import InputSelect from '../InputSelect'
 import InputSelectMultiple from '../InputSelectMultiple'
-import { join, map } from 'lodash'
-import CheckBox from '../CheckBox'
-import CheckBoxGroup from '../CheckBoxGroup'
+import InputCheckbox from '../InputCheckbox'
+import InputCheckBoxGroup from '../InputCheckboxGroup'
 
 const FormField = ({
     // props
@@ -172,7 +170,7 @@ const FormField = ({
                 (
                     config.type==='check-box' 
                 )&&(
-                    <CheckBox
+                    <InputCheckbox
                         value={value}
                         isDisabled={config.isDisabled}
                         label={config.label}
@@ -186,7 +184,7 @@ const FormField = ({
                 (
                     config.type==='check-box-group' 
                 )&&(
-                    <CheckBoxGroup
+                    <InputCheckBoxGroup
                         value={value}
                         listCheckbox={config.listCheckbox}
                         onSelectOption={onSelect}

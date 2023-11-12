@@ -4,7 +4,7 @@ import Icons from '../Icons'
 import Text from '../Text'
 import { Fragment } from 'react'
 
-const CheckBox = ({
+const InputCheckbox = ({
     //props
     className,
     value,
@@ -61,4 +61,4 @@ const CheckBox = ({
     )
 }
 
-export default CheckBox
+export default InputCheckbox

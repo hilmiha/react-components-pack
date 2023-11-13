@@ -18,7 +18,8 @@ const Playground = () =>{
 		selection:'',
 		selectionCity:'',
 		checkboxe:'',
-		checkboxes:''
+		checkboxes:'',
+		leaveDate:''
 	})
 	const [formErrorStatus, setFormErrorStatus] = useState(getInitialFormStatus({...form}))
 
@@ -61,7 +62,7 @@ const Playground = () =>{
 	},[form])
 
 	return (
-		<div style={{padding:'10px'}}>
+		<div style={{padding:'10px 10px 500px 10px'}}>
 			<Text 
 				textLabel={"Hello World asdlasjdskasd askjdhasjda aksjdhasjdhasjd asjkdhasjkdhasjkdha askjdha"}
 				isBold={false}
@@ -256,6 +257,25 @@ const Playground = () =>{
 				onChangeField={(newValue)=>{controller.onChangeFieldValue('checkboxes', newValue, getState())}}
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('checkboxes', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['checkboxes']}
+			/>
+			<FormField
+				config={{
+					type:'date-picker',//mandatory
+					typeDatepicker:'date-range', // 'date-range' or ''
+					formLabel:'Tanggal Berangkat',
+					maxSelect:7,
+					dayOpenBeforeToday:'',
+					dayOpenAfterToday:'',
+					isDisabled:false,
+					placeholder:'Select Date',
+					isFullWidth:'',
+					isRounded:'',
+					validationList:['mandatory']
+				}}
+				value={form['leaveDate']}
+				onChangeField={(newValue)=>{controller.onChangeFieldValue('leaveDate', newValue, getState())}}
+				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
+				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
 
 

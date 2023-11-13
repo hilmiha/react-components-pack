@@ -8,6 +8,7 @@ import InputSelect from '../InputSelect'
 import InputSelectMultiple from '../InputSelectMultiple'
 import InputCheckbox from '../InputCheckbox'
 import InputCheckBoxGroup from '../InputCheckboxGroup'
+import InputDatePicker from '../InputDatePicker'
 
 const FormField = ({
     // props
@@ -189,6 +190,26 @@ const FormField = ({
                         listCheckbox={config.listCheckbox}
                         onSelectOption={onSelect}
                         isEllipsistatic={config.isEllipsistatic}
+                    />
+                )
+            }
+            {
+                (
+                    config.type==='date-picker' 
+                )&&(
+                    <InputDatePicker
+                        value={value}
+                        type={config.typeDatepicker}
+                        maxSelect={config.maxSelect}
+                        onSelectOption={onSelect}
+                        onCloseDropdown={onCloseDropdown}
+                        dayOpenBeforeToday={config.dayOpenBeforeToday}
+                        dayOpenAfterToday={config.dayOpenAfterToday}
+                        isDisabled={config.isDisabled}
+                        isError={formErrorStatus?.status}
+                        placeholder={config.placeholder}
+                        isFullWidth={config.isFullWidth}
+                        isRounded={config.isRounded}
                     />
                 )
             }

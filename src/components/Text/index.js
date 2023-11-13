@@ -68,7 +68,7 @@ const Text = ({
             createPopper(textRef.current, toolTipRef.current, {
                 placement: 'bottom-start',
             });
-            textRef.current.addEventListener("mouseover", cekElipsisActive);
+            textRef.current?.addEventListener("mouseover", cekElipsisActive);
             
             return () => {
                 textRef.current?.removeEventListener("mouseover", cekElipsisActive);

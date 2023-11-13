@@ -6,7 +6,9 @@ import {
     PiCaretDown,
     PiCaretUp,
     PiCheckBold,
-    PiMinusBold
+    PiMinusBold,
+    PiCaretLeft,
+    PiCaretRight
 } from 'react-icons/pi';
 import { ImCheckmark, ImMinus } from "react-icons/im";
 import { COLORS, TEXTSIZES } from '../../constant/theme';
@@ -59,6 +61,16 @@ const Icons = ({
             {
                 (iconName==='caret-up')&&(
                     <PiCaretUp size={fontSize} color={fontColor}/>
+                )
+            }
+            {
+                (iconName==='caret-left')&&(
+                    <PiCaretLeft size={fontSize} color={fontColor}/>
+                )
+            }
+            {
+                (iconName==='caret-right')&&(
+                    <PiCaretRight size={fontSize} color={fontColor}/>
                 )
             }
         </div>

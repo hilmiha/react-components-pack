@@ -220,7 +220,7 @@ const InputDatePicker = ({
                             selected={value}
                             onSelect={onChange}
                             modifiers={{ today: [new Date()] }}
-                            modifiersStyles={{ today: {border:'1px solid #3f7bbb'} }}
+                            modifiersStyles={{ today: {border:'1px solid #6366F1'} }}
                             fromDate={
                                 (value?.from)?(value.from):
                                 (dayOpenBeforeToday)?(subDays(new Date(), dayOpenBeforeToday)):

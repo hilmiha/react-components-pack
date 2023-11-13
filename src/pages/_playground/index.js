@@ -268,8 +268,8 @@ const Playground = () =>{
 					dayOpenAfterToday:'',
 					isDisabled:false,
 					placeholder:'Select Date',
-					isFullWidth:'',
-					isRounded:'',
+					isFullWidth:false,
+					isRounded:false,
 					validationList:['mandatory']
 				}}
 				value={form['leaveDate']}

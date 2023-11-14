@@ -1,3 +1,4 @@
+import './styles.css'
 import { useEffect, useState } from 'react';
 import Text from '../../components/Text';
 import FormField from '../../components/FormField';
@@ -63,7 +64,7 @@ const Playground = () =>{
 	},[form])
 
 	return (
-		<div style={{padding:'10px 10px 500px 10px'}}>
+		<div style={{padding:'10px 10px 500px 10px'}} className='body'>
 			<Text 
 				textLabel={"Hello World asdlasjdskasd askjdhasjda aksjdhasjdhasjd asjkdhasjkdhasjkdha askjdha"}
 				isBold={false}
@@ -278,6 +279,7 @@ const Playground = () =>{
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
+			<input id='isDarkMode' type='checkbox'/>
 			<div style={{display:'flex', margin:'10px 0px'}}>
 				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} iconLeftName={''} isDisabled={true}/>

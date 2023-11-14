@@ -1,3 +1,5 @@
+@import '../../App.css';
+
 .button{
     outline: 0px;
     cursor: pointer;
@@ -9,6 +11,12 @@
 
 .button:disabled{
     cursor: default;
+    background-color: var(--neutral300) !important;
+    border: 1px solid var(--neutral400) !important;
+    color: var(--neutral400) !important;
+}
+.button:disabled .button-text .icons-wrapper svg{
+    fill: var(--neutral400) !important;
 }
 
 .button + .button{
@@ -16,96 +24,80 @@
 }
 
 .button.button-primary{
-    border: 1px solid #EEF2FF;
-    background-color: #6366F1;
-    color: white;
+    border: 1px solid var(--brand300);
+    background-color: var(--brand600);
+    color: var(--neutral0);
 }
 .button.button-primary .button-text .icons-wrapper svg{
-    fill: white;
+    fill: var(--neutral0);
 }
-
 .button.button-primary:hover:not(:disabled){
-    background-color: #4F46E5;
+    background-color: var(--brand700);
 }
-
 .button.button-primary:focus {
-    background-color: #4F46E5;
-    box-shadow: 0px 0px 2px 2px #D1D5DB;
+    outline: 2px solid var(--brand500);
+    outline-offset: 1.5px;
 }
-
-.button.button-primary:disabled{
-    background-color: #A5B4FC;
+.button.button-primary:active {
+    background-color: var(--brand800) !important;
 }
 
 
 
 .button.button-secondary{
-    border: 1px solid #6366F1;
+    border: 1px solid var(--brand700);
     background-color: transparent;
-    color: #6366F1
+    color: var(--brand700);
 }
 .button.button-secondary .button-text .icons-wrapper svg{
-    fill: #6366F1;
+    fill: var(--brand700);
 }
 .button.button-secondary:hover:not(:disabled){
-    background-color: #F3F4F6;
+    background-color: var(--brand100);
 }
-
 .button.button-secondary:focus {
-    background-color: #F3F4F6;
-    box-shadow: 0px 0px 2px 2px #E0E7FF;
+    outline: 2px solid var(--brand500);
+    outline-offset: 1.5px;
 }
-.button.button-secondary:disabled{
-    border: 1px solid #A5B4FC;
-    background-color: #F3F4F6;
-    color: #A5B4FC
-}
-.button.button-secondary:disabled .button-text .icons-wrapper svg{
-    fill: #A5B4FC;
+.button.button-secondary:active{
+    background-color: var(--brand200) !important;
 }
 
 
 .button.button-tertiary{
-    border: 1px solid #9ca3af;
+    border: 1px solid var(--neutral600);
     background-color: transparent;
-    color: #111827;
+    color: var(--neutral900);
 }
 .button.button-tertiary .button-text .icons-wrapper svg{
-    fill: #111827;
+    fill: var(--neutral900);
 }
 .button.button-tertiary:hover:not(:disabled){
-    background-color: #F3F4F6;
+    background-color: var(--neutral200);
 }
-
 .button.button-tertiary:focus {
-    background-color: #F3F4F6;
-    box-shadow: 0px 0px 2px 2px #E0E7FF;
+    outline: 2px solid var(--brand500);
+    outline-offset: 1.5px;
 }
-.button.button-tertiary:disabled{
-    border: 1px solid #d1d5db;
-    background-color: #f3f4f6;
-    color: #9ca3af
+.button.button-tertiary:active{
+    background-color: var(--neutral300) !important;
 }
-.button.button-tertiary:disabled .button-text .icons-wrapper svg{
-    fill: #9ca3af;
-}
-
 
 .button.button-text{
     border: 1px solid transparent;
     background-color: transparent;
+    color: var(--neutral900);
+}
+.button.button-text .button-text .icons-wrapper svg{
+    fill: var(--neutral900);
 }
 .button.button-text:hover:not(:disabled){
-    background-color: #F3F4F6;
+    background-color: var(--neutral200);
 } 
 .button.button-text:focus{
-    background-color: #F3F4F6;
-    border: 1px solid #6366F1;
-    box-shadow: 0px 0px 2px 2px #E0E7FF;
-} 
-.button.button-text:disabled{
-    color: #9ca3af;
+    outline: 2px solid var(--brand500);
+    outline-offset: 1.5px;
 }
-.button.button-text:disabled .button-text .icons-wrapper svg{
-    fill: #9ca3af;
+.button.button-text:active{
+    background-color: var(--neutral300) !important;
 }

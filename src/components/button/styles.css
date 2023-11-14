@@ -11,8 +11,11 @@
 
 .button:disabled{
     cursor: default;
-    background-color: var(--neutral300) !important;
-    border: 1px solid var(--neutral400) !important;
+    background-color: var(--neutral200) !important;
+    border: 1px solid var(--neutral300) !important;
+    color: var(--neutral400) !important;
+}
+.button:disabled .button-text .text-text{
     color: var(--neutral400) !important;
 }
 .button:disabled .button-text .icons-wrapper svg{
@@ -25,27 +28,28 @@
 
 .button.button-primary{
     border: 1px solid var(--brand300);
-    background-color: var(--brand600);
-    color: var(--neutral0);
+    background-color: var(--brand500);
 }
-.button.button-primary .button-text .icons-wrapper svg{
-    fill: var(--neutral0);
+.button.button-primary:not(:disabled) .button-text .text-text{
+    color: white !important;
+}
+.button.button-primary:not(:disabled) .button-text .icons-wrapper svg{
+    fill: white !important;
 }
 .button.button-primary:hover:not(:disabled){
-    background-color: var(--brand700);
+    background-color: var(--brand600);
 }
 .button.button-primary:focus {
     outline: 2px solid var(--brand500);
     outline-offset: 1.5px;
 }
-.button.button-primary:active {
+.button.button-primary:not(:disabled):active {
     background-color: var(--brand800) !important;
 }
 
 .button.button-primary.button-color-danger{
     border: 1px solid var(--red300);
     background-color: var(--red500);
-    color: var(--neutral0);
 }
 .button.button-primary.button-color-danger:hover:not(:disabled){
     background-color: var(--red600);
@@ -57,7 +61,6 @@
 .button.button-primary.button-color-warning{
     border: 1px solid var(--yellow300);
     background-color: var(--yellow500);
-    color: var(--neutral0);
 }
 .button.button-primary.button-color-warning:hover:not(:disabled){
     background-color: var(--yellow600);
@@ -81,59 +84,64 @@
 
 .button.button-secondary{
     border: 1px solid var(--brand700);
-    background-color: transparent;
-    color: var(--brand700);
+    background-color: var(--neutral0);
 }
-.button.button-secondary .button-text .icons-wrapper svg{
-    fill: var(--brand700);
+.button.button-secondary:not(:disabled) .button-text .text-text{
+    color: var(--brand700) !important;
+}
+.button.button-secondary:not(:disabled) .button-text .icons-wrapper svg{
+    fill: var(--brand700) !important;
 }
 .button.button-secondary:hover:not(:disabled){
-    background-color: var(--brand100);
+    background-color: var(--neutral100);
 }
 .button.button-secondary:focus {
     outline: 2px solid var(--brand500);
     outline-offset: 1.5px;
 }
-.button.button-secondary:active{
-    background-color: var(--brand200) !important;
+.button.button-secondary:not(:disabled):active{
+    background-color: var(--neutral200) !important;
 }
 .button.button-secondary.button-color-danger{
     border: 1px solid var(--red500);
-    background-color: transparent;
-    color: var(--red500);
 }
-.button.button-secondary.button-color-danger .button-text .icons-wrapper svg{
-    fill: var(--red500);
+.button.button-secondary:not(:disabled).button-color-danger .button-text .text-text{
+    color: var(--red500) !important;
+}
+.button.button-secondary:not(:disabled).button-color-danger .button-text .icons-wrapper svg{
+    fill: var(--red500) !important;
 }
 .button.button-secondary.button-color-danger:hover:not(:disabled){
     background-color: var(--neutral100);
 }
-.button.button-secondary.button-color-danger:active{
+.button.button-secondary.button-color-danger:not(:disabled):active{
     background-color: var(--neutral200) !important;
 }
 
 .button.button-secondary.button-color-warning{
     border: 1px solid var(--yellow500);
-    background-color: transparent;
-    color: var(--yellow500);
+}
+.button.button-secondary.button-color-warning .button-text .text-text{
+    color: var(--yellow500) !important;
 }
 .button.button-secondary.button-color-warning .button-text .icons-wrapper svg{
-    fill: var(--yellow500);
+    fill: var(--yellow500) !important;
 }
 .button.button-secondary.button-color-warning:hover:not(:disabled){
     background-color: var(--neutral100);
 }
-.button.button-secondary.button-color-warning:active{
+.button.button-secondary.button-color-warning:not(:disabled):active{
     background-color: var(--neutral200) !important;
 }
 
 .button.button-secondary.button-color-success{
     border: 1px solid var(--green500);
-    background-color: transparent;
-    color: var(--green500);
+}
+.button.button-secondary.button-color-success .button-text .text-text{
+    color: var(--green500) !important;
 }
 .button.button-secondary.button-color-success .button-text .icons-wrapper svg{
-    fill: var(--green500);
+    fill: var(--green500) !important;
 }
 .button.button-secondary.button-color-success:hover:not(:disabled){
     background-color: var(--neutral100);
@@ -144,8 +152,8 @@
 
 
 .button.button-tertiary{
-    border: 1px solid var(--neutral600);
-    background-color: transparent;
+    border: 1px solid var(--neutral400);
+    background-color: var(--neutral0);
     color: var(--neutral900);
 }
 .button.button-tertiary .button-text .icons-wrapper svg{

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { COLORS } from '../../constant/theme'
 import './styles.css'
 import Text from '../Text'
 import { createPopper } from '@popperjs/core'
@@ -190,9 +189,9 @@ const InputSelect = ({
                 style={{
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
-                    borderColor: (isDisabled)?(COLORS.gray400):(isError)?(COLORS.danger400):(isFocus)?(COLORS.primary400):(COLORS.gray400),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?(COLORS.danger100):(COLORS.primary100)}`):('none'),
-                    backgroundColor: (isDisabled)?(COLORS.gray100):('white'),
+                    borderColor: (isDisabled)?('var(--neutral300)'):(isError)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
+                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?('var(--red100)'):('var(--brand100)')}`):('none'),
+                    backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
                 onFocus={onFocus}
@@ -203,7 +202,7 @@ const InputSelect = ({
                     (value.value)?(
                         <Text textLabel={value.label} isEllipsistatic={true}/>
                     ):(
-                        <Text textLabel={placeholder} color={'gray400'}/>
+                        <Text textLabel={placeholder} color={'var(--neutral400)'}/>
                     )
                 }
                 <Icons className={'input-select-button-icon'} iconName={(isDropdownShow)?('caret-up'):('caret-down')}/>
@@ -212,8 +211,7 @@ const InputSelect = ({
                 ref={dropdownRef} 
                 className='input-select-dropdown-wrapper' 
                 style={{ 
-                    width:targetWidth?(targetWidth):('300px'), 
-                    borderColor:COLORS.gray400
+                    width:targetWidth?(targetWidth):('300px'),
                 }}
             >  
                 {
@@ -250,15 +248,15 @@ const InputSelect = ({
                                             onClick={(item.disabled)?(undefined):(()=>{onChange(item)})}
                                             disabled={item.disabled}
                                         >
-                                            <Text textLabel={item.label} isEllipsistatic={true}/>
-                                            <Icons iconName={'checked'} color={(value.value===item.value || value === item.value)?('gray900'):('transparent')}/>
+                                            <Text textLabel={item.label} color={(item.disabled)?('var(--neutral400)'):('var(--neutral700)')} isEllipsistatic={true}/>
+                                            <Icons iconName={'checked'} color={(value.value===item.value || value === item.value)?('var(--brand700)'):('transparent')}/>
                                         </button>
                                     ))
                                 }
                                 {
                                     ((searchResultList)?(!searchResultList.length):(!selectionList.length))&&(
                                         <div className='input-select-empty'>
-                                            <Text textLabel={'Not Found'} color={'gray400'} />
+                                            <Text textLabel={'Not Found'} color={'var(--neutral400)'} />
                                         </div>
                                     )
                                 }

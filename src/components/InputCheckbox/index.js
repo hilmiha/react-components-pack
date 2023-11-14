@@ -1,8 +1,7 @@
 import './styles.css'
-import { COLORS } from '../../constant/theme'
 import Icons from '../Icons'
 import Text from '../Text'
-import { Fragment } from 'react'
+import { Fragment, useRef } from 'react'
 
 const InputCheckbox = ({
     //props
@@ -17,7 +16,7 @@ const InputCheckbox = ({
     isDash,
     isEllipsistatic
 }) =>{
-
+    const checboxRef = useRef(null)
     const onChange = () =>{
         if(onSelectOption && !isDisabled){
             onSelectOption((value)?(''):(true))
@@ -25,6 +24,7 @@ const InputCheckbox = ({
     }
     return(
         <button 
+            ref={checboxRef}
             className={`input-checkbox-item ${(value)?('item-selected'):('')} ${(className)?(className):('')}`}
             style={{
                 padding:(label)?('4px'):('2px')
@@ -35,26 +35,28 @@ const InputCheckbox = ({
             <div 
                 className='input-checkbox-item-check-box'
                 style={{
-                    borderColor:COLORS.gray400,
+                    borderColor:'var(--neutral400)',
                     backgroundColor:(
-                        (value && !isDisabled)?('white'):(isDisabled)?(COLORS.gray100):('white')
+                        (value && !isDisabled)?('var(--neutral0)'):(isDisabled)?('var(--neutral100)'):('var(--neutral0)')
                     )
                 }}
             >
                 <Icons 
                     iconName={isDash?('minus'):('checked')} 
-                    color={(value && !isDisabled)?('primary500'):(value && isDisabled)?('primary300'):('transparent')}
+                    color={(value && !isDisabled)?('var(--brand700)'):(value && isDisabled)?('var(--brand300)'):('transparent')}
                 />
             </div>
             {
                 (label)&&(
-                    <Text
-                        textLabel={label}
-                        color={(
-                            (value && !isDisabled)?('gray900'):(value && isDisabled)?('gray400'):(isDisabled)?('gray400'):('gray900')
-                        )}
-                        isEllipsistatic={isEllipsistatic}
-                    />
+                    <div onClick={()=>{checboxRef.current?.focus()}}>
+                        <Text
+                            textLabel={label}
+                            color={(
+                                (value && !isDisabled)?('var(--neutral700)'):(value && isDisabled)?('var(--neutral400)'):(isDisabled)?('var(--neutral400)'):('var(--neutral700)')
+                            )}
+                            isEllipsistatic={isEllipsistatic}
+                        />
+                    </div>
                 )
             }
         </button>

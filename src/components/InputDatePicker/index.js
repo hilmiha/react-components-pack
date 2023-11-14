@@ -1,11 +1,9 @@
 import './styles.css'
 import 'react-day-picker/dist/style.css';
 import { useEffect, useRef, useState } from 'react'
-import { COLORS } from '../../constant/theme'
 import Text from '../Text'
 import { createPopper } from '@popperjs/core'
 import Icons from '../Icons'
-import { join, map, orderBy } from 'lodash'
 import { DayPicker } from 'react-day-picker'
 import { addDays, format, isThisMonth, subDays, subMonths } from 'date-fns';
 
@@ -79,7 +77,7 @@ const InputDatePicker = ({
     }
 
     const onChange = (newValue) =>{
-        if(onSelectOption){
+        if(onSelectOption && !isDisabled){
             if(newValue){
                 onSelectOption(newValue)
             }else{
@@ -154,14 +152,14 @@ const InputDatePicker = ({
             let elementButton = dropdownRef.current.querySelector(".rdp-nav_button_previous")
             console.log(elementButton)
             if(elementButton){
-                elementButton.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" color="#111827" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></svg>'
+                elementButton.innerHTML = '<svg stroke="currentColor" fill="var(--neutral700)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral700)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></svg>'
             }
             let elementButtonRight = dropdownRef.current.querySelector(".rdp-nav_button_next")
             if(elementButtonRight){
-                elementButtonRight.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" color="#111827" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>'
+                elementButtonRight.innerHTML = '<svg stroke="currentColor" fill="var(--neutral700)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral700)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>'
             }
         }
-    },[isDropdownShow])
+    },[isDropdownShow, value])
 
     return(
         <div className={`input-datepicker-wrapper ${(className)?(className):('')}`}>
@@ -171,14 +169,14 @@ const InputDatePicker = ({
                 style={{
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
-                    borderColor: (isDisabled)?(COLORS.gray400):(isError)?(COLORS.danger400):(isFocus)?(COLORS.primary400):(COLORS.gray400),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?(COLORS.danger100):(COLORS.primary100)}`):('none'),
-                    backgroundColor: (isDisabled)?(COLORS.gray100):('white'),
+                    borderColor: (isDisabled)?('var(--neutral300)'):(isError)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
+                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?('var(--red100)'):('var(--brand100)')}`):('none'),
+                    backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                onClick={onClickOpenDropdown}
+                onClick={(!isDisabled)?(onClickOpenDropdown):(undefined)}
             > 
                 {
                     (value)?(
@@ -192,25 +190,21 @@ const InputDatePicker = ({
                             )}
                         </>
                     ):(
-                        <Text textLabel={placeholder} color={'gray400'}/>
+                        <Text textLabel={placeholder} color={'var(--neutral400)'}/>
                     )
                 }
                 <Icons className={'input-datepicker-button-icon'} iconName={(isDropdownShow)?('caret-up'):('caret-down')}/>
             </button>
             <div 
                 ref={dropdownRef} 
-                className='input-datepicker-dropdown-wrapper' 
-                style={{ 
-                    // width:'1000px', 
-                    borderColor:COLORS.gray400
-                }}
+                className='input-datepicker-dropdown-wrapper'
             >
                 {
                     (isDropdownShow)&&(
                         <DayPicker
                             defaultMonth={
                                 (type==='date-range')?(
-                                    value?(value.from?(isThisMonth(value.from)?(subMonths(value.from,1)):(value.from)):(subMonths(new Date(),1))):(subMonths(new Date(),1))
+                                    value?(value.from?((isThisMonth(value.from))?(subMonths(value.from,1)):(value.from)):(subMonths(new Date(),1))):(subMonths(new Date(),1))
                                 ):(
                                     value?(value):(new Date())
                                 )

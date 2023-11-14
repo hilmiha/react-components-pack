@@ -173,3 +173,26 @@
     --neutral1000: #C7D1DB;
     --neutral1100: #DEE4EA;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+  /* Track */
+::-webkit-scrollbar-track {
+    background: var(--neutral200);
+    border-radius: 10px;
+}
+
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--brand400); 
+    border-radius: 10px;
+}
+
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand800); 
+}

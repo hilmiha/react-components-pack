@@ -23,7 +23,6 @@ const Icons = ({
     color
 }) =>{
     const fontSize = size?(`${TEXTSIZES[size]}px`):(`${TEXTSIZES.small}px`)
-    const fontColor = color?(COLORS[color]):(COLORS.gray900)
 
     return(
         <div
@@ -35,42 +34,42 @@ const Icons = ({
         >
             {
                 (iconName==='blank')&&(
-                    <PiSmileyBlank size={fontSize} color={fontColor}/>
+                    <PiSmileyBlank size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='info')&&(
-                    <PiInfo size={fontSize} color={fontColor}/>
+                    <PiInfo size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='checked')&&(
-                    <PiCheckBold size={fontSize} color={fontColor}/>
+                    <PiCheckBold size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='minus')&&(
-                    <PiMinusBold size={fontSize} color={fontColor}/>
+                    <PiMinusBold size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='caret-down')&&(
-                    <PiCaretDown size={fontSize} color={fontColor}/>
+                    <PiCaretDown size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='caret-up')&&(
-                    <PiCaretUp size={fontSize} color={fontColor}/>
+                    <PiCaretUp size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='caret-left')&&(
-                    <PiCaretLeft size={fontSize} color={fontColor}/>
+                    <PiCaretLeft size={fontSize} color={color}/>
                 )
             }
             {
                 (iconName==='caret-right')&&(
-                    <PiCaretRight size={fontSize} color={fontColor}/>
+                    <PiCaretRight size={fontSize} color={color}/>
                 )
             }
         </div>

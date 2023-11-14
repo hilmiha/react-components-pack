@@ -79,7 +79,7 @@ const FormField = ({
                         <Text textLabel={config.formLabel} isEllipsistatic={true}/>
                         {
                             (config.validationList?.includes('mandatory'))&&(
-                                <Text textLabel={' *'} color={'danger500'}/>
+                                <Text textLabel={' *'} color={'var(--red500)'}/>
                             )
                         }
                         {
@@ -88,7 +88,7 @@ const FormField = ({
                                     label={config.formTooltip}
                                     placement={'right-end'}
                                 >
-                                    <Icons className={'form-field-label-tooltip'} iconName={'info'} color={'gray400'}/>
+                                    <Icons className={'form-field-label-tooltip'} iconName={'info'} color={'var(--neutral400)'}/>
                                 </Tooltip>
                             )
                         }
@@ -215,7 +215,7 @@ const FormField = ({
             }
             {
                 (formErrorStatus?.status)&&(
-                    <Text className={'form-field-error-message'} textLabel={formErrorStatus.message} color={'danger500'} size={'xSmall'}/>
+                    <Text className={'form-field-error-message'} textLabel={formErrorStatus.message} color={'var(--red500)'} size={'xSmall'}/>
                 )
             }
         </div>

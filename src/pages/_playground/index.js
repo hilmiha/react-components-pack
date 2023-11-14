@@ -64,7 +64,8 @@ const Playground = () =>{
 	},[form])
 
 	return (
-		<div style={{padding:'10px 10px 500px 10px'}} className='body'>
+		<div style={{padding:'30px 30px 500px 30px'}} className='body'>
+			<input id='isDarkMode' type='checkbox'/>
 			<Text 
 				textLabel={"Hello World asdlasjdskasd askjdhasjda aksjdhasjdhasjd asjkdhasjkdhasjkdha askjdha"}
 				isBold={false}
@@ -77,7 +78,7 @@ const Playground = () =>{
 					type:'text-no-space',//mandatory
 					formLabel:'Email',
 					formTooltip:'this is a email asdjasd asjdkashdjash asjh',
-					isDisabled:false,
+					isDisabled:true,
 					placeholder:'Enter email',
 					prefix:'',
 					sufix:'',
@@ -279,7 +280,6 @@ const Playground = () =>{
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
-			<input id='isDarkMode' type='checkbox'/>
 			<div style={{display:'flex', margin:'10px 0px'}}>
 				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} iconLeftName={''} isDisabled={true}/>
@@ -313,7 +313,8 @@ const Playground = () =>{
 				<Button size='large' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
 			</div>
 			<div style={{display:'flex', margin:'10px 0px'}}>
-				<Button label={'Hello'} type={'primary'} size='small' iconLeftName={''}/>
+				<Button label={'Hello asdasda asdasdas asdas'} type={'primary'} size='small' iconLeftName={''}/>
+				<Button label={'Hello'} type={'primary'} iconLeftName={''}/>
 				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'danger'}/>
 				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'warning'}/>
 				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} color={'success'}/>

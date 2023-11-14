@@ -1,9 +1,8 @@
 import './styles.css'
-import { COLORS, TEXTSIZES } from '../../constant/theme'
+import { TEXTSIZES } from '../../constant/theme'
 import Icons from '../Icons'
 import { useEffect, useRef, useState } from 'react'
 import { createPopper } from '@popperjs/core';
-import { debounce } from 'lodash';
 
 const Text = ({
     //props
@@ -24,7 +23,6 @@ const Text = ({
 
     const textRef = useRef(null)
     const toolTipRef = useRef(null)
-    const fontColor = color?(COLORS[color]):(COLORS.grayColor900)
     const fontSize = size?(`${TEXTSIZES[size]}px`):(`${TEXTSIZES.small}px`)
 
     const [isEllipsisActive, setIsElipsisActive] = useState(false)
@@ -84,10 +82,7 @@ const Text = ({
 
     return(
         <div 
-            className={`text-wrapper  ${(className)?(className):('')} ${onClick?('text-wrapper-has-onclick'):('')}`}
-            style={{
-                color:fontColor,
-            }}
+            className={`text-wrapper ${(className)?(className):('')} ${onClick?('text-wrapper-has-onclick'):('')}`}
             onClick={(onClick)&&(onClick)}
             tabIndex={(onClick)?(0):(-1)}
             onKeyDown={(onClick)&&(onClickWithFocus)}
@@ -107,7 +102,8 @@ const Text = ({
                                 whiteSpace:(!isEllipsistatic?('normal'):('pre')),
                                 overflowWrap:(!isEllipsistatic)?('break-word'):('unset'),
                                 fontSize:fontSize,
-                                fontWeight:(isBold)?('bold'):('normal'),
+                                fontWeight:(isBold)?('500'):('normal'),
+                                color:(color)?(color):('')
                             }}
                             onMouseEnter={()=>{show()}}
                             onMouseLeave={()=>{hide()}}
@@ -128,9 +124,7 @@ const Text = ({
                         ref={toolTipRef} 
                         className={`text-tooltip-wrapper`} 
                         style={{
-                            borderColor:COLORS.gray300,
                             fontSize:TEXTSIZES.xSmall,
-                            color:COLORS.gray900
                         }}
                         onMouseEnter={()=>{show()}}
                         onMouseLeave={()=>{hide()}}

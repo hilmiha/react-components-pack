@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { COLORS } from '../../constant/theme'
+import { useEffect, useRef, useState } from 'react'
 import Text from '../Text'
 import './styles.css'
 
@@ -14,7 +13,7 @@ const Button = ({
     isRounded,
     onClick
 }) =>{
-
+    const buttonRef = useRef(null)
     const [isHover, setIsHover] = useState(false)
     const [isFocus, setIsFocus] = useState(false)
 
@@ -56,6 +55,7 @@ const Button = ({
         //     onBlur={()=>{setIsFocus(false)}}
         // >
         <button
+            ref={buttonRef}
             className={`button ${classNameDefaul}`}
             style={{
                 height:(size==='large')?('42px'):(size==='small')?('24px'):('32px'),
@@ -83,7 +83,7 @@ const Button = ({
             onMouseLeave={()=>{setIsHover(false)}}
             onFocus={()=>{setIsFocus(true)}}
             onBlur={()=>{setIsFocus(false)}}
-        >
+        >   
             <Text 
                 className={`button-text `}
                 textLabel={label} 
@@ -96,6 +96,7 @@ const Button = ({
                 //     (type==='secondary')?(`${(color)?(color):('primary')}600`):(type==='text')?('gray600'):(`${(color)?(color):('primary')}50`)
                 // )}
                 isEllipsistatic={true}
+                isBold={true}
             />
         </button>
     )

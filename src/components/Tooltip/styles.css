@@ -3,12 +3,14 @@
 }
 
 .tooltip-wrapper{
-    background-color: white;
+    background-color: var(--neutral100);
+    border: 1px solid var(--neutral400);
     padding: 4px 8px;
     border: 1px solid;
     display: none;
     z-index: 10000;
     border-radius: 6px;
+    color: var(--neutral900);
 }
 
 .tooltip-wrapper[data-show] {

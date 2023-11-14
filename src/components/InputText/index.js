@@ -1,5 +1,5 @@
 import './styles.css'
-import { COLORS, TEXTSIZES } from '../../constant/theme'
+import { TEXTSIZES } from '../../constant/theme'
 import { useEffect, useRef, useState } from 'react'
 import Text from '../Text'
 import { formatText } from '../../untils/textFormatterUtils'
@@ -153,9 +153,9 @@ const InputText = ({
             style={{
                 borderRadius:(isRounded)?('20px'):('6px'),
                 padding: (isRounded)?('0px 16px'):('0px 10px'),
-                borderColor: (isDisabled)?(COLORS.gray300):(isError)?(COLORS.danger400):(isFocus)?(COLORS.primary400):(COLORS.gray400),
-                boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?(COLORS.danger100):(COLORS.primary100)}`):('none'),
-                backgroundColor: (isDisabled)?(COLORS.gray100):('white'),
+                borderColor: (isDisabled)?('var(--neutral300)'):(isError)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
+                boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?('var(--red100)'):('var(--brand100)')}`):('none'),
+                backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                 maxWidth: (isFullWidth)?('100%'):('300px'),
                 cursor: (isDisabled)?('default'):('text')
             }}
@@ -199,7 +199,7 @@ const InputText = ({
                         <Text
                             className={'input-text-sufix'}
                             textLabel={sufix}
-                            color={'gray500'}
+                            color={'var(--neutral500)'}
                         />
                     </div>
                 )
@@ -211,7 +211,7 @@ const InputText = ({
                             className={'input-text-count'}
                             textLabel={`${value.length}/${maxLength}`}
                             size={'xSmall'}
-                            color={'gray400'}
+                            color={'var(--neutral500)'}
                         />
                     </div>
                 )
@@ -223,7 +223,7 @@ const InputText = ({
                             className={'input-text-count'}
                             textLabel={`max. ${formatText('number', maxNumber)[0]}`}
                             size={'xSmall'}
-                            color={'gray400'}
+                            color={'var(--neutral500)'}
                         />
                     </div>
                 )

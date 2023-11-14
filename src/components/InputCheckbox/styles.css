@@ -1,5 +1,7 @@
+@import '../../App.css';
+
 .input-checkbox-item{
-    background-color: white;
+    background-color: transparent;
     text-align: start;
     outline: 0;
     border: 1px solid transparent;
@@ -18,22 +20,25 @@
 }
 
 .input-checkbox-item.item-selected:disabled:hover{
-    background-color: white;
+    background-color: transparent;
 }
 
-.input-checkbox-item > .text-wrapper{
+.input-checkbox-item > div > .text-wrapper{
     margin-left: 8px;
 }
 
 .input-checkbox-item:focus{
-    background-color: #F9FAFB;
-    border: 1px solid #818CF8;
-    box-shadow: 0px 0px 2px 2px #E0E7FF;
+    border: 1px solid var(--brand300);
+    box-shadow: 0px 0px 2px 2px var(--brand100);
     border-radius: 6px;
 }
 
 .input-checkbox-item:hover{
-    background-color: #F9FAFB;
+    background-color: var(--neutral0)
+}
+
+.input-checkbox-item:active{
+    background-color: var(--neutral100)
 }
 
 .input-checkbox-item:disabled{

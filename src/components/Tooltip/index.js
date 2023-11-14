@@ -1,7 +1,7 @@
 import './styles.css'
 import { createPopper } from "@popperjs/core"
 import { useEffect, useRef } from "react"
-import { COLORS, TEXTSIZES } from '../../constant/theme'
+import { TEXTSIZES } from '../../constant/theme'
 
 const Tooltip = ({
     children,
@@ -68,7 +68,7 @@ const Tooltip = ({
                 ref={tooltipRef} 
                 className={`tooltip-wrapper`} 
                 style={{
-                    borderColor:COLORS.gray400,
+                    borderColor:'var(--neutral400)',
                     fontSize:TEXTSIZES.xSmall
                 }}
                 onMouseEnter={()=>{show()}}

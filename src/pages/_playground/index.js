@@ -313,15 +313,17 @@ const Playground = () =>{
 				<Button size='large' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
 			</div>
 			<div style={{display:'flex', margin:'10px 0px'}}>
-				<Button label={'Hello'} type={'primary'} size='small' iconLeftName={''} />
-				<Button label={'Hello'} type={'primary'} iconLeftName={''} />
-				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} />
+				<Button label={'Hello'} type={'primary'} size='small' iconLeftName={''}/>
+				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'danger'}/>
+				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'warning'}/>
+				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} color={'success'}/>
 				<Button label={'Hello'} type={'primary'} size='large' iconLeftName={''} />
 				<Button size='' type={'primary'} iconLeftName={'info'} />
 				<Button size='small' type={'primary'} iconLeftName={'info'} />
 				<Button size='medium' type={'primary'} iconLeftName={'info'} />
 				<Button size='large' type={'primary'} iconLeftName={'info'} />
 			</div>
+
 			<div style={{display:'flex', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'secondary'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={true}/>
@@ -334,8 +336,9 @@ const Playground = () =>{
 			</div>
 			<div style={{display:'flex', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'secondary'} size='small' iconLeftName={''} isDisabled={false}/>
-				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={false}/>
-				<Button label={'Hello'} type={'secondary'} size='medium' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={false} color={'danger'}/>
+				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={false} color={'warning'}/>
+				<Button label={'Hello'} type={'secondary'} size='medium' iconLeftName={''} isDisabled={false} color={'success'}/>
 				<Button label={'Hello'} type={'secondary'} size='large' iconLeftName={''} isDisabled={false}/>
 				<Button size='' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>
 				<Button size='small' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>

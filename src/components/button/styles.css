@@ -42,6 +42,41 @@
     background-color: var(--brand800) !important;
 }
 
+.button.button-primary.button-color-danger{
+    border: 1px solid var(--red300);
+    background-color: var(--red500);
+    color: var(--neutral0);
+}
+.button.button-primary.button-color-danger:hover:not(:disabled){
+    background-color: var(--red600);
+}
+.button.button-primary.button-color-danger:active {
+    background-color: var(--red700) !important;
+}
+
+.button.button-primary.button-color-warning{
+    border: 1px solid var(--yellow300);
+    background-color: var(--yellow500);
+    color: var(--neutral0);
+}
+.button.button-primary.button-color-warning:hover:not(:disabled){
+    background-color: var(--yellow600);
+}
+.button.button-primary.button-color-warning:active {
+    background-color: var(--yellow700) !important;
+}
+
+.button.button-primary.button-color-success{
+    border: 1px solid var(--green300);
+    background-color: var(--green500);
+    color: var(--neutral0);
+}
+.button.button-primary.button-color-success:hover:not(:disabled){
+    background-color: var(--green600);
+}
+.button.button-primary.button-color-success:active {
+    background-color: var(--green700) !important;
+}
 
 
 .button.button-secondary{
@@ -62,6 +97,50 @@
 .button.button-secondary:active{
     background-color: var(--brand200) !important;
 }
+.button.button-secondary.button-color-danger{
+    border: 1px solid var(--red500);
+    background-color: transparent;
+    color: var(--red500);
+}
+.button.button-secondary.button-color-danger .button-text .icons-wrapper svg{
+    fill: var(--red500);
+}
+.button.button-secondary.button-color-danger:hover:not(:disabled){
+    background-color: var(--neutral100);
+}
+.button.button-secondary.button-color-danger:active{
+    background-color: var(--neutral200) !important;
+}
+
+.button.button-secondary.button-color-warning{
+    border: 1px solid var(--yellow500);
+    background-color: transparent;
+    color: var(--yellow500);
+}
+.button.button-secondary.button-color-warning .button-text .icons-wrapper svg{
+    fill: var(--yellow500);
+}
+.button.button-secondary.button-color-warning:hover:not(:disabled){
+    background-color: var(--neutral100);
+}
+.button.button-secondary.button-color-warning:active{
+    background-color: var(--neutral200) !important;
+}
+
+.button.button-secondary.button-color-success{
+    border: 1px solid var(--green500);
+    background-color: transparent;
+    color: var(--green500);
+}
+.button.button-secondary.button-color-success .button-text .icons-wrapper svg{
+    fill: var(--green500);
+}
+.button.button-secondary.button-color-success:hover:not(:disabled){
+    background-color: var(--neutral100);
+}
+.button.button-secondary.button-color-success:active{
+    background-color: var(--neutral200) !important;
+}
 
 
 .button.button-tertiary{
@@ -73,14 +152,14 @@
     fill: var(--neutral900);
 }
 .button.button-tertiary:hover:not(:disabled){
-    background-color: var(--neutral200);
+    background-color: var(--neutral100);
 }
 .button.button-tertiary:focus {
     outline: 2px solid var(--brand500);
     outline-offset: 1.5px;
 }
 .button.button-tertiary:active{
-    background-color: var(--neutral300) !important;
+    background-color: var(--neutral200) !important;
 }
 
 .button.button-text{
@@ -92,12 +171,12 @@
     fill: var(--neutral900);
 }
 .button.button-text:hover:not(:disabled){
-    background-color: var(--neutral200);
+    background-color: var(--neutral100);
 } 
 .button.button-text:focus{
     outline: 2px solid var(--brand500);
     outline-offset: 1.5px;
 }
 .button.button-text:active{
-    background-color: var(--neutral300) !important;
+    background-color: var(--neutral200) !important;
 }

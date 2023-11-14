@@ -1,0 +1,111 @@
+.button{
+    outline: 0px;
+    cursor: pointer;
+}
+
+.button .text-wrapper{
+    pointer-events: none;
+}
+
+.button:disabled{
+    cursor: default;
+}
+
+.button + .button{
+    margin-left: 8px;
+}
+
+.button.button-primary{
+    border: 1px solid #EEF2FF;
+    background-color: #6366F1;
+    color: white;
+}
+.button.button-primary .button-text .icons-wrapper svg{
+    fill: white;
+}
+
+.button.button-primary:hover:not(:disabled){
+    background-color: #4F46E5;
+}
+
+.button.button-primary:focus {
+    background-color: #4F46E5;
+    box-shadow: 0px 0px 2px 2px #D1D5DB;
+}
+
+.button.button-primary:disabled{
+    background-color: #A5B4FC;
+}
+
+
+
+.button.button-secondary{
+    border: 1px solid #6366F1;
+    background-color: transparent;
+    color: #6366F1
+}
+.button.button-secondary .button-text .icons-wrapper svg{
+    fill: #6366F1;
+}
+.button.button-secondary:hover:not(:disabled){
+    background-color: #F3F4F6;
+}
+
+.button.button-secondary:focus {
+    background-color: #F3F4F6;
+    box-shadow: 0px 0px 2px 2px #E0E7FF;
+}
+.button.button-secondary:disabled{
+    border: 1px solid #A5B4FC;
+    background-color: #F3F4F6;
+    color: #A5B4FC
+}
+.button.button-secondary:disabled .button-text .icons-wrapper svg{
+    fill: #A5B4FC;
+}
+
+
+.button.button-tertiary{
+    border: 1px solid #9ca3af;
+    background-color: transparent;
+    color: #111827;
+}
+.button.button-tertiary .button-text .icons-wrapper svg{
+    fill: #111827;
+}
+.button.button-tertiary:hover:not(:disabled){
+    background-color: #F3F4F6;
+}
+
+.button.button-tertiary:focus {
+    background-color: #F3F4F6;
+    box-shadow: 0px 0px 2px 2px #E0E7FF;
+}
+.button.button-tertiary:disabled{
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+    color: #9ca3af
+}
+.button.button-tertiary:disabled .button-text .icons-wrapper svg{
+    fill: #9ca3af;
+}
+
+
+.button.button-text{
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+.button.button-text:hover:not(:disabled){
+    background-color: #F3F4F6;
+} 
+.button.button-text:focus{
+    background-color: #F3F4F6;
+    border: 1px solid #6366F1;
+    box-shadow: 0px 0px 2px 2px #E0E7FF;
+} 
+.button.button-text:disabled{
+    color: #9ca3af;
+}
+.button.button-text:disabled .button-text .icons-wrapper svg{
+    fill: #9ca3af;
+}

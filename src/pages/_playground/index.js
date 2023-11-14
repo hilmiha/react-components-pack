@@ -5,6 +5,7 @@ import { getInitialFormStatus } from '../../untils/formUtils';
 import * as controller from './controller/controller'
 import { cityList } from './data/dropDownData';
 import { listCheckboxes } from './data/listData';
+import Button from '../../components/button';
 
 const Playground = () =>{
 
@@ -277,6 +278,92 @@ const Playground = () =>{
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} size='medium' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} size='large' iconLeftName={''} isDisabled={true}/>
+				<Button size='' iconLeftName={'info'} isDisabled={true}/>
+				<Button size='small' iconLeftName={'info'} isDisabled={true}/>
+				<Button size='medium' iconLeftName={'info'} isDisabled={true}/>
+				<Button size='large' iconLeftName={'info'} isDisabled={true}/>
+			</div>
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} size='medium' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} size='large' iconLeftName={''} isDisabled={false}/>
+				<Button size='' iconLeftName={'info'} isDisabled={false}/>
+				<Button size='small' iconLeftName={'info'} isDisabled={false}/>
+				<Button size='medium' iconLeftName={'info'} isDisabled={false}/>
+				<Button size='large' iconLeftName={'info'} isDisabled={false}/>
+			</div>
+
+
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} type={'primary'} size='small' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'primary'} iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'primary'} size='large' iconLeftName={''} isDisabled={true}/>
+				<Button size='' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='small' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='medium' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='large' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
+			</div>
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} type={'primary'} size='small' iconLeftName={''} />
+				<Button label={'Hello'} type={'primary'} iconLeftName={''} />
+				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} />
+				<Button label={'Hello'} type={'primary'} size='large' iconLeftName={''} />
+				<Button size='' type={'primary'} iconLeftName={'info'} />
+				<Button size='small' type={'primary'} iconLeftName={'info'} />
+				<Button size='medium' type={'primary'} iconLeftName={'info'} />
+				<Button size='large' type={'primary'} iconLeftName={'info'} />
+			</div>
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} type={'secondary'} size='small' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'secondary'} size='medium' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'secondary'} size='large' iconLeftName={''} isDisabled={true}/>
+				<Button size='' type={'secondary'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='small' type={'secondary'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='medium' type={'secondary'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='large' type={'secondary'} iconLeftName={'info'} isDisabled={true}/>
+			</div>
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} type={'secondary'} size='small' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'secondary'} size='medium' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'secondary'} size='large' iconLeftName={''} isDisabled={false}/>
+				<Button size='' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>
+				<Button size='small' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>
+				<Button size='medium' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>
+				<Button size='large' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>
+			</div>
+
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} type={'text'} size='small' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'text'} iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'text'} size='medium' iconLeftName={''} isDisabled={true}/>
+				<Button label={'Hello'} type={'text'} size='large' iconLeftName={''} isDisabled={true}/>
+				<Button size='' type={'text'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='small' type={'text'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='medium' type={'text'} iconLeftName={'info'} isDisabled={true}/>
+				<Button size='large' type={'text'} iconLeftName={'info'} isDisabled={true}/>
+			</div>
+			<div style={{display:'flex', margin:'10px 0px'}}>
+				<Button label={'Hello'} type={'text'} size='small' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'text'} iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'text'} size='medium' iconLeftName={''} isDisabled={false}/>
+				<Button label={'Hello'} type={'text'} size='large' iconLeftName={''} isDisabled={false}/>
+				<Button size='' type={'text'} iconLeftName={'info'} isDisabled={false}/>
+				<Button size='small' type={'text'} iconLeftName={'info'} isDisabled={false}/>
+				<Button size='medium' type={'text'} iconLeftName={'info'} isDisabled={false}/>
+				<Button size='large' type={'text'} iconLeftName={'info'} isDisabled={false}/>
+			</div>
+			
+
+
 
 
 		</div>

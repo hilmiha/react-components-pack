@@ -129,7 +129,8 @@ const Text = ({
                         className={`text-tooltip-wrapper`} 
                         style={{
                             borderColor:COLORS.gray300,
-                            fontSize:TEXTSIZES.xSmall
+                            fontSize:TEXTSIZES.xSmall,
+                            color:COLORS.gray900
                         }}
                         onMouseEnter={()=>{show()}}
                         onMouseLeave={()=>{hide()}}

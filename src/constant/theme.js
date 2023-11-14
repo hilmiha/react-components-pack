@@ -75,5 +75,6 @@ export const COLORS = {
     link100: "#E0F2FE",
     link50 : "#F0F9FF",
 
-    transparent:'transparent'
+    transparent:'transparent',
+    white:'#ffffff'
 }

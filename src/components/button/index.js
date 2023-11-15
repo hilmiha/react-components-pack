@@ -50,11 +50,6 @@ const Button = ({
                 iconLeftName={iconLeftName} 
                 iconRightName={iconRightName} 
                 size={(size==='large')?('large'):('small')}
-                // color={(!isFocus && !isHover)?(
-                //     (type==='text' || type==='secondary')?('gray600'):(`${(color)?(color):('primary')}50`)
-                // ):(
-                //     (type==='secondary')?(`${(color)?(color):('primary')}600`):(type==='text')?('gray600'):(`${(color)?(color):('primary')}50`)
-                // )}
                 isEllipsistatic={true}
                 isBold={true}
             />

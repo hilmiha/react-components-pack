@@ -3,6 +3,7 @@
 .button{
     outline: 0px;
     cursor: pointer;
+    width: fit-content;
 }
 
 .button .text-wrapper{
@@ -22,8 +23,8 @@
     fill: var(--neutral400) !important;
 }
 
-.button + .button{
-    margin-left: 8px;
+.button:focus {
+    box-shadow: 0px 0px 2px 2px var(--brand200);
 }
 
 .button.button-primary{
@@ -38,10 +39,6 @@
 }
 .button.button-primary:hover:not(:disabled){
     background-color: var(--brand600);
-}
-.button.button-primary:focus {
-    outline: 2px solid var(--brand500);
-    outline-offset: 1.5px;
 }
 .button.button-primary:not(:disabled):active {
     background-color: var(--brand800) !important;
@@ -94,10 +91,6 @@
 }
 .button.button-secondary:hover:not(:disabled){
     background-color: var(--neutral100);
-}
-.button.button-secondary:focus {
-    outline: 2px solid var(--brand500);
-    outline-offset: 1.5px;
 }
 .button.button-secondary:not(:disabled):active{
     background-color: var(--neutral200) !important;
@@ -162,10 +155,6 @@
 .button.button-tertiary:hover:not(:disabled){
     background-color: var(--neutral100);
 }
-.button.button-tertiary:focus {
-    outline: 2px solid var(--brand500);
-    outline-offset: 1.5px;
-}
 .button.button-tertiary:active{
     background-color: var(--neutral200) !important;
 }
@@ -181,10 +170,6 @@
 .button.button-text:hover:not(:disabled){
     background-color: var(--neutral100);
 } 
-.button.button-text:focus{
-    outline: 2px solid var(--brand500);
-    outline-offset: 1.5px;
-}
 .button.button-text:active{
     background-color: var(--neutral200) !important;
 }

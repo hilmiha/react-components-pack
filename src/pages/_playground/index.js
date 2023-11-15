@@ -280,7 +280,7 @@ const Playground = () =>{
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} size='medium' iconLeftName={''} isDisabled={true}/>
@@ -290,7 +290,7 @@ const Playground = () =>{
 				<Button size='medium' iconLeftName={'info'} isDisabled={true}/>
 				<Button size='large' iconLeftName={'info'} isDisabled={true}/>
 			</div>
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={false}/>
 				<Button label={'Hello'} iconLeftName={''} isDisabled={false}/>
 				<Button label={'Hello'} size='medium' iconLeftName={''} isDisabled={false}/>
@@ -302,7 +302,7 @@ const Playground = () =>{
 			</div>
 
 
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'primary'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'primary'} iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} isDisabled={true}/>
@@ -312,7 +312,7 @@ const Playground = () =>{
 				<Button size='medium' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
 				<Button size='large' type={'primary'} iconLeftName={'info'} isDisabled={true}/>
 			</div>
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello asdasda asdasdas asdas'} type={'primary'} size='small' iconLeftName={''}/>
 				<Button label={'Hello'} type={'primary'} iconLeftName={''}/>
 				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'danger'}/>
@@ -325,7 +325,7 @@ const Playground = () =>{
 				<Button size='large' type={'primary'} iconLeftName={'info'} />
 			</div>
 
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'secondary'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'secondary'} size='medium' iconLeftName={''} isDisabled={true}/>
@@ -335,7 +335,7 @@ const Playground = () =>{
 				<Button size='medium' type={'secondary'} iconLeftName={'info'} isDisabled={true}/>
 				<Button size='large' type={'secondary'} iconLeftName={'info'} isDisabled={true}/>
 			</div>
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'secondary'} size='small' iconLeftName={''} isDisabled={false}/>
 				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={false} color={'danger'}/>
 				<Button label={'Hello'} type={'secondary'} iconLeftName={''} isDisabled={false} color={'warning'}/>
@@ -347,7 +347,7 @@ const Playground = () =>{
 				<Button size='large' type={'secondary'} iconLeftName={'info'} isDisabled={false}/>
 			</div>
 
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'text'} size='small' iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'text'} iconLeftName={''} isDisabled={true}/>
 				<Button label={'Hello'} type={'text'} size='medium' iconLeftName={''} isDisabled={true}/>
@@ -357,7 +357,7 @@ const Playground = () =>{
 				<Button size='medium' type={'text'} iconLeftName={'info'} isDisabled={true}/>
 				<Button size='large' type={'text'} iconLeftName={'info'} isDisabled={true}/>
 			</div>
-			<div style={{display:'flex', margin:'10px 0px'}}>
+			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} type={'text'} size='small' iconLeftName={''} isDisabled={false}/>
 				<Button label={'Hello'} type={'text'} iconLeftName={''} isDisabled={false}/>
 				<Button label={'Hello'} type={'text'} size='medium' iconLeftName={''} isDisabled={false}/>

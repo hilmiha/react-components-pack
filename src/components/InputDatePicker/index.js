@@ -36,6 +36,7 @@ const InputDatePicker = ({
 
     const [isFocus, setIsFocus] = useState(false)
     const [isDropdownShow,setIsDropdownShow] = useState(false)
+    const [month, setMonth] = useState(new Date())
 
     const onFocus = () =>{
         setIsFocus(true)
@@ -138,8 +139,7 @@ const InputDatePicker = ({
         if(!isDropdownShow && isRendered){
             let tampValue = value
 
-            if(value.from && !value.to){
-                console.log('kj')
+            if(value?.from && !value?.to){
                 onChange({from:value.from, to:value.from})
                 tampValue = {from:value.from, to:value.from}
             }
@@ -147,10 +147,10 @@ const InputDatePicker = ({
             if(onCloseDropdown){
                 onCloseDropdown(tampValue)
             }
+
         }
         if(isDropdownShow){
             let elementButton = dropdownRef.current.querySelector(".rdp-nav_button_previous")
-            console.log(elementButton)
             if(elementButton){
                 elementButton.innerHTML = '<svg stroke="currentColor" fill="var(--neutral700)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral700)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></svg>'
             }
@@ -158,6 +158,24 @@ const InputDatePicker = ({
             if(elementButtonRight){
                 elementButtonRight.innerHTML = '<svg stroke="currentColor" fill="var(--neutral700)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral700)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>'
             }
+        }
+
+        if(!isDropdownShow){
+            setMonth(
+                (type==='date-range')?(
+                    (value?.from)?(
+                        (isThisMonth(value.from))?(
+                            subMonths(value.from, 1)
+                        ):(
+                            value.from
+                        )
+                    ):(
+                        subMonths(new Date(), 1)
+                    )
+                ):(
+                    value?(value):(new Date())
+                )
+            )
         }
     },[isDropdownShow, value])
 
@@ -169,8 +187,8 @@ const InputDatePicker = ({
                 style={{
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
-                    borderColor: (isDisabled)?('var(--neutral300)'):(isError)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?('var(--red100)'):('var(--brand100)')}`):('none'),
+                    borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus && !isDropdownShow)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
+                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
                     backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
@@ -199,32 +217,30 @@ const InputDatePicker = ({
                 ref={dropdownRef} 
                 className='input-datepicker-dropdown-wrapper'
             >
-                {
-                    (isDropdownShow)&&(
-                        <DayPicker
-                            defaultMonth={
-                                (type==='date-range')?(
-                                    value?(value.from?((isThisMonth(value.from))?(subMonths(value.from,1)):(value.from)):(subMonths(new Date(),1))):(subMonths(new Date(),1))
-                                ):(
-                                    value?(value):(new Date())
-                                )
-                            }
-                            mode={(type==='date-range')?("range"):("single")}
-                            numberOfMonths={(type==='date-range')?(2):(1)}
-                            selected={value}
-                            onSelect={onChange}
-                            modifiers={{ today: [new Date()] }}
-                            modifiersStyles={{ today: {border:'1px solid #6366F1'} }}
-                            fromDate={
-                                (value?.from)?(value.from):
-                                (dayOpenBeforeToday)?(subDays(new Date(), dayOpenBeforeToday)):
-                                (undefined)
-                            }
-                            toDate={(dayOpenAfterToday!==undefined)?(addDays(new Date(), dayOpenAfterToday)):(undefined)}
-                            max={maxSelect}
-                        />
-                    )
-                }
+                <DayPicker
+                    // defaultMonth={
+                    //     (type==='date-range')?(
+                    //         subMonths(new Date(), 1)
+                    //     ):(
+                    //         new Date()
+                    //     )
+                    // }
+                    month={month}
+                    onMonthChange={setMonth}
+                    mode={(type==='date-range')?("range"):("single")}
+                    numberOfMonths={(type==='date-range')?(2):(1)}
+                    selected={value}
+                    onSelect={onChange}
+                    modifiers={{ today: [new Date()] }}
+                    modifiersStyles={{ today: {border:'1px solid #6366F1'} }}
+                    fromDate={
+                        (value?.from)?(value.from):
+                        (dayOpenBeforeToday)?(subDays(new Date(), dayOpenBeforeToday)):
+                        (undefined)
+                    }
+                    toDate={(dayOpenAfterToday!==undefined)?(addDays(new Date(), dayOpenAfterToday)):(undefined)}
+                    max={maxSelect}
+                />
                 
             </div>
         </div>

@@ -36,17 +36,21 @@ const FormField = ({
 
     const onSelect = (newValue) =>{
         onChangeField(newValue)
+        if(!isFieldTouched){
+            setIsFieldTouched(true)
+        }
         if(
-            config.type==='select' ||
+            (config.type==='select' ||
             config.type==='check-box'||
-            config.type==='check-box-group'
+            config.type==='check-box-group')
+            && isFieldTouched
         ){
             onValidateFileld(newValue, config.validationList)
         }
     }
 
     const onCloseDropdown = (newValue) =>{
-        if(onValidateFileld){
+        if(onValidateFileld && isFieldTouched){
             onValidateFileld(newValue, config.validationList)
         }
     }
@@ -121,7 +125,9 @@ const FormField = ({
                         isShowCounter={config.isShowCounter}
                         isMinNumberZero={config.isMinNumberZero}
                         prefix={config.prefix}
+                        prefixIconName={config.prefixIconName}
                         sufix={config.sufix}
+                        sufixIconName={config.sufixIconName}
                     />
                 )
             }
@@ -142,6 +148,8 @@ const FormField = ({
                         isAllOptionNotLoaded={config.isAllOptionNotLoaded}
                         onSearchOption={onSearchOption}
                         isOptionReady={config.isOptionReady}
+                        prefix={config.prefix}
+                        prefixIconName={config.prefixIconName}
                     />
                 )
             }
@@ -164,6 +172,8 @@ const FormField = ({
                         isOptionReady={config.isOptionReady}
                         maxSelect={config.maxSelect}
                         onCloseDropdown={onCloseDropdown}
+                        prefix={config.prefix}
+                        prefixIconName={config.prefixIconName}
                     />
                 )
             }
@@ -215,7 +225,10 @@ const FormField = ({
             }
             {
                 (formErrorStatus?.status)&&(
-                    <Text className={'form-field-error-message'} textLabel={formErrorStatus.message} color={'var(--red500)'} size={'xSmall'}/>
+                    <div className='form-field-error-message-wrapper'>
+                        <Icons iconName={'danger-fill'} color={'var(--red500)'}/>
+                        <Text className={'form-field-error-message'} textLabel={formErrorStatus.message} color={'var(--red500)'} size={'xSmall'}/>
+                    </div>
                 )
             }
         </div>

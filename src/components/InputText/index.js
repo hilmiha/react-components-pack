@@ -3,6 +3,7 @@ import { TEXTSIZES } from '../../constant/theme'
 import { useEffect, useRef, useState } from 'react'
 import Text from '../Text'
 import { formatText } from '../../untils/textFormatterUtils'
+import Icons from '../Icons'
 
 const InputText = ({
     //props
@@ -26,7 +27,9 @@ const InputText = ({
     //styles and looks
     placeholder,
     prefix,
+    prefixIconName,
     sufix,
+    sufixIconName,
     isShowCounter,
     isRounded,
     isFullWidth
@@ -153,14 +156,25 @@ const InputText = ({
             style={{
                 borderRadius:(isRounded)?('20px'):('6px'),
                 padding: (isRounded)?('0px 16px'):('0px 10px'),
-                borderColor: (isDisabled)?('var(--neutral300)'):(isError)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?('var(--red100)'):('var(--brand100)')}`):('none'),
+                borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
+                boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
                 backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                 maxWidth: (isFullWidth)?('100%'):('300px'),
                 cursor: (isDisabled)?('default'):('text')
             }}
             onClick={focusInput}
         > 
+            {
+                (prefixIconName)&&(
+                    <div onClick={focusInput}>
+                        <Icons 
+                            className={'input-text-prefix'}
+                            iconName={prefixIconName} 
+                            color={'gray500'}
+                        />
+                    </div>
+                )
+            }
             {
                 (prefix)&&(
                     <div onClick={focusInput}>
@@ -199,8 +213,21 @@ const InputText = ({
                         <Text
                             className={'input-text-sufix'}
                             textLabel={sufix}
+                            size={'xSmall'}
                             color={'var(--neutral500)'}
                         />
+                    </div>
+                )
+            }
+            {
+                (sufixIconName)&&(
+                    <div onClick={focusInput}>
+                        <div onClick={focusInput}>
+                            <Icons 
+                                className={'input-text-sufix'} 
+                                iconName={sufixIconName} 
+                                color={'gray500'}/>
+                        </div>
                     </div>
                 )
             }
@@ -210,7 +237,6 @@ const InputText = ({
                         <Text
                             className={'input-text-count'}
                             textLabel={`${value.length}/${maxLength}`}
-                            size={'xSmall'}
                             color={'var(--neutral500)'}
                         />
                     </div>

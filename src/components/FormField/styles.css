@@ -6,12 +6,17 @@
     margin-bottom: 8px;
     display: flex;
     align-items: center;
+    width: fit-content;
 }
 
 .form-field-label-tooltip{
     margin-left: 4px;
 }
 
-.form-field-error-message{
-    margin-top: 8px
+.form-field-error-message-wrapper{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    column-gap: 4px;
+    width: fit-content;
 }

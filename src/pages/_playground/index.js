@@ -78,10 +78,12 @@ const Playground = () =>{
 					type:'text-no-space',//mandatory
 					formLabel:'Email',
 					formTooltip:'this is a email asdjasd asjdkashdjash asjh',
-					isDisabled:true,
+					isDisabled:false,
 					placeholder:'Enter email',
 					prefix:'',
+					prefixIconName:'',
 					sufix:'',
+					sufixIconName:'',
 					maxLength:'',
 					isShowCounter:true,
 					isRounded:false,
@@ -101,7 +103,9 @@ const Playground = () =>{
 					isDisabled:false,
 					placeholder:'Enter name',
 					prefix:'',
+					prefixIconName:'',
 					sufix:'',
+					sufixIconName:'',
 					maxLength:40,
 					isShowCounter:true,
 					isRounded:false,
@@ -124,7 +128,9 @@ const Playground = () =>{
 					isDisabled:false,
 					placeholder:'Enter name',
 					prefix:'',
+					prefixIconName:'',
 					sufix:'',
+					sufixIconName:'',
 					isRounded:false,
 					isFullWidth:false,
 					validationList:['mandatory']
@@ -145,7 +151,9 @@ const Playground = () =>{
 					isDisabled:false,
 					placeholder:'Enter money',
 					prefix:'',
+					prefixIconName:'',
 					sufix:'',
+					sufixIconName:'',
 					isRounded:false,
 					isFullWidth:false,
 					validationList:['mandatory']
@@ -163,7 +171,9 @@ const Playground = () =>{
 					isDisabled:false,
 					placeholder:'Enter account number',
 					prefix:'',
+					prefixIconName:'',
 					sufix:'',
+					sufixIconName:'',
 					maxLength:'',
 					isRounded:false,
 					isFullWidth:false,
@@ -182,7 +192,9 @@ const Playground = () =>{
 					isDisabled:false,
 					placeholder:'Enter account number',
 					prefix:'',
+					prefixIconName:'',
 					sufix:'',
+					sufixIconName:'',
 					maxLength:'',
 					isShowCounter:false,
 					isRounded:false,
@@ -202,6 +214,8 @@ const Playground = () =>{
 					selectionList:colorList,
 					isDisabled:false,
 					placeholder:'Select color',
+					prefix:'',
+					prefixIconName:'',
 					isRounded:false,
 					isFullWidth:false,
 					isOptionReady:colorListReady,
@@ -224,6 +238,8 @@ const Playground = () =>{
 					maxSelect:3,
 					isDisabled:false,
 					placeholder:'Select city',
+					prefix:'',
+					prefixIconName:'',
 					isRounded:false,
 					isFullWidth:false,
 					isOptionReady:true,
@@ -234,6 +250,25 @@ const Playground = () =>{
 				onChangeField={(newValue)=>{controller.onChangeFieldValue('selectionCity', newValue, getState())}}
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('selectionCity', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['selectionCity']}
+			/>
+			<FormField
+				config={{
+					type:'date-picker',//mandatory
+					typeDatepicker:'date-range', // 'date-range' or ''
+					formLabel:'Tanggal Berangkat',
+					maxSelect:7,
+					dayOpenBeforeToday:'',
+					dayOpenAfterToday:'',
+					isDisabled:false,
+					placeholder:'Select Date',
+					isFullWidth:false,
+					isRounded:false,
+					validationList:['mandatory']
+				}}
+				value={form['leaveDate']}
+				onChangeField={(newValue)=>{controller.onChangeFieldValue('leaveDate', newValue, getState())}}
+				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
+				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
 			<FormField
 				config={{
@@ -260,25 +295,6 @@ const Playground = () =>{
 				onChangeField={(newValue)=>{controller.onChangeFieldValue('checkboxes', newValue, getState())}}
 				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('checkboxes', newValue, validationList, getState())}}
 				formErrorStatus={formErrorStatus['checkboxes']}
-			/>
-			<FormField
-				config={{
-					type:'date-picker',//mandatory
-					typeDatepicker:'date-range', // 'date-range' or ''
-					formLabel:'Tanggal Berangkat',
-					maxSelect:7,
-					dayOpenBeforeToday:'',
-					dayOpenAfterToday:'',
-					isDisabled:false,
-					placeholder:'Select Date',
-					isFullWidth:false,
-					isRounded:false,
-					validationList:['mandatory']
-				}}
-				value={form['leaveDate']}
-				onChangeField={(newValue)=>{controller.onChangeFieldValue('leaveDate', newValue, getState())}}
-				onValidateFileld={(newValue, validationList)=>{controller.onValidateFileldValue('leaveDate', newValue, validationList, getState())}}
-				formErrorStatus={formErrorStatus['leaveDate']}
 			/>
 			<div style={{display:'flex', flexDirection:'column', width:'max-content', gap:'8px', margin:'10px 0px'}}>
 				<Button label={'Hello'} size='small' iconLeftName={''} isDisabled={true}/>

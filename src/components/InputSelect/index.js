@@ -26,6 +26,8 @@ const InputSelect = ({
 
     //styles and looks
     placeholder,
+    prefix,
+    prefixIconName,
     isRounded,
     isFullWidth,
 }) =>{
@@ -189,8 +191,8 @@ const InputSelect = ({
                 style={{
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
-                    borderColor: (isDisabled)?('var(--neutral300)'):(isError)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${(isError)?('var(--red100)'):('var(--brand100)')}`):('none'),
+                    borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus && !isDropdownShow)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
+                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
                     backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
@@ -199,10 +201,28 @@ const InputSelect = ({
                 onClick={onClickSelectButton}
             > 
                 {
+                    (prefixIconName)&&(
+                        <Icons 
+                            className={'input-select-button-prefix'}
+                            iconName={prefixIconName} 
+                            color={'gray500'}
+                        />
+                    )
+                }
+                {
+                    (prefix)&&(
+                        <Text
+                            className={'input-select-button-prefix'}
+                            textLabel={prefix}
+                            color={'gray500'}
+                        />
+                    )
+                }
+                {
                     (value.value)?(
-                        <Text textLabel={value.label} isEllipsistatic={true}/>
+                        <Text className={'input-select-button-value'} textLabel={value.label} isEllipsistatic={true}/>
                     ):(
-                        <Text textLabel={placeholder} color={'var(--neutral400)'}/>
+                        <Text className={'input-select-button-value'} textLabel={placeholder} color={'var(--neutral400)'}/>
                     )
                 }
                 <Icons className={'input-select-button-icon'} iconName={(isDropdownShow)?('caret-up'):('caret-down')}/>

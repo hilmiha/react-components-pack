@@ -8,7 +8,9 @@ import {
     PiCheckBold,
     PiMinusBold,
     PiCaretLeft,
-    PiCaretRight
+    PiCaretRight,
+    PiWarningDiamond,
+    PiWarningDiamondFill
 } from 'react-icons/pi';
 import { ImCheckmark, ImMinus } from "react-icons/im";
 import { COLORS, TEXTSIZES } from '../../constant/theme';
@@ -32,6 +34,11 @@ const Icons = ({
                 height:fontSize
             }}
         >
+            {
+                (iconName==='danger-fill')&&(
+                    <PiWarningDiamondFill size={fontSize} color={color}/>
+                )
+            }
             {
                 (iconName==='blank')&&(
                     <PiSmileyBlank size={fontSize} color={color}/>

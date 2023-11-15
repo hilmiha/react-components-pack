@@ -7,6 +7,7 @@ import * as controller from './controller/controller'
 import { cityList } from './data/dropDownData';
 import { listCheckboxes } from './data/listData';
 import Button from '../../components/button';
+import ButtonMenu from '../../components/buttonMenu';
 
 const Playground = () =>{
 
@@ -383,6 +384,10 @@ const Playground = () =>{
 				<Button size='medium' type={'text'} iconLeftName={'info'} isDisabled={false}/>
 				<Button size='large' type={'text'} iconLeftName={'info'} isDisabled={false}/>
 			</div>
+
+			<ButtonMenu/>
+			<ButtonMenu isActive={true}/>
+
 			
 
 

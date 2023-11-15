@@ -52,7 +52,7 @@ const InputCheckbox = ({
                         <Text
                             textLabel={label}
                             color={(
-                                (value && !isDisabled)?('var(--neutral700)'):(value && isDisabled)?('var(--neutral400)'):(isDisabled)?('var(--neutral400)'):('var(--neutral700)')
+                                (value && !isDisabled)?('var(--neutral900)'):(value && isDisabled)?('var(--neutral400)'):(isDisabled)?('var(--neutral400)'):('var(--neutral900)')
                             )}
                             isEllipsistatic={isEllipsistatic}
                         />

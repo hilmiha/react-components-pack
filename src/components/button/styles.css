@@ -52,7 +52,7 @@
     background-color: var(--red600);
 }
 .button.button-primary.button-color-danger:active {
-    background-color: var(--red700) !important;
+    background-color: var(--red800) !important;
 }
 
 .button.button-primary.button-color-warning{
@@ -63,7 +63,7 @@
     background-color: var(--yellow600);
 }
 .button.button-primary.button-color-warning:active {
-    background-color: var(--yellow700) !important;
+    background-color: var(--yellow800) !important;
 }
 
 .button.button-primary.button-color-success{
@@ -75,7 +75,7 @@
     background-color: var(--green600);
 }
 .button.button-primary.button-color-success:active {
-    background-color: var(--green700) !important;
+    background-color: var(--green800) !important;
 }
 
 
@@ -93,7 +93,7 @@
     background-color: var(--neutral100);
 }
 .button.button-secondary:not(:disabled):active{
-    background-color: var(--neutral200) !important;
+    background-color: var(--neutral300) !important;
 }
 .button.button-secondary.button-color-danger{
     border: 1px solid var(--red500);
@@ -108,7 +108,7 @@
     background-color: var(--neutral100);
 }
 .button.button-secondary.button-color-danger:not(:disabled):active{
-    background-color: var(--neutral200) !important;
+    background-color: var(--neutral300) !important;
 }
 
 .button.button-secondary.button-color-warning{
@@ -124,7 +124,7 @@
     background-color: var(--neutral100);
 }
 .button.button-secondary.button-color-warning:not(:disabled):active{
-    background-color: var(--neutral200) !important;
+    background-color: var(--neutral300) !important;
 }
 
 .button.button-secondary.button-color-success{
@@ -140,7 +140,7 @@
     background-color: var(--neutral100);
 }
 .button.button-secondary.button-color-success:active{
-    background-color: var(--neutral200) !important;
+    background-color: var(--neutral300) !important;
 }
 
 
@@ -156,7 +156,7 @@
     background-color: var(--neutral100);
 }
 .button.button-tertiary:active{
-    background-color: var(--neutral200) !important;
+    background-color: var(--neutral300) !important;
 }
 
 .button.button-text{
@@ -171,5 +171,5 @@
     background-color: var(--neutral100);
 } 
 .button.button-text:active{
-    background-color: var(--neutral200) !important;
+    background-color: var(--neutral300) !important;
 }

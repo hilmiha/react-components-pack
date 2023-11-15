@@ -30,7 +30,7 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--neutral700);
+    color: var(--neutral900);
 }
 .text-text + .text-icon-right {
     margin-left: 8px;

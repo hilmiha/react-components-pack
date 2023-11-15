@@ -16,6 +16,7 @@ const Text = ({
     color,
     isBold,
     isEllipsistatic,
+    isShowElipsistatic,
 
     //function
     onClick,
@@ -62,7 +63,7 @@ const Text = ({
     }
 
     useEffect(()=>{
-        if(isEllipsistatic){
+        if(isEllipsistatic && isShowElipsistatic){
             createPopper(textRef.current, toolTipRef.current, {
                 placement: 'bottom-start',
             });
@@ -75,7 +76,7 @@ const Text = ({
     },[])
 
     useEffect(()=>{
-        if(isEllipsistatic){
+        if(isEllipsistatic && isShowElipsistatic){
             cekElipsisActive()
         }
     },[textLabel])
@@ -119,7 +120,7 @@ const Text = ({
                 )
             }
             {
-                (isEllipsisActive)&&(
+                (isEllipsisActive && isShowElipsistatic)&&(
                     <div 
                         ref={toolTipRef} 
                         className={`text-tooltip-wrapper`} 

@@ -268,7 +268,7 @@ const InputSelect = ({
                                             onClick={(item.disabled)?(undefined):(()=>{onChange(item)})}
                                             disabled={item.disabled}
                                         >
-                                            <Text textLabel={item.label} color={(item.disabled)?('var(--neutral400)'):('var(--neutral700)')} isEllipsistatic={true}/>
+                                            <Text textLabel={item.label} color={(item.disabled)?('var(--neutral400)'):('var(--neutral900)')} isEllipsistatic={true}/>
                                             <Icons iconName={'checked'} color={(value.value===item.value || value === item.value)?('var(--brand700)'):('transparent')}/>
                                         </button>
                                     ))

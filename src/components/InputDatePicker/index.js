@@ -152,11 +152,11 @@ const InputDatePicker = ({
         if(isDropdownShow){
             let elementButton = dropdownRef.current.querySelector(".rdp-nav_button_previous")
             if(elementButton){
-                elementButton.innerHTML = '<svg stroke="currentColor" fill="var(--neutral700)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral700)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></svg>'
+                elementButton.innerHTML = '<svg stroke="currentColor" fill="var(--neutral900)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral900)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></svg>'
             }
             let elementButtonRight = dropdownRef.current.querySelector(".rdp-nav_button_next")
             if(elementButtonRight){
-                elementButtonRight.innerHTML = '<svg stroke="currentColor" fill="var(--neutral700)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral700)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>'
+                elementButtonRight.innerHTML = '<svg stroke="currentColor" fill="var(--neutral900)" stroke-width="0" viewBox="0 0 256 256" color="var(--neutral900)" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg" style="color: rgb(17, 24, 39);"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>'
             }
         }
 

@@ -326,8 +326,8 @@ const InputSelectMultiple = ({
                                                     textLabel={item.label} 
                                                     isEllipsistatic={true}
                                                     color={(
-                                                        (selected)?('var(--neutral700)'):
-                                                        (maxSelect && value.length>=maxSelect || item.disabled)?('var(--neutral400)'):('var(--neutral700)')
+                                                        (selected)?('var(--neutral900)'):
+                                                        (maxSelect && value.length>=maxSelect || item.disabled)?('var(--neutral400)'):('var(--neutral900)')
                                                     )}
                                                 />
                                             </button>

@@ -6,6 +6,7 @@ import { createPopper } from '@popperjs/core'
 import Icons from '../Icons'
 import { DayPicker } from 'react-day-picker'
 import { addDays, format, isThisMonth, subDays, subMonths } from 'date-fns';
+import { debounce } from 'lodash';
 
 const InputDatePicker = ({
     className,
@@ -32,8 +33,7 @@ const InputDatePicker = ({
     const [isRendered, setIsRendered] = useState(false)
     const targetRef = useRef(null)
     const dropdownRef = useRef(null)
-    const firstFocusButton = useRef(null)
-
+    const [calendarSize, setCalendarSize] = useState(1)
     const [isFocus, setIsFocus] = useState(false)
     const [isDropdownShow,setIsDropdownShow] = useState(false)
     const [month, setMonth] = useState(new Date())
@@ -163,21 +163,48 @@ const InputDatePicker = ({
         if(!isDropdownShow){
             setMonth(
                 (type==='date-range')?(
-                    (value?.from)?(
-                        (isThisMonth(value.from))?(
-                            subMonths(value.from, 1)
+                    (calendarSize===2)?(
+                        (value?.from)?(
+                            (isThisMonth(value.from))?(
+                                subMonths(value.from, 1)
+                            ):(
+                                value.from
+                            )
                         ):(
-                            value.from
+                            subMonths(new Date(), 1)
                         )
                     ):(
-                        subMonths(new Date(), 1)
+                        (value?.from)?(
+                            value.from
+                        ):(
+                            new Date()
+                        )
                     )
                 ):(
                     value?(value):(new Date())
                 )
             )
         }
-    },[isDropdownShow, value])
+    },[isDropdownShow, value, calendarSize])
+
+    useEffect(() => {        
+
+
+        let debounce_fun = debounce(function () {
+            hide()
+            if(window.innerWidth > 500 && type==='date-range'){
+                setCalendarSize(2);
+            }else{
+                setCalendarSize(1);
+            }
+        }, 500);
+
+        debounce_fun()
+        window.addEventListener('resize', debounce_fun);
+        return () => {
+            window.removeEventListener('resize', debounce_fun);
+        };
+    }, []);
 
     return(
         <div className={`input-datepicker-wrapper ${(className)?(className):('')}`}>
@@ -218,17 +245,10 @@ const InputDatePicker = ({
                 className='input-datepicker-dropdown-wrapper'
             >
                 <DayPicker
-                    // defaultMonth={
-                    //     (type==='date-range')?(
-                    //         subMonths(new Date(), 1)
-                    //     ):(
-                    //         new Date()
-                    //     )
-                    // }
                     month={month}
                     onMonthChange={setMonth}
                     mode={(type==='date-range')?("range"):("single")}
-                    numberOfMonths={(type==='date-range')?(2):(1)}
+                    numberOfMonths={calendarSize}
                     selected={value}
                     onSelect={onChange}
                     modifiers={{ today: [new Date()] }}

@@ -3,7 +3,7 @@ export const formatText = (type, value) =>{
     let realValue = ''
     switch (type) {
         case 'text-no-space':
-            formatedText = value.replace(/\s/g, '')
+            formatedText = value?.replace(/\s/g, '')
             realValue = formatedText
             break;
         
@@ -14,18 +14,18 @@ export const formatText = (type, value) =>{
             break;
 
         case 'number':
-            let number = parseFloat(value.toString().replace(/[^0-9]+/g, "")).toString().slice(0,13).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            let number = parseFloat(value?.toString().replace(/[^0-9]+/g, "")).toString().slice(0,13).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             formatedText = (number==='NaN')?(''):(number)
             realValue = ((number==='NaN')?(''):(parseFloat(formatedText.replace(/[^0-9]+/g, ""))))
             break;
 
         case 'number-string':
-            formatedText = value.replace(/[^0-9]+/g, "")
+            formatedText = value?value.replace(/[^0-9]+/g, ""):''
             realValue = formatedText
             break;
 
         case 'number-dashed':
-            let numberStringDash = (value.toString().replace(/[^0-9]+/g, "")).match(/.{1,4}/g)
+            let numberStringDash = (value?.toString().replace(/[^0-9]+/g, ""))?.match(/.{1,4}/g)
             formatedText = (numberStringDash)?((value.replace(/[^0-9]+/g, "")).match(/.{1,4}/g).join('-')):('')
             realValue = formatedText
             break;

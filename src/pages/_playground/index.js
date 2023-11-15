@@ -334,7 +334,7 @@ const Playground = () =>{
 				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'danger'}/>
 				<Button label={'Hello'} type={'primary'} iconLeftName={''} color={'warning'}/>
 				<Button label={'Hello'} type={'primary'} size='medium' iconLeftName={''} color={'success'}/>
-				<Button label={'Hello'} type={'primary'} size='large' iconLeftName={''} />
+				<Button label={'Hello'} type={'primary'} size='large' iconLeftName={''}/>
 				<Button size='' type={'primary'} iconLeftName={'info'} />
 				<Button size='small' type={'primary'} iconLeftName={'info'} />
 				<Button size='medium' type={'primary'} iconLeftName={'info'} />

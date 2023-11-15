@@ -43,7 +43,7 @@ const InputText = ({
         let tampMaskedValue = ''
 
         if(type==='text-no-space'){
-            const tamp = formatText('text-no-space', newValue.slice(0,(maxLength)?(maxLength):(newValue.length)))
+            const tamp = formatText('text-no-space', newValue?.slice(0,(maxLength)?(maxLength):(newValue.length)))
             tampValue = tamp[1]
             tampMaskedValue= tamp[0]
         }else if(type==='text-number'){
@@ -81,20 +81,20 @@ const InputText = ({
                         tampMaskedValue = (isMinNumberZero)?('0.00'):('')
                     }else{
                         tampValue = tamp[1]
-                        tampMaskedValue = `${tamp[0]}.00`
+                        tampMaskedValue = tamp[0]===''?(''):(`${tamp[0]}.00`)
                     }
                 }
             }
         }else if(type==='text-number-dashed'){
-            const tamp = formatText('number-dashed', newValue.toString().replace(/[^0-9]+/g, "").slice(0,(maxLength)?(maxLength):(newValue.length)))
+            const tamp = formatText('number-dashed', newValue?.toString().replace(/[^0-9]+/g, "").slice(0,(maxLength)?(maxLength):(newValue.length)))
             tampValue = tamp[1]
             tampMaskedValue= tamp[0]
         }else if(type==='text-number-string'){
-            const tamp = formatText('number-string', newValue.toString().replace(/[^0-9]+/g, "").slice(0,(maxLength)?(maxLength):(newValue.length)))
+            const tamp = formatText('number-string', newValue?.toString().replace(/[^0-9]+/g, "").slice(0,(maxLength)?(maxLength):(newValue.length)))
             tampValue = tamp[1]
             tampMaskedValue= tamp[0]
         }else{
-            tampValue = newValue.slice(0,(maxLength)?(maxLength):(newValue.length))
+            tampValue = newValue?newValue.slice(0,(maxLength)?(maxLength):(newValue.length)):''
             tampMaskedValue= tampValue
         }
 

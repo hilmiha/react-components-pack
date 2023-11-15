@@ -11,6 +11,7 @@ const Button = ({
     iconRightName,
     isDisabled,
     isRounded,
+    isCompact,
     onClick
 }) =>{
     const buttonRef = useRef(null)
@@ -23,58 +24,17 @@ const Button = ({
         setClassnameDefault(generateClassNameDefault(type, color))
     },[color, type])
     return(
-        // <button
-        //     className='button'
-        //     style={{
-        //         cursor:(isDisabled)?('default'):('pointer'),
-        //         border:(type!=='text')?(`1px solid`):('1px solid transparent'),
-        //         height:(size==='large')?('42px'):(size==='small')?('24px'):('32px'),
-        //         padding:(label)?(
-        //             (size==='large')?('0px 28px'):(size==='small')?('0px 16px'):('0px 20px')
-        //         ):(
-        //             (size==='large')?('0px 10px'):(size==='small')?('0px 4px'):('0px 8px')
-        //         ),
-        //         borderColor:(!isFocus && !isHover)?(
-        //             (type==='text')?('transparent'):(type==='secondary')?(COLORS[`${(color)?(`${color}500`):('gray400')}`]):(COLORS[`${(color)?(color):('primary')}50`])
-        //         ):(
-        //             (COLORS[`${(color)?(color):('primary')}500`])
-        //         ),
-        //         backgroundColor:(!isFocus && !isHover)?(
-        //             (type==='text')?('transparent'):(type==='secondary')?('white'):(COLORS[`${(color)?(color):('primary')}500`])
-        //         ):(
-        //             (type==='text' || type==='secondary')?(COLORS.gray50):(COLORS[`${(color)?(color):('primary')}600`])
-        //         ),
-        //         boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${COLORS[`${(color)?(color):('primary')}100`]}`):('none'),
-        //         borderRadius:(isRounded)?('200px'):('6px')
-        //     }}
-        //     onClick={onClick}
-        //     disabled={isDisabled}
-        //     onMouseEnter={()=>{setIsHover(true)}}
-        //     onMouseLeave={()=>{setIsHover(false)}}
-        //     onFocus={()=>{setIsFocus(true)}}
-        //     onBlur={()=>{setIsFocus(false)}}
-        // >
         <button
             ref={buttonRef}
             className={`button ${classNameDefaul}`}
             style={{
                 height:(size==='large')?('42px'):(size==='small')?('24px'):('32px'),
-                padding:(label)?(
-                    (size==='large')?('0px 28px'):(size==='small')?('0px 16px'):('0px 20px')
+                padding:
+                (label)?(
+                    (size==='large')?(`0px ${isCompact?('12px'):('28px')}`):(size==='small')?(`0px ${isCompact?('8px'):('16px')}`):(`0px ${isCompact?('8px'):('20px')}`)
                 ):(
                     (size==='large')?('0px 10px'):(size==='small')?('0px 4px'):('0px 8px')
                 ),
-                // borderColor:(!isFocus && !isHover)?(
-                //     (type==='text')?('transparent'):(type==='secondary')?(COLORS[`${(color)?(`${color}500`):('gray400')}`]):(COLORS[`${(color)?(color):('primary')}50`])
-                // ):(
-                //     (COLORS[`${(color)?(color):('primary')}500`])
-                // ),
-                // backgroundColor:(!isFocus && !isHover)?(
-                //     (type==='text')?('transparent'):(type==='secondary')?('white'):(COLORS[`${(color)?(color):('primary')}500`])
-                // ):(
-                //     (type==='text' || type==='secondary')?(COLORS.gray50):(COLORS[`${(color)?(color):('primary')}600`])
-                // ),
-                // boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px ${COLORS[`${(color)?(color):('primary')}100`]}`):('none'),
                 borderRadius:(isRounded)?('200px'):('6px')
             }}
             onClick={onClick}

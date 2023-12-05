@@ -1,0 +1,11 @@
+.button-menu-group-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.button-menu-group-children-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

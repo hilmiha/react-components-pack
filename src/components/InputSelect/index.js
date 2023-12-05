@@ -192,7 +192,7 @@ const InputSelect = ({
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
                     borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus && !isDropdownShow)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
+                    outline:(isFocus && !isDisabled)?('3px solid var(--brand200)'):('0px'),
                     backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
@@ -222,7 +222,7 @@ const InputSelect = ({
                     (value.value)?(
                         <Text className={'input-select-button-value'} textLabel={value.label} isEllipsistatic={true}/>
                     ):(
-                        <Text className={'input-select-button-value'} textLabel={placeholder} color={'var(--neutral400)'}/>
+                        <Text className={'input-select-button-value'} textLabel={placeholder} color={'var(--neutral400)'} isEllipsistatic={true}/>
                     )
                 }
                 <Icons className={'input-select-button-icon'} iconName={(isDropdownShow)?('caret-up'):('caret-down')}/>
@@ -268,7 +268,7 @@ const InputSelect = ({
                                             onClick={(item.disabled)?(undefined):(()=>{onChange(item)})}
                                             disabled={item.disabled}
                                         >
-                                            <Text textLabel={item.label} color={(item.disabled)?('var(--neutral400)'):('var(--neutral900)')} isEllipsistatic={true}/>
+                                            <Text textLabel={item.label} color={(item.disabled)?('var(--neutral300)'):('var(--neutral900)')} isEllipsistatic={true}/>
                                             <Icons iconName={'checked'} color={(value.value===item.value || value === item.value)?('var(--brand700)'):('transparent')}/>
                                         </button>
                                     ))

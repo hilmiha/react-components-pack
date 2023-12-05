@@ -24,7 +24,7 @@
 }
 
 .button:focus {
-    box-shadow: 0px 0px 2px 2px var(--brand200);
+    outline: 3px solid var(--brand200);
 }
 
 .button.button-primary{
@@ -90,7 +90,7 @@
     fill: var(--brand700) !important;
 }
 .button.button-secondary:hover:not(:disabled){
-    background-color: var(--neutral100);
+    background-color: var(--neutral200);
 }
 .button.button-secondary:not(:disabled):active{
     background-color: var(--neutral300) !important;
@@ -105,7 +105,7 @@
     fill: var(--red500) !important;
 }
 .button.button-secondary.button-color-danger:hover:not(:disabled){
-    background-color: var(--neutral100);
+    background-color: var(--neutral200);
 }
 .button.button-secondary.button-color-danger:not(:disabled):active{
     background-color: var(--neutral300) !important;
@@ -121,7 +121,7 @@
     fill: var(--yellow500) !important;
 }
 .button.button-secondary.button-color-warning:hover:not(:disabled){
-    background-color: var(--neutral100);
+    background-color: var(--neutral200);
 }
 .button.button-secondary.button-color-warning:not(:disabled):active{
     background-color: var(--neutral300) !important;
@@ -137,7 +137,7 @@
     fill: var(--green500) !important;
 }
 .button.button-secondary.button-color-success:hover:not(:disabled){
-    background-color: var(--neutral100);
+    background-color: var(--neutral200);
 }
 .button.button-secondary.button-color-success:active{
     background-color: var(--neutral300) !important;
@@ -153,10 +153,13 @@
     fill: var(--neutral900);
 }
 .button.button-tertiary:hover:not(:disabled){
-    background-color: var(--neutral100);
+    background-color: var(--neutral200);
 }
 .button.button-tertiary:active{
     background-color: var(--neutral300) !important;
+}
+.button.button-tertiary:focus{
+    border-color: var(--brand400) !important;
 }
 
 .button.button-text{
@@ -168,8 +171,11 @@
     fill: var(--neutral900);
 }
 .button.button-text:hover:not(:disabled){
-    background-color: var(--neutral100);
+    background-color: var(--neutral200);
 } 
 .button.button-text:active{
     background-color: var(--neutral300) !important;
+}
+.button.button-text:focus{
+    border-color: var(--brand400) !important;
 }

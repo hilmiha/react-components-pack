@@ -9,6 +9,7 @@
     position: relative;
     outline: 0px; 
     border: 1px solid transparent;
+    /* pointer-events: none; */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;   
     box-sizing: border-box;  

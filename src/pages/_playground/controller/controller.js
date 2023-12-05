@@ -45,7 +45,7 @@ export const getColorList = async (viewState) =>{
     const tampColorListPaginationConfig = {...viewState.colorListPaginationConfig}
     if(tampColorListPaginationConfig.searchKey){
         tampColorListPaginationConfig.page = tampColorListPaginationConfig.page + 1
-        tampColorListPaginationConfig.maxPage = 1
+        tampColorListPaginationConfig.maxPage = 2
     }else{
         tampColorListPaginationConfig.page = tampColorListPaginationConfig.page + 1
         tampColorListPaginationConfig.maxPage = 3

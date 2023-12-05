@@ -212,7 +212,7 @@ const InputSelectMultiple = ({
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
                     borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus && !isDropdownShow)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
+                    outline:(isFocus && !isDisabled)?('3px solid var(--brand200)'):('0px'),
                     backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
@@ -327,7 +327,7 @@ const InputSelectMultiple = ({
                                                     isEllipsistatic={true}
                                                     color={(
                                                         (selected)?('var(--neutral900)'):
-                                                        (maxSelect && value.length>=maxSelect || item.disabled)?('var(--neutral400)'):('var(--neutral900)')
+                                                        (maxSelect && value.length>=maxSelect || item.disabled)?('var(--neutral300)'):('var(--neutral900)')
                                                     )}
                                                 />
                                             </button>
@@ -337,7 +337,7 @@ const InputSelectMultiple = ({
                                 {
                                     ((searchResultList)?(!searchResultList.length):(!selectionList.length))&&(
                                         <div className='input-select-multi-empty'>
-                                            <Text textLabel={'Not Found'} color={'var(--neutral400)'} />
+                                            <Text textLabel={'Empty'} color={'var(--neutral400)'} />
                                         </div>
                                     )
                                 }

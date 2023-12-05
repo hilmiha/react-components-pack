@@ -8,9 +8,12 @@ import { cityList } from './data/dropDownData';
 import { listCheckboxes } from './data/listData';
 import Button from '../../components/button';
 import ButtonMenu from '../../components/buttonMenu';
+import ButtonMenuGroup from '../../components/ButtonMenuGroup';
+import { has } from 'lodash';
 
 const Playground = () =>{
 
+	const [theme, setTheme] = useState(true)
     const [form, setForm] = useState({
 		email:'',
 		number:'',
@@ -35,6 +38,52 @@ const Playground = () =>{
 	})
     const [doGetColorList, setDoGetColorList] = useState(true)
 
+	const [sideMenu, setSideMenu] = useState([
+		{
+			key:'menu-dashboard',
+			label:'Dashboard',
+			listSubmenu:[
+				{label:'Dashboard Child One', key:'child-one-one'},
+				{label:'Dashboard Child One', key:'child-one-two'},
+				{label:'Dashboard Child One', key:'child-one-three'},
+				{
+					label:'Dashboard Child One W. Child asdasd asdasd adsasdas',
+					key:'child-one-four',
+					listSubmenu:[
+						{label:'Dashboard Child two', key:'child-two-one'},
+						{label:'Dashboard Child two', key:'child-two-two'},
+						{label:'Dashboard Child two', key:'child-two-three'},
+					]
+				},
+				{label:'Dashboard Child One', key:'child-one-five'},
+				{label:'Dashboard Child One', key:'child-one-six'},
+				{label:'Dashboard Child One', key:'child-one-seven'},
+			]
+		},
+		{
+			key:'menu-package',
+			isActive:true,
+			label:'Package'
+		},
+		{
+			key:'menu-message',
+			label:'Message'
+		},
+		{
+			key:'menu-other',
+			label:'Other'
+		},
+		{
+			key:'menu-shedule',
+			label:'Schedule'
+		}
+	])
+
+	const onClickSideMenuItem = (key) =>{
+		let jsonString = JSON.stringify(sideMenu).replace('"isActive":true', '').replace(/\,\}/g, '}').replace(/\,\,/g,',')
+		jsonString = jsonString.replace(`"key":"${key}"`, `"key":"${key}","isActive":true,`).replace(/\,\}/g, '}').replace(/\,\,/g,',')
+		setSideMenu(JSON.parse(jsonString))
+	}
     const getState = () =>{
         return{
             form,
@@ -66,7 +115,6 @@ const Playground = () =>{
 
 	return (
 		<div style={{padding:'30px 30px 500px 30px'}} className='body'>
-			<input id='isDarkMode' type='checkbox'/>
 			<Text 
 				textLabel={"Hello World asdlasjdskasd askjdhasjda aksjdhasjdhasjd asjkdhasjkdhasjkdha askjdha"}
 				isBold={false}
@@ -384,10 +432,70 @@ const Playground = () =>{
 				<Button size='medium' type={'text'} iconLeftName={'info'} isDisabled={false}/>
 				<Button size='large' type={'text'} iconLeftName={'info'} isDisabled={false}/>
 			</div>
-
-			<ButtonMenu/>
-			<ButtonMenu isActive={true}/>
-
+			
+			<div style={{width:'300px', marginBottom:'20px'}}>
+				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} iconLeftName={'blank'}/>
+				<ButtonMenu label={'Hello World'}/>
+				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} isDisabled={true}/>
+				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} isDisabled={true} isActive={true}/>
+				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} isActive={true}/>
+			</div>
+			<div style={{width:'300px', backgroundColor:'var(--neutral00)', padding:'4px', display:'flex', flexDirection:'column', gap:'4px'}}>
+				<Text textLabel={'Home Menu'} isBold={true}/>
+				{/* <ButtonMenuGroup 
+					label={'Dashboard'}
+					listSubmenu={[
+						{label:'Dashboard Child One'},
+						{label:'Dashboard Child One'},
+						{label:'Dashboard Child One'},
+						{
+							label:'Dashboard Child One W. Child',
+							listSubmenu:[
+								{label:'Dashboard Child two'},
+								{label:'Dashboard Child two'},
+								{label:'Dashboard Child two'},
+							]
+						},
+						{label:'Dashboard Child One'},
+						{label:'Dashboard Child One'},
+						{label:'Dashboard Child One'},
+					]}
+					level={0}
+				/>
+				<ButtonMenu label={'Package'}/>
+				<ButtonMenu label={'Message'}/>
+				<ButtonMenu label={'Other'}/>
+				<ButtonMenu label={'Schedule'}/> */}
+				{
+					sideMenu.map((itemSideMenu)=>{
+						if(has(itemSideMenu, 'listSubmenu')){
+							return(
+								<ButtonMenuGroup
+									key={itemSideMenu.key} 
+									label={itemSideMenu.label}
+									subLabel={itemSideMenu.subLabel}
+									listSubmenu={itemSideMenu.listSubmenu}
+									iconLeftName={itemSideMenu.iconLeftName}
+									level={0}
+									onClick={(key)=>{onClickSideMenuItem(key)}}
+								/>
+							)
+						}else{
+							return(
+								<ButtonMenu 
+									key={itemSideMenu.key} 
+									label={itemSideMenu.label}
+									subLabel={itemSideMenu.subLabel}
+									isActive={itemSideMenu.isActive}
+									iconLeftName={itemSideMenu.iconLeftName}
+									onClick={()=>{onClickSideMenuItem(itemSideMenu.key)}}
+								/>
+							)
+						}
+					})
+				}
+			</div>
+			
 			
 
 

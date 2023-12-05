@@ -157,7 +157,7 @@ const InputText = ({
                 borderRadius:(isRounded)?('20px'):('6px'),
                 padding: (isRounded)?('0px 16px'):('0px 10px'),
                 borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
+                outline:(isFocus)?('3px solid var(--brand200)'):('0px'),
                 backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                 maxWidth: (isFullWidth)?('100%'):('300px'),
                 cursor: (isDisabled)?('default'):('text')
@@ -237,6 +237,7 @@ const InputText = ({
                         <Text
                             className={'input-text-count'}
                             textLabel={`${value.length}/${maxLength}`}
+                            size={'xSmall'}
                             color={'var(--neutral500)'}
                         />
                     </div>

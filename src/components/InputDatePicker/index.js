@@ -215,7 +215,7 @@ const InputDatePicker = ({
                     borderRadius:(isRounded)?('20px'):('6px'),
                     padding: (isRounded)?('0px 16px'):('0px 10px'),
                     borderColor: (isDisabled)?('var(--neutral300)'):(isError && !isFocus && !isDropdownShow)?('var(--red500)'):(isFocus)?('var(--brand300)'):('var(--neutral400)'),
-                    boxShadow: (isFocus && !isDisabled)?(`0px 0px 2px 2px var(--brand100)`):('none'),
+                    outline:(isFocus && !isDisabled)?('3px solid var(--brand200)'):('0px'),
                     backgroundColor: (isDisabled)?('var(--neutral200)'):('var(--neutral0)'),
                     maxWidth: (isFullWidth)?('100%'):('300px')
                 }}
@@ -235,7 +235,7 @@ const InputDatePicker = ({
                             )}
                         </>
                     ):(
-                        <Text textLabel={placeholder} color={'var(--neutral400)'}/>
+                        <Text textLabel={placeholder} color={'var(--neutral400)'} isEllipsistatic={true}/>
                     )
                 }
                 <Icons className={'input-datepicker-button-icon'} iconName={(isDropdownShow)?('caret-up'):('caret-down')}/>
@@ -252,7 +252,7 @@ const InputDatePicker = ({
                     selected={value}
                     onSelect={onChange}
                     modifiers={{ today: [new Date()] }}
-                    modifiersStyles={{ today: {border:'1px solid #6366F1'} }}
+                    modifiersStyles={{ today: {border:'1px solid var(--neutral400)'} }}
                     fromDate={
                         (value?.from)?(value.from):
                         (dayOpenBeforeToday)?(subDays(new Date(), dayOpenBeforeToday)):

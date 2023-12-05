@@ -27,7 +27,7 @@ const InputCheckbox = ({
             ref={checboxRef}
             className={`input-checkbox-item ${(value)?('item-selected'):('')} ${(className)?(className):('')}`}
             style={{
-                padding:(label)?('4px'):('2px')
+                padding:(label)?('6px'):('2px')
             }}
             onClick={(isDisabled)?(undefined):(()=>{onChange()})}
             disabled={isDisabled}

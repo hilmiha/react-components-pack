@@ -16,7 +16,7 @@
 }
 
 .input-checkbox-item + .input-checkbox-item{
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .input-checkbox-item.item-selected:disabled:hover{
@@ -29,7 +29,7 @@
 
 .input-checkbox-item:focus{
     border: 1px solid var(--brand300);
-    box-shadow: 0px 0px 2px 2px var(--brand100);
+    outline: 3px solid var(--brand200);
     border-radius: 6px;
 }
 

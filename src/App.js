@@ -3,7 +3,10 @@ import Playground from "./pages/_playground";
 
 function App() {
 	return(
-		<Playground/>
+		<>
+			<input id='isDarkMode' type='checkbox'/>
+			<Playground/>
+		</>
 	)
 }
 

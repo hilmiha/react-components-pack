@@ -94,3 +94,9 @@ export const searchColorList = (searchKey, viewState) =>{
     viewState.setColorListReady(false)
     viewState.setDoGetColorList(true)
 }
+
+export const onClickSideMenuItem = (menuKey, viewState) =>{
+    let jsonString = JSON.stringify(viewState.sideMenu).replace('"isActive":true', '').replace(/\,\}/g, '}').replace(/\,\,/g,',')
+    jsonString = jsonString.replace(`"key":"${menuKey}"`, `"key":"${menuKey}","isActive":true,`).replace(/\,\}/g, '}').replace(/\,\,/g,',')
+    viewState.setSideMenu(JSON.parse(jsonString))
+}

@@ -337,7 +337,7 @@ const InputSelectMultiple = ({
                                 {
                                     ((searchResultList)?(!searchResultList.length):(!selectionList.length))&&(
                                         <div className='input-select-multi-empty'>
-                                            <Text textLabel={'Empty'} color={'var(--neutral400)'} />
+                                            <Text textLabel={'No Options'} color={'var(--neutral400)'} />
                                         </div>
                                     )
                                 }

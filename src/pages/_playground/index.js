@@ -1,19 +1,23 @@
 import './styles.css'
-import { useEffect, useState } from 'react';
-import Text from '../../components/Text';
-import FormField from '../../components/FormField';
+import { useContext, useEffect, useState } from 'react';
 import { getInitialFormStatus } from '../../untils/formUtils';
-import * as controller from './controller/controller'
 import { cityList } from './data/dropDownData';
 import { listCheckboxes } from './data/listData';
+import { GlobalContext } from '../../context/GlobalContext';
+import { has } from 'lodash';
+import Text from '../../components/Text';
+import FormField from '../../components/FormField';
 import Button from '../../components/button';
 import ButtonMenu from '../../components/buttonMenu';
 import ButtonMenuGroup from '../../components/ButtonMenuGroup';
-import { has } from 'lodash';
+import * as controller from './controller/controller'
 
 const Playground = () =>{
+	const {
+		isDarkMode,
+		settingTheme
+	} = useContext(GlobalContext)
 
-	const [theme, setTheme] = useState(true)
     const [form, setForm] = useState({
 		email:'',
 		number:'',
@@ -79,11 +83,6 @@ const Playground = () =>{
 		}
 	])
 
-	const onClickSideMenuItem = (key) =>{
-		let jsonString = JSON.stringify(sideMenu).replace('"isActive":true', '').replace(/\,\}/g, '}').replace(/\,\,/g,',')
-		jsonString = jsonString.replace(`"key":"${key}"`, `"key":"${key}","isActive":true,`).replace(/\,\}/g, '}').replace(/\,\,/g,',')
-		setSideMenu(JSON.parse(jsonString))
-	}
     const getState = () =>{
         return{
             form,
@@ -99,6 +98,9 @@ const Playground = () =>{
             setColorListPaginationConfig,
             doGetColorList, 
             setDoGetColorList,
+
+			sideMenu,
+			setSideMenu
         }
     }
 	
@@ -114,7 +116,17 @@ const Playground = () =>{
 	},[form])
 
 	return (
-		<div style={{padding:'30px 30px 500px 30px'}} className='body'>
+		<div style={{padding:'30px 30px 500px 30px'}}>
+			<div style={{marginBottom:'30px'}}>
+				<FormField
+					config={{
+						type:'check-box',//mandatory
+						label:'Darkmode'
+					}}
+					value={isDarkMode}
+					onChangeField={settingTheme}
+				/>
+			</div>
 			<Text 
 				textLabel={"Hello World asdlasjdskasd askjdhasjda aksjdhasjdhasjd asjkdhasjkdhasjkdha askjdha"}
 				isBold={false}
@@ -442,30 +454,6 @@ const Playground = () =>{
 			</div>
 			<div style={{width:'300px', backgroundColor:'var(--neutral00)', padding:'4px', display:'flex', flexDirection:'column', gap:'4px'}}>
 				<Text textLabel={'Home Menu'} isBold={true}/>
-				{/* <ButtonMenuGroup 
-					label={'Dashboard'}
-					listSubmenu={[
-						{label:'Dashboard Child One'},
-						{label:'Dashboard Child One'},
-						{label:'Dashboard Child One'},
-						{
-							label:'Dashboard Child One W. Child',
-							listSubmenu:[
-								{label:'Dashboard Child two'},
-								{label:'Dashboard Child two'},
-								{label:'Dashboard Child two'},
-							]
-						},
-						{label:'Dashboard Child One'},
-						{label:'Dashboard Child One'},
-						{label:'Dashboard Child One'},
-					]}
-					level={0}
-				/>
-				<ButtonMenu label={'Package'}/>
-				<ButtonMenu label={'Message'}/>
-				<ButtonMenu label={'Other'}/>
-				<ButtonMenu label={'Schedule'}/> */}
 				{
 					sideMenu.map((itemSideMenu)=>{
 						if(has(itemSideMenu, 'listSubmenu')){
@@ -477,7 +465,7 @@ const Playground = () =>{
 									listSubmenu={itemSideMenu.listSubmenu}
 									iconLeftName={itemSideMenu.iconLeftName}
 									level={0}
-									onClick={(key)=>{onClickSideMenuItem(key)}}
+									onClick={(menuKey)=>{controller.onClickSideMenuItem(menuKey, getState())}}
 								/>
 							)
 						}else{
@@ -488,7 +476,7 @@ const Playground = () =>{
 									subLabel={itemSideMenu.subLabel}
 									isActive={itemSideMenu.isActive}
 									iconLeftName={itemSideMenu.iconLeftName}
-									onClick={()=>{onClickSideMenuItem(itemSideMenu.key)}}
+									onClick={()=>{controller.onClickSideMenuItem(itemSideMenu.key, getState())}}
 								/>
 							)
 						}

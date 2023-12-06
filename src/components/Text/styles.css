@@ -1,5 +1,3 @@
-@import '../../App.css';
-
 .text-wrapper{
     display: grid;
     grid-template-columns: min-content minmax(0px, 1fr) min-content;

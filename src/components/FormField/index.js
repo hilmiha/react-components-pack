@@ -43,7 +43,7 @@ const FormField = ({
             (config.type==='select' ||
             config.type==='check-box'||
             config.type==='check-box-group')
-            && isFieldTouched
+            && isFieldTouched && onValidateFileld
         ){
             onValidateFileld(newValue, config.validationList)
         }

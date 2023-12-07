@@ -1,5 +1,5 @@
 import './styles.css'
-import Button from "../button"
+import Button from "../Button"
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../../context/GlobalContext'
 

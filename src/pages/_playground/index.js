@@ -7,7 +7,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 import { has } from 'lodash';
 import Text from '../../components/Text';
 import FormField from '../../components/FormField';
-import Button from '../../components/button';
+import Button from '../../components/Button';
 import * as controller from './controller/controller'
 import MenuButtonGroup from '../../components/MenuButtonGroup';
 import MenuButton from '../../components/MenuButton';

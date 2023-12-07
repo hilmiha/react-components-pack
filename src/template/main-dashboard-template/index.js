@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import Button from '../../components/button'
+import Button from '../../components/Button'
 import './styles.css'
 import { GlobalContext } from '../../context/GlobalContext'
 import Drawer from '../../components/Drawer'

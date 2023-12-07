@@ -4,30 +4,54 @@ import ButtonMenu from "../buttonMenu"
 import { has, isObject } from 'lodash'
 
 const ButtonMenuGroup = ({
+    parentKey,
     label,
     subLabel,
     iconLeftName,
     listSubmenu,
     level,
+    isActive,
+    isParentInteractive,
     onClick
 }) =>{
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(JSON.stringify(listSubmenu).includes('"isActive":true'))
 
     const onClickChild = (key) =>{
-        if(onClick){
+        console.log(isParentInteractive)
+        if(onClick && key && ((!isActive && key === parentKey && isParentInteractive) || key !== parentKey)){
             onClick(key)
         }
+        if(key === parentKey){
+            if(isParentInteractive){
+                setTimeout(()=>{
+                    setIsOpen(true)
+                },200)
+            }else{
+                setIsOpen(!isOpen)
+            }
+        }
     }
+
+    useEffect(()=>{
+        if(!JSON.stringify(listSubmenu).includes('"isActive":true') && !isActive){
+            setTimeout(()=>{
+                setIsOpen(false)
+            },100)
+        }
+    },[listSubmenu])
+
     return(
         <div className="button-menu-group-wrapper">
             <ButtonMenu 
                 label={label} 
                 subLabel={subLabel}
-                onClick={()=>{setIsOpen(!isOpen)}} 
+                onClick={()=>{onClickChild(parentKey)}}
+                onClickRightIcon={()=>{setIsOpen(!isOpen)}}
                 iconLeftName={iconLeftName} 
                 iconRightName={(isOpen)?('caret-up'):('caret-down')} 
                 level={level}
                 isActiveSub={JSON.stringify(listSubmenu).includes('"isActive":true')}
+                isActive={isActive}
             />
             {
                 (isOpen)&&(
@@ -38,9 +62,11 @@ const ButtonMenuGroup = ({
                                     return(
                                         <ButtonMenuGroup 
                                             key={item.key} 
+                                            parentKey={item.key}
                                             label={item.label} 
                                             subLabel={item.subLabel}
                                             listSubmenu={item.listSubmenu} 
+                                            isActive={item.isActive}
                                             level={level!==undefined?(level+1):0}
                                             onClick={onClickChild}
                                         />

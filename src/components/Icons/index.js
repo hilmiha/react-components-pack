@@ -10,7 +10,9 @@ import {
     PiCaretLeft,
     PiCaretRight,
     PiWarningDiamond,
-    PiWarningDiamondFill
+    PiWarningDiamondFill,
+    PiList,
+    PiArrowLeft
 } from 'react-icons/pi';
 import { ImCheckmark, ImMinus } from "react-icons/im";
 import { COLORS, TEXTSIZES } from '../../constant/theme';
@@ -77,6 +79,16 @@ const Icons = ({
             {
                 (iconName==='caret-right')&&(
                     <PiCaretRight size={fontSize} color={color}/>
+                )
+            }
+            {
+                (iconName==='list')&&(
+                    <PiList size={fontSize} color={color}/>
+                )
+            }
+            {
+                (iconName==='arrow-left')&&(
+                    <PiArrowLeft size={fontSize} color={color}/>
                 )
             }
         </div>

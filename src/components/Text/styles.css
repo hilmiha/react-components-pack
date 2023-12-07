@@ -75,3 +75,8 @@
 .text-tooltip-wrapper[data-show] {
     display: block;
 }
+
+.sidebar-menu-title{
+    margin-bottom: 20px;
+    margin-left: 20px;
+}

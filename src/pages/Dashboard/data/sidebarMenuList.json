@@ -1,0 +1,40 @@
+[
+    {
+        "key":"menu-button",
+        "isActive":true,
+        "label":"Button"
+    },
+    {
+        "key":"menu-form",
+        "label":"Form Input",
+        "listSubmenu":[
+            {"key":"menu-form-input-text", "label":"Input Text"},
+            {"key":"menu-form-input-number", "label":"Input Number"},
+            {"key":"menu-form-input-money", "label":"Input Money"},
+            {"key":"menu-form-input-select", "label":"Input Select"},
+            {"key":"menu-form-input-date", "label":"Input Date"},
+            {"key":"menu-form-input-checkbox", "label":"Input Checkbox"}
+        ],
+        "isParentInteractive":true
+    },
+    {
+        "key":"menu-icon",
+        "label":"Icon"
+    },
+    {
+        "key":"menu-menu",
+        "label":"Menu"
+    },
+    {
+        "key":"menu-form2",
+        "label":"Form Input",
+        "listSubmenu":[
+            {"key":"menu-form-input-text2", "label":"Input Text"},
+            {"key":"menu-form-input-number2", "label":"Input Number"},
+            {"key":"menu-form-input-money2", "label":"Input Money"},
+            {"key":"menu-form-input-select2", "label":"Input Select"},
+            {"key":"menu-form-input-date2", "label":"Input Date"},
+            {"key":"menu-form-input-checkbox2", "label":"Input Checkbox"}
+        ]
+    }
+]

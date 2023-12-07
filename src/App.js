@@ -2,14 +2,15 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import { GlobalStateProvider } from "./context/GlobalContext";
 import Playground from "./pages/_playground";
 import './App.css'
-import Dashboard from "./pages/Dashboard";
+import ComponentPages from "./pages/ComponentPages";
 
 function App() {
 
 	const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                <Route path='/*' element={<Dashboard/>}/>
+                <Route path='/*' element={<></>}/>
+                <Route path='/components/*' element={<ComponentPages/>}/>
                 <Route path='/helloworld' element={<Playground/>}/>
             </>
         )

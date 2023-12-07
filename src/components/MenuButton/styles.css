@@ -1,4 +1,4 @@
-.button-menu-wrapper{
+.menu-button-wrapper{
     background-color: transparent;
     width: 100%;
     display: flex;
@@ -14,38 +14,38 @@
     overflow: hidden;
 }
 
-.button-menu-wrapper:hover{
+.menu-button-wrapper:hover{
     background-color: var(--neutral200);
 }
-.button-menu-wrapper:focus{
+.menu-button-wrapper:focus{
     border-color: var(--brand400);
     outline: 3px solid var(--brand200);
 }
-.button-menu-wrapper:active{
+.menu-button-wrapper:active{
     background-color: var(--neutral300);
 }
-.button-menu-wrapper.button-menu-active:active{
+.menu-button-wrapper.menu-button-active:active{
     background-color: var(--brand100);
 }
-.button-menu-wrapper.button-menu-disabled:active{
+.menu-button-wrapper.menu-button-disabled:active{
     background-color: transparent
 }
 
-.button-menu-wrapper.button-menu-disabled.button-menu-active{
+.menu-button-wrapper.menu-button-disabled.menu-button-active{
     background-color: var(--neutral200);
 }
-.button-menu-wrapper.button-menu-disabled.button-menu-active > .button-menu-indicator{
+.menu-button-wrapper.menu-button-disabled.menu-button-active > .menu-button-indicator{
     background-color: var(--neutral400);
 }
-.button-menu-wrapper.button-menu-active > .button-menu-indicator{
+.menu-button-wrapper.menu-button-active > .menu-button-indicator{
     background-color: var(--brand500);
 }
 
-.button-menu-indicator{
+.menu-button-indicator{
     width: 4px;
 }
 
-.button-menu-label-wrapper{
+.menu-button-label-wrapper{
     /* display: flex;
     flex-direction: column;
     justify-content: center; */
@@ -53,23 +53,23 @@
     flex-grow: 1;
 }
 
-.button-menu-active{
+.menu-button-active{
     background-color: var(--brand100);
 }
-.button-menu-active:hover{
+.menu-button-active:hover{
     background-color: var(--brand100);
 }
 
-.button-menu-subLabel{
+.menu-button-subLabel{
     margin-top: 4px;
 }
 
-.button-menu-disabled:hover{
+.menu-button-disabled:hover{
     cursor: default;
     background-color: transparent;
 }
 
-.button-menu-icon{
+.menu-button-icon{
     display: flex;
     align-items: center;
     margin-left: 4px;
@@ -82,12 +82,12 @@
     height: calc(100% - 2px);
 }
 
-.button-menu-icon:focus{
+.menu-button-icon:focus{
     outline: 3px solid var(--brand200);
 }
-.button-menu-icon:hover{
+.menu-button-icon:hover{
     background-color: var(--neutral200);
 }
-.button-menu-icon:active{
+.menu-button-icon:active{
     background-color: var(--neutral300);
 }

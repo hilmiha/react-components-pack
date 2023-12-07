@@ -1,10 +1,10 @@
 import './styles.css'
 import { useEffect, useState } from "react"
-import ButtonMenu from "../buttonMenu"
-import { has, isObject } from 'lodash'
+import { has } from 'lodash'
+import MenuButton from '../MenuButton'
 
-const ButtonMenuGroup = ({
-    parentKey,
+const MenuButtonGroup = ({
+    parentItem,
     label,
     subLabel,
     iconLeftName,
@@ -16,12 +16,11 @@ const ButtonMenuGroup = ({
 }) =>{
     const [isOpen, setIsOpen] = useState(JSON.stringify(listSubmenu).includes('"isActive":true'))
 
-    const onClickChild = (key) =>{
-        console.log(isParentInteractive)
-        if(onClick && key && ((!isActive && key === parentKey && isParentInteractive) || key !== parentKey)){
-            onClick(key)
+    const onClickChild = (itemButton) =>{
+        if(onClick && itemButton.key && ((!isActive && itemButton.key === parentItem.key && isParentInteractive) || itemButton.key !== parentItem.key)){
+            onClick(itemButton)
         }
-        if(key === parentKey){
+        if(itemButton.key === parentItem.key){
             if(isParentInteractive){
                 setTimeout(()=>{
                     setIsOpen(true)
@@ -41,11 +40,11 @@ const ButtonMenuGroup = ({
     },[listSubmenu])
 
     return(
-        <div className="button-menu-group-wrapper">
-            <ButtonMenu 
+        <div className="menu-button-gorup-wrapper">
+            <MenuButton 
                 label={label} 
                 subLabel={subLabel}
-                onClick={()=>{onClickChild(parentKey)}}
+                onClick={()=>{onClickChild(parentItem)}}
                 onClickRightIcon={()=>{setIsOpen(!isOpen)}}
                 iconLeftName={iconLeftName} 
                 iconRightName={(isOpen)?('caret-up'):('caret-down')} 
@@ -55,31 +54,32 @@ const ButtonMenuGroup = ({
             />
             {
                 (isOpen)&&(
-                    <div className="button-menu-group-children-wrapper">
+                    <div className="menu-button-gorup-children-wrapper">
                         {
                             listSubmenu?.map((item)=>{
                                 if(has(item, 'listSubmenu')){
                                     return(
-                                        <ButtonMenuGroup 
+                                        <MenuButtonGroup 
                                             key={item.key} 
-                                            parentKey={item.key}
+                                            parentItem={item}
                                             label={item.label} 
                                             subLabel={item.subLabel}
                                             listSubmenu={item.listSubmenu} 
                                             isActive={item.isActive}
                                             level={level!==undefined?(level+1):0}
-                                            onClick={onClickChild}
+                                            onClick={(itemButton)=>{onClickChild(itemButton)}}
+                                            isParentInteractive={item.isParentInteractive}
                                         />
                                     )
                                 }else{
                                     return(
-                                        <ButtonMenu 
+                                        <MenuButton 
                                             key={item.key} 
                                             label={item.label} 
                                             subLabel={item.subLabel}
                                             level={level!==undefined?(level+1):0} 
                                             isActive={item.isActive}
-                                            onClick={()=>{onClickChild(item.key)}}
+                                            onClick={()=>{onClickChild(item)}}
                                         />
                                     )
                                 }
@@ -92,4 +92,4 @@ const ButtonMenuGroup = ({
     )
 }
 
-export default ButtonMenuGroup
+export default MenuButtonGroup

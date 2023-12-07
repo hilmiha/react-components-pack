@@ -1,16 +1,16 @@
 @-moz-document url-prefix() {
   .app-global{
     /*barnd*/
-    --brand1000: #2B273F;
-    --brand900: #352C63;
-    --brand800: #5E4DB2;
-    --brand700: #6E5DC6;
-    --brand600: #8270DB;
-    --brand500: #8F7EE7;
-    --brand400: #9F8FEF;
-    --brand300: #B8ACF6;
-    --brand200: #DFD8FD;
-    --brand100: #F3F0FF;
+    --brand1000: #1C2B41;
+    --brand900: #09326C;
+    --brand800: #0055CC;
+    --brand700: #0C66E4;
+    --brand600: #1D7AFC;
+    --brand500: #388BFF;
+    --brand400: #579DFF;
+    --brand300: #85B8FF;
+    --brand200: #CCE0FF;
+    --brand100: #E9F2FF;
   
     /*purple*/
     --purple1000: #2B273F;
@@ -89,16 +89,16 @@
   
   .app-global-dark{
     /*barnd*/
-    --brand100: #2B273F;
-    --brand200: #352C63;
-    --brand300: #5E4DB2;
-    --brand400: #6E5DC6;
-    --brand500: #8270DB;
-    --brand600: #8F7EE7;
-    --brand700: #9F8FEF;
-    --brand800: #B8ACF6;
-    --brand900: #DFD8FD;
-    --brand1000: #F3F0FF;
+    --brand100: #1C2B41;
+    --brand200: #09326C;
+    --brand300: #0055CC;
+    --brand400: #0C66E4;
+    --brand500: #1D7AFC;
+    --brand600: #388BFF;
+    --brand700: #579DFF;
+    --brand800: #85B8FF;
+    --brand900: #CCE0FF;
+    --brand1000: #E9F2FF;
   
     /*purple*/
     --purple100: #2B273F;
@@ -178,16 +178,16 @@
 
 :root:has(.app-global){
   /*barnd*/
-  --brand1000: #2B273F;
-  --brand900: #352C63;
-  --brand800: #5E4DB2;
-  --brand700: #6E5DC6;
-  --brand600: #8270DB;
-  --brand500: #8F7EE7;
-  --brand400: #9F8FEF;
-  --brand300: #B8ACF6;
-  --brand200: #DFD8FD;
-  --brand100: #F3F0FF;
+  --brand1000: #1C2B41;
+  --brand900: #09326C;
+  --brand800: #0055CC;
+  --brand700: #0C66E4;
+  --brand600: #1D7AFC;
+  --brand500: #388BFF;
+  --brand400: #579DFF;
+  --brand300: #85B8FF;
+  --brand200: #CCE0FF;
+  --brand100: #E9F2FF;
 
   /*purple*/
   --purple1000: #2B273F;
@@ -266,16 +266,16 @@
 
 :root:has(.app-global-dark){
   /*barnd*/
-  --brand100: #2B273F;
-  --brand200: #352C63;
-  --brand300: #5E4DB2;
-  --brand400: #6E5DC6;
-  --brand500: #8270DB;
-  --brand600: #8F7EE7;
-  --brand700: #9F8FEF;
-  --brand800: #B8ACF6;
-  --brand900: #DFD8FD;
-  --brand1000: #F3F0FF;
+  --brand100: #1C2B41;
+  --brand200: #09326C;
+  --brand300: #0055CC;
+  --brand400: #0C66E4;
+  --brand500: #1D7AFC;
+  --brand600: #388BFF;
+  --brand700: #579DFF;
+  --brand800: #85B8FF;
+  --brand900: #CCE0FF;
+  --brand1000: #E9F2FF;
 
   /*purple*/
   --purple100: #2B273F;

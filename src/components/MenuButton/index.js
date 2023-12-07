@@ -3,7 +3,7 @@ import Icons from '../Icons'
 import Text from '../Text'
 import './styles.css'
 
-const ButtonMenu = ({
+const MenuButton = ({
     className,
     isActive,
     isActiveSub,
@@ -21,13 +21,16 @@ const ButtonMenu = ({
         <div style={{position:'relative'}}>
             <button 
                 ref={refButton} 
-                className={`button-menu-wrapper ${isActive?('button-menu-active'):('')} ${isDisabled?('button-menu-disabled'):('')} ${(className)?(className):('')}`} 
+                className={`menu-button-wrapper ${isActive?('menu-button-active'):('')} ${isDisabled?('menu-button-disabled'):('')} ${(className)?(className):('')}`} 
+                style={{
+                    paddingRight:(iconRightName)?('40px'):('0px')
+                }}
                 disabled={isDisabled}
                 onClick={onClick}
             >
-                <div className='button-menu-indicator'/>
+                <div className='menu-button-indicator'/>
                 <div 
-                    className='button-menu-label-wrapper' 
+                    className='menu-button-label-wrapper' 
                     onClick={()=>{refButton.current?.focus()}}
                     style={{
                         paddingLeft:(level?(`${level*30 + 24}px`):('16px'))
@@ -36,15 +39,15 @@ const ButtonMenu = ({
                 >
                     <Text 
                         textLabel={(label)?(label):('.')} 
-                        color={(label)?((isDisabled)?('var(--neutral400)'):((isActiveSub || isActive)?('var(--brand600)'):(''))):('transparent')} 
+                        color={(label)?((isDisabled)?('var(--neutral400)'):((isActiveSub || isActive)?('var(--brand700)'):(''))):('transparent')} 
                         isEllipsistatic={true}
                         iconLeftName={iconLeftName?(iconLeftName):(undefined)}
-                        isBold={isActiveSub || isActive}
+                        isBold={isActiveSub}
                     />
                     {
                         (subLabel)&&(
                             <Text 
-                                className={'button-menu-subLabel'} 
+                                className={'menu-button-subLabel'} 
                                 textLabel={subLabel} 
                                 color={isDisabled?('var(--neutral400)'):('var(--neutral500)')} 
                                 isEllipsistatic={true}
@@ -55,7 +58,7 @@ const ButtonMenu = ({
             </button>
             {
                 (iconRightName)&&(
-                    <button className={`button-menu-icon`} onClick={(onClickRightIcon)?(onClickRightIcon):(undefined)}>
+                    <button className={`menu-button-icon`} onClick={(onClickRightIcon)?(onClickRightIcon):(undefined)}>
                         {
                             (iconRightName)&&(
                                 <Icons iconName={iconRightName}/>
@@ -68,4 +71,4 @@ const ButtonMenu = ({
     )
 }
 
-export default ButtonMenu
+export default MenuButton

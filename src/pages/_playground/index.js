@@ -8,9 +8,9 @@ import { has } from 'lodash';
 import Text from '../../components/Text';
 import FormField from '../../components/FormField';
 import Button from '../../components/button';
-import ButtonMenu from '../../components/buttonMenu';
-import ButtonMenuGroup from '../../components/ButtonMenuGroup';
 import * as controller from './controller/controller'
+import MenuButtonGroup from '../../components/MenuButtonGroup';
+import MenuButton from '../../components/MenuButton';
 
 const Playground = () =>{
 	const {
@@ -446,11 +446,11 @@ const Playground = () =>{
 			</div>
 			
 			<div style={{width:'300px', marginBottom:'20px'}}>
-				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} iconLeftName={'blank'}/>
-				<ButtonMenu label={'Hello World'}/>
-				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} isDisabled={true}/>
-				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} isDisabled={true} isActive={true}/>
-				<ButtonMenu label={'Hello World'} subLabel={'Ini adalah Hello world'} isActive={true}/>
+				<MenuButton label={'Hello World'} subLabel={'Ini adalah Hello world'} iconLeftName={'blank'}/>
+				<MenuButton label={'Hello World'}/>
+				<MenuButton label={'Hello World'} subLabel={'Ini adalah Hello world'} isDisabled={true}/>
+				<MenuButton label={'Hello World'} subLabel={'Ini adalah Hello world'} isDisabled={true} isActive={true}/>
+				<MenuButton label={'Hello World'} subLabel={'Ini adalah Hello world'} isActive={true}/>
 			</div>
 			<div style={{width:'300px', backgroundColor:'var(--neutral00)', padding:'4px', display:'flex', flexDirection:'column', gap:'4px'}}>
 				<Text textLabel={'Home Menu'} isBold={true}/>
@@ -458,7 +458,7 @@ const Playground = () =>{
 					sideMenu.map((itemSideMenu)=>{
 						if(has(itemSideMenu, 'listSubmenu')){
 							return(
-								<ButtonMenuGroup
+								<MenuButtonGroup
 									key={itemSideMenu.key} 
 									label={itemSideMenu.label}
 									subLabel={itemSideMenu.subLabel}
@@ -470,7 +470,7 @@ const Playground = () =>{
 							)
 						}else{
 							return(
-								<ButtonMenu 
+								<MenuButton 
 									key={itemSideMenu.key} 
 									label={itemSideMenu.label}
 									subLabel={itemSideMenu.subLabel}

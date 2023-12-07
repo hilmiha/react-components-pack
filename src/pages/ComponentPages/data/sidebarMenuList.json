@@ -1,0 +1,55 @@
+[
+    {
+        "key":"menu-button",
+        "label":"Button",
+        "goTo":"/components/button"
+    },
+    {
+        "key":"menu-form",
+        "label":"Form Input",
+        "listSubmenu":[
+            {
+                "key":"menu-form-input-text", 
+                "label":"Input Text",
+                "goTo":"/components/form-input/text"
+            },
+            {
+                "key":"menu-form-input-number", 
+                "label":"Input Number",
+                "goTo":"/components/form-input/number"
+            },
+            {
+                "key":"menu-form-input-money", 
+                "label":"Input Money",
+                "goTo":"/components/form-input/money"
+            },
+            {
+                "key":"menu-form-input-selection", 
+                "label":"Input Selection",
+                "goTo":"/components/form-input/selection"
+            },
+            {
+                "key":"menu-form-input-date", 
+                "label":"Input Date",
+                "goTo":"/components/form-input/date"
+            },
+            {
+                "key":"menu-form-input-checkbox", 
+                "label":"Input Checkbox",
+                "goTo":"/components/form-input/checkbox"
+            }
+        ],
+        "isParentInteractive":true,
+        "goTo":"/components/form-input"
+    },
+    {
+        "key":"menu-icon",
+        "label":"Icon",
+        "goTo":"/components/icon"
+    },
+    {
+        "key":"menu-menu",
+        "label":"Menu Button",
+        "goTo":"/components/menu-button"
+    }
+]

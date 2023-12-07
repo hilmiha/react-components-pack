@@ -1,19 +1,26 @@
 import { useState } from "react"
 import { has } from "lodash"
-import ButtonMenuGroup from "../../components/ButtonMenuGroup"
-import ButtonMenu from "../../components/buttonMenu"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import MainDashboardTemplate from "../../template/main-dashboard-template"
 import sidebarMenuList from './data/sidebarMenuList.json'
-import * as controller from './controller/controllerMain'
 import Text from "../../components/Text"
+import ButtonPage from "./pages/ButtonPage"
+import FormInputPage from "./pages/FormInputPage"
+import IconPage from "./pages/IconPage"
+import MenuButtonGroup from "../../components/MenuButtonGroup"
+import MenuButton from "../../components/MenuButton"
+import * as controller from './controller/controllerMain'
 
-const Dashboard = () =>{
+const ComponentPages = () =>{
+
+	const navigate = useNavigate()
 
     const [isShowMenuDrawer, setShowMenuDarwer] = useState(false)
     const [sideMenu, setSideMenu] = useState(sidebarMenuList)
 
     const getState = () =>{
         return {
+			navigate,
             isShowMenuDrawer, 
             setShowMenuDarwer,
             sideMenu, 
@@ -30,9 +37,9 @@ const Dashboard = () =>{
 					sideMenu.map((itemSideMenu)=>{
 						if(has(itemSideMenu, 'listSubmenu')){
 							return(
-								<ButtonMenuGroup
+								<MenuButtonGroup
 									key={itemSideMenu.key} 
-                                    parentKey={itemSideMenu.key}
+                                    parentItem={itemSideMenu}
 									label={itemSideMenu.label}
 									subLabel={itemSideMenu.subLabel}
 									listSubmenu={itemSideMenu.listSubmenu}
@@ -45,13 +52,13 @@ const Dashboard = () =>{
 							)
 						}else{
 							return(
-								<ButtonMenu 
+								<MenuButton 
 									key={itemSideMenu.key} 
 									label={itemSideMenu.label}
 									subLabel={itemSideMenu.subLabel}
 									isActive={itemSideMenu.isActive}
 									iconLeftName={itemSideMenu.iconLeftName}
-									onClick={()=>{controller.onClickSideMenuItem(itemSideMenu.key, getState())}}
+									onClick={()=>{controller.onClickSideMenuItem(itemSideMenu, getState())}}
 								/>
 							)
 						}
@@ -61,8 +68,23 @@ const Dashboard = () =>{
             }
             isShowDrawerSidebar={isShowMenuDrawer}
             setShowDrawerSidebar={setShowMenuDarwer}
+			contentComponent={
+				<Routes>
+                    <Route path='button' element={<ButtonPage/>} />
+                    <Route path='form-input' element={<FormInputPage/>} />
+                    <Route path='form-input/text' element={<>Form Input Text</>} />
+                    <Route path='form-input/number' element={<>Form Input Number</>} />
+                    <Route path='form-input/money' element={<>Form Input Money</>} />
+                    <Route path='form-input/selection' element={<>Form Input Select</>} />
+                    <Route path='form-input/date' element={<>Form Input Date</>} />
+                    <Route path='form-input/checkbox' element={<>Form Input Checkbox</>} />
+                    <Route path='icon' element={<IconPage/>} />
+                    <Route path='menu-button' element={<>Menu Button</>} />
+
+				</Routes>
+			}
         />
     )
 }
 
-export default Dashboard
+export default ComponentPages

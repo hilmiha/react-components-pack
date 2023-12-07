@@ -2,18 +2,18 @@ import './styles.css'
 import { useContext, useEffect } from 'react'
 import { ModuleContext } from '../../ModuleContext/ModuleContext'
 
-const FormInputPage = () =>{
+const MenuButtonPage = () =>{
     const {
         onClickSideMenuItem
     } = useContext(ModuleContext)
 
     useEffect(()=>{
-        onClickSideMenuItem("menu-form-input")
+        onClickSideMenuItem("menu-menu-button")
     },[])
 
     return(
-        <>Form Input Page</>
+        <>Button Page</>
     )
 } 
 
-export default FormInputPage
+export default MenuButtonPage

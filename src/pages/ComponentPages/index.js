@@ -1,32 +1,25 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { has } from "lodash"
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
+import { ModuleContext } from "./ModuleContext/ModuleContext"
 import MainDashboardTemplate from "../../template/main-dashboard-template"
-import sidebarMenuList from './data/sidebarMenuList.json'
 import Text from "../../components/Text"
 import ButtonPage from "./pages/ButtonPage"
 import FormInputPage from "./pages/FormInputPage"
 import IconPage from "./pages/IconPage"
 import MenuButtonGroup from "../../components/MenuButtonGroup"
 import MenuButton from "../../components/MenuButton"
-import * as controller from './controller/controllerMain'
+import HocProvider from "./HocProvider"
+import MenuButtonPage from "./pages/MenuButtonPage"
 
 const ComponentPages = () =>{
 
-	const navigate = useNavigate()
-
-    const [isShowMenuDrawer, setShowMenuDarwer] = useState(false)
-    const [sideMenu, setSideMenu] = useState(sidebarMenuList)
-
-    const getState = () =>{
-        return {
-			navigate,
-            isShowMenuDrawer, 
-            setShowMenuDarwer,
-            sideMenu, 
-            setSideMenu,
-        }
-    }
+    const {
+        isShowMenuDrawer, 
+        setShowMenuDarwer,
+        sideMenu,
+        onClickSideMenuItem
+    } = useContext(ModuleContext)
 
     return(
         <MainDashboardTemplate
@@ -47,7 +40,7 @@ const ComponentPages = () =>{
                                     isActive={itemSideMenu.isActive}
                                     isParentInteractive={itemSideMenu.isParentInteractive}
 									level={0}
-									onClick={(menuKey)=>{controller.onClickSideMenuItem(menuKey, getState())}}
+									onClick={(itemSideMenu)=>{onClickSideMenuItem(itemSideMenu)}}
 								/>
 							)
 						}else{
@@ -58,7 +51,7 @@ const ComponentPages = () =>{
 									subLabel={itemSideMenu.subLabel}
 									isActive={itemSideMenu.isActive}
 									iconLeftName={itemSideMenu.iconLeftName}
-									onClick={()=>{controller.onClickSideMenuItem(itemSideMenu, getState())}}
+									onClick={()=>{onClickSideMenuItem(itemSideMenu)}}
 								/>
 							)
 						}
@@ -79,12 +72,11 @@ const ComponentPages = () =>{
                     <Route path='form-input/date' element={<>Form Input Date</>} />
                     <Route path='form-input/checkbox' element={<>Form Input Checkbox</>} />
                     <Route path='icon' element={<IconPage/>} />
-                    <Route path='menu-button' element={<>Menu Button</>} />
-
+                    <Route path='menu-button' element={<MenuButtonPage/>} />
 				</Routes>
 			}
         />
     )
 }
 
-export default ComponentPages
+export default HocProvider(ComponentPages)

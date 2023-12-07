@@ -5,7 +5,7 @@
         "goTo":"/components/button"
     },
     {
-        "key":"menu-form",
+        "key":"menu-form-input",
         "label":"Form Input",
         "listSubmenu":[
             {
@@ -48,7 +48,7 @@
         "goTo":"/components/icon"
     },
     {
-        "key":"menu-menu",
+        "key":"menu-menu-button",
         "label":"Menu Button",
         "goTo":"/components/menu-button"
     }

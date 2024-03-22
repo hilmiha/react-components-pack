@@ -91,130 +91,132 @@ function Playground() {
 					<div style={{width:'24px', height:'24px', backgroundColor:'hsl(var(--color-neutral-1000))'}}></div>
 					<div style={{width:'24px', height:'24px', backgroundColor:'hsl(var(--color-neutral-1100))'}}></div>
 				</div>
-				{/* <TextField
-					txtLabel='Name'
-					type='text'
-					value={form['name']}
-					onChange={(newValue)=>{onChangeForm('name', newValue)}}
-					onValidate={(errorResult, newValue)=>{onValidateForm('name', errorResult)}}
-					config={{
-						placeholder:'Isi Nama...',
-						isMandatory:true,
-						maxLength:undefined,
-						prefix:undefined,
-						sufix:undefined,
-					}}
-					error={formError['name']}
-				/>
-				<SelectionField
-					txtLabel='Sleectiom'
-					type='multi-selection'
-					value={form['kota']}
-					onChange={(newValue)=>{onChangeForm('kota', newValue)}}
-					valueList={[
-						{
-							id:'group=1',
-							menu:[
-								{id:'1', txtLabel:'Jakarta', value:'jakarta'},
-								{id:'2', txtLabel:'Medan', value:'medan'},
-								{id:'3', txtLabel:'Surabaya', value:'surabaya'},
-								{id:'4', txtLabel:'Makasar', value:'makasar'},
-								{id:'5', txtLabel:'Bali', value:'bali'},
-							]
-						}
-					]}
-					config={{
-						placeholder:'Select Kota...',
-						isWithSearch:true,
-						isMandatory:true,
-						prefix:undefined,
-						sufix:undefined,
-					}}
-				/>
-				<SelectionField
-					txtLabel='Sleectiom'
-					type='selection'
-					value={form['kelas']}
-					onChange={(newValue)=>{onChangeForm('kelas', newValue)}}
-					valueList={[
-						{
-							id:'group=1',
-							menu:[
-								{id:'1', txtLabel:'Small', value:'small'},
-								{id:'2', txtLabel:'Medium', value:'medium'},
-								{id:'3', txtLabel:'Big', value:'Big'},
-								{id:'4', txtLabel:'Ektsra Big', value:'eks-big'}
-							]
-						}
-					]}
-					config={{
-						placeholder:'Select Kota...',
-						isMandatory:true,
-						prefix:undefined,
-						sufix:undefined,
-					}}
-				/>
-				<DatePickerField
-					type='range'
-					txtLabel='Jadwal'
-					value={form['jadwal']}
-					onChange={(newValue)=>{onChangeForm('jadwal', newValue)}}
-					config={{
-						placeholder:'Select date',
-						isMandatory:true,
-						daysAfterToday:30,
-						daysBeforeToday:30,
-						maxSelection:4
-					}}
-				/>
-				<TextField
-					txtLabel='Email'
-					type='text-no-space'
-					value={form['email']}
-					onChange={(newValue)=>{onChangeForm('email', newValue)}}
-					onValidate={(errorResult, newValue)=>{onValidateForm('email', errorResult)}}
-					config={{
-						placeholder:'Isi Nama...',
-						isMandatory:true,
-						maxLength:undefined,
-						prefix:undefined,
-						sufix:undefined,
-						regex:[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, 'Email please!']
-					}}
-					error={formError['email']}
-				/>
+				<div style={{width:'300px', display:'grid', gap:'24px', margin:'20px 0px'}}>				
+					<TextField
+						txtLabel='Name'
+						type='text'
+						value={form['name']}
+						onChange={(newValue)=>{onChangeForm('name', newValue)}}
+						onValidate={(errorResult, newValue)=>{onValidateForm('name', errorResult)}}
+						config={{
+							placeholder:'Isi Nama...',
+							isMandatory:true,
+							maxLength:undefined,
+							prefix:undefined,
+							sufix:undefined,
+						}}
+						error={formError['name']}
+					/>
+					<SelectionField
+						txtLabel='Sleectiom'
+						type='multi-selection'
+						value={form['kota']}
+						onChange={(newValue)=>{onChangeForm('kota', newValue)}}
+						valueList={[
+							{
+								id:'group=1',
+								menu:[
+									{id:'1', txtLabel:'Jakarta', value:'jakarta'},
+									{id:'2', txtLabel:'Medan', value:'medan'},
+									{id:'3', txtLabel:'Surabaya', value:'surabaya'},
+									{id:'4', txtLabel:'Makasar', value:'makasar'},
+									{id:'5', txtLabel:'Bali', value:'bali'},
+								]
+							}
+						]}
+						config={{
+							placeholder:'Select Kota...',
+							isWithSearch:true,
+							isMandatory:true,
+							prefix:undefined,
+							sufix:undefined,
+						}}
+					/>
+					<SelectionField
+						txtLabel='Sleectiom'
+						type='selection'
+						value={form['kelas']}
+						onChange={(newValue)=>{onChangeForm('kelas', newValue)}}
+						valueList={[
+							{
+								id:'group=1',
+								menu:[
+									{id:'1', txtLabel:'Small', value:'small'},
+									{id:'2', txtLabel:'Medium', value:'medium'},
+									{id:'3', txtLabel:'Big', value:'Big'},
+									{id:'4', txtLabel:'Ektsra Big', value:'eks-big'}
+								]
+							}
+						]}
+						config={{
+							placeholder:'Select Kota...',
+							isMandatory:true,
+							prefix:undefined,
+							sufix:undefined,
+						}}
+					/>
+					<DatePickerField
+						type='range'
+						txtLabel='Jadwal'
+						value={form['jadwal']}
+						onChange={(newValue)=>{onChangeForm('jadwal', newValue)}}
+						config={{
+							placeholder:'Select date',
+							isMandatory:true,
+							daysAfterToday:30,
+							daysBeforeToday:30,
+							maxSelection:4
+						}}
+					/>
+					<TextField
+						txtLabel='Email'
+						type='text-no-space'
+						value={form['email']}
+						onChange={(newValue)=>{onChangeForm('email', newValue)}}
+						onValidate={(errorResult, newValue)=>{onValidateForm('email', errorResult)}}
+						config={{
+							placeholder:'Isi Nama...',
+							isMandatory:true,
+							maxLength:undefined,
+							prefix:undefined,
+							sufix:undefined,
+							regex:[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, 'Email please!']
+						}}
+						error={formError['email']}
+					/>
 
-				<TextField
-					txtLabel='Number Code'
-					type='text-only-number'
-					value={form['kode']}
-					onChange={(newValue)=>{onChangeForm('kode', newValue)}}
-					onValidate={(errorResult, newValue)=>{onValidateForm('kode', errorResult)}}
-					config={{
-						isMandatory:true,
-						maxLength:undefined,
-						prefix:undefined,
-						sufix:undefined
-					}}
-					error={formError['kode']}
-				/>	
+					<TextField
+						txtLabel='Number Code'
+						type='text-only-number'
+						value={form['kode']}
+						onChange={(newValue)=>{onChangeForm('kode', newValue)}}
+						onValidate={(errorResult, newValue)=>{onValidateForm('kode', errorResult)}}
+						config={{
+							isMandatory:true,
+							maxLength:undefined,
+							prefix:undefined,
+							sufix:undefined
+						}}
+						error={formError['kode']}
+					/>	
 
-				<TextField
-					txtLabel='Harga'
-					type='text-number'
-					value={form['harga']}
-					onChange={(newValue)=>{onChangeForm('harga', newValue)}}
-					onValidate={(errorResult, newValue)=>{onValidateForm('harga', errorResult)}}
-					config={{
-						isMandatory:true,
-						minValue:undefined,
-						maxValue:undefined,
-						maxLength:undefined,
-						prefix:undefined,
-						sufix:undefined
-					}}
-					error={formError['harga']}
-				/>	 */}
+					<TextField
+						txtLabel='Harga'
+						type='text-number'
+						value={form['harga']}
+						onChange={(newValue)=>{onChangeForm('harga', newValue)}}
+						onValidate={(errorResult, newValue)=>{onValidateForm('harga', errorResult)}}
+						config={{
+							isMandatory:true,
+							minValue:undefined,
+							maxValue:undefined,
+							maxLength:undefined,
+							prefix:undefined,
+							sufix:undefined
+						}}
+						error={formError['harga']}
+					/>
+				</div>
 
 				<div
 					style={{

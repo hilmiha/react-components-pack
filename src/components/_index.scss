@@ -2,7 +2,7 @@
     transition: background-color 0.2s ease 0s;
 
     &.default-appearance{
-        background-color: hsla(var(--color-neutral-400), 0.3);
+        background-color: hsla(var(--color-neutral-400), 0.2);
         color: hsl(var(--color-neutral-1100));
 
         &:hover{
@@ -249,7 +249,7 @@
         color: hsl(var(--color-neutral-1100));
         font-size: var(--font-size-regular);
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: var(--size-2);
         font-weight: var(--font-weight-bold);
     }
 
@@ -278,7 +278,7 @@
         justify-content: left;
         align-items: center;
         gap: 6px;
-        margin-top: 6px;
+        margin-top: var(--size-3);
         font-weight: var(--font-weight-regular);
         min-height: var(--font-size-regular);
     

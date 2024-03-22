@@ -53,31 +53,28 @@
     align-items: center;
     width: fit-content;
     padding: var(--size-1) var(--size-3);
-    border: 1px solid hsl(var(--color-neutral-700));
-    background-color: hsla(var(--color-neutral-300), 0.1);
+    border: 1px solid hsla(var(--color-neutral-300), 0.1);
     border-radius: var(--size-3);
 
     &.info{
         color:hsl(var(--color-blue-700));
         background-color: hsla(var(--color-blue-300), 0.1);
-        border-color: 1px solid hsl(var(--color-blue-400));
-        
+        border: 1px solid hsla(var(--color-blue-700), 0.5);
     }
     &.success{
-        // color:hsl(var(--color-green-600))
         color:hsl(var(--color-green-700));
         background-color: hsla(var(--color-green-300), 0.1);
-        border-color: 1px solid hsl(var(--color-green-400));
+        border: 1px solid hsla(var(--color-green-700), 0.5);
     }
     &.warning{
         color:hsl(var(--def-color-yellow-500));
         background-color: hsla(var(--def-color-yellow-300), 0.04);
-        border-color: 1px solid hsl(var(--def-color-yellow-500));
+        border: 1px solid hsl(var(--def-color-yellow-500), 0.5);
     }
     &.danger{
         color:hsl(var(--color-red-700));
         background-color: hsla(var(--color-red-300), 0.1);
-        border-color: 1px solid hsl(var(--color-red-400));
+        border: 1px solid hsl(var(--color-red-700), 0.5);
     }
     &.bold{
         font-weight: var(--font-weight-bold);

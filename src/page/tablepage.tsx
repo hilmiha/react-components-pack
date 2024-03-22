@@ -60,7 +60,7 @@ const TablePage = () =>{
             username:'red.eagle',
             name:['Hilmi Hidayat Arfisko', 'hellos', 'asdasdad asdasdas asdasdas'],
             group:'Admin',
-            status:<PillFlair type="pill" txtLabel="Active" color="info" isBold/>,
+            status:<PillFlair type="pill" txtLabel="Active" color="danger"/>,
             to:'#',
             actionButton:[
                 {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}]}]},
@@ -68,57 +68,57 @@ const TablePage = () =>{
 
             ]
         },
-        // {
-        //     id:'2',
-        //     username:'blue.sky.budi',
-        //     name:['Budi Surya', 'hellos', 'asdasdad asdasdas asdasdas'],
-        //     group:'Admin',
-        //     status:<PillFlair type="pill" txtLabel="Active" color="success" IconBefore={<PiCheckBold/>} isBold/>,
-        //     to:'#',
-        //     actionButton:[
-        //         {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
-        //         {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default'}
-        //     ],
-        //     expandPage:()=>(
-        //         <>Hello</>
-        //     )
-        // },
-        // {
-        //     id:'3',
-        //     username:'balck.canary',
-        //     name:['Jesica Yao', 'hellos', 'asdasdad asdasdas asdasdas'],
-        //     group:'Business',
-        //     status:<PillFlair type="status" txtLabel="Active" color="warning" isBold IconBefore={<PiSpinnerGapBold />}/>,
-        //     to:'#',
-        //     actionButton:[
-        //         {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
-        //         {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default', isDisabled:true}
-        //     ]
-        // },
-        // {
-        //     id:'4',
-        //     username:'green.arrow',
-        //     name:['Oliver', 'Green', 'asdasdad asdasdas asdasdas'],
-        //     group:'Business',
-        //     status:<PillFlair type="status" txtLabel="Active" color="danger" isBold/>,
-        //     to:'#',
-        //     actionButton:[
-        //         {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
-        //         {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default', isDisabled:true}
-        //     ]
-        // },
-        // {
-        //     id:'5',
-        //     username:'flash.red',
-        //     name:['Barry', 'Allen', 'asdasdad asdasdas asdasdas'],
-        //     group:'IT',
-        //     status:<PillFlair type="text" txtLabel="Active" isBold/>,
-        //     to:'#',
-        //     actionButton:[
-        //         {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
-        //         {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default', isDisabled:true}
-        //     ]
-        // }
+        {
+            id:'2',
+            username:'blue.sky.budi',
+            name:['Budi Surya', 'hellos', 'asdasdad asdasdas asdasdas'],
+            group:'Admin',
+            status:<PillFlair type="pill" txtLabel="Active" color="success" IconBefore={<PiCheckBold/>}/>,
+            to:'#',
+            actionButton:[
+                {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
+                {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default'}
+            ],
+            expandPage:()=>(
+                <>Hello</>
+            )
+        },
+        {
+            id:'3',
+            username:'balck.canary',
+            name:['Jesica Yao', 'hellos', 'asdasdad asdasdas asdasdas'],
+            group:'Business',
+            status:<PillFlair type="status" txtLabel="Active" color="warning" IconBefore={<PiSpinnerGapBold />}/>,
+            to:'#',
+            actionButton:[
+                {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
+                {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default', isDisabled:true}
+            ]
+        },
+        {
+            id:'4',
+            username:'green.arrow',
+            name:['Oliver', 'Green', 'asdasdad asdasdas asdasdas'],
+            group:'Business',
+            status:<PillFlair type="status" txtLabel="Active" color="danger"/>,
+            to:'#',
+            actionButton:[
+                {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
+                {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default', isDisabled:true}
+            ]
+        },
+        {
+            id:'5',
+            username:'flash.red',
+            name:['Barry', 'Allen', 'asdasdad asdasdas asdasdas'],
+            group:'IT',
+            status:<PillFlair type="text" txtLabel="Active"/>,
+            to:'#',
+            actionButton:[
+                {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}]}]},
+                {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default', isDisabled:true}
+            ]
+        }
     ])
 
     const onCheckedItem = (itmRow:tableDataType, isChecked:boolean) =>{
@@ -195,7 +195,7 @@ const TablePage = () =>{
                 tableData={tableData}
                 tableConfig={tableConfig}
                 doSortTable={(columnKey, isDesc)=>{doSortTable(columnKey, isDesc)}}
-                isExpandable={true}
+                // isExpandable={true}
                 isCheckbox={true}
                 isActionButtons={true}
                 isFillContainer={false}

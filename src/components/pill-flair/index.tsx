@@ -27,7 +27,7 @@ const PillFlair = ({
     return(
         <>
             {(type==='pill')&&(
-                <span
+                <div
                     className={
                         processClassname(`pill-flair-pill
                         ${className?(className):('')}
@@ -37,7 +37,7 @@ const PillFlair = ({
                 >
                     {IconBefore}
                     {txtLabel}
-                </span>
+                </div>
             )}
             {(type==='status')&&(
                 <span

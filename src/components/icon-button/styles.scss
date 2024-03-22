@@ -1,0 +1,29 @@
+@use '../index';
+
+.icon-button{
+    border: 0px;
+    cursor: pointer;
+    border-radius: var(--size-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+
+    >svg {
+        font-size: var(--font-size-large);
+    }
+
+    &.default-spacing{
+        height: var(--size-10);
+        width: var(--size-10);
+        min-width: var(--size-10);
+    }
+
+    &.compact-spacing{
+        height: var(--size-8);
+        width: var(--size-8);
+        min-width: var(--size-8);
+    }
+
+    @include index.button-appearance;
+}

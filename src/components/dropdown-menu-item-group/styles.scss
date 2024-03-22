@@ -1,0 +1,20 @@
+.dropdown-menu-item-group{
+    width: 100%;
+}
+
+.dropdown-menu-item-group-separator{
+    background-color: hsl(var(--color-neutral-300));
+    height: 1px;
+    margin: 8px 0px;
+}
+
+.dropdown-menu-item-group-title{
+    display: block;
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    color: hsl(var(--color-neutral-1100));
+    border: 2px solid transparent;
+    padding: 0px 16px;
+    margin-top: 14px;
+    margin-bottom: 6px;
+}

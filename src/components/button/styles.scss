@@ -1,0 +1,36 @@
+@use '../index';
+
+.button{
+    border: 0px;
+    cursor: pointer;
+    border-radius: var(--size-1);
+    font-size: var(--font-size-regular);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    min-width:max-content;
+    gap: var(--size-2);
+
+    >.button-icon-before {
+        font-size: var(--font-size-large);
+    }
+    >.button-icon-after {
+        font-size: var(--font-size-large);
+    }
+
+    &.fill-Container{
+        width: 100%;
+    }
+
+    &.default-spacing{
+        height: var(--size-10);
+        padding: 0px var(--size-4);
+    }
+
+    &.compact-spacing{
+        height: var(--size-8);
+        padding: 0px var(--size-4);
+    }
+    
+    @include index.button-appearance;
+}

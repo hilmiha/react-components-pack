@@ -1,0 +1,5 @@
+@use '../index';
+
+.dropdown-button-item{
+    @include index.button-item-style;
+}

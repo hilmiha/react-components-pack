@@ -1,0 +1,25 @@
+@use '../index';
+
+.text-field{
+    overflow: hidden;
+    width: 100%;
+
+    @include index.field-style;
+
+    >.text-field-input-container{
+        >.text-field-input{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            padding: 0px 0px;
+            font-size: var(--font-size-regular);
+            color: hsl(var(--color-neutral-1100));
+            flex-grow: 1;
+            width: 0px;
+        }
+    
+        &:has(.text-field-input:focus-visible){
+            border: 2px solid hsl(var(--color-blue-800));
+        }
+    }
+}

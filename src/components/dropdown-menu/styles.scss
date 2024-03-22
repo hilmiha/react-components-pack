@@ -1,0 +1,20 @@
+@use '../index';
+
+.dropdown-menu{
+    background-color: hsl(var(--color-neutral-0));
+    border: 1px solid hsl(var(--color-neutral-400));
+    box-shadow: 1px 1px 4px hsla(var(--color-neutral-600), 0.3);
+    border-radius: var(--size-1);
+    padding: var(--size-1) 0px;
+    max-height: 40vh;
+    overflow: auto;
+    z-index: 10;
+}
+
+.dropdown-menu-mobile-overlay{
+    @include index.dropdown-menu-mobile-overlay-style;
+}
+
+.dropdown-menu-mobile-box{
+    @include index.dropdown-menu-box-style;
+}

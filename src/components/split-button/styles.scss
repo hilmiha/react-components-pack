@@ -1,0 +1,48 @@
+.split-button{
+    display: flex;
+    align-items: center;
+
+    
+    
+    >.split-button-button{
+        border-radius: 4px 0px 0px 4px ;
+    }
+    
+    >.dropdown-menu-button{
+        border-radius: 0px 4px 4px 0px ;
+        border-left: 1px solid;
+    }
+
+    &.default-appearance{
+        >.dropdown-menu-button{
+            color: hsl(var(--color-neutral-1100));
+        }
+    }
+
+    &.primary-appearance{
+        >.dropdown-menu-button{
+            color: hsl(var(--color-neutral-0));
+        }
+    }
+
+    &.subtle-appearance{
+        >.dropdown-menu-button{
+            color: hsl(var(--color-neutral-1100));
+        }
+    }
+
+    &.warning-appearance{
+        >.dropdown-menu-button{
+            color: hsl(var(--def-color-neutral-1100));
+        }
+    }
+
+    &.danger-appearance{
+        >.dropdown-menu-button{
+            color: hsl(var(--color-neutral-0));
+        }
+    }
+
+    
+}
+

@@ -1,0 +1,60 @@
+@use '../index';
+
+.dropdown-button-selection-item{
+    @include index.button-item-style;
+    
+    +.dropdown-button-selection-item{
+        margin-top: 2px;
+    }
+    &:hover{
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: hsl(var(--color-blue-700));
+    }
+    
+    &:focus-visible, &:focus-visible:hover{
+        border-top-color: hsl(var(--color-blue-800));
+        border-right-color: hsl(var(--color-blue-800));
+        border-bottom-color: hsl(var(--color-blue-800));
+        border-left-color: hsl(var(--color-blue-800));
+    }
+
+    &.selected{
+        border-left-color: hsl(var(--color-blue-700));
+    }
+
+    .dropdown-button-selection-item-checkbox-container{
+        border: 1px solid hsl(var(--color-neutral-300));
+        background-color: hsl(var(--color-neutral-0));
+        font-size: var(--font-siz-regular);
+        // box-sizing: border-box;
+        padding: 1px;
+        // color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        >svg{
+            fill: transparent;
+        }
+        &.selected{
+            border: 1px solid hsl(var(--color-neutral-300));
+            background-color: hsl(var(--color-blue-700));
+            color: hsl(var(--color-neutral-0));
+
+            >svg{
+                fill: hsl(var(--color-neutral-0));
+            }
+        }
+    }
+
+    &.selected:hover .dropdown-button-selection-item-checkbox-container{
+        &.selected{
+            border: 1px solid hsl(var(--color-neutral-300));
+            background-color: hsl(var(--color-blue-800));
+            color: hsl(var(--color-neutral-0));
+        }
+    }
+}
+

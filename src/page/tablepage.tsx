@@ -174,7 +174,6 @@ const TablePage = () =>{
 
     return(
         <div style={{
-                padding:'0px 18px',
                 maxHeight:'100vh',
                 display:'flex', 
                 flexDirection:'column'

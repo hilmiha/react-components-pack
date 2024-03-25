@@ -7,6 +7,7 @@ $fullWidth: 100vw;
     display: flex;
     height: 100%;
     overflow: hidden !important;
+    z-index: 10;
     
     &.drawer-overlay-for-on-right{
         justify-content: end;

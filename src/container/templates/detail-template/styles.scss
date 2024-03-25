@@ -1,0 +1,29 @@
+.detail-template-header{
+    background-color: hsl(var(--color-neutral-300));
+    padding: calc(var(--size-10) * 2) var(--size-10);
+
+    @media screen and (max-width: 767px){
+        padding: calc(var(--size-10) * 2) var(--size-4);
+    }
+
+    .detail-template-header-title{
+        color: hsl(var(--color-neutral-1100));
+        display: block;
+        font-size: var(--font-size-largest);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .detail-template-header-subtitle{
+        color: hsl(var(--color-neutral-1100));
+        display: block;
+        margin-top: var(--size-4);
+    }
+}
+
+.detail-template-content{
+    padding: var(--size-8) var(--size-10);
+
+    @media screen and (max-width: 767px){
+        padding: var(--size-8) var(--size-4);
+    }
+}

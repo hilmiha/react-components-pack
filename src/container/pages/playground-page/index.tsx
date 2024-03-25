@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import { PiAppWindow, PiDotsThreeOutlineVerticalFill, PiPencilSimpleLine, PiStarFourFill } from "react-icons/pi";
-import Button from '../components/button';
-import IconButton from '../components/icon-button';
-import DropdownMenu from '../components/dropdown-menu';
-import SplitButton from '../components/split-button';
-import ButtonGroup from '../components/button-group';
-import TextField from '../components/text-field';
-import { generateErrorState } from '../helper';
-import SelectionField, { selectionValueType } from '../components/selection-field';
-import { datePickerValueType } from '../components/date-picker';
-import DatePickerField from '../components/date-picker-field';
-import Image from '../components/image';
-import Modal from '../components/modal';
-import Drawer from '../components/drawer';
-import { GlobalContext, GlobalContextType } from '../context/globalcontext';
+import React, { useContext, useEffect, useState } from 'react';
+import { GlobalContext, GlobalContextType } from '../../../context/globalcontext';
+import './styles.scss'
+import IconButton from '../../../components/icon-button';
+import SplitButton from '../../../components/split-button';
+import ButtonGroup from '../../../components/button-group';
+import { PiDotsThreeOutlineVerticalFill, PiPencilSimpleLine, PiStarFourFill } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
+import SelectionField, { selectionValueType } from '../../../components/selection-field';
+import { datePickerValueType } from '../../../components/date-picker';
+import { generateErrorState } from '../../../helper';
+import TextField from '../../../components/text-field';
+import DatePickerField from '../../../components/date-picker-field';
+import Image from '../../../components/image';
+import Button from '../../../components/button';
+import Drawer from '../../../components/drawer';
+import DropdownMenu from '../../../components/dropdown-menu';
+import { MainTemplateContext, MainTemplateContextType } from '../../templates/main-template/context/main-template-context';
 
-function Playground() {
+const PlaygroundPage = () =>{
     const {
         changeTheme,
 		globalModal, 
         setGlobalModal,
 		setIsShowGlobalModal
     } = React.useContext(GlobalContext) as GlobalContextType;
+
+    const {
+        setSidebarManuList
+    } = useContext(MainTemplateContext) as MainTemplateContextType;
     
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -74,9 +78,12 @@ function Playground() {
 	// 	console.log(form)
 	// },[form])
 
+    useEffect(()=>{
+        setSidebarManuList([])
+    },[])
 	return (
 		<div>
-			<div style={{minHeight:'100vh', padding:'20px 20px', display:'flex', justifyContent:'center', alignItems:'start', flexDirection:'column', gap:'6px'}}>
+			<div style={{minHeight:'100vh', display:'flex', justifyContent:'center', alignItems:'start', flexDirection:'column', gap:'6px'}}>
 				<div style={{display:'flex'}}>
 					<div style={{width:'24px', height:'24px', backgroundColor:'hsl(var(--color-neutral-0))'}}></div>
 					<div style={{width:'24px', height:'24px', backgroundColor:'hsl(var(--color-neutral-100))'}}></div>
@@ -231,7 +238,7 @@ function Playground() {
 						height:'200px'
 					}}
 				>
-					<Image 
+					<Image
 						srcImage='https://atlassian.design/static/cat-3c9ab2a38b89e9a0529da153b46fbfa58701738356a8e2fede5336d676acd3fb.png'
 						srcImageDark='https://atlassian.design/static/dark-mode-cat-a6a9dfa18e99154d13c99c4f37840669dbf5f7aca819a0ff28afc72f9dfa6c31.png'
 						alt='cat image'
@@ -247,7 +254,7 @@ function Playground() {
 				<span style={{fontSize:'var(--font-size-larger)', color:'hsl(var(--color-neutral-1100))'}}>The quick brown fox jumps over the lazy dog</span>
 				<span style={{fontSize:'var(--font-size-largest)', color:'hsl(var(--color-neutral-1100))'}}>The quick brown fox jumps over the lazy dog</span>
 				
-				<Button 
+				<Button
 					txtLabel='Go to /TablePage'
 					onClick={()=>{navigate('/table')}}
 				/>
@@ -696,7 +703,7 @@ function Playground() {
 					isDisabled={true}
 					onClick={()=>{changeTheme()}}
 				/>
-				<Button 
+				<Button
 					txtLabel='Hello World'
 					spacing='compact'
 					isDisabled={true}
@@ -705,7 +712,7 @@ function Playground() {
 
 			</div>
 		</div>
-	);
+	)
 }
 
-export default Playground;
+export default PlaygroundPage

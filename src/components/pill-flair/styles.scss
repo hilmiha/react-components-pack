@@ -3,6 +3,8 @@
     align-items: center;
     gap: var(--size-2);
 
+    color:hsl(var(--color-neutral-1100));
+
     &.info{
         color:hsl(var(--color-blue-700))
     }

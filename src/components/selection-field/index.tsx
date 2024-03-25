@@ -105,12 +105,12 @@ const SelectionField = ({
 
         if(element){
             var text = parseValueToShow()
-            element.removeChild(element.firstChild);
+            // element.removeChild(element.firstChild);
+            element.innerHTML = '';
             for (var i = 0; i < text.length; i++) {
                 var newNode = document.createElement('span');
                 newNode.appendChild(document.createTextNode(text.charAt(i)));
                 element.appendChild(newNode);
-
                 if (newNode.offsetLeft < element.offsetWidth) {
                     count++;
                 }
@@ -119,7 +119,7 @@ const SelectionField = ({
         }
 
         let substr = parseValueToShow();
-        substr = substr.substring(count - 1);
+        substr = substr.substring(count - 4);
         let sisa = substr.split(',').length - 1;
 
         setHidden(sisa);
@@ -408,8 +408,8 @@ const SelectionField = ({
                             </>
                         )
                     } */}
-                    <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>and {hidden} more</span>
-                    <p ref={placeholderElementRef} className='selection-field-input-value'>{parseValueToShow()}</p>
+                    <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
+                    <div ref={placeholderElementRef} className='selection-field-input-value'>{parseValueToShow()}</div>
                     <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{config?.placeholder}</span>
                 </div>
                 {(sufix)&&(

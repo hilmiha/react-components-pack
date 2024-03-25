@@ -5,6 +5,9 @@ import Modal from './components/modal';
 import { useContext, useEffect } from 'react';
 import { GlobalContext, GlobalContextType } from './context/globalcontext';
 import TablePage from './page/tablepage';
+import MainTemplate from './container/templates/main-template';
+import PlaygroundPage from './container/pages/playground-page';
+import ComponentsPage from './container/pages/components-page';
 
 function App() {
 	const navigate = useNavigate()
@@ -28,10 +31,16 @@ function App() {
 
 	return (
 		<div className='App' id="custom-root-id">
-			<Routes location={previousLocation || location}>
-				<Route path="/playground" element={<Playground />}/>
-				<Route path="/table" element={<TablePage />}/>
-			</Routes>
+			<MainTemplate>
+				<Routes location={previousLocation || location}>
+					<Route path="/" element={<PlaygroundPage />}/>
+					<Route path="/components/*" element={<ComponentsPage />}/>
+					<Route path="/playground" element={<PlaygroundPage />}/>
+					<Route path="/table" element={<TablePage />}/>
+				</Routes>
+			</MainTemplate>
+			
+			
 			<Modal
 				isOpen={isShowGlobalModal}
 				setIsOpen={setIsShowGlobalModal}

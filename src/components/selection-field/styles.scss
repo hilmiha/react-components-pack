@@ -55,7 +55,7 @@
     @include index.field-style;
 
     .selection-field-input-container{
-        @include index.selection-field-input-container-style
+        @include index.selection-field-input-container-style;
     }
 
     .field-option-dropdown-menu{

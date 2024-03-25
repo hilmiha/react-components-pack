@@ -22,6 +22,10 @@ html{
   background-color: hsl(var(--color-neutral-100));
 }
 
+html, body, #root, .App{
+  min-height: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -35,17 +39,17 @@ code {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: hsl(var(--color-neutral-300));
+  background: hsl(var(--color-neutral-200));
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--color-neutral-400));
+  background: hsl(var(--color-neutral-300));
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--color-neutral-600));
+  background: hsl(var(--color-neutral-400));
 }

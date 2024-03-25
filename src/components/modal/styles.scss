@@ -4,6 +4,7 @@
     place-items: center;
     overflow: hidden !important;
     height:100%;
+    z-index: 10;
 
     &:has(.full){
         display: flex;

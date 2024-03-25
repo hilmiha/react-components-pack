@@ -185,6 +185,7 @@
     align-items: end;
     overflow: hidden !important;
     height:100%;
+    z-index: 10;
 
     animation: dropdown-menu-mobile-box-animation 0.3s ease-in 0s 1 normal forwards;
 
@@ -353,6 +354,7 @@
     >.selection-field-input{
         overflow: hidden;
         width: 100%;
+        position: relative;
 
         .selection-field-input-value{
             text-overflow: ellipsis;

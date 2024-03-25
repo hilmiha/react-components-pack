@@ -1,7 +1,7 @@
 import { processClassname } from '../../helper'
 import './styles.scss'
 
-interface Props{
+export type Props = {
     className?: string
     txtLabel?: string
     isHasSeparator?: boolean

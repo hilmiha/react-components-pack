@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { modalButtonType, modalInfoType } from '../components/modal'
+import { Props as DropdownMenuItemType} from '../components/dropdown-menu-item' 
+import { Props as DropdownMenuGroupItemType } from '../components/dropdown-menu-item-group'
 
 // export const GlobalContext = React.createContext();
 
 
 type mediaSizeType = 0 | 1 | 2 | 3  // phone || lanscape-phone/tablet || lanscape-tablet/small-laptop || desktop
+type sidebarMenuListItemType  = DropdownMenuItemType & {
+    id:string
+}
+type sidebarMenuListType = {
+    id:string
+    txtLabel?:string
+    menuList:sidebarMenuListItemType[]
+}
 type globalModalProps = {
     id?:string
     type?:modalInfoType,
@@ -25,6 +35,8 @@ export type GlobalContextType = {
     setIsShowGlobalModal: React.Dispatch<React.SetStateAction<boolean>>
     globalModal: globalModalProps
     setGlobalModal: React.Dispatch<React.SetStateAction<globalModalProps>>
+    sidebarMenuList:sidebarMenuListType[]
+    setSidebarManuList:React.Dispatch<React.SetStateAction<sidebarMenuListType[]>>
 }
 export const GlobalContext = React.createContext<GlobalContextType | null>(null);
 
@@ -79,6 +91,8 @@ const GlobalProvider: React.FC<{children: React.ReactNode}> = ({ children }) => 
     const [isShowGlobalModal, setIsShowGlobalModal] = useState(false)
     const [globalModal, setGlobalModal] = useState<globalModalProps>(undefined)
 
+    const [sidebarMenuList, setSidebarManuList] = useState<sidebarMenuListType[]>([])
+
     return (
         <GlobalContext.Provider value={{ 
             isDarkmode, 
@@ -90,7 +104,10 @@ const GlobalProvider: React.FC<{children: React.ReactNode}> = ({ children }) => 
             isShowGlobalModal, 
             setIsShowGlobalModal,
             globalModal, 
-            setGlobalModal
+            setGlobalModal,
+
+            sidebarMenuList, 
+            setSidebarManuList,
         }}>
             {children}
         </GlobalContext.Provider>

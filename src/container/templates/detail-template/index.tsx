@@ -3,7 +3,7 @@ import './styles.scss'
 type Props = {
     title?:string,
     subTitle?:string
-    children?:JSX.Element
+    children?:JSX.Element | JSX.Element[]
 }
 
 const DetailTemplate = ({

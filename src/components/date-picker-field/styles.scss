@@ -22,29 +22,29 @@
     // height: 276px !important;
     padding: var(--size-2) 0px !important;
 
-    @media screen and (max-width: 767px) and (max-height: 400px){
-        .date-picker{
-            .rdp{
-                --rdp-cell-size: 36px;
-                min-height: 276px;
-                width: 100vw;
-            }
+    // @media screen and (max-width: 767px) and (max-height: 400px){
+    //     .date-picker{
+    //         .rdp{
+    //             --rdp-cell-size: 36px;
+    //             min-height: 276px;
+    //             width: 100vw;
+    //         }
         
-            .rdp-month{
-                display: flex;
-                align-items: flex-start;
-                flex-direction: row-reverse;
-                width: 100%;
-                justify-content: space-evenly;
-            }
+    //         .rdp-month{
+    //             display: flex;
+    //             align-items: flex-start;
+    //             flex-direction: row-reverse;
+    //             width: 100%;
+    //             justify-content: space-evenly;
+    //         }
         
-            .rdp-table {
-                max-width: unset;
-            }
+    //         .rdp-table {
+    //             max-width: unset;
+    //         }
         
-            .rdp-caption{
-                width: 210px;
-            }
-        }
-    }
+    //         .rdp-caption{
+    //             width: 210px;
+    //         }
+    //     }
+    // }
 }

@@ -21,6 +21,36 @@ html{
     --font-weight-bold: 500;
     --font-weight-balck: 900;
 
+    .font-title-largest{
+        color: hsl(var(--color-neutral-1100));
+        font-size: var(--font-size-largest);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .font-title-larger{
+        color: hsl(var(--color-neutral-1100));
+        font-size: var(--font-size-larger);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .font-title-large{
+        color: hsl(var(--color-neutral-1100));
+        font-size: var(--font-size-large);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .font-title{
+        color: hsl(var(--color-neutral-1100));
+        font-size: var(--font-size-regular);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .font-text{
+        color: hsl(var(--color-neutral-1100));
+        font-size: var(--font-size-regular);
+        font-weight: var(--font-weight-regular);
+    }
+
     --def-color-neutral-0: 0, 0%, 100%; //#FFFFFF;
     --def-color-neutral-100: 210, 14%, 97%; //#F7F8F9;
     --def-color-neutral-200: 220, 12%, 95%; //#F1F2F4;

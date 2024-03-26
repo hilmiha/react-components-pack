@@ -1,0 +1,21 @@
+.preview-box{
+    background: repeating-conic-gradient(hsla(var(--color-neutral-300), 0.5) 0% 25%, hsla(var(--color-neutral-0), 0.5) 0% 50%) 50% / 20px 20px;
+    border: 1px solid hsl(var(--color-neutral-400));
+    border-radius: var(--size-1);
+    max-width: 800px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--size-4);
+    padding: var(--size-4) var(--size-4);
+    margin-top: 12px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.component-section+.component-section{
+    margin-top: var(--size-10);
+}

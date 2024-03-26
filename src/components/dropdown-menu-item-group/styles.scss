@@ -19,6 +19,6 @@
     margin-bottom: 6px;
 }
 
-.dropdown-menu-item-group+.dropdown-menu-item-group{
+.dropdown-menu-item-group+.dropdown-menu-item-group:not(:has(.dropdown-menu-item-group-separator)){
     margin-top: var(--size-8);
 }

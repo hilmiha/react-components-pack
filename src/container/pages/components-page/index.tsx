@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { Suspense, useContext, useEffect } from 'react';
 import './styles.scss'
 import { GlobalContext, GlobalContextType } from '../../../context/globalcontext';
 import { MainTemplateContext, MainTemplateContextType } from '../../templates/main-template/context/main-template-context';
@@ -12,14 +12,14 @@ import ComponentImagePage from '../component-image-page';
 import ComponentModalPage from '../component-modal-page';
 import ComponentPillFlairPage from '../component-pill-flair-page';
 import ComponentTablePage from '../component-table-page';
+import route from './routes/routes';
+import DetailTemplate from '../../templates/detail-template';
 
 const ComponentsPage = () =>{
     const {
         setSidebarManuList,
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
-    
-    
     useEffect(()=>{
         setSidebarManuList([
             {
@@ -49,19 +49,17 @@ const ComponentsPage = () =>{
     },[])
 
     return(
-        <>
+        <Suspense fallback={<DetailTemplate title='.' subTitle='.'/>}>
             <Routes>
-                <Route path="/button" element={<ComponentButtonPage />}/>
-                <Route path="/date-picker" element={<ComponentDatePickerPage />}/>
-                <Route path="/drawer" element={<ComponentDrawerPage />}/>
-                <Route path="/dropdown-menu" element={<ComponentDropdownMenuPage />}/>
-                <Route path="/form-field" element={<ComponentFormFieldPage />}/>
-                <Route path="/image" element={<ComponentImagePage />}/>
-                <Route path="/modal" element={<ComponentModalPage />}/>
-                <Route path="/pill-flair" element={<ComponentPillFlairPage />}/>
-                <Route path="/table" element={<ComponentTablePage />}/>
+                {
+                    route.map((itmRoute)=>(
+                        <Route path={itmRoute.path} element={itmRoute.component}/>
+
+                    ))         
+                }
             </Routes>
-        </>
+        </Suspense>
+        
     )
 }
 

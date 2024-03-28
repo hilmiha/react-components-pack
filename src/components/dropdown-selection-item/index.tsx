@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons'
 import './styles.scss'
 import { processClassname } from '../../helper'
 import { PiCheckBold } from 'react-icons/pi'

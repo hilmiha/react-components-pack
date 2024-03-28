@@ -56,7 +56,7 @@ const Drawer = ({
     } = useContext(GlobalContext) as GlobalContextType;
 
     const [isMaximize, setIsMaximize] = useState(false)
-    const { refs, context, floatingStyles } = useFloating({
+    const { refs, context } = useFloating({
         open: isOpen,
         onOpenChange: ()=>{onCloseDropdown()},
     });

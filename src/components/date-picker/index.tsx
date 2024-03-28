@@ -3,7 +3,6 @@ import { addDays, format, isDate, subDays } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import { processClassname } from '../../helper'
 import './styles.scss'
-import { useEffect, useState } from 'react';
 
 export type datePickerType = "single" | "range" | "multiple"
 export type datePickerValueType = Date | Date[] | DateRange | undefined

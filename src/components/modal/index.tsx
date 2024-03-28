@@ -1,6 +1,6 @@
-import { useContext, useEffect, useId, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './styles.scss'
-import { FloatingFocusManager, FloatingOverlay, FloatingPortal, size, useClick, useDismiss, useFloating, useInteractions, useRole } from '@floating-ui/react'
+import { FloatingFocusManager, FloatingOverlay, FloatingPortal, useDismiss, useFloating, useInteractions, } from '@floating-ui/react'
 import Button, { appearanceButton } from '../button'
 import { processClassname } from '../../helper'
 import { PiCheckCircleBold, PiInfoBold, PiWarningCircleBold, PiXBold, PiXCircleBold } from 'react-icons/pi'
@@ -53,7 +53,7 @@ const Modal = ({
     } = useContext(GlobalContext) as GlobalContextType;
     
 
-    const { refs, context, floatingStyles } = useFloating({
+    const { refs, context } = useFloating({
         open: isOpen,
         onOpenChange: setIsOpen,
     });

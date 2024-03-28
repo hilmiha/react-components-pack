@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { modalButtonType, modalInfoType } from '../components/modal'
-import { Props as DropdownMenuItemType} from '../components/dropdown-menu-item' 
-import { Props as DropdownMenuGroupItemType } from '../components/dropdown-menu-item-group'
-
-// export const GlobalContext = React.createContext();
+import { Props as DropdownMenuItemType} from '../components/dropdown-menu-item'
 
 
 type mediaSizeType = 0 | 1 | 2 | 3  // phone || lanscape-phone/tablet || lanscape-tablet/small-laptop || desktop
@@ -60,7 +57,7 @@ const GlobalProvider: React.FC<{children: React.ReactNode}> = ({ children }) => 
         changeTheme()
         
         function handleResize() {
-            const { innerWidth: width, innerHeight: height } = window;
+            const { innerWidth: width } = window;
             if(width<=767){
                 setMediaSize(0)
             }

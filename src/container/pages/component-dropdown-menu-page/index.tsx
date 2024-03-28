@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import DropdownMenu from "../../../components/dropdown-menu";
-import { PiDotsThreeOutlineVerticalFill, PiStarFourFill } from "react-icons/pi";
+import { PiStarFourFill } from "react-icons/pi";
 
 const ComponentDropdownMenuPage = () =>{
     const {

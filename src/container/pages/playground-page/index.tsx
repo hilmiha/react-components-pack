@@ -20,7 +20,6 @@ import { MainTemplateContext, MainTemplateContextType } from '../../templates/ma
 const PlaygroundPage = () =>{
     const {
         changeTheme,
-		globalModal, 
         setGlobalModal,
 		setIsShowGlobalModal
     } = React.useContext(GlobalContext) as GlobalContextType;
@@ -29,7 +28,6 @@ const PlaygroundPage = () =>{
         setSidebarManuList
     } = useContext(MainTemplateContext) as MainTemplateContextType;
     
-	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 	const [isDrawerOpenTwo, setIsDrawerOpenTwo] = useState(false)
 

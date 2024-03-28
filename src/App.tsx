@@ -1,4 +1,4 @@
-import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.scss'
 import Modal from './components/modal';
 import { useContext, useEffect } from 'react';
@@ -13,11 +13,9 @@ function App() {
 	const previousLocation = location.state?.previousLocation;
 
 	const {
-        mediaSize,
 		isShowGlobalModal,
 		setIsShowGlobalModal,
-		globalModal, 
-        setGlobalModal
+		globalModal
     } = useContext(GlobalContext) as GlobalContextType;
 	
 	useEffect(()=>{

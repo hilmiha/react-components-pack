@@ -1,12 +1,7 @@
 import { PiWarningDiamondFill } from 'react-icons/pi'
 import { formatText, processClassname } from '../../helper'
 import './styles.scss'
-import { IconType } from 'react-icons'
 import { useState } from 'react'
-import { FloatingFocusManager, autoUpdate, flip, offset, shift, size, useClick, useDismiss, useFloating, useInteractions, useRole } from '@floating-ui/react'
-import DropdownManuItem from '../dropdown-menu-item'
-import { menuList } from '../dropdown-menu'
-import DropdownMenuItemGroup from '../dropdown-menu-item-group'
 
 type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number'
 type valueType = string

@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import DatePicker, { datePickerValueType } from "../../../components/date-picker";
-import { DateRange } from "react-day-picker";
-import { add, sub } from "date-fns";
+import { sub } from "date-fns";
 
 const ComponentDatePickerPage = () =>{
     const {

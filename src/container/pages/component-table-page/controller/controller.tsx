@@ -54,26 +54,30 @@ export const getTableData = async(getState:getStateTypes) =>{
             user:[itm.user, itm.email],
             group:itm.group,
             status:()=>{
+                let tamp:JSX.Element | undefined = undefined
                 switch (itm.status) {
+
                     case '0':
-                        return(<PillFlair color="success" txtLabel={'Active'} type="pill"/>)
+                        tamp = (<PillFlair color="success" txtLabel={'Active'} type="pill"/>)
                         break;
 
                     case '1':
-                        return(<PillFlair color="warning" txtLabel={'Suspended'} type="pill"/>)
+                        tamp = (<PillFlair color="warning" txtLabel={'Suspended'} type="pill"/>)
                         break;
 
                     case '2':
-                        return(<PillFlair color="danger" txtLabel={'Locked'} type="pill"/>)
+                        tamp = (<PillFlair color="danger" txtLabel={'Locked'} type="pill"/>)
                         break;
 
                     case '3':
-                        return(<PillFlair txtLabel={'Inactive'} type="pill"/>)
+                        tamp = (<PillFlair txtLabel={'Inactive'} type="pill"/>)
                         break;
                 
                     default:
                         break;
                 }
+                
+                return(tamp)
             },
             expandPage:(itm.detail)?(()=>{
                 return(

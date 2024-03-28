@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import PillFlair from "../../../components/pill-flair";
-import { PiCheck, PiInfo, PiStarFourFill, PiWarning, PiXCircle } from "react-icons/pi";
+import { PiStarFourFill } from "react-icons/pi";
 
 const ComponentPillFlairPage = () =>{
     const {

@@ -1,6 +1,4 @@
-import { tableColumType, tableDataType } from "../../../../components/table";
-import PillFlair from "../../../../components/pill-flair"
-import { PiDotsThree, PiDotsThreeBold, PiTrash, PiTrashBold } from "react-icons/pi";
+import { tableColumType } from "../../../../components/table";
 
 export const tableColumsDummny:tableColumType[] = [
     {

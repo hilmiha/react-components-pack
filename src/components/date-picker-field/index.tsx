@@ -1,10 +1,10 @@
 import { processClassname } from '../../helper'
 import './styles.scss'
 import DatePicker, { datePickerType, datePickerValueType } from '../date-picker'
-import { DateRange, isDateRange } from 'react-day-picker'
+import { isDateRange } from 'react-day-picker'
 import { errorType } from '../text-field'
 import { useContext, useEffect, useState } from 'react'
-import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, size, useClick, useDismiss, useFloating, useInteractions, useRole } from '@floating-ui/react'
+import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react'
 import { PiWarningDiamondFill, PiXBold } from 'react-icons/pi'
 import { format, isDate } from 'date-fns'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
@@ -67,9 +67,7 @@ const DatePickerField = ({
         whileElementsMounted: autoUpdate
     }); 
 
-    const click = useClick(context);
     const dismiss = useDismiss(context);
-    const role = useRole(context);
 
     const { getReferenceProps, getFloatingProps } = useInteractions([
         dismiss

@@ -6,7 +6,6 @@ import IconButton, { appearanceIconButton } from '../icon-button'
 import DropdownMenu, { menuList } from '../dropdown-menu'
 import { IconType } from 'react-icons'
 import Button from '../button'
-import ButtonGroup from '../button-group'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 
 export type tableColumType = {
@@ -178,7 +177,7 @@ const Table = ({
     }
 
     const onClickRowSpace = (event:React.KeyboardEvent<HTMLDivElement>, itmRow:tableDataType) =>{
-        if (event.target == event.currentTarget && event.keyCode===32) {
+        if (event.target === event.currentTarget && event.keyCode===32) {
             if(onClickRow){
                 onClickRow(itmRow)
             }
@@ -477,8 +476,7 @@ const Table = ({
                                                                     isDisabled={itmButton.isDisabled}
                                                                 />
                                                             )
-                                                        }
-                                                        if(itmButton.type==='icon-button'){
+                                                        }else if(itmButton.type==='icon-button'){
                                                             return(
                                                                 <IconButton
                                                                     key={itmButton.id}
@@ -489,8 +487,7 @@ const Table = ({
                                                                     isDisabled={itmButton.isDisabled}
                                                                 />
                                                             )
-                                                        }
-                                                        if(itmButton.type==='dropdown-menu'){
+                                                        }else if(itmButton.type==='dropdown-menu'){
                                                             return(
                                                                 <DropdownMenu
                                                                     key={itmButton.id}
@@ -504,6 +501,8 @@ const Table = ({
                                                                     isDisabled={itmButton.isDisabled}
                                                                 />
                                                             )
+                                                        }else{
+                                                            return(undefined)
                                                         }
                                                     })
                                                 }

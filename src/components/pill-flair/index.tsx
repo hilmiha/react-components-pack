@@ -1,7 +1,6 @@
 import { PiCircleFill } from 'react-icons/pi'
 import { processClassname } from '../../helper'
 import './styles.scss'
-import { IconType } from 'react-icons'
 
 type pillFlairType = 'text' | 'pill' | 'status'
 type pillFlairColor = 'info' | 'success' | 'warning' | 'danger'

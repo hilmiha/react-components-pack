@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import Button from "../../../components/button";
 import { PiStarFourFill } from "react-icons/pi";
 import IconButton from "../../../components/icon-button";
 

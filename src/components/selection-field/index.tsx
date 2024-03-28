@@ -2,9 +2,8 @@ import { PiMagnifyingGlassBold, PiWarningDiamondFill, PiXBold } from "react-icon
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
-import React, { useContext, useEffect, useRef, useState } from "react"
-import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, size, useClick, useDismiss, useFloating, useInteractions, useRole } from "@floating-ui/react"
-import DropdownManuItem from "../dropdown-menu-item"
+import { useContext, useEffect, useRef, useState } from "react"
+import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, size, useDismiss, useFloating, useInteractions } from "@floating-ui/react"
 import DropdownMenuItemGroup from "../dropdown-menu-item-group"
 import DropdownSelectionItem from "../dropdown-selection-item"
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext"
@@ -57,8 +56,7 @@ const SelectionField = ({
     const {
         mediaSize
     } = useContext(GlobalContext) as GlobalContextType;
-    
-    const [isFieldTouched, setIsFieldTouched] = useState(false);
+
     const [searchFieldValue, setSearchFieldValue] = useState('')
     const [searchResult, setSearchResult] = useState<valueList>([])
     const [resized, setResized] = useState(false)
@@ -88,9 +86,7 @@ const SelectionField = ({
         whileElementsMounted: autoUpdate
     }); 
     
-    const click = useClick(context);
     const dismiss = useDismiss(context);
-    const role = useRole(context);
 
     const { getReferenceProps, getFloatingProps } = useInteractions([
         dismiss

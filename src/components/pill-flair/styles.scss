@@ -27,9 +27,10 @@
     display: flex;
     align-items: center;
     gap: var(--size-2);
-
+    color:hsl(var(--color-neutral-1100));
+    
     >svg{
-        color:hsl(var(--color-neutral-400))
+        color:hsla(var(--color-neutral-400), 0.5)
     }
 
     &.info >svg{
@@ -55,7 +56,9 @@
     align-items: center;
     width: fit-content;
     padding: var(--size-1) var(--size-3);
-    border: 1px solid hsla(var(--color-neutral-300), 0.1);
+    border: 1px solid hsla(var(--color-neutral-900), 0.5);
+    background-color: hsla(var(--color-neutral-700), 0.1);
+    color:hsl(var(--color-neutral-1100));
     border-radius: var(--size-3);
 
     &.info{

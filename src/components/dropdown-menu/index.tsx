@@ -26,7 +26,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 type appearance = "default" | "primary" | "subtle" | "warning" | "danger"
 
-export type menuList = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean}[]}[] | []
+export type menuList = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number}[]}[] | []
 
 type Props = {
     className?: string
@@ -38,7 +38,7 @@ type Props = {
     isWithCaret?: boolean
     isDisabled?:boolean
     isCloseAfterSelect?:boolean,
-    onClickItem?: (buttonId:string)=>void
+    onClickItem?: (buttonId:string, value?:string | number)=>void
 }
 
 const DropdownMenu = ({
@@ -89,9 +89,9 @@ const DropdownMenu = ({
         role
     ]);
     
-    const thisOnClick = (buttonId:string) =>{
+    const thisOnClick = (buttonId:string, value?:string|number) =>{
         if(onClickItem){
-            onClickItem(buttonId)
+            onClickItem(buttonId, value)
         }
         if(isCloseAfterSelect || mediaSize<1){
             setIsOpen(false)
@@ -188,8 +188,9 @@ const DropdownMenu = ({
                                                 key={itmMenu.id}
                                                 txtLabel={itmMenu.txtLabel}
                                                 spacing={spacing}
-                                                onClick={()=>{thisOnClick(itmMenu.id)}}
+                                                onClick={()=>{thisOnClick(itmMenu.id, itmMenu?.value)}}
                                                 isDisabled={itmMenu.isDisabled}
+                                                isSelected={itmMenu.isSelected}
                                             />
                                         ))
                                     }

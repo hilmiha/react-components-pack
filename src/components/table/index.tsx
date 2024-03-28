@@ -1,7 +1,7 @@
-import { PiCaretDoubleLeftBold, PiCaretDoubleRightBold, PiCaretDown, PiCaretDownBold, PiCaretLeftBold, PiCaretRightBold, PiCaretUp, PiCaretUpDown, PiCheckBold, PiMinusBold, PiPlusBold } from 'react-icons/pi'
+import { PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCaretRight, PiCaretUp, PiCaretUpDown, PiCheckBold, PiFolderDashed, PiMinus, PiMinusBold, PiPlus } from 'react-icons/pi'
 import { processClassname } from '../../helper'
 import './styles.scss'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import IconButton, { appearanceIconButton } from '../icon-button'
 import DropdownMenu, { menuList } from '../dropdown-menu'
 import { IconType } from 'react-icons'
@@ -21,7 +21,8 @@ export type tableConfigType = {
     page:number,
     maxPage:number,
     sortBy:string,
-    isDesc:boolean
+    isDesc:boolean,
+    totalData:number
 }
 export type tableButtonActionType = {
         id:string
@@ -33,8 +34,8 @@ export type tableButtonActionType = {
         menuList?:menuList
     }
 export type tableDataType = {
-    id?:string,
-    expandPage?: ()=>JSX.Element
+    id:string,
+    expandPage?: JSX.Element | (()=>JSX.Element) | undefined
     to?:string
     isChecked?:boolean
     actionButton?: tableButtonActionType[] 
@@ -47,32 +48,38 @@ type Props = {
     className?:string,
     tableColums:tableColumType[]
     tableData:tableDataType[]
+    tableDataSelected?:string[]
+    setTableDataSelected?:React.Dispatch<React.SetStateAction<string[]>>
     tableConfig?:tableConfigType,
-    doSortTable?:(keyColumn:string, isDesc:boolean)=>void
     isExpandable?:expandableType
     isHidaPagination?:boolean
     isFillContainer?:boolean
     isCheckbox?:boolean
-    isActionButtons?:boolean
-    onCheckedItem?:(itmRow:tableDataType, isChecked:boolean)=>void
-    onCheckedAll?:()=>void
+    isActionButtons?:boolean,
+    onClickRow?:(itmRow:tableDataType)=>void
     onClickAction?:(idButton:string, itmRow:tableDataType)=>void
+    onClickPagination?:(idButton:string)=>void
+    onChangeMaxRow?:(newMaxRow:number)=>void
+    onClickColumn?:(keyColumn:string, isDesc:boolean)=>void
 }
 
 const Table = ({
     className,
     tableColums,
     tableData,
+    tableDataSelected = [],
+    setTableDataSelected,
     tableConfig,
-    doSortTable,
     isExpandable,
     isHidaPagination,
     isFillContainer,
     isCheckbox,
     isActionButtons,
-    onCheckedItem,
-    onCheckedAll,
-    onClickAction
+    onClickRow,
+    onClickAction,
+    onClickPagination,
+    onChangeMaxRow,
+    onClickColumn,
 }:Props) =>{
     const {
         mediaSize
@@ -82,6 +89,14 @@ const Table = ({
     const [isContentScoll, setIsContentScroll] = useState(false)
 
     const [rowExpanded, setRowExpanded] = useState<string[]>([])
+    const tableRow:[number, number] = useMemo(()=>{
+        if(tableConfig){
+            const startAt = tableConfig.totalData?((tableConfig.page*tableConfig.maxRow)-tableConfig.maxRow+1):0
+            const endAt = Math.min((tableConfig.page*tableConfig.maxRow),tableConfig.totalData)
+            return([startAt,endAt])
+        }
+        return([0,0])
+    },[tableConfig])
     
     const generateStyleColumn = () =>{
         let tamp = []
@@ -95,15 +110,13 @@ const Table = ({
             tamp.push(itmColumn.size)
         })
         if(isActionButtons){
-            tamp.push('150px')
+            tamp.push('90px')
         }
-        
-
         return tamp.join(' ')
     }
 
     const thisOnClickColumn = (columnKey:string) =>{
-        if(doSortTable && tableConfig){
+        if(onClickColumn && tableConfig){
             let tampIsDesc = tableConfig.isDesc
 
             if(columnKey===tableConfig.sortBy){
@@ -112,7 +125,21 @@ const Table = ({
                 tampIsDesc = false
             }
 
-            doSortTable(columnKey, tampIsDesc)
+            onClickColumn(columnKey, tampIsDesc)
+        }
+    }
+
+    const thisOnClickPagination = (idButton:string) =>{
+        if(onClickPagination){
+            onClickPagination(idButton)
+            setRowExpanded([])
+        }
+    }
+
+    const thisOnChangeMaxRow = (value?:number) =>{
+        if(onChangeMaxRow && value){
+            onChangeMaxRow(value)
+            setRowExpanded([])
         }
     }
 
@@ -142,40 +169,55 @@ const Table = ({
         })
     }
 
-    const onClickRowClick = (event:React.MouseEvent<HTMLDivElement, MouseEvent>, itmRow:object) =>{
+    const onClickRowClick = (event:React.MouseEvent<HTMLDivElement, MouseEvent>, itmRow:tableDataType) =>{
         if ((event.target as Element).classList.contains('row-main-item')) {
-            console.log(itmRow)
-        }
-    }
-
-    const onClickRowSpace = (event:React.KeyboardEvent<HTMLDivElement>, itmRow:object) =>{
-        if (event.target == event.currentTarget && event.keyCode===32) {
-            console.log(itmRow)
-        }
-    }
-
-    const thisOnCheckedItem = (itmRow:Record<any, any>) =>{
-        if(onCheckedItem){
-            let tampIsChecked = itmRow?.isChecked
-
-            if(itmRow?.isChecked !== undefined){
-                if(itmRow.isChecked){
-                    tampIsChecked = false
-                }else{
-                    tampIsChecked = true
-                }
-            }else{
-                tampIsChecked = true
+            if(onClickRow){
+                onClickRow(itmRow)
             }
-            onCheckedItem(itmRow, tampIsChecked)
+        }
+    }
+
+    const onClickRowSpace = (event:React.KeyboardEvent<HTMLDivElement>, itmRow:tableDataType) =>{
+        if (event.target == event.currentTarget && event.keyCode===32) {
+            if(onClickRow){
+                onClickRow(itmRow)
+            }
+        }
+    }
+
+    const thisOnCheckedItem = (itmRowId:string) =>{
+        if(tableDataSelected && setTableDataSelected){
+            let tampIsChecked = tableDataSelected.includes(itmRowId)
+            if(tampIsChecked){
+                setTableDataSelected((prev)=>{
+                    const tamp = [...prev]
+                    return tamp.filter((x)=>x!==itmRowId)
+                })
+            }else{
+                setTableDataSelected((prev)=>{
+                    const tamp = [...prev]
+                    tamp.push(itmRowId)
+                    return tamp
+                })
+            }
         }
     }
 
     const thisOnCheckedAll = () =>{
-        if(onCheckedAll){
-            onCheckedAll()
+        if(tableDataSelected && setTableDataSelected){
+            if(tableDataSelected.length !== tableData.length){
+                setTableDataSelected(tableData.map((itm)=>itm.id))
+            }else{
+                setTableDataSelected([])
+            }
         }
     }
+
+    useEffect(()=>{
+        if(setTableDataSelected){
+            setTableDataSelected([])
+        }
+    },[tableConfig])
 
     const thisOnClickAction = (idButton:string, itmRow:tableDataType) =>{
         if(onClickAction){
@@ -232,17 +274,18 @@ const Table = ({
                             <button 
                                 className={
                                     processClassname(`checkbox-container
-                                    ${tableData.filter((row)=>(row?.isChecked===true)).length?('selected'):('')}`)
+                                    ${tableDataSelected.length?('selected'):('')}`)
                                 }
                                 onClick={()=>{thisOnCheckedAll()}}
+                                disabled={tableData.length===0}
                             >
                                 {
-                                    (tableData.filter((row)=>(row?.isChecked===true)).length === tableData.length)&&(
+                                    (tableDataSelected.length === tableData.length)&&(
                                         <PiCheckBold/>
                                     )
                                 }
                                 {
-                                    (tableData.filter((row)=>(row?.isChecked===true)).length !== tableData.length)&&(
+                                    (tableDataSelected.length !== tableData.length)&&(
                                         <PiMinusBold/>
                                     )
                                 }
@@ -262,7 +305,7 @@ const Table = ({
                         >
                             <button 
                                 className='table-header-column-text'
-                                disabled={!itmColumn.isCanSort}
+                                disabled={!itmColumn.isCanSort || tableData.length===0}
                                 onClick={()=>{thisOnClickColumn(itmColumn.key)}}
                             >
                                 {itmColumn.txtLabel}
@@ -275,17 +318,17 @@ const Table = ({
                                             }}
                                         >
                                             {
-                                                (itmColumn.key!==tableConfig?.sortBy)&&(
+                                                (itmColumn.key!==tableConfig?.sortBy && tableData.length!==0)&&(
                                                     <PiCaretUpDown/>
                                                 )
                                             }
                                             {
-                                                (((itmColumn.key===tableConfig?.sortBy) && !tableConfig.isDesc))&&(
+                                                ((itmColumn.key===tableConfig?.sortBy) && !tableConfig.isDesc && tableData.length!==0)&&(
                                                     <PiCaretDown size={12}/>
                                                 )
                                             }
                                             {
-                                                (((itmColumn.key===tableConfig?.sortBy) && tableConfig.isDesc))&&(
+                                                ((itmColumn.key===tableConfig?.sortBy) && tableConfig.isDesc && tableData.length!==0)&&(
                                                     <PiCaretUp size={12}/>
                                                 )
                                             }
@@ -305,6 +348,14 @@ const Table = ({
             </div>
             <div className='table-content' ref={tableContentRef}>
                 {
+                    (tableData.length===0)&&(
+                        <div className='table-empty-state'>
+                            <PiFolderDashed size={48} className='font-text'/>
+                            <p className='font-text'>Table Empty</p>
+                        </div>
+                    )
+                }
+                {
                     tableData.map((itmRow, index)=>{
                         const itmRowId:string = (itmRow?.id)?(itmRow.id):(`${index}`)
                         return(
@@ -312,29 +363,27 @@ const Table = ({
                                 <div 
                                     className={
                                         processClassname(`row-main
-                                        ${(itmRow?.isChecked)?('selected-row'):('')}`)
+                                        ${(tableDataSelected.includes(itmRowId))?('selected-row'):('')}`)
                                     } 
-                                    style={{gridTemplateColumns:generateStyleColumn()}} 
+                                    style={{
+                                        gridTemplateColumns:generateStyleColumn()
+                                    }} 
                                     role="button"
                                     tabIndex={itmRow.to?(0):(-1)}
                                     aria-pressed="false" 
-                                    onClick={(itmRow?.to)?(event)=>{onClickRowClick(event, itmRow)}:undefined} 
-                                    onKeyDown={(itmRow?.to)?(event)=>{onClickRowSpace(event, itmRow)}:undefined}
+                                    onClick={(onClickRow)?(event)=>{onClickRowClick(event, itmRow)}:undefined} 
+                                    onKeyDown={(onClickRow)?(event)=>{onClickRowSpace(event, itmRow)}:undefined}
                                 >
                                     {
                                         (isExpandable) &&(
                                             <div className='row-main-item-expand'>
-                                                {
-                                                    (typeof itmRow.expandPage === 'function')&&(
-                                                        <IconButton
-                                                            Icon={rowExpanded.includes(itmRowId)?PiMinusBold:PiPlusBold}
-                                                            appearance='subtle'
-                                                            spacing='compact'
-                                                            onClick={()=>{onExpandClick(itmRowId)}}
-                                                            isDisabled={typeof itmRow.expandPage !== 'function'}
-                                                        />
-                                                    )
-                                                }
+                                                <IconButton
+                                                    Icon={rowExpanded.includes(itmRowId)?PiMinus:PiPlus}
+                                                    appearance='subtle'
+                                                    spacing='compact'
+                                                    onClick={()=>{onExpandClick(itmRowId)}}
+                                                    isDisabled={itmRow.expandPage===undefined}
+                                                />
                                             </div>
                                         )
                                     }
@@ -344,9 +393,9 @@ const Table = ({
                                                 <button 
                                                     className={
                                                         processClassname(`checkbox-container
-                                                        ${(itmRow?.isChecked)?('selected'):('')}`)
+                                                        ${(tableDataSelected.includes(itmRowId))?('selected'):('')}`)
                                                     }
-                                                    onClick={()=>{thisOnCheckedItem(itmRow)}}
+                                                    onClick={()=>{thisOnCheckedItem(itmRowId)}}
                                                 >
                                                     <PiCheckBold/>
                                                 </button>
@@ -365,12 +414,29 @@ const Table = ({
                                                                 ${className?(className):('')}
                                                                 ${itmColumn.isAlignTxtRight?('align-right'):('')}`)  
                                                             }
+                                                            style={{cursor:(onClickRow)?('pointer'):('default')}}
                                                         >
                                                             {
                                                                 itmRow[itmColumn.key].map((textCell:string,index:number)=>(
                                                                     <p className={index===0?('cell-text'):('cell-sub-text')} key={index}>{textCell}</p>
                                                                 ))
                                                             }
+                                                        </div>
+                                                    )
+                                                )
+                                            }else if(typeof itmRow[itmColumn.key] === 'function'){
+                                                return(
+                                                    (
+                                                        <div
+                                                            key={`${itmRowId}-${indexCell}`}
+                                                            className={
+                                                                processClassname(`row-main-item
+                                                                ${className?(className):('')}
+                                                                ${itmColumn.isAlignTxtRight?('align-right'):('')}`)  
+                                                            }
+                                                            style={{cursor:(onClickRow)?('pointer'):('default')}}
+                                                        >
+                                                            {itmRow[itmColumn.key]()}
                                                         </div>
                                                     )
                                                 )
@@ -384,6 +450,7 @@ const Table = ({
                                                                 ${className?(className):('')}
                                                                 ${itmColumn.isAlignTxtRight?('align-right'):('')}`)  
                                                             }
+                                                            style={{cursor:(onClickRow)?('pointer'):('default')}}
                                                         >
                                                             {itmRow[itmColumn.key]}
                                                         </div>
@@ -426,6 +493,7 @@ const Table = ({
                                                         if(itmButton.type==='dropdown-menu'){
                                                             return(
                                                                 <DropdownMenu
+                                                                    key={itmButton.id}
                                                                     IconLabel={itmButton.Icon as IconType}
                                                                     txtLabel={itmButton.txtLabel}
                                                                     appearance={itmButton.appearance}
@@ -446,9 +514,16 @@ const Table = ({
                                     
                                 </div>
                                 {
-                                    (rowExpanded.includes(itmRowId) && typeof itmRow.expandPage === 'function')&&(
+                                    (rowExpanded.includes(itmRowId) && itmRow.expandPage &&  typeof itmRow.expandPage === 'function')&&(
                                         <div className='row-expandable'>
                                             {itmRow.expandPage()}
+                                        </div>
+                                    )
+                                }
+                                {
+                                    (rowExpanded.includes(itmRowId)&& itmRow.expandPage && typeof itmRow.expandPage !== 'function')&&(
+                                        <div className='row-expandable'>
+                                            {itmRow.expandPage}
                                         </div>
                                     )
                                 }
@@ -461,7 +536,7 @@ const Table = ({
             
         </div>
         {
-            (!isHidaPagination)&&(
+            (tableConfig)&&(
                 <div 
                     className={
                         processClassname(`table-footer
@@ -470,46 +545,61 @@ const Table = ({
                         ${(mediaSize>=2)?(''):('')}`)
                     } 
                 >
-                    <div className='table-footer-count'>1-10 / 30</div>
+                    <div className='table-footer-count'>
+                        {
+                            (tableConfig.totalData!==0)&&(
+                                `${tableRow[0]}-${tableRow[1]} / ${tableConfig.totalData}`
+                            )
+                        }
+                    </div>
                     <div className='table-footer-pagination'>
                         <IconButton
-                            Icon={PiCaretDoubleLeftBold}
+                            Icon={PiCaretDoubleLeft}
                             appearance='subtle'
                             spacing='compact'
+                            onClick={()=>{thisOnClickPagination('first')}}
+                            isDisabled={tableData.length===0}
                         />
                         <IconButton
-                            Icon={PiCaretLeftBold}
+                            Icon={PiCaretLeft}
                             appearance='subtle'
                             spacing='compact'
+                            onClick={()=>{thisOnClickPagination('prev')}}
+                            isDisabled={tableData.length===0}
                         />
-                        Page 1 / 3
+                        {`Page ${tableConfig.page} / ${tableConfig.maxPage}`}
                         <IconButton
-                            Icon={PiCaretRightBold}
+                            Icon={PiCaretRight}
                             appearance='subtle'
                             spacing='compact'
+                            onClick={()=>{thisOnClickPagination('next')}}
+                            isDisabled={tableData.length===0}
                         />
                         <IconButton
-                            Icon={PiCaretDoubleRightBold}
+                            Icon={PiCaretDoubleRight}
                             appearance='subtle'
                             spacing='compact'
+                            onClick={()=>{thisOnClickPagination('last')}}
+                            isDisabled={tableData.length===0}
                         />
                     </div>
                     <div className='table-footer-maxrow'>
-                        Show 10 Item
+                        {`Show ${tableConfig.maxRow} item`}
                         <DropdownMenu
-                            IconLabel={PiCaretDownBold}
+                            IconLabel={PiCaretDown}
                             appearance='subtle'
                             spacing='compact'
                             menuList={[
                                 {
                                     id:'maxRowSelection',
                                     menu:[
-                                        {id:'item100', txtLabel:'10'},
-                                        {id:'item100', txtLabel:'50'},
-                                        {id:'item100', txtLabel:'100'}
+                                        {id:'item10', txtLabel:'10', isSelected:10===tableConfig.maxRow, value:10},
+                                        {id:'item50', txtLabel:'50', isSelected:50===tableConfig.maxRow, value:50},
+                                        {id:'item100', txtLabel:'100', isSelected:100===tableConfig.maxRow, value:100}
                                     ]
                                 }
                             ]}
+                            onClickItem={(idButton, value)=>{if(typeof value === 'number'){thisOnChangeMaxRow(value)}}}
                         />
                     </div>
                 </div>

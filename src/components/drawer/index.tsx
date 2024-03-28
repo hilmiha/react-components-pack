@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from 'react'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-type drawerSizeType = 'small' | 'medium' | 'full'
+export type drawerSizeType = 'small' | 'medium' | 'full'
 type drawerSideType = 'left' | 'right'
 type modalButtonType = {
     id: string
@@ -25,7 +25,7 @@ type Props = {
     drawerSide?:drawerSideType
     txtTitle?:string
     txtSubtitle?:string
-    contentPage?:JSX.Element
+    contentPage?:JSX.Element | ((props?:Record<any,any>)=>JSX.Element)
     isCloseClickOutside?:boolean
     isOpen:boolean
     setIsOpen:React.Dispatch<React.SetStateAction<boolean>>
@@ -186,7 +186,16 @@ const Drawer = ({
                                 <div 
                                     className={processClassname(`drawer-content`)}
                                 >
-                                    {contentPage}
+                                    {
+                                        (contentPage && typeof contentPage === 'function')&&(
+                                            contentPage()
+                                        )
+                                    }
+                                    {
+                                        (contentPage && typeof contentPage !== 'function')&&(
+                                            contentPage
+                                        )
+                                    }
                                 </div>
                                 {(buttonList?.length)&&(
                                     <div className='drawer-button'>

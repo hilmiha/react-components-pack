@@ -22,7 +22,6 @@ const ComponentButtonPage = () =>{
                 <span className="font-title">Default</span>
                 <div className="preview-box">
                     <Button txtLabel='Default Button'/>
-                    <Button txtLabel='Default Button' appearance='primary'/>
                 </div>
             </div>
 
@@ -36,6 +35,13 @@ const ComponentButtonPage = () =>{
                     <Button txtLabel='Subtle Button' appearance='subtle'/>
                     <Button txtLabel='Link Button' appearance='link'/>
                     <Button txtLabel='Subtle-Link Button' appearance='subtle-link'/>
+                </div>
+            </div>
+
+            <div className="component-section">
+                <span className="font-title">Selected</span>
+                <div className="preview-box">
+                    <Button txtLabel='Default Button' isSelected/>
                 </div>
             </div>
 

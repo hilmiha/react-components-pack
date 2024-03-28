@@ -14,6 +14,8 @@ const ComponentModalPage = () =>{
     const [isModalShowInfo, setIsModalShowInfo] = useState(false)
     const [isModalShowWarning, setIsModalShowWarning] = useState(false)
     const [isModalShowDanger, setIsModalShowDanger] = useState(false)
+    const [isModalShowContent, setIsModalShowContent] = useState(false)
+
 
 
     useEffect(()=>{
@@ -122,10 +124,10 @@ const ComponentModalPage = () =>{
             <div className="component-section">
                 <span className="font-title">Modal Page Content</span>
                 <div className="preview-box">
-                    <Button txtLabel='Open Modal' onClick={()=>{setIsModalShow(!isModalShow)}}/>
+                    <Button txtLabel='Open Modal' onClick={()=>{setIsModalShowContent(!isModalShowContent)}}/>
                     <Modal
-                        isOpen={isModalShow}
-                        setIsOpen={setIsModalShow}
+                        isOpen={isModalShowContent}
+                        setIsOpen={setIsModalShowContent}
                         txtTitle="Page In Modal"
                         txtContent="This modal has a page as its content."
                         contentPage={
@@ -145,7 +147,7 @@ const ComponentModalPage = () =>{
                         ]}
                         onClickButton={(idButton:string)=>{
                             if(idButton==='close'){
-                                setIsModalShow(!isModalShow)
+                                setIsModalShowContent(!isModalShowContent)
                             }
                         }}
                     />

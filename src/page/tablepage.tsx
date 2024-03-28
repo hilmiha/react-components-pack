@@ -64,8 +64,7 @@ const TablePage = () =>{
             to:'#',
             actionButton:[
                 {id:'delete3', type:'dropdown-menu', Icon:PiDotsThreeBold, appearance:'default', menuList:[{id:'menu', menu:[{id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}, {id:'edit', txtLabel:"Edit"}]}]},
-                {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default'},
-
+                {id:'delete2', type:'icon-button', Icon:PiTrashBold, appearance:'default'}
             ]
         },
         {
@@ -121,45 +120,17 @@ const TablePage = () =>{
         }
     ])
 
-    const onCheckedItem = (itmRow:tableDataType, isChecked:boolean) =>{
-        setTableData((prevValue)=>{
-            return prevValue.map((row)=>{
-                if(row.id === itmRow.id){
-                    return {...row, isChecked:isChecked}
-                }else{
-                    return row
-                }
-            })
-        })
-    }
-
-    const onCheckedAll = () =>{
-        setTableData((prevValue)=>{
-            const isUnCheckedAll = prevValue.filter((row)=>(row.isChecked===true))
-
-            if(isUnCheckedAll.length === prevValue.length){
-                return prevValue.map((row)=>{
-                    return {...row, isChecked:false}
-                })
-            }else{
-                return prevValue.map((row)=>{
-                    return {...row, isChecked:true}
-                })
-            }
-            
-        })
-    }
-
     const onClickAction = (idButton:string, itmRow:tableDataType) =>{
         console.log(idButton, itmRow)
     }
 
     const [tableConfig, setTableConfig] = useState<tableConfigType>({
+        totalData:3,
         maxRow:10,
         page:1,
-        maxPage:10,
+        maxPage:1,
         sortBy:'username',
-        isDesc:false
+        isDesc:false,
     })
     
     const doSortTable = (columnKey:string, isDesc:boolean) =>{
@@ -193,14 +164,12 @@ const TablePage = () =>{
                 tableColums={tableColums}
                 tableData={tableData}
                 tableConfig={tableConfig}
-                doSortTable={(columnKey, isDesc)=>{doSortTable(columnKey, isDesc)}}
                 // isExpandable={true}
                 isCheckbox={true}
                 isActionButtons={true}
                 isFillContainer={false}
-                onCheckedItem={(itmRow, isChecked)=>{onCheckedItem(itmRow, isChecked)}}
-                onCheckedAll={()=>{onCheckedAll()}}
                 onClickAction={(idButton, itmRow)=>{onClickAction(idButton, itmRow)}}
+                onClickColumn={(columnKey, isDesc)=>{doSortTable(columnKey, isDesc)}}
             />
         </div>
     )

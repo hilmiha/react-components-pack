@@ -42,6 +42,11 @@ const ComponentDropdownMenuPage = () =>{
                         txtLabel='Open Menu'
                         menuList={menuList}
                     />
+                    <DropdownMenu 
+                        onClickItem={(buttonId)=>{console.log(buttonId)}}
+                        IconLabel={PiStarFourFill}
+                        menuList={menuList} 
+                    />
                 </div>
             </div>
 
@@ -104,28 +109,6 @@ const ComponentDropdownMenuPage = () =>{
                 <div className="preview-box">
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        spacing="default"
-                        isWithCaret
-                        menuList={menuList} 
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Icon Button</span>
-                <div className="preview-box">
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        IconLabel={PiDotsThreeOutlineVerticalFill}
-                        txtLabel='Open Menu'
-                        spacing="default"
-                        isWithCaret
-                        menuList={menuList} 
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        IconLabel={PiStarFourFill}
                         txtLabel='Open Menu'
                         spacing="default"
                         isWithCaret

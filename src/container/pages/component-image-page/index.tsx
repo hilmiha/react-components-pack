@@ -32,7 +32,7 @@ const ComponentImagePage = () =>{
 						srcImage='https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg'
 						alt='cat image'
 						height={'300px'}
-						width={'500px'}
+						width={'300px'}
 						radius={'4'}
 						objectFit='cover'
 					/>
@@ -46,7 +46,7 @@ const ComponentImagePage = () =>{
 						srcImageDark='https://mypetsays.co.uk/cdn/shop/articles/National_Black_Cat_Day.jpg?v=1695635944&width=800'
 						alt='cat image'
 						height={'300px'}
-						width={'500px'}
+						width={'300px'}
 						radius={'4'}
 						objectFit='cover'
 					/>

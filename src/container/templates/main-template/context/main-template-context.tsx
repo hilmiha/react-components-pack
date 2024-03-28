@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Props as DropdownMenuItemType} from '../../../../components/dropdown-menu-item' 
 import { Props as DropdownMenuGroupItemType } from '../../../../components/dropdown-menu-item-group'
-type sidebarMenuListItemType  = DropdownMenuItemType & {
+export type sidebarMenuListItemType  = DropdownMenuItemType & {
     id:string,
+    menuList?: (DropdownMenuItemType & {id:string,to?:string})[]
     to?:string
 }
 type sidebarMenuListType = {

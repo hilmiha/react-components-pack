@@ -2,24 +2,24 @@ import { useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 
-const ComponentFormFieldPage = () =>{
+const ComponentSelectionFieldPage = () =>{
     const {
         setSidebarMenuListSelected
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     useEffect(()=>{
-        setSidebarMenuListSelected('form-field')
+        setSidebarMenuListSelected('selection-field')
     },[])
     return(
         <DetailTemplate 
-            title="Form Field" 
-            subTitle="A form allows users to input information."
+            title="Selection Field" 
+            subTitle="A form allows users to input selections of value list."
         >
             <>
-                ini isi form field
+                ini isi form Selection Field
             </>
         </DetailTemplate>
     )
 }   
 
-export default ComponentFormFieldPage
+export default ComponentSelectionFieldPage

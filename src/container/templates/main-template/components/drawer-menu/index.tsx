@@ -6,7 +6,7 @@ import { listHeaderMenu } from '../../data/list-header-menu';
 import { useNavigate } from "react-router-dom";
 import DropdownMenuItemGroup from "../../../../../components/dropdown-menu-item-group";
 import DropdownManuItem from "../../../../../components/dropdown-menu-item";
-import { MainTemplateContext, MainTemplateContextType } from "../../context/main-template-context";
+import { MainTemplateContext, MainTemplateContextType, sidebarMenuListItemType } from "../../context/main-template-context";
 import Button from "../../../../../components/button";
 
 type Props = {
@@ -22,6 +22,7 @@ const TemplateDrawerMenu = ({
 
     const [isMainMenuDrawerOpen, setIsMainMenuDrawerOpen] = useState(false)
     const [showSubMenuDrawer, setShowSubMenuDrawer] = useState('')
+    const [showSubSubMenu, setShowSubSubMenu] = useState('')
 
     const onClickOpenMoreMenu = (id:string) =>{
         if(showSubMenuDrawer===id){
@@ -29,7 +30,20 @@ const TemplateDrawerMenu = ({
         }else{
             setShowSubMenuDrawer(id)
         }
-    }   
+    }
+
+    const onClickOpenMoreSubMenu = (idButton:string) =>{
+        if(showSubSubMenu===idButton){
+            setShowSubSubMenu('')
+        }else{
+            setShowSubSubMenu(idButton)
+        }
+    }
+
+    const onClickSubMenu = (itmMenu:sidebarMenuListItemType) =>{
+        onClcikHeaderMenu(itmMenu.to)
+        onClickOpenMoreSubMenu(itmMenu.id)
+    }
 
     return(
         <>
@@ -47,7 +61,7 @@ const TemplateDrawerMenu = ({
                     return(
                         <div style={{display:'flex', flexDirection:'column', gap:"var(--size-4)"}}>
                             {
-                                listHeaderMenu.map((itmHeaderMenu:{id:string, txtLabel:string, to:string, subMenu?:{id?:string, txtLabel?:string, menuList:{id?:string, txtLabel?:string, isDisabled?:boolean, to?:string}[]}[]})=>(
+                                listHeaderMenu.map((itmHeaderMenu:{id:string, txtLabel:string, to:string, subMenu?:{id?:string, txtLabel?:string, menuList:sidebarMenuListItemType[]}[]})=>(
                                     <div style={{display:'flex', flexDirection:'column'}}>
                                         <div style={{display:'flex', gap:"var(--size-2)"}}>
                                             <Button
@@ -77,13 +91,56 @@ const TemplateDrawerMenu = ({
                                                                     <DropdownMenuItemGroup txtLabel={itmGroupMenu.txtLabel} key={itmGroupMenu.id}>
                                                                         {
                                                                             itmGroupMenu.menuList.map((itmMenu, index)=>(
-                                                                                <DropdownManuItem  
-                                                                                    key={itmMenu.id} 
-                                                                                    txtLabel={itmMenu.txtLabel} 
-                                                                                    isDisabled={itmMenu.isDisabled}
-                                                                                    isSelected={itmMenu.id===sidebarMenuListSelected}
-                                                                                    onClick={()=>{onClcikHeaderMenu(itmMenu.to)}}
-                                                                                />
+                                                                                <>
+                                                                                    <div style={{position:'relative'}}>
+                                                                                        <DropdownManuItem  
+                                                                                            key={itmMenu.id} 
+                                                                                            txtLabel={itmMenu.txtLabel} 
+                                                                                            isDisabled={itmMenu.isDisabled}
+                                                                                            isSelected={itmMenu.id===sidebarMenuListSelected}
+                                                                                            onClick={()=>{onClickSubMenu(itmMenu)}}
+                                                                                        />
+                                                                                        {
+                                                                                            (itmMenu.menuList)&&(
+                                                                                                <div 
+                                                                                                    className="font-text"
+                                                                                                    style={{
+                                                                                                        position:'absolute',
+                                                                                                        top:'0',
+                                                                                                        right:'var(--size-4)',
+                                                                                                        display:'flex',
+                                                                                                        alignItems:'center',
+                                                                                                        height:'100%'
+                                                                                                    }}
+                                                                                                >
+                                                                                                    <PiCaretDown/>
+                                                                                                </div>
+                                                                                            )
+                                                                                        }
+                                                                                    </div>
+                                                                                    {
+                                                                                        (itmMenu.menuList && showSubSubMenu===itmMenu.id)&&(
+                                                                                            <div 
+                                                                                                style={{
+                                                                                                    margin: '0px 4px 4px 28px',
+                                                                                                    paddingLeft: '4px', 
+                                                                                                    borderLeft:'1px solid hsl(var(--color-neutral-400))'
+                                                                                                }}
+                                                                                            >
+                                                                                                {itmMenu.menuList.map((itmSubMenu)=>(
+                                                                                                    <DropdownManuItem  
+                                                                                                        key={itmSubMenu.id} 
+                                                                                                        txtLabel={itmSubMenu.txtLabel} 
+                                                                                                        isDisabled={itmSubMenu.isDisabled} 
+                                                                                                        isSelected={itmSubMenu.id===sidebarMenuListSelected}
+                                                                                                        onClick={()=>{onClcikHeaderMenu(itmSubMenu.to)}}
+                                                                                                    />
+                                                                                                ))}
+                                                                                            </div>
+                                                                                        )
+                                                                                    }
+                                                                                </>
+                                                                                
                                                                             ))
                                                                         }
                                                                     </DropdownMenuItemGroup>

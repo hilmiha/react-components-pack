@@ -34,6 +34,15 @@ const ComponentTablePage = () =>{
         isDesc:false,
     })
 
+    const [tableConfigEmpty] = useState<tableConfigType>({
+        totalData:0,
+        maxRow:10,
+        page:1,
+        maxPage:1,
+        sortBy:'status',
+        isDesc:false,
+    })
+
     const getState = ():getStateTypes =>{
         return({
             tableData, 
@@ -77,6 +86,31 @@ const ComponentTablePage = () =>{
                             tableDataSelected={tableDataSelected}
                             setTableDataSelected={setTableDataSelected}
                             tableConfig={tableConfig}
+                            isExpandable={true}
+                            isCheckbox={true}
+                            isActionButtons={true}
+                            
+                            onClickRow={(itmRow)=>{console.log(itmRow)}}
+                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
+                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState())}}
+                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState())}}
+                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState())}}
+                        />
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div className="component-section">
+                <span className="font-title">Empty Table</span>
+                <div className="preview-box">
+                    <div style={{width:'100%'}}>
+                        <Table
+                            tableColums={tableColums}
+                            tableData={[]}
+                            tableDataSelected={[]}
+                            setTableDataSelected={setTableDataSelected}
+                            tableConfig={tableConfigEmpty}
                             isExpandable={true}
                             isCheckbox={true}
                             isActionButtons={true}

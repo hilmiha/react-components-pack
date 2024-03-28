@@ -1,10 +1,8 @@
 import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.scss'
-import Playground from './page/playground';
 import Modal from './components/modal';
 import { useContext, useEffect } from 'react';
 import { GlobalContext, GlobalContextType } from './context/globalcontext';
-import TablePage from './page/tablepage';
 import MainTemplate from './container/templates/main-template';
 import PlaygroundPage from './container/pages/playground-page';
 import ComponentsPage from './container/pages/components-page';
@@ -36,7 +34,6 @@ function App() {
 					<Route path="/" element={<PlaygroundPage />}/>
 					<Route path="/components/*" element={<ComponentsPage />}/>
 					<Route path="/playground" element={<PlaygroundPage />}/>
-					<Route path="/table" element={<TablePage />}/>
 				</Routes>
 			</MainTemplate>
 			

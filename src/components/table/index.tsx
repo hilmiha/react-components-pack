@@ -547,7 +547,7 @@ const Table = ({
                 >
                     <div className='table-footer-count'>
                         {
-                            (tableConfig.totalData!==0)&&(
+                            (tableConfig.totalData!==0 && tableData.length!==0)&&(
                                 `${tableRow[0]}-${tableRow[1]} / ${tableConfig.totalData}`
                             )
                         }
@@ -584,7 +584,13 @@ const Table = ({
                         />
                     </div>
                     <div className='table-footer-maxrow'>
-                        {`Show ${tableConfig.maxRow} item`}
+                        {
+                            (tableData.length!==0)&&(
+                                <>
+                                    {`Show ${tableConfig.maxRow} item`}
+                                </>
+                            )
+                        }
                         <DropdownMenu
                             IconLabel={PiCaretDown}
                             appearance='subtle'
@@ -600,6 +606,7 @@ const Table = ({
                                 }
                             ]}
                             onClickItem={(idButton, value)=>{if(typeof value === 'number'){thisOnChangeMaxRow(value)}}}
+                            isDisabled={tableData.length===0}
                         />
                     </div>
                 </div>

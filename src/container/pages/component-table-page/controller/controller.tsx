@@ -44,14 +44,6 @@ const simulateBackEndProcess = (getState:getStateTypes) =>{
         totalData:allData.length,
         totalPage:Math.ceil(allData.length / getState.tableConfig.maxRow)
     })
-    // const newData:Record<any,any>[] = []
-    
-    // return({
-    //     data:newData,
-    //     totalData:0,
-    //     totalPage:1
-    // })
-    
 }
 
 export const getTableData = async(getState:getStateTypes) =>{

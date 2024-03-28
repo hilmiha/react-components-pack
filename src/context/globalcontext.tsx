@@ -81,10 +81,6 @@ const GlobalProvider: React.FC<{children: React.ReactNode}> = ({ children }) => 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(()=>{
-        console.log('mediaSize', mediaSize)
-    },[mediaSize])
-
     const [isShowGlobalModal, setIsShowGlobalModal] = useState(false)
     const [globalModal, setGlobalModal] = useState<globalModalProps>(undefined)
 

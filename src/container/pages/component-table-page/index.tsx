@@ -66,10 +66,6 @@ const ComponentTablePage = () =>{
             setDoGetData(false)
         }
     },[doGetData])
-
-    useEffect(()=>{
-        console.log(tableConfig)
-    },[tableConfig])
     
     return(
         <DetailTemplate 

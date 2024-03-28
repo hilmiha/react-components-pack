@@ -241,7 +241,7 @@ const Table = ({
                         setIsContentScroll(false)
                     }
                 }
-            }, 10);
+            }, 20);
         });
 
         resizeObserver.observe(tableContentRef.current);

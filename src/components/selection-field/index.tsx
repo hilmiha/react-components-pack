@@ -165,9 +165,8 @@ const SelectionField = ({
         const resizeObserver = new ResizeObserver(() => {
             clearTimeout(doit);
             doit = setTimeout(function() {
-                console.log('done')
                 setResized((prv)=>{return !prv})
-            }, 10);
+            }, 20);
         });
 
         resizeObserver.observe(placeholderElementRef.current);

@@ -25,7 +25,7 @@ $fullWidth: 100vw;
     }
 
     &.drawer-overlay-for-on-left{
-        justify-content: start;
+        justify-content: flex-start;
     }
     
 }
@@ -80,7 +80,7 @@ $fullWidth: 100vw;
 
         >.button-group{
             display: flex;
-            align-items: start;
+            align-items: flex-start;
         }
         
     }

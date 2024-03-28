@@ -1,10 +1,8 @@
-import { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { MainTemplateContext, MainTemplateContextType, sidebarMenuListItemType } from "../../context/main-template-context";
 import DropdownMenuItemGroup from "../../../../../components/dropdown-menu-item-group";
 import DropdownManuItem from "../../../../../components/dropdown-menu-item";
-import { useNavigate } from "react-router-dom";
-import IconButton from "../../../../../components/icon-button";
-import { PiCaretDown, PiCaretRight, PiCaretUp } from "react-icons/pi";
+import { PiCaretDown } from "react-icons/pi";
 
 type Props = {
     onClcikHeaderMenu:(to?:string)=>void
@@ -40,7 +38,7 @@ const TemplateSidebarMenu = ({
                     <DropdownMenuItemGroup txtLabel={itmGroupMenu.txtLabel} key={itmGroupMenu.id}>
                         {
                             itmGroupMenu.menuList.map((itmMenu, index)=>(
-                                <> 
+                                <Fragment key={itmMenu.id}> 
                                     <div style={{position:'relative'}}>
                                         <DropdownManuItem  
                                             key={itmMenu.id} 
@@ -89,8 +87,7 @@ const TemplateSidebarMenu = ({
                                             </div>
                                         )
                                     }
-                                </>
-                                
+                                </Fragment>
                             ))
                         }
                     </DropdownMenuItemGroup>

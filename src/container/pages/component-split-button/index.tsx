@@ -55,27 +55,27 @@ const ComponentSplitButtonPage = () =>{
                 <span className="font-title">Appearance</span>
                 <div className="preview-box">
                     <SplitButton 
-                        txtLabel="Main Button"
+                        txtLabel="Default Button"
                         appearance="default"
                         menuList={menuList}
                     />
                     <SplitButton 
-                        txtLabel="Main Button" 
+                        txtLabel="Primary Button" 
                         appearance="primary"
                         menuList={menuList}
                     />
                     <SplitButton 
-                        txtLabel="Main Button" 
+                        txtLabel="Warning Button" 
                         appearance="warning"
                         menuList={menuList}
                     />
                     <SplitButton 
-                        txtLabel="Main Button" 
+                        txtLabel="Danger Button" 
                         appearance="danger"
                         menuList={menuList}
                     />
                     <SplitButton 
-                        txtLabel="Main Button" 
+                        txtLabel="Subtle Button" 
                         appearance="subtle"
                         menuList={menuList}
                     />

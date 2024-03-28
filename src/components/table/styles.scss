@@ -20,7 +20,7 @@
         .table-header-column{
             padding: var(--size-4);
             display: flex;
-            align-items: start;
+            align-items: flex-start;
 
             &.align-right{
                 justify-content: right;
@@ -29,7 +29,7 @@
             .table-header-column-text{
                 color: hsl(var(--color-neutral-1100));
                 display: flex;
-                align-items: start;
+                align-items: flex-start;
                 background-color: transparent;
                 border:none;
                 padding: 0px;
@@ -85,7 +85,7 @@
                 .row-main-item{
                     color: hsl(var(--color-neutral-1100));
                     padding: var(--size-4) var(--size-4);
-                    align-items: start;
+                    align-items: flex-start;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -113,21 +113,21 @@
 
                 .row-main-item-action{
                     display: flex;
-                    justify-content: end;
+                    justify-content: flex-end;
                     align-items: center;
                     padding: 8px 12px 8px 0px;
                     flex-wrap: wrap;
                     gap: 12px;
 
                     >.button-group{
-                        align-items: start;
+                        align-items:flex-start;
                     }
                     
                 }
 
                 .row-main-item-expand{
                     display: flex;
-                    justify-content: end;
+                    justify-content: flex-end;
                     align-items: center;
                     padding: 0px 0px 0px 12px;
                 }
@@ -235,7 +235,7 @@
         }
 
         .table-footer-pagination{
-            justify-content: start;
+            justify-content: flex-start;
         }
     }
 
@@ -260,7 +260,7 @@
 
     .table-footer-count{
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
     }
 
@@ -274,7 +274,7 @@
 
     .table-footer-maxrow{
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
         gap: var(--size-2)
     }

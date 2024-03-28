@@ -1,20 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { GlobalContext, GlobalContextType } from '../../../context/globalcontext';
 import './styles.scss'
 import { processClassname } from '../../../helper';
-import { listHeaderMenu } from './data/list-header-menu';
-import Button from '../../../components/button';
-import ButtonGroup from '../../../components/button-group';
 import IconButton from '../../../components/icon-button';
-import { PiCaretDown, PiDevToLogo, PiList, PiMoon, PiStripeLogo, PiSun } from 'react-icons/pi';
+import { PiDevToLogo, PiMoon, PiSun } from 'react-icons/pi';
 import PillFlair from '../../../components/pill-flair';
-import DropdownMenuItemGroup from '../../../components/dropdown-menu-item-group';
-import DropdownManuItem from '../../../components/dropdown-menu-item';
 import { useNavigate } from 'react-router-dom';
-import MainTemplateProvider, { MainTemplateContext, MainTemplateContextType } from './context/main-template-context';
-import Drawer from '../../../components/drawer';
-import { Props as dropdownMenuItemType } from '../../../components/dropdown-menu-item';
-import SplitButton from '../../../components/split-button';
+import MainTemplateProvider from './context/main-template-context';
 import TemplateSidebarMenu from './components/sidebar-menu';
 import TemplateDrawerMenu from './components/drawer-menu';
 import TemplateHeaderMenu from './components/header-menu';
@@ -30,22 +22,7 @@ const MainTemplate = ({children}:Props) =>{
         changeTheme
     } = useContext(GlobalContext) as GlobalContextType;
 
-    const {
-        sidebarMenuList,
-        sidebarMenuListSelected
-    } = useContext(MainTemplateContext) as MainTemplateContextType;
-
     const navigate = useNavigate()
-
-    const [isMainMenuDrawerOpen, setIsMainMenuDrawerOpen] = useState(false)
-    const [showSubMenuDrawer, setShowSubMenuDrawer] = useState('')
-    const onClickOpenMoreMenu = (id:string) =>{
-        if(showSubMenuDrawer===id){
-            setShowSubMenuDrawer('')
-        }else{
-            setShowSubMenuDrawer(id)
-        }
-    }
 
     const onClcikHeaderMenu = (to?:string) =>{
         if(to){
@@ -92,7 +69,7 @@ const MainTemplate = ({children}:Props) =>{
     )
 }
 
-export default (x:{children:JSX.Element})=>{
+const HocProvider = (x:{children:JSX.Element})=>{
     return(
         <MainTemplateProvider>
             <MainTemplate>
@@ -101,3 +78,5 @@ export default (x:{children:JSX.Element})=>{
         </MainTemplateProvider>
     )
 }
+
+export default HocProvider

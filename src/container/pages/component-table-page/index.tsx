@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import { tableColumsDummny, tableDataDummy } from "./data/tableData";
+import { tableColumsDummny } from "./data/tableData";
 import Table, { tableColumType, tableConfigType, tableDataType } from "../../../components/table";
 import * as contorller from "./controller/controller";
 
@@ -43,7 +43,7 @@ const ComponentTablePage = () =>{
         isDesc:false,
     })
 
-    const getState = ():getStateTypes =>{
+    const getState = useMemo(()=>{
         return({
             tableData, 
             setTableData,
@@ -54,18 +54,22 @@ const ComponentTablePage = () =>{
             tableDataSelected, 
             setTableDataSelected
         })
-    }    
+    },[tableData, doGetData, tableConfig, tableDataSelected])
+
+    useEffect(()=>{
+        console.log(getState)
+    },[getState])
 
     useEffect(()=>{
         setSidebarMenuListSelected('table')
-    },[])
+    },[setSidebarMenuListSelected])
 
     useEffect(()=>{
         if(doGetData){
-            contorller.getTableData(getState())
+            contorller.getTableData(getState)
             setDoGetData(false)
         }
-    },[doGetData])
+    },[doGetData, getState])
 
     useEffect(()=>{
         console.log(tableConfig)
@@ -91,10 +95,10 @@ const ComponentTablePage = () =>{
                             isActionButtons={true}
                             
                             onClickRow={(itmRow)=>{console.log(itmRow)}}
-                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
-                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState())}}
-                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState())}}
-                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState())}}
+                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState)}}
+                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState)}}
+                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState)}}
+                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState)}}
                         />
                     </div>
                     
@@ -116,10 +120,10 @@ const ComponentTablePage = () =>{
                             isActionButtons={true}
                             
                             onClickRow={(itmRow)=>{console.log(itmRow)}}
-                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
-                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState())}}
-                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState())}}
-                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState())}}
+                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState)}}
+                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState)}}
+                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState)}}
+                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState)}}
                         />
                     </div>
                     

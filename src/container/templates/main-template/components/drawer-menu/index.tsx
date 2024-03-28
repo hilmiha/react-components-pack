@@ -1,9 +1,8 @@
 import { PiCaretDown, PiList } from "react-icons/pi"
 import IconButton from "../../../../../components/icon-button"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import Drawer from "../../../../../components/drawer"
 import { listHeaderMenu } from '../../data/list-header-menu';
-import { useNavigate } from "react-router-dom";
 import DropdownMenuItemGroup from "../../../../../components/dropdown-menu-item-group";
 import DropdownManuItem from "../../../../../components/dropdown-menu-item";
 import { MainTemplateContext, MainTemplateContextType, sidebarMenuListItemType } from "../../context/main-template-context";
@@ -62,7 +61,7 @@ const TemplateDrawerMenu = ({
                         <div style={{display:'flex', flexDirection:'column', gap:"var(--size-4)"}}>
                             {
                                 listHeaderMenu.map((itmHeaderMenu:{id:string, txtLabel:string, to:string, subMenu?:{id?:string, txtLabel?:string, menuList:sidebarMenuListItemType[]}[]})=>(
-                                    <div style={{display:'flex', flexDirection:'column'}}>
+                                    <div style={{display:'flex', flexDirection:'column'}} key={itmHeaderMenu.id}>
                                         <div style={{display:'flex', gap:"var(--size-2)"}}>
                                             <Button
                                                 key={itmHeaderMenu.id} 

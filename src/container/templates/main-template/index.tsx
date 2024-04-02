@@ -10,6 +10,8 @@ import MainTemplateProvider from './context/main-template-context';
 import TemplateSidebarMenu from './components/sidebar-menu';
 import TemplateDrawerMenu from './components/drawer-menu';
 import TemplateHeaderMenu from './components/header-menu';
+import Image from '../../../components/image';
+
 type Props = {
     children?:JSX.Element
 }
@@ -42,7 +44,12 @@ const MainTemplate = ({children}:Props) =>{
                     <TemplateDrawerMenu onClcikHeaderMenu={onClcikHeaderMenu}/>
                 </div>
                 <div className='header-logo' style={{justifyContent:`${mediaSize>0?('start'):('center')}`}}>
-                    <PiDevToLogo size={42} color='hsl(var(--color-neutral-1100))'/>
+                    <Image
+                        srcImage='/assets/logo_personal.png'
+                        height='32px'
+                        width='32px'
+                        radius='10px'
+                    />
                     <div style={{display:`${mediaSize>0?('flex'):('none')}`, flexDirection:'column', justifyContent:'center'}}>
                         <p style={{fontSize:'12px', color:"hsl(var(--color-neutral-1100))"}}>Hilmi's</p>
                         <PillFlair type='text' txtLabel='React Component Collections' isBold color='info'/>

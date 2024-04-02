@@ -160,7 +160,12 @@ const TextField = ({
                         </>
                     )
                 }
-                <div className='text-field-input-container field-container'>
+                <div 
+                    className={
+                        processClassname(`text-field-input-container field-container
+                        ${(error?.isError)?('error'):('')}`)  
+                    }
+                >
                     {(prefix)&&(
                         <span className='field-prefix-sufix'>{prefix}</span>
                     )}

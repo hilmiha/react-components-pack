@@ -3,7 +3,7 @@ import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import SelectionField, { selectionValueType } from "../../../components/selection-field";
 import { errorType } from "../../../components/text-field";
-import useFormHook from "../../../helper/useForm";
+import useFormHook from "../../../hook/useForm";
 import { generateErrorState } from "../../../helper";
 
 export type formType = {
@@ -81,6 +81,7 @@ const ComponentSelectionFieldPage = () =>{
                         value={form['multiSelection']}
                         error={formError['multiSelection']}
                         onChange={(newValue)=>{onChange('multiSelection', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('multiSelection', errorResult)}}
                         valueList={[
                             {
                                 id:'1',
@@ -98,6 +99,9 @@ const ComponentSelectionFieldPage = () =>{
                                 ]
                             }
                         ]}
+                        config={{
+                            isMandatory:true
+                        }}
                     />
                 </div>
             </div>

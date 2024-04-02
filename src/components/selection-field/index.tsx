@@ -49,6 +49,7 @@ const SelectionField = ({
     const navigate = useNavigate()
     const location = useLocation()
 
+    const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory
     const prefix = config?.prefix
     const sufix = config?.sufix
@@ -61,6 +62,7 @@ const SelectionField = ({
     const [searchFieldValue, setSearchFieldValue] = useState('')
     const [searchResult, setSearchResult] = useState<valueList>([])
     const [resized, setResized] = useState(false)
+
     //---- Start of Popup thingy 
     const [isOpenDropdown,setIsOpenDropdown] = useState(false)
     const { refs, floatingStyles, context } = useFloating({
@@ -127,55 +129,34 @@ const SelectionField = ({
             navigate(`${location.hash}#modal-selection-open`)
         }
     }
+    const validateField = (value:selectionValueType) =>{
+        let tampError:errorType = {isError:false, errorMessage:''}
+        let error = false
+        
+        if(isMandatory && !error){
+            if(value.length===0){
+                error=true
+            }
+
+            if(error){
+                tampError.isError = true
+                tampError.errorMessage = "This field can't be empty!"
+            }
+        }
+
+        return tampError
+    }
     const onCloseDropdown = () =>{
         setIsOpenDropdown(false)
         if(location.hash.includes('#modal-selection-open')){
             navigate(-1)
         }
+
+        if(onValidate && isFieldTouched){
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
+        }
     }
-
-    useEffect(()=>{
-        if(!location.hash.includes('#modal-selection-open')){
-            setIsOpenDropdown(false)
-        }
-    },[location])
-
-    useEffect(()=>{
-        if(mediaSize<1 && !location.hash.includes('#modal-selection-open') && isOpenDropdown){
-            navigate(`${location.hash}#modal-selection-open`)
-        }
-    },[mediaSize])
-
-    useEffect(()=>{
-        getTitleSuffix()
-    },[value, resized])
-
-    useEffect(()=>{
-        if(!isOpenDropdown){
-            getTitleSuffix()
-        }
-    },[isOpenDropdown])
-
-    useEffect(()=>{
-        if (!placeholderElementRef.current) {
-            return;
-        }
-        var doit:any;
-
-        const resizeObserver = new ResizeObserver(() => {
-            clearTimeout(doit);
-            doit = setTimeout(function() {
-                setResized((prv)=>{return !prv})
-            }, 20);
-        });
-
-        resizeObserver.observe(placeholderElementRef.current);
-        
-        return function cleanup() {
-            clearTimeout(doit);
-            resizeObserver.disconnect();
-        }
-    },[])
 
     const thisOnClickManuItem = (itemValue:itemSelectionValue) =>{
         if(type==='selection'){
@@ -219,6 +200,10 @@ const SelectionField = ({
                 onChange(tampNewValue)
             }
             
+        }
+
+        if(!isFieldTouched){
+            setIsFieldTouched(true)
         }
     }
 
@@ -270,6 +255,49 @@ const SelectionField = ({
             setSearchResult(tampSearchResult)
         }
     }
+
+    useEffect(()=>{
+        if(!location.hash.includes('#modal-selection-open')){
+            setIsOpenDropdown(false)
+        }
+    },[location])
+
+    useEffect(()=>{
+        if(mediaSize<1 && !location.hash.includes('#modal-selection-open') && isOpenDropdown){
+            navigate(`${location.hash}#modal-selection-open`)
+        }
+    },[mediaSize])
+
+    useEffect(()=>{
+        getTitleSuffix()
+    },[value, resized])
+
+    useEffect(()=>{
+        if(!isOpenDropdown){
+            getTitleSuffix()
+        }
+    },[isOpenDropdown])
+
+    useEffect(()=>{
+        if (!placeholderElementRef.current) {
+            return;
+        }
+        var doit:any;
+
+        const resizeObserver = new ResizeObserver(() => {
+            clearTimeout(doit);
+            doit = setTimeout(function() {
+                setResized((prv)=>{return !prv})
+            }, 20);
+        });
+
+        resizeObserver.observe(placeholderElementRef.current);
+        
+        return function cleanup() {
+            clearTimeout(doit);
+            resizeObserver.disconnect();
+        }
+    },[])
 
     useEffect(()=>{
         setSearchFieldValue('')
@@ -383,7 +411,10 @@ const SelectionField = ({
                 )
             }
             <button 
-                className='selection-field-input-container field-container'
+                className={
+                    processClassname(`selection-field-input-container field-container
+                    ${(error?.isError)?('error'):('')}`)  
+                }
                 ref={refs.setReference} {...getReferenceProps()}
                 onClick={onClickInputField}
             >

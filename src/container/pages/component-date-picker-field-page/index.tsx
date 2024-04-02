@@ -4,7 +4,7 @@ import { MainTemplateContext, MainTemplateContextType } from "../../templates/ma
 import { datePickerValueType } from "../../../components/date-picker";
 import { errorType } from "../../../components/text-field";
 import { generateErrorState } from "../../../helper";
-import useFormHook from "../../../helper/useForm";
+import useFormHook from "../../../hook/useForm";
 import DatePickerField from "../../../components/date-picker-field";
 
 export type formType = {
@@ -21,7 +21,7 @@ const ComponentDatePickerFieldPage = () =>{
     const [form, setForm] = useState<formType>({
         selection:undefined,
         multiSelection:[],
-        rangeSelection:{from:undefined, to:undefined}
+        rangeSelection:undefined
     })
     const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))
 
@@ -57,8 +57,9 @@ const ComponentDatePickerFieldPage = () =>{
                         value={form['selection']}
                         error={formError['selection']}
                         onChange={(newValue)=>{onChange('selection', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('selection', errorResult)}}
                         config={{
-
+                            isMandatory:true
                         }}
                     />
                 </div>
@@ -73,8 +74,9 @@ const ComponentDatePickerFieldPage = () =>{
                         value={form['multiSelection']}
                         error={formError['multiSelection']}
                         onChange={(newValue)=>{onChange('multiSelection', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('multiSelection', errorResult)}}
                         config={{
-
+                            isMandatory:true
                         }}
                     />
                 </div>
@@ -89,8 +91,9 @@ const ComponentDatePickerFieldPage = () =>{
                         value={form['rangeSelection']}
                         error={formError['rangeSelection']}
                         onChange={(newValue)=>{onChange('rangeSelection', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('rangeSelection', errorResult)}}
                         config={{
-
+                            isMandatory:true
                         }}
                     />
                 </div>

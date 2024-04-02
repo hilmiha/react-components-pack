@@ -18,7 +18,7 @@ type Props = {
     txtPlaceholder?:string
     value?:datePickerValueType
     onChange?: (newValue:datePickerValueType) => void,
-    // onValidate?: (errorResult:errorType, newValue:multiSelectiomValueType, config?:Record<any, any>) => void,
+    onValidate?: (errorResult:errorType, newValue:datePickerValueType, config?:Record<any, any>) => void,
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
@@ -37,12 +37,14 @@ const DatePickerField = ({
     txtLabel,
     txtPlaceholder,
     onChange,
+    onValidate,
     error,
     config
 }:Props) =>{
     const navigate = useNavigate()
     const location = useLocation()
     
+    const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory
     const prefix = config?.prefix
     const sufix = config?.sufix
@@ -75,9 +77,39 @@ const DatePickerField = ({
     ]);
     // ----- End of Popup Thingy
 
+    const validateField = (value:datePickerValueType) =>{
+        let tampError:errorType = {isError:false, errorMessage:''}
+        let error = false
+        
+        if(isMandatory && !error){
+            if(!value){
+                error = true
+            }
+
+            if(Array.isArray(value) && value.length===0 && !error){
+                error = true
+            }
+
+            if(isDateRange(value) && !value.from && !value.to && !error){
+                error = true
+            }
+
+            if(error){
+                tampError.isError = true
+                tampError.errorMessage = "This field can't be empty!"
+            }
+        }
+
+        return tampError
+    }
+
     const thisOnChange = (newValue:datePickerValueType) =>{
         if(onChange){
             onChange(newValue)
+        }
+
+        if(!isFieldTouched){
+            setIsFieldTouched(true)
         }
     }
 
@@ -115,6 +147,11 @@ const DatePickerField = ({
         setIsOpenDropdown(false)
         if(location.hash.includes('#modal-selection-open')){
             navigate(-1)
+        }
+
+        if(onValidate && isFieldTouched){
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
         }
     }
 
@@ -157,7 +194,10 @@ const DatePickerField = ({
                 )
             }
             <button 
-                className='selection-field-input-container field-container'
+                className={
+                    processClassname(`selection-field-input-container field-container
+                    ${(error?.isError)?('error'):('')}`)  
+                }
                 ref={refs.setReference} {...getReferenceProps()}
                 onClick={onClickInputField}
             >

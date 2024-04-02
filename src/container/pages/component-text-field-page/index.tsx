@@ -3,7 +3,7 @@ import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import TextField, { errorType } from "../../../components/text-field";
 import { generateErrorState } from "../../../helper";
-import useFormHook from "../../../helper/useForm";
+import useFormHook from "../../../hook/useForm";
 
 export type formType = {
     textField:string

@@ -10,12 +10,12 @@ export const asyncTimeout = (ms: number) => {
     });
 };
 
-const simulateBackEndProcess = (getState:getStateTypes) =>{
+const simulateBackEndProcess = (viewState:getStateTypes) =>{
     const allData = [...tableDataDummy].sort((a, b) => {
-        let fa = a[getState.tableConfig.sortBy].toLowerCase(),
-            fb = b[getState.tableConfig.sortBy].toLowerCase();
+        let fa = a[viewState.tableConfig.sortBy].toLowerCase(),
+            fb = b[viewState.tableConfig.sortBy].toLowerCase();
         
-        if(getState.tableConfig.isDesc){
+        if(viewState.tableConfig.isDesc){
             if (fa > fb) {
                 return -1;
             }
@@ -36,18 +36,18 @@ const simulateBackEndProcess = (getState:getStateTypes) =>{
     });
     
 
-    const startData = ((getState.tableConfig.page*getState.tableConfig.maxRow)-getState.tableConfig.maxRow+1)
-    const endData = Math.min((getState.tableConfig.page*getState.tableConfig.maxRow),allData.length)
+    const startData = ((viewState.tableConfig.page*viewState.tableConfig.maxRow)-viewState.tableConfig.maxRow+1)
+    const endData = Math.min((viewState.tableConfig.page*viewState.tableConfig.maxRow),allData.length)
 
     return({
         data:allData.slice(startData-1, endData),
         totalData:allData.length,
-        totalPage:Math.ceil(allData.length / getState.tableConfig.maxRow)
+        totalPage:Math.ceil(allData.length / viewState.tableConfig.maxRow)
     })
 }
 
-export const getTableData = async(getState:getStateTypes) =>{
-    const response = simulateBackEndProcess(getState)
+export const getTableData = async(viewState:getStateTypes) =>{
+    const response = simulateBackEndProcess(viewState)
     const dataTamp:tableDataType[] = response.data.map((itm)=>{
         return({
             id:itm.id,
@@ -104,48 +104,48 @@ export const getTableData = async(getState:getStateTypes) =>{
         })
     })
 
-    const tableConfigTamp = {...getState.tableConfig}
+    const tableConfigTamp = {...viewState.tableConfig}
     tableConfigTamp.totalData = response.totalData
     tableConfigTamp.maxPage = response.totalPage
 
-    getState.setTableConfig(tableConfigTamp)
+    viewState.setTableConfig(tableConfigTamp)
 
-    getState.setTableData(dataTamp)
+    viewState.setTableData(dataTamp)
 }
 
-export const onClickPagination = (idButton:string, getState:getStateTypes) =>{
-    const tableConfigTamp = {...getState.tableConfig}
+export const onClickPagination = (idButton:string, viewState:getStateTypes) =>{
+    const tableConfigTamp = {...viewState.tableConfig}
     console.log(idButton)
     switch (idButton) {
         case 'next':
             if(tableConfigTamp.page + 1 <= tableConfigTamp.maxPage){
                 tableConfigTamp.page = tableConfigTamp.page + 1
-                getState.setTableConfig(tableConfigTamp)
-                getState.setDoGetData(true)
+                viewState.setTableConfig(tableConfigTamp)
+                viewState.setDoGetData(true)
             }
             break;
 
         case 'prev':
             if(tableConfigTamp.page - 1 > 0){
                 tableConfigTamp.page = tableConfigTamp.page - 1
-                getState.setTableConfig(tableConfigTamp)
-                getState.setDoGetData(true)
+                viewState.setTableConfig(tableConfigTamp)
+                viewState.setDoGetData(true)
             }
             break;
 
         case 'first':
             if(tableConfigTamp.page !== 1){
                 tableConfigTamp.page = 1
-                getState.setTableConfig(tableConfigTamp)
-                getState.setDoGetData(true)
+                viewState.setTableConfig(tableConfigTamp)
+                viewState.setDoGetData(true)
             }
             break;
 
         case 'last':
             if(tableConfigTamp.page !== tableConfigTamp.maxPage){
                 tableConfigTamp.page = tableConfigTamp.maxPage
-                getState.setTableConfig(tableConfigTamp)
-                getState.setDoGetData(true)
+                viewState.setTableConfig(tableConfigTamp)
+                viewState.setDoGetData(true)
             }
             break;
     
@@ -154,23 +154,23 @@ export const onClickPagination = (idButton:string, getState:getStateTypes) =>{
     }
 }
 
-export const onChangeMaxRow = (newMaxRow:number, getState:getStateTypes) =>{
-    const tableConfigTamp = {...getState.tableConfig}
+export const onChangeMaxRow = (newMaxRow:number, viewState:getStateTypes) =>{
+    const tableConfigTamp = {...viewState.tableConfig}
     tableConfigTamp.page = 1
     tableConfigTamp.maxRow = newMaxRow
-    getState.setTableConfig(tableConfigTamp)
-    getState.setDoGetData(true)
+    viewState.setTableConfig(tableConfigTamp)
+    viewState.setDoGetData(true)
 }
 
-export const onClickColumn = (columnKey:string, isDesc:boolean, getState:getStateTypes) =>{
-    const tableConfigTamp = {...getState.tableConfig}
+export const onClickColumn = (columnKey:string, isDesc:boolean, viewState:getStateTypes) =>{
+    const tableConfigTamp = {...viewState.tableConfig}
     tableConfigTamp.page = 1
     tableConfigTamp.sortBy = columnKey
     tableConfigTamp.isDesc = isDesc
-    getState.setTableConfig(tableConfigTamp)
-    getState.setDoGetData(true)
+    viewState.setTableConfig(tableConfigTamp)
+    viewState.setDoGetData(true)
 }
 
-export const onClickAction = (idButton:string, itmRow:tableDataType, getState:getStateTypes) =>{
+export const onClickAction = (idButton:string, itmRow:tableDataType, viewState:getStateTypes) =>{
     console.log(idButton, itmRow)
 }

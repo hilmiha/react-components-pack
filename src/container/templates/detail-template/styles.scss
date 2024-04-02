@@ -11,12 +11,14 @@
         display: block;
         font-size: var(--font-size-largest);
         font-weight: var(--font-weight-bold);
+        animation: fadeIn 0.3s ease 0s 1 normal forwards;
     }
 
     .detail-template-header-subtitle{
         color: hsl(var(--color-neutral-1100));
         display: block;
         margin-top: var(--size-4);
+        animation: fadeIn 0.3s ease 0s 1 normal forwards;
     }
 }
 
@@ -25,5 +27,17 @@
 
     @media screen and (max-width: 767px){
         padding: var(--size-8) var(--size-4);
+    }
+
+    animation: fadeIn 0.3s ease 0s 1 normal forwards;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
     }
 }

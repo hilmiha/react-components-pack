@@ -38,8 +38,8 @@ const PlaygroundPage = () =>{
 		email?: string
 		kode?: string
 		harga?: string
-		kota?: selectionValueType[],
-		kelas?: selectionValueType[],
+		kota?: selectionValueType,
+		kelas?: selectionValueType,
 		jadwal?: datePickerValueType
 	}
 	type errorTest = Record<keyof test, {isError:boolean, errorMessage:string}>
@@ -99,12 +99,12 @@ const PlaygroundPage = () =>{
 				<div style={{display:'flex', flexDirection:'column', width:"100%", gap:'24px', margin:'20px 0px'}}>				
 					<TextField
 						txtLabel='Name'
+						txtPlaceholder='Isi Nama...'
 						type='text'
 						value={form['name']}
 						onChange={(newValue)=>{onChangeForm('name', newValue)}}
 						onValidate={(errorResult, newValue)=>{onValidateForm('name', errorResult)}}
 						config={{
-							placeholder:'Isi Nama...',
 							isMandatory:true,
 							maxLength:undefined,
 							prefix:undefined,
@@ -114,6 +114,7 @@ const PlaygroundPage = () =>{
 					/>
 					<SelectionField
 						txtLabel='Selectiom'
+						txtPlaceholder='Select Kota...'
 						type='multi-selection'
 						value={form['kota']}
 						onChange={(newValue)=>{onChangeForm('kota', newValue)}}
@@ -137,7 +138,6 @@ const PlaygroundPage = () =>{
 							}
 						]}
 						config={{
-							placeholder:'Select Kota...',
 							isWithSearch:true,
 							// isMandatory:true,
 							prefix:undefined,
@@ -146,6 +146,7 @@ const PlaygroundPage = () =>{
 					/>
 					<SelectionField
 						txtLabel='Sleectiom'
+						txtPlaceholder='Select Kota...'
 						type='selection'
 						value={form['kelas']}
 						onChange={(newValue)=>{onChangeForm('kelas', newValue)}}
@@ -161,7 +162,6 @@ const PlaygroundPage = () =>{
 							}
 						]}
 						config={{
-							placeholder:'Select Kota...',
 							isMandatory:true,
 							prefix:undefined,
 							sufix:undefined,
@@ -170,10 +170,10 @@ const PlaygroundPage = () =>{
 					<DatePickerField
 						type='range'
 						txtLabel='Jadwal'
+						txtPlaceholder='Select Date...'
 						value={form['jadwal']}
 						onChange={(newValue)=>{onChangeForm('jadwal', newValue)}}
 						config={{
-							placeholder:'Select date',
 							isMandatory:true,
 							daysAfterToday:30,
 							daysBeforeToday:30,
@@ -182,12 +182,12 @@ const PlaygroundPage = () =>{
 					/>
 					<TextField
 						txtLabel='Email'
+						txtPlaceholder='Isi Email...'
 						type='text-no-space'
 						value={form['email']}
 						onChange={(newValue)=>{onChangeForm('email', newValue)}}
 						onValidate={(errorResult, newValue)=>{onValidateForm('email', errorResult)}}
 						config={{
-							placeholder:'Isi Nama...',
 							isMandatory:true,
 							maxLength:undefined,
 							prefix:undefined,
@@ -315,12 +315,12 @@ const PlaygroundPage = () =>{
 						<div style={{display:'grid', gridTemplateColumns:'1fr', gap:'24px'}}>
 							<TextField
 								txtLabel='Name'
+								txtPlaceholder="Isi Name"
 								type='text'
 								value={form['name']}
 								onChange={(newValue)=>{onChangeForm('name', newValue)}}
 								onValidate={(errorResult, newValue)=>{onValidateForm('name', errorResult)}}
 								config={{
-									placeholder:'Isi Nama...',
 									// isMandatory:true,
 									maxLength:undefined,
 									prefix:undefined,
@@ -330,6 +330,7 @@ const PlaygroundPage = () =>{
 							/>
 							<SelectionField
 								txtLabel='Selectiom'
+								txtPlaceholder='Select Kota...'
 								type='multi-selection'
 								value={form['kota']}
 								onChange={(newValue)=>{onChangeForm('kota', newValue)}}
@@ -353,7 +354,6 @@ const PlaygroundPage = () =>{
 									}
 								]}
 								config={{
-									placeholder:'Select Kota...',
 									isWithSearch:true,
 									// isMandatory:true,
 									prefix:undefined,
@@ -362,6 +362,7 @@ const PlaygroundPage = () =>{
 							/>
 							<SelectionField
 								txtLabel='Sleectiom'
+								txtPlaceholder='Select Kota...'
 								type='selection'
 								value={form['kelas']}
 								onChange={(newValue)=>{onChangeForm('kelas', newValue)}}
@@ -377,7 +378,6 @@ const PlaygroundPage = () =>{
 									}
 								]}
 								config={{
-									placeholder:'Select Kota...',
 									// isMandatory:true,
 									prefix:undefined,
 									sufix:undefined,
@@ -386,10 +386,10 @@ const PlaygroundPage = () =>{
 							<DatePickerField
 								type='range'
 								txtLabel='Jadwal'
+								txtPlaceholder='Select Date...'
 								value={form['jadwal']}
 								onChange={(newValue)=>{onChangeForm('jadwal', newValue)}}
 								config={{
-									placeholder:'Select date',
 									// isMandatory:true,
 									// daysAfterToday:0,
 									daysBeforeToday:30,

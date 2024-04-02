@@ -12,14 +12,14 @@ export type valueList = valueListItem[] | []
 
 type Props = {
     className?: string
-    type?:textFieldType
+    type:textFieldType
     value?: valueType
     txtLabel?:string
+    txtPlaceholder?:string
     onChange?: (newValue:valueType) => void,
     onValidate?: (errorResult:errorType, newValue:valueType, config?:Record<any, any>) => void,
     error?: errorType
     config?: {
-        placeholder?: string
         prefix?: string | JSX.Element,
         sufix?: string | JSX.Element,
         maxLength?: number,
@@ -34,6 +34,7 @@ const TextField = ({
     className,
     type = 'text',
     txtLabel,
+    txtPlaceholder,
     value,
     onChange,
     onValidate,
@@ -164,7 +165,7 @@ const TextField = ({
                         <span className='field-prefix-sufix'>{prefix}</span>
                     )}
                     <input
-                        placeholder={config?.placeholder}
+                        placeholder={txtPlaceholder}
                         className={'text-field-input'}
                         value={processValue(true, value)}
                         onBlur={thisOnBlur}

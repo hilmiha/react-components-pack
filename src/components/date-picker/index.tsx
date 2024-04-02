@@ -25,10 +25,6 @@ const DatePicker = ({
     daysBeforeToday,
     maxSelection
 }:Props) =>{
-    // const [selected, setSelected] = useState<Date>()
-    // const [selectedMulti, setSelectedMulti] = useState<Date[]>()
-    // const [selectedRange, setSelectedRange] = useState<DateRange>()
-
 
     function DateTime(props: DayContentProps) {
         const dateTime = format(props.date, 'yyyy-MM-dd');
@@ -44,10 +40,6 @@ const DatePicker = ({
             onchange(newSelected)
         }
     }
-
-    // useEffect(()=>{
-    //     console.log(selected)
-    // },[selected])
 
     return(
         <div

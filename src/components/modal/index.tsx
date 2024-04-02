@@ -184,6 +184,7 @@ const Modal = ({
                                                     Icon={PiXBold}
                                                     appearance='subtle'
                                                     spacing='compact'
+                                                    onClick={()=>{thisOnClickButton('*close*')}}
                                                 />
                                             )
                                         }

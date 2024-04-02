@@ -11,22 +11,22 @@ import IconButton from "../icon-button"
 import { useLocation, useNavigate } from "react-router-dom"
 
 type selectionFieldType = 'selection' | "multi-selection"
-export type selectionValueType = {txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string}
-export type multiSelectiomValueType = selectionValueType[]
+export type itemSelectionValue = {txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string}
+export type selectionValueType = itemSelectionValue[]
 export type valueListItem = {id:string, txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string, isDisabled?:boolean}
 export type valueList = {id:string, title?:string, menu:valueListItem[]}[]
 
 type Props = {
     className?: string
-    type?:selectionFieldType
-    value?: multiSelectiomValueType
+    type:selectionFieldType
+    value?: selectionValueType
     txtLabel?:string
-    onChange?: (newValue:multiSelectiomValueType) => void,
-    onValidate?: (errorResult:errorType, newValue:multiSelectiomValueType, config?:Record<any, any>) => void,
+    txtPlaceholder?:string
+    onChange?: (newValue:selectionValueType) => void,
+    onValidate?: (errorResult:errorType, newValue:selectionValueType, config?:Record<any, any>) => void,
     valueList?:valueList
     error?: errorType
     config?: {
-        placeholder?: string
         prefix?: string | JSX.Element,
         sufix?: string | JSX.Element,
         maxSelection?: number,
@@ -39,6 +39,7 @@ const SelectionField = ({
     type = 'selection',
     value = [],
     txtLabel,
+    txtPlaceholder,
     onChange,
     onValidate,
     valueList = [],
@@ -101,7 +102,6 @@ const SelectionField = ({
 
         if(element){
             var text = parseValueToShow()
-            // element.removeChild(element.firstChild);
             element.innerHTML = '';
             for (var i = 0; i < text.length; i++) {
                 var newNode = document.createElement('span');
@@ -177,11 +177,11 @@ const SelectionField = ({
         }
     },[])
 
-    const thisOnClickManuItem = (itemValue:selectionValueType) =>{
+    const thisOnClickManuItem = (itemValue:itemSelectionValue) =>{
         if(type==='selection'){
             if(onChange){
                 if(itemValue.value){
-                    let tampNewItem:selectionValueType = {
+                    let tampNewItem:itemSelectionValue = {
                         txtLabel:itemValue.txtLabel,
                         value:itemValue.value,
                     }
@@ -203,7 +203,7 @@ const SelectionField = ({
                 if(isSelected(itemValue.value)){
                     tampNewValue = tampNewValue.filter((itm)=>(itm.value!==itemValue.value))
                 }else{
-                    let tampNewItem:selectionValueType = {
+                    let tampNewItem:itemSelectionValue = {
                         txtLabel:itemValue.txtLabel,
                         value:itemValue.value,
                     }
@@ -285,11 +285,12 @@ const SelectionField = ({
                             {
                                 (config?.isWithSearch)&&(
                                     <TextField
+                                        type="text"
+						                txtPlaceholder='Search list'
                                         value={searchFieldValue}
                                         onChange={(newValue)=>{onChangeSearch(newValue)}}
                                         config={{
-                                            sufix:<PiMagnifyingGlassBold />,
-                                            placeholder:'Search list'
+                                            sufix:<PiMagnifyingGlassBold />
                                         }}
                                     />
                                 )
@@ -405,7 +406,7 @@ const SelectionField = ({
                     } */}
                     <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
                     <div ref={placeholderElementRef} className='selection-field-input-value'>{parseValueToShow()}</div>
-                    <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{config?.placeholder}</span>
+                    <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{txtPlaceholder}</span>
                 </div>
                 {(sufix)&&(
                     <span className='field-prefix-sufix'>{sufix}</span>

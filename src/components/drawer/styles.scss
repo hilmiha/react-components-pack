@@ -86,7 +86,7 @@ $fullWidth: 100vw;
     }
     .drawer-content{
         background-color: hsl(var(--color-neutral-100));
-        padding: var(--size-4);
+        padding: var(--size-4) 0px var(--size-4) var(--size-4);
         flex-grow: 100;
 
 

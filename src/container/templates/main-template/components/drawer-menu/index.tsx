@@ -1,6 +1,6 @@
 import { PiCaretDown, PiList } from "react-icons/pi"
 import IconButton from "../../../../../components/icon-button"
-import { useContext, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import Drawer from "../../../../../components/drawer"
 import { listHeaderMenu } from '../../data/list-header-menu';
 import DropdownMenuItemGroup from "../../../../../components/dropdown-menu-item-group";
@@ -83,14 +83,14 @@ const TemplateDrawerMenu = ({
                                         <div>
                                             {
                                                 (itmHeaderMenu.subMenu && showSubMenuDrawer===itmHeaderMenu.id)&&(
-                                                    <>
+                                                    <Fragment>
                                                         {
                                                             itmHeaderMenu.subMenu.map((itmGroupMenu)=>(
-                                                                <div style={{paddingLeft:"var(--size-4)"}}>
+                                                                <div style={{paddingLeft:"var(--size-4)"}} key={itmGroupMenu.id}>
                                                                     <DropdownMenuItemGroup txtLabel={itmGroupMenu.txtLabel} key={itmGroupMenu.id}>
                                                                         {
                                                                             itmGroupMenu.menuList.map((itmMenu, index)=>(
-                                                                                <>
+                                                                                <Fragment key={itmMenu.id} >
                                                                                     <div style={{position:'relative'}}>
                                                                                         <DropdownManuItem  
                                                                                             key={itmMenu.id} 
@@ -138,7 +138,7 @@ const TemplateDrawerMenu = ({
                                                                                             </div>
                                                                                         )
                                                                                     }
-                                                                                </>
+                                                                                </Fragment>
                                                                                 
                                                                             ))
                                                                         }
@@ -146,7 +146,7 @@ const TemplateDrawerMenu = ({
                                                                 </div>
                                                             ))
                                                         }
-                                                    </>
+                                                    </Fragment>
                                                 )
                                             }
                                         </div>

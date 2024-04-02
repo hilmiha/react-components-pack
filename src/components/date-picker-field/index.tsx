@@ -3,7 +3,7 @@ import './styles.scss'
 import DatePicker, { datePickerType, datePickerValueType } from '../date-picker'
 import { isDateRange } from 'react-day-picker'
 import { errorType } from '../text-field'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react'
 import { PiWarningDiamondFill, PiXBold } from 'react-icons/pi'
 import { format, isDate } from 'date-fns'
@@ -15,12 +15,12 @@ type Props = {
     className?: String
     type?:datePickerType
     txtLabel?:string
+    txtPlaceholder?:string
     value?:datePickerValueType
     onChange?: (newValue:datePickerValueType) => void,
     // onValidate?: (errorResult:errorType, newValue:multiSelectiomValueType, config?:Record<any, any>) => void,
     error?: errorType
     config?: {
-        placeholder?: string
         prefix?: string | JSX.Element,
         sufix?: string | JSX.Element,
         isMandatory?: boolean,
@@ -35,6 +35,7 @@ const DatePickerField = ({
     type = 'single',
     value,
     txtLabel,
+    txtPlaceholder,
     onChange,
     error,
     config
@@ -88,11 +89,15 @@ const DatePickerField = ({
         }else if(type==='range' && isDateRange(value)){
             const from = value.from
             const to = value.to
-            return(`${from?(format(new Date(from), 'dd MMM yyyy')):('')} - ${to?(`${format(new Date(to), 'dd MMM yyyy')}`):('')}`)
-        }else{
-            return('')
+            if(from || to){
+                return(`${from?(format(new Date(from), 'dd MMM yyyy')):('')} - ${to?(`${format(new Date(to), 'dd MMM yyyy')}`):('')}`)
+            }
         }
+        return('')
     }
+    const valueText = useMemo(()=>{
+        return processValue()
+    },[value])
 
     const onClickInputField = () =>{
         setIsOpenDropdown(!isOpenDropdown)
@@ -161,13 +166,13 @@ const DatePickerField = ({
                 )}
                 <div className="selection-field-input">
                     {
-                        (config?.placeholder && !value)&&(
-                            <span className='field-placeholder'>{config.placeholder}</span>
+                        (txtPlaceholder && !valueText)&&(
+                            <span className='field-placeholder'>{txtPlaceholder}</span>
                         )
                     }
                     {
-                        (value)&&(
-                            <span className='selection-field-input-value'>{processValue()}</span>
+                        (valueText)&&(
+                            <span className='selection-field-input-value'>{valueText}</span>
                         )
                     }
                 </div>

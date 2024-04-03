@@ -1,68 +1,61 @@
-import { useContext, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import DatePicker, { datePickerValueType } from "../../../components/date-picker";
-import { sub } from "date-fns";
+import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
+import { Navigate, Route, Routes } from "react-router-dom";
+import route from "./routes/routes";
 
 const ComponentDatePickerPage = () =>{
     const {
-        setSidebarMenuListSelected
+        setSidebarMenuListSelected,
+        scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
+
+    const {
+        tabSelected,
+        setTabSelected
+    } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
         setSidebarMenuListSelected('date-picker')
     },[])
 
-    const [selected, setSelected] = useState<datePickerValueType>(new Date())
-    const [selectedMultiple, setSelectedMultiple] = useState<datePickerValueType>([
-        new Date(), 
-        sub(new Date(), {days:17}), 
-        sub(new Date(), {days:13}), 
-        sub(new Date(), {days:8}), 
-        sub(new Date(), {days:5}),
-        sub(new Date(), {days:3}) 
-    ])
-    const [selectedRange, setSelectedRange] = useState<datePickerValueType>({from:sub(new Date(), {days:5}), to:new Date()})
+    useEffect(()=>{
+        scrollToTop()
+    },[tabSelected])
     
     return(
         <DetailTemplate 
             title="Date Picker" 
             subTitle="A date picker allows the user to select an associated date."
+            tabList={[
+                {id:'example', txtLabel:'Example', to:'example'},
+                {id:'props', txtLabel:'Props', to:'props'},
+
+            ]}
+            selectedTab={tabSelected}
+            setSelectedTab={setTabSelected}
         >
-            <div className="component-section">
-                <span className="font-title">Single Select</span>
-                <div className="preview-box">
-                    <DatePicker
-                        type="single"
-                        value={selected}
-                        onchange={setSelected}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Multiple Select</span>
-                <div className="preview-box">
-                    <DatePicker
-                        type="multiple"
-                        value={selectedMultiple}
-                        onchange={setSelectedMultiple}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Range Select</span>
-                <div className="preview-box">
-                    <DatePicker
-                        type="range"
-                        value={selectedRange}
-                        onchange={setSelectedRange}
-                    />
-                </div>
-            </div>
+            <Suspense fallback={<></>}>
+                <Routes>
+                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    {
+                        route.map((itmRoute)=>(
+                            <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/>
+                        ))
+                    }     
+                </Routes>
+            </Suspense>
         </DetailTemplate>
     )
 }   
 
-export default ComponentDatePickerPage
+const HocProvider = ()=>{
+    return(
+        <LocalContextProvider>
+            <ComponentDatePickerPage/>
+        </LocalContextProvider>
+    )
+}
+
+export default HocProvider

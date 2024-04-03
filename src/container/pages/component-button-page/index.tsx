@@ -42,7 +42,6 @@ const ComponentButtonPage = () =>{
                     {
                         route.map((itmRoute)=>(
                             <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/>      
-
                         ))
                     }     
                 </Routes>

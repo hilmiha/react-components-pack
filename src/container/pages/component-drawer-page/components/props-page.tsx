@@ -15,34 +15,57 @@ const PropsPage = () =>{
         <div className="tab-content">
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="type"/>
+                    <PillFlair type="pill" txtLabel="id"/>
                     <PillFlair type="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        Identifier of drawer. Used for closing the correct drawer.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="datePickerType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"single"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"multiple"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"range"'/>
-                            <p>{'>'}</p>
-                        </div>
+                        <PillFlair type="pill" txtLabel="string"/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="isOpen"/>
+                    <PillFlair type="text" color="danger" txtLabel="required"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        React state to determine drawer is shown or not.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair type="pill" txtLabel="boolean"/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="setIsOpen"/>
+                    <PillFlair type="text" color="danger" txtLabel="required"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        React set-state to determine drawer is shown or not.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair type="pill" txtLabel="React.Dispatch<React.SetStateAction<boolean>>"/>
                     </div>
                 </div>
             </div>
@@ -67,18 +90,18 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="value"/>
+                    <PillFlair type="pill" txtLabel="drawerSide"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        Direction side of the screen drawer will open from.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="datePickerValueType"/>
+                        <PillFlair type="pill" txtLabel="drawerSideType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -88,7 +111,10 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <p>Import from "/components/date-picker"</p>
+                            <p>One of {'<'}</p>
+                            <PillFlair type="pill" color="info" txtLabel='"left"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"right"'/>
+                            <p>{'>'}</p>
                         </div>
                     </div>
                 </div>
@@ -96,18 +122,18 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="onChange"/>
+                    <PillFlair type="pill" txtLabel="drawerSize"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        Size of the drawer will show.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="function"/>
+                        <PillFlair type="pill" txtLabel="drawerSizeType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -117,7 +143,11 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <p>{"( newValue: datePickerValueType ) => void"}</p>
+                            <p>One of {'<'}</p>
+                            <PillFlair type="pill" color="info" txtLabel='"small"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"medium"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"full"'/>
+                            <p>{'>'}</p>
                         </div>
                     </div>
                 </div>
@@ -125,54 +155,81 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="daysAfterToday"/>
+                    <PillFlair type="pill" txtLabel="isCloseClickOutside"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Number of days after today that can be selected.
+                        Parameter to handle to close or presist drawer when click outside.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="number"/>
+                        <PillFlair type="pill" txtLabel="boolean"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="daysBeforeToday"/>
+                    <PillFlair type="pill" txtLabel="txtTitle"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Number of days before today that can be selected.
+                        Title of the opened drawer.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="number"/>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="maxSelection"/>
+                    <PillFlair type="pill" txtLabel="txtSubtitle"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Number of dates can be selected. Only used when use type "multiple".
+                        Subtitle of the opened drawer.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="number"/>
+                        <PillFlair type="pill" txtLabel="string"/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="contentPage"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        The content of the drawer.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <div 
+                            style={{
+                                display:'flex',
+                                flexDirection:'column',
+                                gap:'var(--size-2)'
+                            }}
+                        >
+                            <PillFlair type="pill" txtLabel="JSX.Element"/>
+                            <PillFlair type="pill" txtLabel="( props?: Record< any, any > ) => JSX.Element"/>
+                        </div>
                     </div>
                 </div>
             </div>

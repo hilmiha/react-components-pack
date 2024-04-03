@@ -1,4 +1,4 @@
-import { Suspense, useContext, useEffect, useMemo } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";

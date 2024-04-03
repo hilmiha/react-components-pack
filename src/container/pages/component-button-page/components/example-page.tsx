@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import Button from "../../../../components/button"
 import { PiStarFourFill } from "react-icons/pi"
 import { LocalContext, LocalContextType } from "../context/local-context";

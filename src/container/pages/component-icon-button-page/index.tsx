@@ -1,8 +1,6 @@
 import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import { PiStarFourFill } from "react-icons/pi";
-import IconButton from "../../../components/icon-button";
 import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
 import { Navigate, Route, Routes } from "react-router-dom";
 import route from "./routes/routes";

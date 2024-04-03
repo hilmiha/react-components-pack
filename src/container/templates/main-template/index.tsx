@@ -3,7 +3,7 @@ import { GlobalContext, GlobalContextType } from '../../../context/globalcontext
 import './styles.scss'
 import { processClassname } from '../../../helper';
 import IconButton from '../../../components/icon-button';
-import { PiDevToLogo, PiMoon, PiSun } from 'react-icons/pi';
+import { PiMoon, PiSun } from 'react-icons/pi';
 import PillFlair from '../../../components/pill-flair';
 import { useNavigate } from 'react-router-dom';
 import MainTemplateProvider, { MainTemplateContext, MainTemplateContextType } from './context/main-template-context';

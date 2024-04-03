@@ -1,12 +1,8 @@
-import { Suspense, useContext, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import Button from '../../../components/button';
-import { PiStarFourFill } from 'react-icons/pi';
 import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
 import { Navigate, Route, Routes } from "react-router-dom";
-import ExamplePage from "./components/example-page";
-import CodePage from "./components/props-page";
 import route from "./routes/routes";
 
 const ComponentButtonPage = () =>{

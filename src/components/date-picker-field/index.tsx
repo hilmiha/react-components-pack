@@ -148,12 +148,14 @@ const DatePickerField = ({
         if(location.hash.includes('#modal-selection-open')){
             navigate(-1)
         }
+    }
 
-        if(onValidate && isFieldTouched){
+    useEffect(()=>{
+        if(onValidate && isFieldTouched && !isOpenDropdown){
             const configTamp = config
             onValidate(validateField(value), value, configTamp)
         }
-    }
+    },[isOpenDropdown])
 
     useEffect(()=>{
         if(!location.hash.includes('#modal-selection-open')){
@@ -237,7 +239,7 @@ const DatePickerField = ({
             )}
             {(isOpenDropdown && mediaSize<1) && (
                 <FloatingPortal>
-                    <FloatingOverlay className="dropdown-menu-mobile-overlay" lockScroll>
+                    <FloatingOverlay className="dropdown-menu-date-picker-mobile-overlay" lockScroll>
                         <FloatingFocusManager context={context}>
                             <div
                                 className={

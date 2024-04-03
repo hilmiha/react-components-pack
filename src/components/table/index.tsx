@@ -464,7 +464,7 @@ const Table = ({
                                             <div className='row-main-item-action'>
                                                 {
                                                     itmRow.actionButton.map((itmButton)=>{
-                                                        if(itmButton.type==='button'){
+                                                        if(itmButton.type==='button' && itmButton.txtLabel){
                                                             return(
                                                                 <Button
                                                                     key={itmButton.id}

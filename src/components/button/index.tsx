@@ -3,14 +3,14 @@ import './styles.scss';
 import { ExtendedRefs, ReferenceType } from '@floating-ui/react';
 import React from 'react';
 
-export type spacingButton = "default" | "compact"
-export type appearanceButton = "default" | "primary" | "subtle" | "link" | "subtle-link" | "warning" | "danger"
+export type spacingButtonType = "default" | "compact"
+export type appearanceButtonType = "default" | "primary" | "subtle" | "link" | "subtle-link" | "warning" | "danger"
 
 export interface Props{
     className?: string,
-    txtLabel?: string,
-    spacing?: spacingButton,
-    appearance?: appearanceButton,
+    txtLabel: string,
+    spacing?: spacingButtonType,
+    appearance?: appearanceButtonType,
     isFillContainer?: boolean,
     isDisabled?: boolean,
     isSelected?: boolean,
@@ -24,7 +24,7 @@ export interface Props{
 
 const Button = ({
     className,
-    txtLabel,
+    txtLabel = "",
     spacing = 'default',
     appearance = 'default',
     isFillContainer = false,

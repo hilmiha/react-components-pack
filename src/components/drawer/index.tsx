@@ -4,7 +4,7 @@ import './styles.scss'
 import IconButton from '../icon-button'
 import { PiArrowsOut, PiXBold } from 'react-icons/pi'
 import ButtonGroup from '../button-group'
-import Button, { appearanceButton } from '../button'
+import Button, { appearanceButtonType } from '../button'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -14,7 +14,7 @@ type drawerSideType = 'left' | 'right'
 type modalButtonType = {
     id: string
     txtLabel: string
-    appearance?: appearanceButton
+    appearance?: appearanceButtonType
     isDisabled?: boolean
 }
 

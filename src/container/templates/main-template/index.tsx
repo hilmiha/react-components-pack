@@ -6,7 +6,7 @@ import IconButton from '../../../components/icon-button';
 import { PiDevToLogo, PiMoon, PiSun } from 'react-icons/pi';
 import PillFlair from '../../../components/pill-flair';
 import { useNavigate } from 'react-router-dom';
-import MainTemplateProvider from './context/main-template-context';
+import MainTemplateProvider, { MainTemplateContext, MainTemplateContextType } from './context/main-template-context';
 import TemplateSidebarMenu from './components/sidebar-menu';
 import TemplateDrawerMenu from './components/drawer-menu';
 import TemplateHeaderMenu from './components/header-menu';
@@ -23,6 +23,10 @@ const MainTemplate = ({children}:Props) =>{
         isDarkmode,
         changeTheme
     } = useContext(GlobalContext) as GlobalContextType;
+    
+    const {
+        contentPageRef
+    } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     const navigate = useNavigate()
 
@@ -69,7 +73,7 @@ const MainTemplate = ({children}:Props) =>{
             <div className='main-template-sidebar'>
                 <TemplateSidebarMenu onClcikHeaderMenu={onClcikHeaderMenu}/>
             </div>
-            <div className='main-template-content'>
+            <div ref={contentPageRef} className='main-template-content'>
                 {children}
             </div>
         </div>

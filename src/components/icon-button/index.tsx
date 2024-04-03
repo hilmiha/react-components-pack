@@ -2,13 +2,13 @@ import { IconType } from 'react-icons';
 import './styles.scss';
 import { processClassname } from '../../helper';
 import { ExtendedRefs, ReferenceType } from '@floating-ui/react';
-import { spacingButton } from '../button';
+import { spacingButtonType } from '../button';
 
 export type appearanceIconButton = "default" | "primary" | "subtle" | "warning" | "danger"
 
 interface Props{
     className?: string
-    spacing?:spacingButton
+    spacing?:spacingButtonType
     appearance?:appearanceIconButton
     isDisabled?: boolean
     isSelected?: boolean

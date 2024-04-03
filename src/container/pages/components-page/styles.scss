@@ -1,6 +1,6 @@
 .preview-box{
     background: repeating-conic-gradient(hsla(var(--color-neutral-300), 0.5) 0% 25%, hsla(var(--color-neutral-0), 0.5) 0% 50%) 50% / 20px 20px;
-    border: 1px solid hsl(var(--color-neutral-400));
+    border: 1px solid hsl(var(--color-neutral-300));
     border-radius: var(--size-1);
     max-width: 800px;
     min-height: 100px;
@@ -18,4 +18,31 @@
 
 .component-section+.component-section{
     margin-top: var(--size-10);
+}
+
+.props-section{
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    .props-title{
+        display: flex;
+        gap: var(--size-4);
+        padding-bottom: var(--size-3);
+        border-bottom: 1px solid hsl(var(--color-neutral-300));
+    }
+    
+    .props-info-section{
+        display: flex;
+        color: hsl(var(--color-neutral-1100));
+    
+        >.title{
+            min-width: 120px;
+            font-weight: var(--font-weight-bold);
+        }
+    }
+
+    +.props-section{
+        margin-top: calc(var(--size-10) + var(--size-8));
+    }
 }

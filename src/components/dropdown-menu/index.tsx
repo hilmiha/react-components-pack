@@ -1,5 +1,5 @@
 import { PiCaretDownBold, PiXBold } from "react-icons/pi"
-import Button, { spacingButton } from "../button"
+import Button, { spacingButtonType } from "../button"
 import React, { useEffect, useState } from "react"
 import { 
     useFloating,
@@ -34,7 +34,7 @@ type Props = {
     menuList?: menuList
     IconLabel?: IconType
     appearance?:appearance
-    spacing?: spacingButton
+    spacing?: spacingButtonType
     isWithCaret?: boolean
     isDisabled?:boolean
     isCloseAfterSelect?:boolean,
@@ -147,7 +147,7 @@ const DropdownMenu = ({
                     Icon={IconLabel}
                     isDisabled={isDisabled}
                 />
-            ):(
+            ):(txtLabel)?(
                 <Button
                     className="dropdown-menu-button"
                     appearance={appearance}
@@ -158,7 +158,7 @@ const DropdownMenu = ({
                     IconAfter={(isWithCaret)?(PiCaretDownBold):(undefined)}
                     isDisabled={isDisabled}
                 />
-            )}
+            ):(null)}
 
             {(isOpen && mediaSize>0) && (
                 <FloatingFocusManager 

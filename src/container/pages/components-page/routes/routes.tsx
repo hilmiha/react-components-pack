@@ -14,7 +14,7 @@ const PillFlairPage = React.lazy(() => import('../../component-pill-flair-page')
 const TablePage = React.lazy(() => import('../../component-table-page'));
 
 const route = [
-    {path: '/button', component: <ButtonPage/>},
+    {path: '/button/*', component: <ButtonPage/>},
     {path: '/icon-button', component: <IconButtonPage/>},
     {path: '/split-button', component: <SplitButtonPage/>},
     {path: '/date-picker', component: <DatePickerPage/>},

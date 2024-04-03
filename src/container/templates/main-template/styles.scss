@@ -7,7 +7,6 @@
         z-index: 5;
         position: sticky;
         top: 0px;
-        background-color: hsl(var(--color-neutral-100));
         overflow: hidden;
         
         min-height: 56px;
@@ -42,6 +41,7 @@
         }
     }
     .main-template-content{
+        height: calc(100vh - 56.8px);
         grid-row: 2 / 3;
         grid-column: 1 / 2;
         overflow: auto;

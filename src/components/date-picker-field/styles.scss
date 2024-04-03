@@ -1,4 +1,5 @@
 @use '../index';
+@use '../selection-field/styles.scss' as test;
 
 .date-picker-field{
     overflow: hidden;
@@ -19,32 +20,17 @@
 .datepicker-mobile-view{
     display: flex;
     align-items: center;
-    // height: 276px !important;
     padding: var(--size-2) 0px !important;
+}
 
-    // @media screen and (max-width: 767px) and (max-height: 400px){
-    //     .date-picker{
-    //         .rdp{
-    //             --rdp-cell-size: 36px;
-    //             min-height: 276px;
-    //             width: 100vw;
-    //         }
-        
-    //         .rdp-month{
-    //             display: flex;
-    //             align-items: flex-start;
-    //             flex-direction: row-reverse;
-    //             width: 100%;
-    //             justify-content: space-evenly;
-    //         }
-        
-    //         .rdp-table {
-    //             max-width: unset;
-    //         }
-        
-    //         .rdp-caption{
-    //             width: 210px;
-    //         }
-    //     }
-    // }
+.dropdown-menu-selection-mobile-box{
+    @include index.dropdown-menu-box-style;
+
+    .dropdown-menu-mobile-content{
+        @include test.selection-field-content-style;
+    }
+}
+
+.dropdown-menu-date-picker-mobile-overlay{
+    @include index.dropdown-menu-mobile-overlay-style;
 }

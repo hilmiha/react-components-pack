@@ -71,3 +71,7 @@
     }
 }
 
+.dropdown-menu-selection-mobile-overlay{
+    @include index.dropdown-menu-mobile-overlay-style;
+}
+

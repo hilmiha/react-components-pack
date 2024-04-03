@@ -31,7 +31,7 @@ function App() {
 				<Routes location={previousLocation || location}>
 					<Route path="/" element={<PlaygroundPage />}/>
 					<Route path="/components/*" element={<ComponentsPage />}/>
-					<Route path="/playground" element={<PlaygroundPage />}/>
+					<Route path="/playground/*" element={<PlaygroundPage />}/>
 				</Routes>
 			</MainTemplate>
 			

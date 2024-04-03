@@ -151,11 +151,6 @@ const SelectionField = ({
         if(location.hash.includes('#modal-selection-open')){
             navigate(-1)
         }
-
-        if(onValidate && isFieldTouched){
-            const configTamp = config
-            onValidate(validateField(value), value, configTamp)
-        }
     }
 
     const thisOnClickManuItem = (itemValue:itemSelectionValue) =>{
@@ -275,6 +270,11 @@ const SelectionField = ({
     useEffect(()=>{
         if(!isOpenDropdown){
             getTitleSuffix()
+
+            if(onValidate && isFieldTouched){
+                const configTamp = config
+                onValidate(validateField(value), value, configTamp)
+            }
         }
     },[isOpenDropdown])
 
@@ -460,7 +460,7 @@ const SelectionField = ({
             )}
             {(isOpenDropdown && mediaSize<1) && (
                 <FloatingPortal>
-                    <FloatingOverlay className="dropdown-menu-mobile-overlay" lockScroll>
+                    <FloatingOverlay className="dropdown-menu-selection-mobile-overlay" lockScroll>
                         <FloatingFocusManager context={context}>
                             <div
                                 className={

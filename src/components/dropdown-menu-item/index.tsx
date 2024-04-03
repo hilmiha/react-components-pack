@@ -1,7 +1,7 @@
 import { IconType } from 'react-icons'
 import { processClassname } from '../../helper'
 import './styles.scss'
-import { spacingButton } from '../button'
+import { spacingButtonType } from '../button'
 
 export type Props = {
     className?: string
@@ -10,7 +10,7 @@ export type Props = {
     IconBefore?: IconType
     isDisabled?: boolean
     isSelected?: boolean
-    spacing?: spacingButton
+    spacing?: spacingButtonType
     onClick?: () => void
 }
 

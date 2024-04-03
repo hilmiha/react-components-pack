@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import './styles.scss'
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, useDismiss, useFloating, useInteractions, } from '@floating-ui/react'
-import Button, { appearanceButton } from '../button'
+import Button, { appearanceButtonType } from '../button'
 import { processClassname } from '../../helper'
 import { PiCheckCircleBold, PiInfoBold, PiWarningCircleBold, PiXBold, PiXCircleBold } from 'react-icons/pi'
 import IconButton from '../icon-button'
@@ -13,7 +13,7 @@ export type modalInfoType = 'info' | 'success' | 'warning' | 'danger'
 export type modalButtonType = {
     id: string
     txtLabel: string
-    appearance?: appearanceButton
+    appearance?: appearanceButtonType
     isDisabled?: boolean
 }
 

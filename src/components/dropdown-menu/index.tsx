@@ -26,12 +26,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 type appearance = "default" | "primary" | "subtle" | "warning" | "danger"
 
-export type menuList = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number}[]}[] | []
+export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number}[]}[]
 
 type Props = {
     className?: string
     txtLabel?: string
-    menuList?: menuList
+    menuList?: menuListType
     IconLabel?: IconType
     appearance?:appearance
     spacing?: spacingButtonType

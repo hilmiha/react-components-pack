@@ -1,16 +1,16 @@
 import { PiCaretDownBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import Button, { spacingButtonType } from "../button"
-import DropdownMenu, { menuList } from "../dropdown-menu"
-import { appearanceIconButton } from "../icon-button"
+import DropdownMenu, { menuListType } from "../dropdown-menu"
+import { appearanceIconButtonType } from "../icon-button"
 import './styles.scss'
 
 type Props = {
     className?: string
     txtLabel: string
     spacing?: spacingButtonType
-    appearance?: appearanceIconButton
-    menuList?: menuList
+    appearance?: appearanceIconButtonType
+    menuList: menuListType
     isCloseAfterSelect?:boolean
     onClick?: ()=>void
     onClickItem?: (idButton:string)=>void

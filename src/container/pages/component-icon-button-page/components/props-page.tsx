@@ -2,32 +2,43 @@ import { useContext, useEffect } from "react";
 import { LocalContext, LocalContextType } from "../context/local-context";
 import PillFlair from "../../../../components/pill-flair";
 
-const CodePage = () =>{
+const PropsPage = () =>{
     const {
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
-        setTabSelected('code')
+        setTabSelected('props')
     },[])
 
     return(
         <div className="tab-content">
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="txtLabel"/>
+                    <PillFlair type="pill" txtLabel="Icon"/>
                     <PillFlair type="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
+                        Places an icon within the button.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="string"/>
+                        <PillFlair type="pill" txtLabel="IconType"/>
+                        <div 
+                            style={{
+                                paddingLeft:'var(--size-4)',
+                                marginTop:'var(--size-2)',
+                                display:'flex',
+                                flexDirection:'column',
+                                gap:'var(--size-2)'
+                            }}
+                        >
+                            <p>Import from "react-icons"</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,64 +92,6 @@ const CodePage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="iconBefore"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Places an icon within the button, before the button's text.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair type="pill" txtLabel="IconType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>Import from "react-icons"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair type="pill" txtLabel="iconAfter"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Places an icon within the button, after the button's text.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair type="pill" txtLabel="IconType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>Import from "react-icons"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
                     <PillFlair type="pill" txtLabel="appearance"/>
                 </div>
                 <div className="props-info-section">
@@ -150,7 +103,7 @@ const CodePage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="appearanceButtonType"/>
+                        <PillFlair type="pill" txtLabel="appearanceIconButtonType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -164,8 +117,6 @@ const CodePage = () =>{
                             <PillFlair type="pill" color="info" txtLabel='"default"'/>
                             <PillFlair type="pill" color="info" txtLabel='"primary"'/>
                             <PillFlair type="pill" color="info" txtLabel='"subtle"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"link"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"subtle-link"'/>
                             <PillFlair type="pill" color="info" txtLabel='"warning"'/>
                             <PillFlair type="pill" color="info" txtLabel='"danger"'/>
                             <p>{'>'}</p>
@@ -241,25 +192,7 @@ const CodePage = () =>{
                     </div>
                 </div>
             </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isFillContainer"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Option to fit button width to its parent width.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }
-export default CodePage
+export default PropsPage

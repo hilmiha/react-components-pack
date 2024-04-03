@@ -4,12 +4,12 @@ import { processClassname } from '../../helper';
 import { ExtendedRefs, ReferenceType } from '@floating-ui/react';
 import { spacingButtonType } from '../button';
 
-export type appearanceIconButton = "default" | "primary" | "subtle" | "warning" | "danger"
+export type appearanceIconButtonType = "default" | "primary" | "subtle" | "warning" | "danger"
 
 interface Props{
     className?: string
     spacing?:spacingButtonType
-    appearance?:appearanceIconButton
+    appearance?:appearanceIconButtonType
     isDisabled?: boolean
     isSelected?: boolean
     Icon: IconType

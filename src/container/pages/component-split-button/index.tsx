@@ -1,104 +1,60 @@
-import { useContext, useEffect, useMemo } from "react";
+import { Suspense, useContext, useEffect, useMemo } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import SplitButton from "../../../components/split-button";
+import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
+import { Navigate, Route, Routes } from "react-router-dom";
+import route from "./routes/routes";
 
 const ComponentSplitButtonPage = () =>{
     const {
-        setSidebarMenuListSelected
+        setSidebarMenuListSelected,
+        scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
-    const menuList = useMemo(()=>([
-        {
-            id:'menu1',
-            menu:[
-                {
-                    id:"menu1-1",
-                    txtLabel:"Sub Menu 1-1"
-                },
-                {
-                    id:"menu1-2",
-                    txtLabel:"Sub Menu 1-2"
-                }
-            ]
-        },
-        {
-            id:'menu2',
-            menu:[
-                {
-                    id:"menu2-1",
-                    txtLabel:"Sub Menu 2-1"
-                }
-            ]
-        },
-    ]),[])
+    const {
+        tabSelected,
+        setTabSelected
+    } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
         setSidebarMenuListSelected('split-button')
     },[])
+
+    useEffect(()=>{
+        scrollToTop()
+    },[tabSelected])
     return(
         <DetailTemplate 
             title="Split Button" 
             subTitle="A split button lets people perform an action or choose from a small group of similar actions."
+            tabList={[
+                {id:'example', txtLabel:'Example', to:'example'},
+                {id:'props', txtLabel:'Props', to:'props'},
+
+            ]}
+            selectedTab={tabSelected}
+            setSelectedTab={setTabSelected}
         >
-            <div className="component-section">
-                <span className="font-title">Default</span>
-                <div className="preview-box">
-                    <SplitButton 
-                        txtLabel="Main Button" 
-                        menuList={menuList}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Appearance</span>
-                <div className="preview-box">
-                    <SplitButton 
-                        txtLabel="Default Button"
-                        appearance="default"
-                        menuList={menuList}
-                    />
-                    <SplitButton 
-                        txtLabel="Primary Button" 
-                        appearance="primary"
-                        menuList={menuList}
-                    />
-                    <SplitButton 
-                        txtLabel="Warning Button" 
-                        appearance="warning"
-                        menuList={menuList}
-                    />
-                    <SplitButton 
-                        txtLabel="Danger Button" 
-                        appearance="danger"
-                        menuList={menuList}
-                    />
-                    <SplitButton 
-                        txtLabel="Subtle Button" 
-                        appearance="subtle"
-                        menuList={menuList}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Spacing</span>
-                <div className="preview-box">
-                    <SplitButton 
-                        txtLabel="Default Button" 
-                        menuList={menuList}
-                        spacing="default"
-                    />
-                    <SplitButton 
-                        txtLabel="Compact Button" 
-                        menuList={menuList}
-                        spacing="compact"
-                    />
-                </div>
-            </div>
+            <Suspense fallback={<></>}>
+                <Routes>
+                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    {
+                        route.map((itmRoute)=>(
+                            <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/> 
+                        ))
+                    }     
+                </Routes>
+            </Suspense>
         </DetailTemplate>
     )
 }   
 
-export default ComponentSplitButtonPage
+const HocProvider = ()=>{
+    return(
+        <LocalContextProvider>
+            <ComponentSplitButtonPage/>
+        </LocalContextProvider>
+    )
+}
+
+export default HocProvider

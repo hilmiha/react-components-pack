@@ -6,7 +6,7 @@ import { PiStarFourFill } from 'react-icons/pi';
 import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ExamplePage from "./components/example-page";
-import CodePage from "./components/code-page";
+import CodePage from "./components/props-page";
 import route from "./routes/routes";
 
 const ComponentButtonPage = () =>{
@@ -31,14 +31,14 @@ const ComponentButtonPage = () =>{
     return(
         <DetailTemplate 
             title="Button" 
+            subTitle="A button triggers an event or action. They let users know what will happen next."
             tabList={[
                 {id:'example', txtLabel:'Example', to:'example'},
-                {id:'code', txtLabel:'Code', to:'code'},
+                {id:'props', txtLabel:'Props', to:'props'},
 
             ]}
             selectedTab={tabSelected}
             setSelectedTab={setTabSelected}
-            subTitle="A button triggers an event or action. They let users know what will happen next."
         >
             <Suspense fallback={<></>}>
                 <Routes>

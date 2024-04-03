@@ -15,14 +15,14 @@ const TablePage = React.lazy(() => import('../../component-table-page'));
 
 const route = [
     {path: '/button/*', component: <ButtonPage/>},
-    {path: '/icon-button', component: <IconButtonPage/>},
-    {path: '/split-button', component: <SplitButtonPage/>},
-    {path: '/date-picker', component: <DatePickerPage/>},
-    {path: '/drawer', component: <DrawerPage/>},
-    {path: '/dropdown-menu', component: <DropdownMenuPage/>},
-    {path: '/date-picker-field', component: <DatePickerFieldPage/>},
-    {path: '/selection-field', component: <SelectionFieldPage/>},
-    {path: '/text-field', component: <TextFieldPage/>},
+    {path: '/icon-button/*', component: <IconButtonPage/>},
+    {path: '/split-button/*', component: <SplitButtonPage/>},
+    {path: '/date-picker/*', component: <DatePickerPage/>},
+    {path: '/drawer/*', component: <DrawerPage/>},
+    {path: '/dropdown-menu/*', component: <DropdownMenuPage/>},
+    {path: '/date-picker-field/*', component: <DatePickerFieldPage/>},
+    {path: '/selection-field/*', component: <SelectionFieldPage/>},
+    {path: '/text-field/*', component: <TextFieldPage/>},
 
     {path: '/image', component: <ImagePage/>},
     {path: '/modal', component: <ModalPage/>},

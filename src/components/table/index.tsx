@@ -2,8 +2,8 @@ import { PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCare
 import { processClassname } from '../../helper'
 import './styles.scss'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import IconButton, { appearanceIconButton } from '../icon-button'
-import DropdownMenu, { menuList } from '../dropdown-menu'
+import IconButton, { appearanceIconButtonType } from '../icon-button'
+import DropdownMenu, { menuListType } from '../dropdown-menu'
 import { IconType } from 'react-icons'
 import Button from '../button'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
@@ -29,8 +29,8 @@ export type tableButtonActionType = {
         isDisabled?:boolean
         Icon?:IconType
         txtLabel?:string
-        appearance?:appearanceIconButton
-        menuList?:menuList
+        appearance?:appearanceIconButtonType
+        menuList?:menuListType
     }
 export type tableDataType = {
     id:string,

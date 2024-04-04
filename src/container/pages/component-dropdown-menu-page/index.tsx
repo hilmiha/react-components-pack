@@ -1,123 +1,63 @@
-import { useContext, useEffect } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import DropdownMenu from "../../../components/dropdown-menu";
 import { PiStarFourFill } from "react-icons/pi";
+import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
+import { Navigate, Route, Routes } from "react-router-dom";
+import route from "./routes/routes";
 
 const ComponentDropdownMenuPage = () =>{
     const {
-        setSidebarMenuListSelected
+        setSidebarMenuListSelected,
+        scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
+
+    const {
+        tabSelected,
+        setTabSelected
+    } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
         setSidebarMenuListSelected('dropdown-menu')
     },[])
 
-    const menuList = [
-        {
-            id:'menu-1',
-            menu:[
-                {id:'edit', txtLabel:'Edit'}
-            ]
-        },
-        {
-            id:'menu-2',
-            menu:[
-                {id:'delete', txtLabel:'Delete'},
-                {id:'report', txtLabel:'Report'}
-            ]
-        }
-    ]
+    useEffect(()=>{
+        scrollToTop()
+    },[tabSelected])
 
     return(
         <DetailTemplate 
             title="Dropdown Menu" 
             subTitle="A dropdown menu displays a list of actions or options to a user."
+            tabList={[
+                {id:'example', txtLabel:'Example', to:'example'},
+                {id:'props', txtLabel:'Props', to:'props'},
+
+            ]}
+            selectedTab={tabSelected}
+            setSelectedTab={setTabSelected}
         >
-            <div className="component-section">
-                <span className="font-title">Default</span>
-                <div className="preview-box">
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        menuList={menuList}
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        IconLabel={PiStarFourFill}
-                        menuList={menuList} 
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Appearance</span>
-                <div className="preview-box">
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        appearance="default"
-                        menuList={menuList}
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        appearance="primary"
-                        menuList={menuList}
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        appearance="warning"
-                        menuList={menuList}
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        appearance="danger"
-                        menuList={menuList}
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        appearance="subtle"
-                        menuList={menuList}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Spacing</span>
-                <div className="preview-box">
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        spacing="default"
-                        menuList={menuList}
-                    />
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        spacing="compact"
-                        menuList={menuList}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">With Charet</span>
-                <div className="preview-box">
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabel='Open Menu'
-                        spacing="default"
-                        isWithCaret
-                        menuList={menuList} 
-                    />
-                </div>
-            </div>
+            <Suspense fallback={<></>}>
+                <Routes>
+                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    {
+                        route.map((itmRoute)=>(
+                            <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/>      
+                        ))
+                    }     
+                </Routes>
+            </Suspense>
         </DetailTemplate>
     )
 }   
 
-export default ComponentDropdownMenuPage
+const HocProvider = ()=>{
+    return(
+        <LocalContextProvider>
+            <ComponentDropdownMenuPage/>
+        </LocalContextProvider>
+    )
+}
+
+export default HocProvider

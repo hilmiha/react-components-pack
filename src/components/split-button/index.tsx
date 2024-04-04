@@ -55,13 +55,12 @@ const SplitButton = ({
                 onClick={()=>{thisOnClick()}}
             />
             <DropdownMenu
-                IconLabel={PiCaretDownBold}
                 menuList={menuList}
                 appearance={appearance}
                 spacing={spacing}
                 isCloseAfterSelect={isCloseAfterSelect}
                 onClickItem={(buttonId)=>{thisOnClickItem(buttonId)}}
-                txtLabel="More options"
+                txtLabelOrIcon={PiCaretDownBold}
             />
         </div>
     )

@@ -17,23 +17,20 @@ import {
 } from "@floating-ui/react";
 import './styles.scss'
 import { IconType } from "react-icons";
-import IconButton from "../icon-button";
+import IconButton, { appearanceIconButtonType } from "../icon-button";
 import DropdownMenuItemGroup from "../dropdown-menu-item-group";
 import DropdownManuItem from "../dropdown-menu-item";
 import { processClassname } from "../../helper";
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext";
 import { useLocation, useNavigate } from "react-router-dom";
 
-type appearance = "default" | "primary" | "subtle" | "warning" | "danger"
-
 export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number}[]}[]
 
 type Props = {
     className?: string
-    txtLabel?: string
+    txtLabelOrIcon: string | IconType
     menuList?: menuListType
-    IconLabel?: IconType
-    appearance?:appearance
+    appearance?:appearanceIconButtonType
     spacing?: spacingButtonType
     isWithCaret?: boolean
     isDisabled?:boolean
@@ -43,9 +40,8 @@ type Props = {
 
 const DropdownMenu = ({
     className,
-    txtLabel,
+    txtLabelOrIcon,
     menuList = [],
-    IconLabel,
     appearance,
     spacing = 'default',
     isWithCaret = false,
@@ -67,7 +63,6 @@ const DropdownMenu = ({
         placement:'bottom-start',
         open: isOpen,
         onOpenChange: setIsOpen,
-        // onOpenChange: ()=>{onCloseDropdown()},
         middleware: [
             offset(8),
             shift(),
@@ -137,28 +132,34 @@ const DropdownMenu = ({
 
     return(
         <>  
-            {IconLabel?(
+            {typeof txtLabelOrIcon !== 'string' ?(
                 <IconButton
-                    className="dropdown-menu-button"
+                    className={
+                        processClassname(`dropdown-menu-button
+                        ${className?(className):('')}`)  
+                    } 
                     appearance={appearance}
                     floatingUi_ref={refs}
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
                     spacing={spacing}
-                    Icon={IconLabel}
+                    Icon={txtLabelOrIcon}
                     isDisabled={isDisabled}
                 />
-            ):(txtLabel)?(
+            ):(
                 <Button
-                    className="dropdown-menu-button"
+                    className={
+                        processClassname(`dropdown-menu-button
+                        ${className?(className):('')}`)  
+                    } 
                     appearance={appearance}
                     floatingUi_ref={refs}
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
-                    txtLabel={txtLabel}
+                    txtLabel={txtLabelOrIcon}
                     spacing={spacing}
                     IconAfter={(isWithCaret)?(PiCaretDownBold):(undefined)}
                     isDisabled={isDisabled}
                 />
-            ):(null)}
+            )}
 
             {(isOpen && mediaSize>0) && (
                 <FloatingFocusManager 
@@ -212,7 +213,7 @@ const DropdownMenu = ({
                                 {...getFloatingProps()}
                             >
                                 <div className="dropdown-menu-mobile-header">
-                                    <span className="dropdown-menu-mobile-header-title">{txtLabel?txtLabel:'Options'}</span>
+                                    <span className="dropdown-menu-mobile-header-title">{typeof txtLabelOrIcon === 'string' ? txtLabelOrIcon : 'Options'}</span>
                                     <IconButton
                                         Icon={PiXBold}
                                         appearance="subtle"

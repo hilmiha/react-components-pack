@@ -15,69 +15,13 @@ const PropsPage = () =>{
         <div className="tab-content">
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="id"/>
+                    <PillFlair type="pill" txtLabel="txtLabelOrIcon"/>
                     <PillFlair type="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Identifier of drawer. Used for closing the correct drawer.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair type="pill" txtLabel="string"/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isOpen"/>
-                    <PillFlair type="text" color="danger" txtLabel="required"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        React state to determine drawer is shown or not.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair type="pill" txtLabel="setIsOpen"/>
-                    <PillFlair type="text" color="danger" txtLabel="required"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        React set-state to determine drawer is shown or not.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair type="pill" txtLabel="React.Dispatch<React.SetStateAction<boolean>>"/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair type="pill" txtLabel="contentPage"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        The content of the drawer.
+                        Text or Icon content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
                     </div>
                 </div>
                 <div className="props-info-section">
@@ -90,8 +34,39 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <PillFlair type="pill" txtLabel="JSX.Element"/>
-                            <PillFlair type="pill" txtLabel="( props?: Record< any, any > ) => JSX.Element"/>
+                            <PillFlair type="pill" txtLabel="string"/>
+                            <PillFlair type="pill" txtLabel="IconType"/>
+                            <p style={{paddingLeft:'var(--size-4)'}}>Import from "react-icons"</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="onClickItem"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        Handler to be called on dropdown menu item click.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair type="pill" txtLabel="function"/>
+                        <div 
+                            style={{
+                                paddingLeft:'var(--size-4)',
+                                marginTop:'var(--size-2)',
+                                display:'flex',
+                                flexDirection:'column',
+                                gap:'var(--size-2)'
+                            }}
+                        >
+                            <p>{"( idButton: string ) => void"}</p>
                         </div>
                     </div>
                 </div>
@@ -117,18 +92,18 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="drawerSide"/>
+                    <PillFlair type="pill" txtLabel="appearance"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Direction side of the screen drawer will open from.
+                        The button style variation.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="drawerSideType"/>
+                        <PillFlair type="pill" txtLabel="appearanceIconButtonType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -139,8 +114,11 @@ const PropsPage = () =>{
                             }}
                         >
                             <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"left"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"right"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"default"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"primary"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"subtle"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"warning"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"danger"'/>
                             <p>{'>'}</p>
                         </div>
                     </div>
@@ -149,18 +127,18 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="drawerSize"/>
+                    <PillFlair type="pill" txtLabel="spacing"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Size of the drawer will show.
+                        Controls the amount of padding in the button.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="drawerSizeType"/>
+                        <PillFlair type="pill" txtLabel="spacingButtonType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -171,9 +149,8 @@ const PropsPage = () =>{
                             }}
                         >
                             <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"small"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"medium"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"full"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"default"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"compact"'/>
                             <p>{'>'}</p>
                         </div>
                     </div>
@@ -182,12 +159,12 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isCloseClickOutside"/>
+                    <PillFlair type="pill" txtLabel="isDisabled"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Parameter to handle to close or presist drawer when click outside.
+                        Disable the button to prevent user interaction.
                     </div>
                 </div>
                 <div className="props-info-section">
@@ -200,36 +177,36 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="txtTitle"/>
+                    <PillFlair type="pill" txtLabel="isWithCaret"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Title of the opened drawer.
+                        Add icon caret after the button label.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="string"/>
+                        <PillFlair type="pill" txtLabel="boolean"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="txtSubtitle"/>
+                    <PillFlair type="pill" txtLabel="isCloseAfterSelect"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Subtitle of the opened drawer.
+                        Parameter to handle to close or presist dropdown menu when click item menu.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="string"/>
+                        <PillFlair type="pill" txtLabel="boolean"/>
                     </div>
                 </div>
             </div>

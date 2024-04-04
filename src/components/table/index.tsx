@@ -27,8 +27,9 @@ export type tableButtonActionType = {
         id:string
         type:'icon-button' | 'button' | 'dropdown-menu'
         isDisabled?:boolean
-        Icon?:IconType
-        txtLabel?:string
+        IconBefore?:IconType
+        IconAfter?:IconType
+        txtLabelOrIcon:string | IconType
         appearance?:appearanceIconButtonType
         menuList?:menuListType
     }
@@ -464,25 +465,26 @@ const Table = ({
                                             <div className='row-main-item-action'>
                                                 {
                                                     itmRow.actionButton.map((itmButton)=>{
-                                                        if(itmButton.type==='button' && itmButton.txtLabel){
+                                                        if(itmButton.type==='button' && typeof itmButton.txtLabelOrIcon === 'string'){
                                                             return(
                                                                 <Button
                                                                     key={itmButton.id}
                                                                     spacing='compact'
                                                                     appearance={itmButton.appearance}
-                                                                    txtLabel={itmButton.txtLabel}
-                                                                    IconBefore={itmButton.Icon as IconType}
+                                                                    txtLabel={itmButton.txtLabelOrIcon}
+                                                                    IconBefore={itmButton.IconBefore as IconType}
+                                                                    IconAfter={itmButton.IconAfter as IconType}
                                                                     onClick={()=>{thisOnClickAction(itmButton.id, itmRow)}}
                                                                     isDisabled={itmButton.isDisabled}
                                                                 />
                                                             )
-                                                        }else if(itmButton.type==='icon-button'){
+                                                        }else if(itmButton.type==='icon-button' && typeof itmButton.txtLabelOrIcon !== 'string'){
                                                             return(
                                                                 <IconButton
                                                                     key={itmButton.id}
                                                                     spacing='compact'
                                                                     appearance={itmButton.appearance}
-                                                                    Icon={itmButton.Icon as IconType}
+                                                                    Icon={itmButton.txtLabelOrIcon as IconType}
                                                                     onClick={()=>{thisOnClickAction(itmButton.id, itmRow)}}
                                                                     isDisabled={itmButton.isDisabled}
                                                                 />
@@ -491,8 +493,7 @@ const Table = ({
                                                             return(
                                                                 <DropdownMenu
                                                                     key={itmButton.id}
-                                                                    IconLabel={itmButton.Icon as IconType}
-                                                                    txtLabel={itmButton.txtLabel}
+                                                                    txtLabelOrIcon={itmButton.txtLabelOrIcon}
                                                                     appearance={itmButton.appearance}
                                                                     menuList={itmButton.menuList}
                                                                     spacing='compact'
@@ -591,7 +592,7 @@ const Table = ({
                             )
                         }
                         <DropdownMenu
-                            IconLabel={PiCaretDown}
+                            txtLabelOrIcon={PiCaretDown}
                             appearance='subtle'
                             spacing='compact'
                             menuList={[

@@ -88,7 +88,7 @@ export const getTableData = async(viewState:getStateTypes) =>{
                 {
                     id:'delete3', 
                     type:'dropdown-menu', 
-                    Icon:PiDotsThreeBold, 
+                    txtLabelOrIcon:PiDotsThreeBold, 
                     appearance:'default',
                     menuList:[
                         {

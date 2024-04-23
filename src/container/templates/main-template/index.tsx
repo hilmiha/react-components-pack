@@ -42,6 +42,7 @@ const MainTemplate = ({children}:Props) =>{
                 processClassname(`main-template
                 ${mediaSize<2?('mobile'):('default')}`)
             } 
+            id="custom-root-id"
         >
             <div className='main-template-header' >
                 <div className='header-theme' style={{display:`${mediaSize>1?('none'):('unset')}`}}>

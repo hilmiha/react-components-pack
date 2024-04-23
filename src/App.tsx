@@ -26,7 +26,7 @@ function App() {
 	},[])
 
 	return (
-		<div className='App' id="custom-root-id">
+		<div className='App'>
 			<MainTemplate>
 				<Routes location={previousLocation || location}>
 					<Route path="/" element={<PlaygroundPage />}/>

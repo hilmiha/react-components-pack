@@ -162,44 +162,46 @@ const DropdownMenu = ({
             )}
 
             {(isOpen && mediaSize>0) && (
-                <FloatingFocusManager 
-                    context={context} 
-                    order={['reference', 'content']}
-                    modal={true}
-                >
-                    <div
-                        ref={refs.setFloating}
-                        className="dropdown-menu"
-                        style={{
-                            ...floatingStyles,
-                            color:'hsl(var(--color-neutral-1100))'
-                        }}
-                        {...getFloatingProps()}
+                <FloatingPortal>
+                    <FloatingFocusManager 
+                        context={context} 
+                        order={['reference', 'content']}
+                        modal={true}
                     >
-                        {
-                            menuList.map((itmMenuList, index)=>(
-                                <DropdownMenuItemGroup 
-                                    key={itmMenuList.id}
-                                    txtLabel={itmMenuList.title}
-                                    isHasSeparator={index > 0}
-                                >
-                                    {
-                                        itmMenuList.menu.map((itmMenu, index)=>(
-                                            <DropdownManuItem
-                                                key={itmMenu.id}
-                                                txtLabel={itmMenu.txtLabel}
-                                                spacing={spacing}
-                                                onClick={()=>{thisOnClick(itmMenu.id, itmMenu?.value)}}
-                                                isDisabled={itmMenu.isDisabled}
-                                                isSelected={itmMenu.isSelected}
-                                            />
-                                        ))
-                                    }
-                                </DropdownMenuItemGroup>
-                            ))
-                        }
-                    </div>
-                </FloatingFocusManager>
+                        <div
+                            ref={refs.setFloating}
+                            className="dropdown-menu"
+                            style={{
+                                ...floatingStyles,
+                                color:'hsl(var(--color-neutral-1100))'
+                            }}
+                            {...getFloatingProps()}
+                        >
+                            {
+                                menuList.map((itmMenuList, index)=>(
+                                    <DropdownMenuItemGroup 
+                                        key={itmMenuList.id}
+                                        txtLabel={itmMenuList.title}
+                                        isHasSeparator={index > 0}
+                                    >
+                                        {
+                                            itmMenuList.menu.map((itmMenu, index)=>(
+                                                <DropdownManuItem
+                                                    key={itmMenu.id}
+                                                    txtLabel={itmMenu.txtLabel}
+                                                    spacing={spacing}
+                                                    onClick={()=>{thisOnClick(itmMenu.id, itmMenu?.value)}}
+                                                    isDisabled={itmMenu.isDisabled}
+                                                    isSelected={itmMenu.isSelected}
+                                                />
+                                            ))
+                                        }
+                                    </DropdownMenuItemGroup>
+                                ))
+                            }
+                        </div>
+                    </FloatingFocusManager>
+                </FloatingPortal>
             )}
             {(isOpen && mediaSize<1) && (
                 <FloatingPortal>

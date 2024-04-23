@@ -57,6 +57,10 @@
     .selection-field-input-container{
         @include index.selection-field-input-container-style;
     }
+}
+
+.field-option-dropdown{
+    @include index.field-style;
 
     .field-option-dropdown-menu{
         @include selection-field-content-style;
@@ -68,6 +72,10 @@
 
     .dropdown-menu-mobile-content{
         @include selection-field-content-style;
+
+        .search-container{
+            padding: var(--size-0) var(--size-4) var(--size-3) var(--size-4);
+        }
     }
 }
 

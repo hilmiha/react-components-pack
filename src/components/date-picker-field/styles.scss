@@ -17,10 +17,34 @@
     }
 }
 
+.date-picker-field-dropdown{
+    @include index.field-style;
+
+    .field-option-dropdown-menu{
+        padding: 0px;
+
+        @include test.selection-field-content-style;
+
+        .search-container + .date-picker{
+            padding: var(--size-2) var(--size-3);
+        }
+
+        .date-picker{
+            padding: var(--size-3) var(--size-3);
+        }
+    }
+}
+
 .datepicker-mobile-view{
     display: flex;
     align-items: center;
-    padding: var(--size-2) 0px !important;
+
+    .search-container{
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
 }
 
 .dropdown-menu-selection-mobile-box{
@@ -28,6 +52,14 @@
 
     .dropdown-menu-mobile-content{
         @include test.selection-field-content-style;
+
+        .search-container{
+            padding: var(--size-0) var(--size-4) var(--size-3) var(--size-4);
+        }
+
+        .date-picker{
+            padding-top: var(--size-2)
+        }
     }
 }
 

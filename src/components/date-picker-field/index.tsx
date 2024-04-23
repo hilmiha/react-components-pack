@@ -3,7 +3,7 @@ import './styles.scss'
 import DatePicker, { datePickerType, datePickerValueType } from '../date-picker'
 import { isDateRange } from 'react-day-picker'
 import { errorType } from '../text-field'
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react'
 import { PiWarningDiamondFill, PiXBold } from 'react-icons/pi'
 import { format, isDate } from 'date-fns'
@@ -13,11 +13,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 type Props = {
     className?: String
-    type?:datePickerType
+    type:datePickerType
     txtLabel?:string
     txtPlaceholder?:string
-    value?:datePickerValueType
-    onChange?: (newValue:datePickerValueType) => void,
+    value:datePickerValueType
+    onChange:(newValue:datePickerValueType) => void ,
     onValidate?: (errorResult:errorType, newValue:datePickerValueType, config?:Record<any, any>) => void,
     error?: errorType
     config?: {
@@ -169,16 +169,105 @@ const DatePickerField = ({
         }
     },[mediaSize])
 
+    const placeholderElementRef = useRef(null)
+    const [resized, setResized] = useState(false)
+    const [hidden, setHidden] = useState(0)
+    
+    function getTitleSuffix() {
+        let element:any = placeholderElementRef.current
+        var count = 0;
+
+        if(element){
+            var text = valueText
+            element.innerHTML = '';
+            for (var i = 0; i < text.length; i++) {
+                var newNode = document.createElement('span');
+                newNode.appendChild(document.createTextNode(text.charAt(i)));
+                element.appendChild(newNode);
+                if (newNode.offsetLeft < element.offsetWidth) {
+                    count++;
+                }
+            }
+            element.innerHTML = valueText;
+        }
+
+        let substr = valueText;
+        substr = substr.substring(count - 4);
+        let sisa = substr.split(',').length - 1;
+
+        setHidden(sisa);
+    }
+
+    useEffect(()=>{
+        getTitleSuffix()
+    },[value, resized])
+
+
+    useEffect(()=>{
+        if (!placeholderElementRef.current) {
+            return;
+        }
+        var doit:any;
+
+        const resizeObserver = new ResizeObserver(() => {
+            clearTimeout(doit);
+            doit = setTimeout(function() {
+                setResized((prv)=>{return !prv})
+            }, 20);
+        });
+
+        resizeObserver.observe(placeholderElementRef.current);
+        
+        return function cleanup() {
+            clearTimeout(doit);
+            resizeObserver.disconnect();
+        }
+    },[])
+
+    const clearSelection = () =>{
+        thisOnChange(undefined)
+    }
     const calendarContent = () =>{
         return(
-            <DatePicker
-                type={type}
-                value={value}
-                daysAfterToday={config?.daysAfterToday}
-                daysBeforeToday={config?.daysBeforeToday}
-                maxSelection={config?.maxSelection}
-                onchange={(newValue)=>{thisOnChange(newValue)}}
-            />
+            <>
+                {
+                    (type!=='single')&&(
+                        <div className="search-container">
+                            <button
+                                className={
+                                    processClassname(`field-option-clear-selection
+                                    ${(
+                                        Array.isArray(value)?(
+                                            value.length===0
+                                        ):(
+                                            value===undefined
+                                        )
+                                    )?('disabled'):('')}`)  
+                                }
+                                onClick={clearSelection}
+                                disabled={
+                                    Array.isArray(value)?(
+                                        value.length===0
+                                    ):(
+                                        value===undefined
+                                    )
+                                }
+                            >
+                                Clear Selection
+                            </button>
+                        </div>
+                    )
+                }
+                
+                <DatePicker
+                    type={type}
+                    value={value}
+                    daysAfterToday={config?.daysAfterToday}
+                    daysBeforeToday={config?.daysBeforeToday}
+                    maxSelection={config?.maxSelection}
+                    onchange={(newValue)=>{thisOnChange(newValue)}}
+                />
+            </>
         )
     }
     return(
@@ -208,13 +297,28 @@ const DatePickerField = ({
                 )}
                 <div className="selection-field-input">
                     {
-                        (txtPlaceholder && !valueText)&&(
-                            <span className='field-placeholder'>{txtPlaceholder}</span>
+                        (type!=='multiple')&&(
+                            <>
+                                {
+                                    (txtPlaceholder && !valueText)&&(
+                                        <span className='field-placeholder'>{txtPlaceholder}</span>
+                                    )
+                                }
+                                {
+                                    (valueText)&&(
+                                        <span className='selection-field-input-value'>{valueText}</span>
+                                    )
+                                }
+                            </>
                         )
                     }
                     {
-                        (valueText)&&(
-                            <span className='selection-field-input-value'>{valueText}</span>
+                        (type==='multiple')&&(
+                            <>
+                                <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
+                                <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
+                                <span className='field-placeholder' style={{display:`${value!==undefined && (Array.isArray(value)?(value.length>0):(false))?('none'):('unset')}`}}>{txtPlaceholder}</span>
+                            </>
                         )
                     }
                 </div>
@@ -224,18 +328,21 @@ const DatePickerField = ({
             </button>
 
             {(isOpenDropdown && mediaSize>0) && (
-                <FloatingFocusManager
-                    initialFocus={-1}
-                    context={context} 
-                    order={['reference', 'content']}
-                    modal={true}
-                    closeOnFocusOut={true}
-                >
-                    <div className='field-option-dropdown-menu' ref={refs.setFloating} {...getFloatingProps()} style={{...floatingStyles}}>
-                        {calendarContent()}
-                    </div>
-                </FloatingFocusManager>
-                
+                <FloatingPortal>
+                    <FloatingFocusManager
+                        initialFocus={-1}
+                        context={context} 
+                        order={['reference', 'content']}
+                        modal={true}
+                        closeOnFocusOut={true}
+                    >
+                        <div className='date-picker-field-dropdown'>
+                            <div className='field-option-dropdown-menu' ref={refs.setFloating} {...getFloatingProps()} style={{...floatingStyles}}>
+                                {calendarContent()}
+                            </div>
+                        </div>
+                    </FloatingFocusManager>
+                </FloatingPortal>
             )}
             {(isOpenDropdown && mediaSize<1) && (
                 <FloatingPortal>

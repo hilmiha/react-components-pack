@@ -445,18 +445,21 @@ const SelectionField = ({
             </button>
 
             {(isOpenDropdown && mediaSize>0) && (
-                <FloatingFocusManager
-                    order={['reference', 'content']}
-                    modal={true}
-                    context={context} 
-                    closeOnFocusOut={true}
-                    returnFocus={true}
-                >
-                    <div className='field-option-dropdown-menu' ref={refs.setFloating} {...getFloatingProps()} style={{...floatingStyles}}>
-                        {selectionContent()}
-                    </div>
-                </FloatingFocusManager>
-                
+                <FloatingPortal>
+                    <FloatingFocusManager
+                        order={['reference', 'content']}
+                        modal={true}
+                        context={context} 
+                        closeOnFocusOut={true}
+                        returnFocus={true}
+                    >
+                        <div className="field-option-dropdown">
+                            <div className='field-option-dropdown-menu' ref={refs.setFloating} {...getFloatingProps()} style={{...floatingStyles}}>
+                                {selectionContent()}
+                            </div>
+                        </div>
+                    </FloatingFocusManager>
+                </FloatingPortal>
             )}
             {(isOpenDropdown && mediaSize<1) && (
                 <FloatingPortal>

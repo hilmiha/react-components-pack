@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import Tabs, { tabListItemType } from '../../../components/tabs'
 import './styles.scss'
 

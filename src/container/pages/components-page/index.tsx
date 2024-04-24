@@ -9,13 +9,15 @@ import { sidebarManuListDummy } from './data/menu-list';
 const ComponentsPage = () =>{
     const {
         setSidebarManuList,
-        setSidebarMenuListSelected
+        setSidebarMenuListSelected,
+        setShowSubMenuDrawer
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     const location = useLocation()
 
     useEffect(()=>{
         setSidebarManuList(sidebarManuListDummy)
+        setShowSubMenuDrawer('components')
     },[])
 
     useEffect(()=>{

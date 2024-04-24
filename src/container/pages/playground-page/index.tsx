@@ -21,16 +21,19 @@ const PlaygroundPage = () =>{
     const {
         changeTheme,
         setGlobalModal,
-		setIsShowGlobalModal
+		setIsShowGlobalModal,
     } = React.useContext(GlobalContext) as GlobalContextType;
 
     const {
-        setSidebarManuList
+        setSidebarManuList,
+        setShowSubMenuDrawer
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     useEffect(()=>{
         setSidebarManuList([])
+        setShowSubMenuDrawer('playground')
     },[])
+
 	return (
 		<div>
 			Hello world

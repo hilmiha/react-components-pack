@@ -8,7 +8,8 @@ import route from "./routes/routes";
 const ComponentSplitButtonPage = () =>{
     const {
         setSidebarMenuListSelected,
-        scrollToTop
+        scrollToTop,
+        setShowSubSubMenu
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     const {
@@ -18,6 +19,7 @@ const ComponentSplitButtonPage = () =>{
 
     useEffect(()=>{
         setSidebarMenuListSelected('split-button')
+        setShowSubSubMenu('button-main')
     },[])
 
     useEffect(()=>{

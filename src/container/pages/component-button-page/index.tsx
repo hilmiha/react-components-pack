@@ -8,7 +8,8 @@ import route from "./routes/routes";
 const ComponentButtonPage = () =>{
     const {
         setSidebarMenuListSelected,
-        scrollToTop
+        scrollToTop,
+        setShowSubSubMenu
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     const {
@@ -18,6 +19,7 @@ const ComponentButtonPage = () =>{
 
     useEffect(()=>{
         setSidebarMenuListSelected('button')
+        setShowSubSubMenu('button-main')
     },[])
 
     useEffect(()=>{

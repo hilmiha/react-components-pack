@@ -24,7 +24,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        Type of value of selection.
                     </div>
                 </div>
                 <div className="props-info-section">
@@ -41,9 +41,11 @@ const PropsPage = () =>{
                             }}
                         >
                             <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"single"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"multiple"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"range"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"text"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"text-no-space"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"text-number"'/>
+                            <PillFlair type="pill" color="info" txtLabel='"text-only-number"'/>
+                            
                             <p>{'>'}</p>
                         </div>
                     </div>
@@ -64,18 +66,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="datePickerValueType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>Import from "/components/date-picker"</p>
-                        </div>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
@@ -104,7 +95,7 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <p>{"( newValue: datePickerValueType ) => void"}</p>
+                            <p>{"( newValue: string ) => void"}</p>
                         </div>
                     </div>
                 </div>
@@ -133,7 +124,7 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <p>{"( errorResult: errorType, newValue: datePickerValueType, config?: Record< any, any >  ) => void"}</p>
+                            <p>{"( errorResult: errorType, newValue: string, config?: Record< any, any >  ) => void"}</p>
                         </div>
                     </div>
                 </div>
@@ -221,7 +212,7 @@ const PropsPage = () =>{
                     </div>
                 </div>
             </div>
-
+            
             <div style={{marginTop:'var(--size-10)', marginBottom:'var(--size-5)', maxWidth:'800px'}}>
                 <p className="font-title-large">Config Props</p>
             </div>
@@ -244,12 +235,12 @@ const PropsPage = () =>{
             </div>
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="daysAfterToday"/>
+                    <PillFlair type="pill" txtLabel="maxLength"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Number of days after today that can be selected.
+                        String length of value.
                     </div>
                 </div>
                 <div className="props-info-section">
@@ -259,15 +250,14 @@ const PropsPage = () =>{
                     </div>
                 </div>
             </div>
-
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="daysBeforeToday"/>
+                    <PillFlair type="pill" txtLabel="maxValue"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Number of days before today that can be selected.
+                        Validation purposes can be use only for type "text-number". Validate input value less or same as maxValue
                     </div>
                 </div>
                 <div className="props-info-section">
@@ -277,21 +267,71 @@ const PropsPage = () =>{
                     </div>
                 </div>
             </div>
-
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="maxSelection"/>
+                    <PillFlair type="pill" txtLabel="minValue"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Number of dates can be selected. Only used when use type "multiple".
+                        Validation purposes can be use only for type "text-number". Validate input value more or same as minValue
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
                         <PillFlair type="pill" txtLabel="number"/>
+                    </div>
+                </div>
+            </div>
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="regex"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        Validation purposes. Field must match with regex.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair type="pill" txtLabel="boolean"/>
+                    </div>
+                </div>
+            </div>
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="prefix"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        Enable string placeholder placed before input value.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair type="pill" txtLabel="boolean"/>
+                    </div>
+                </div>
+            </div>
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair type="pill" txtLabel="sufix"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        Enable string placeholder placed after input value.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair type="pill" txtLabel="boolean"/>
                     </div>
                 </div>
             </div>

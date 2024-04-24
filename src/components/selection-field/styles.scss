@@ -70,6 +70,8 @@
 .dropdown-menu-selection-mobile-box{
     @include index.dropdown-menu-box-style;
 
+    width: 200px;
+
     .dropdown-menu-mobile-content{
         @include selection-field-content-style;
 

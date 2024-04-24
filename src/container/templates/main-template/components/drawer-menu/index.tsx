@@ -1,12 +1,13 @@
 import { PiCaretDown, PiList } from "react-icons/pi"
 import IconButton from "../../../../../components/icon-button"
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import Drawer from "../../../../../components/drawer"
 import { listHeaderMenu } from '../../data/list-header-menu';
 import DropdownMenuItemGroup from "../../../../../components/dropdown-menu-item-group";
 import DropdownManuItem from "../../../../../components/dropdown-menu-item";
 import { MainTemplateContext, MainTemplateContextType, sidebarMenuListItemType } from "../../context/main-template-context";
 import Button from "../../../../../components/button";
+import { useLocation } from "react-router-dom";
 
 type Props = {
     onClcikHeaderMenu:(to?:string)=>void
@@ -16,12 +17,15 @@ const TemplateDrawerMenu = ({
 }:Props) =>{
 
     const {
-        sidebarMenuListSelected
+        sidebarMenuListSelected,
+        showSubMenuDrawer, 
+        setShowSubMenuDrawer,
+        showSubSubMenu, 
+        setShowSubSubMenu,
     } = useContext(MainTemplateContext) as MainTemplateContextType;
-
+    const location = useLocation()
+    
     const [isMainMenuDrawerOpen, setIsMainMenuDrawerOpen] = useState(false)
-    const [showSubMenuDrawer, setShowSubMenuDrawer] = useState('')
-    const [showSubSubMenu, setShowSubSubMenu] = useState('')
 
     const onClickOpenMoreMenu = (id:string) =>{
         if(showSubMenuDrawer===id){

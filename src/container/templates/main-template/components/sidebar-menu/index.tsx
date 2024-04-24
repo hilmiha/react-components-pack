@@ -13,16 +13,16 @@ const TemplateSidebarMenu = ({
 }:Props) =>{
     const {
         sidebarMenuList,
-        sidebarMenuListSelected
+        sidebarMenuListSelected,
+        showSubSubMenu,
+        setShowSubSubMenu
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
-    const [menuOpen, setMenuOpen] = useState('')
-
     const onClickOpenMenu = (idButton:string) =>{
-        if(menuOpen===idButton){
-            setMenuOpen('')
+        if(showSubSubMenu===idButton){
+            setShowSubSubMenu('')
         }else{
-            setMenuOpen(idButton)
+            setShowSubSubMenu(idButton)
         }
     }
 
@@ -67,7 +67,7 @@ const TemplateSidebarMenu = ({
                                     </div>
                                     
                                     {
-                                        (itmMenu.menuList && menuOpen===itmMenu.id)&&(
+                                        (itmMenu.menuList && showSubSubMenu===itmMenu.id)&&(
                                             <div 
                                                 style={{
                                                     margin: '0px 4px 4px 28px',

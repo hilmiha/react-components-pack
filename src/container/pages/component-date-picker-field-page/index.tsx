@@ -8,6 +8,7 @@ import route from "./routes/routes";
 const ComponentDatePickerFieldPage = () =>{
     const {
         setSidebarMenuListSelected,
+        setShowSubSubMenu,
         scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
@@ -18,6 +19,7 @@ const ComponentDatePickerFieldPage = () =>{
 
     useEffect(()=>{
         setSidebarMenuListSelected('date-picker-field')
+        setShowSubSubMenu('form-field')
     },[])
 
     useEffect(()=>{

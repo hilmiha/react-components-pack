@@ -1,125 +1,63 @@
-import { useContext, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import TextField, { errorType } from "../../../components/text-field";
-import { generateErrorState } from "../../../helper";
-import useFormHook from "../../../hook/useForm";
-
-export type formType = {
-    textField:string
-    noSpaceField:string,
-    numberFiled:string,
-    numberOnly:string,
-    barebone:string
-}
+import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
+import { Navigate, Route, Routes } from "react-router-dom";
+import route from "./routes/routes";
 
 const ComponentTextFieldPage = () =>{
     const {
-        setSidebarMenuListSelected
+        setSidebarMenuListSelected,
+        setShowSubSubMenu,
+        scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
-    const [form, setForm] = useState<formType>({
-        textField:'',
-        noSpaceField:'',
-        numberFiled:'',
-        numberOnly:'',
-        barebone:''
-    })
-
-    const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))
-
     const {
-        onChange, 
-        onValidate
-    } = useFormHook({
-        form,
-        setForm,
-        formError,
-        setFormError
-    })
+        tabSelected,
+        setTabSelected
+    } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
         setSidebarMenuListSelected('text-field')
+        setShowSubSubMenu('form-field')
     },[])
+
+    useEffect(()=>{
+        scrollToTop()
+    },[tabSelected])
 
     return(
         <DetailTemplate 
             title="Text Field" 
             subTitle="A form allows users to input text information."
+            tabList={[
+                {id:'example', txtLabel:'Example', to:'example'},
+                {id:'props', txtLabel:'Props', to:'props'},
+
+            ]}
+            selectedTab={tabSelected}
+            setSelectedTab={setTabSelected}
         >   
-            <div className="component-section">
-                <span className="font-title">Text</span>
-                <div className="preview-box">
-                    <TextField
-                        type="text"
-                        txtLabel="Form Text Label"
-                        txtPlaceholder="Form placeholder..."
-                        value={form['textField']}
-                        error={formError['textField']}
-                        onChange={(newValue)=>{onChange('textField', newValue)}}
-                        onValidate={(errorResult)=>{onValidate('textField', errorResult)}}
-                        config={{
-                            isMandatory:true
-                        }}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">No Space</span>
-                <div className="preview-box">
-                    <TextField
-                        txtLabel="Form No Space Label"
-                        txtPlaceholder="Form placeholder..."
-                        type="text-no-space"
-                        value={form['noSpaceField']}
-                        error={formError['noSpaceField']}
-                        onChange={(newValue)=>{onChange('noSpaceField', newValue)}}
-                        onValidate={(errorResult)=>{onValidate('noSpaceField', errorResult)}}
-                        config={{
-                            isMandatory:true
-                        }}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Number</span>
-                <div className="preview-box">
-                    <TextField
-                        txtLabel="Form Number Label"
-                        txtPlaceholder="Form placeholder..."
-                        type="text-number"
-                        value={form['numberFiled']}
-                        error={formError['numberFiled']}
-                        onChange={(newValue)=>{onChange('numberFiled', newValue)}}
-                        onValidate={(errorResult)=>{onValidate('numberFiled', errorResult)}}
-                        config={{
-                            isMandatory:true
-                        }}
-                    />
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Full Number</span>
-                <div className="preview-box">
-                    <TextField
-                        txtLabel="Form Full Number Label"
-                        txtPlaceholder="Form placeholder..."
-                        type="text-only-number"
-                        value={form['numberOnly']}
-                        error={formError['numberOnly']}
-                        onChange={(newValue)=>{onChange('numberOnly', newValue)}}
-                        onValidate={(errorResult)=>{onValidate('numberOnly', errorResult)}}
-                        config={{
-                            isMandatory:true
-                        }}
-                    />
-                </div>
-            </div>
+            <Suspense fallback={<></>}>
+                <Routes>
+                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    {
+                        route.map((itmRoute)=>(
+                            <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/>
+                        ))
+                    }     
+                </Routes>
+            </Suspense>
         </DetailTemplate>
     )
-}   
+}
 
-export default ComponentTextFieldPage
+const HocProvider = ()=>{
+    return(
+        <LocalContextProvider>
+            <ComponentTextFieldPage/>
+        </LocalContextProvider>
+    )
+}
+
+export default HocProvider

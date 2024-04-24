@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.scss'
 import Modal from './components/modal';
 import { useContext, useEffect } from 'react';
@@ -29,7 +29,7 @@ function App() {
 		<div className='App'>
 			<MainTemplate>
 				<Routes location={previousLocation || location}>
-					<Route path="/" element={<PlaygroundPage />}/>
+					<Route path="/" element={<Navigate to={'/components'}/>}/>
 					<Route path="/components/*" element={<ComponentsPage />}/>
 					<Route path="/playground/*" element={<PlaygroundPage />}/>
 				</Routes>

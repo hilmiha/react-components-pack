@@ -95,8 +95,8 @@ const TextField = ({
             }
         }
         
-        if(((config?.minValue)!==undefined) && typeof value==='number' && !error){
-            if(value<config.minValue){
+        if(((config?.minValue)!==undefined) && type==='text-number' && !error){
+            if(parseFloat(value)<config.minValue){
                 error=true
             }
             if(error){
@@ -105,8 +105,8 @@ const TextField = ({
             }
         }
 
-        if(((config?.maxValue)!==undefined) && typeof value==='number' && !error){
-            if(value>config.maxValue){
+        if(((config?.maxValue)!==undefined) && type==='text-number' && !error){
+            if(parseFloat(value)>config.maxValue){
                 error=true
             }
             if(error){

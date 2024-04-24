@@ -24,14 +24,15 @@ type Props = {
     txtPlaceholder?:string
     onChange?: (newValue:selectionValueType) => void,
     onValidate?: (errorResult:errorType, newValue:selectionValueType, config?:Record<any, any>) => void,
-    valueList?:valueList
+    valueList:valueList
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
         sufix?: string | JSX.Element,
         maxSelection?: number,
         isMandatory?: boolean,
-        isWithSearch?:boolean
+        isWithSearch?:boolean,
+        isForceMobile?:boolean
     }
 }
 const SelectionField = ({
@@ -76,7 +77,7 @@ const SelectionField = ({
                 fallbackPlacements:['bottom-start', 'bottom-end', "bottom", 'top-start', 'top-end', "top", "right-start", 'right-end', "left-start", "left-end"],
                 padding: 10,
             }),
-            size(mediaSize>0?(
+            size((config?.isForceMobile)?(undefined):mediaSize>0?(
                 {
                     apply({rects, elements}) {
                         Object.assign(elements.floating.style, {
@@ -444,7 +445,7 @@ const SelectionField = ({
                 )}
             </button>
 
-            {(isOpenDropdown && mediaSize>0) && (
+            {(isOpenDropdown && mediaSize>0 && !config?.isForceMobile) && (
                 <FloatingPortal>
                     <FloatingFocusManager
                         order={['reference', 'content']}
@@ -461,7 +462,7 @@ const SelectionField = ({
                     </FloatingFocusManager>
                 </FloatingPortal>
             )}
-            {(isOpenDropdown && mediaSize<1) && (
+            {(isOpenDropdown && (mediaSize<1 || config?.isForceMobile)) && (
                 <FloatingPortal>
                     <FloatingOverlay className="dropdown-menu-selection-mobile-overlay" lockScroll>
                         <FloatingFocusManager context={context}>

@@ -16,6 +16,10 @@ export type MainTemplateContextType = {
     setSidebarManuList:React.Dispatch<React.SetStateAction<sidebarMenuListType[]>>
     sidebarMenuListSelected:string, 
     setSidebarMenuListSelected:React.Dispatch<React.SetStateAction<string>>
+    showSubMenuDrawer:string, 
+    setShowSubMenuDrawer:React.Dispatch<React.SetStateAction<string>>
+    showSubSubMenu:string, 
+    setShowSubSubMenu:React.Dispatch<React.SetStateAction<string>>
     contentPageRef:React.MutableRefObject<HTMLDivElement | null>
     scrollToTop:()=>void
 }
@@ -25,6 +29,8 @@ const MainTemplateProvider: React.FC<{children: React.ReactNode}> = ({ children 
 
     const [sidebarMenuList, setSidebarManuList] = useState<sidebarMenuListType[]>([])
     const [sidebarMenuListSelected, setSidebarMenuListSelected] = useState('')
+    const [showSubMenuDrawer, setShowSubMenuDrawer] = useState('')
+    const [showSubSubMenu, setShowSubSubMenu] = useState('')
 
     const contentPageRef = useRef<null | HTMLDivElement>(null)
     const scrollToTop = () =>{
@@ -42,6 +48,10 @@ const MainTemplateProvider: React.FC<{children: React.ReactNode}> = ({ children 
             setSidebarManuList,
             sidebarMenuListSelected, 
             setSidebarMenuListSelected,
+            showSubMenuDrawer, 
+            setShowSubMenuDrawer,
+            showSubSubMenu, 
+            setShowSubSubMenu,
             contentPageRef,
             scrollToTop
         }}>

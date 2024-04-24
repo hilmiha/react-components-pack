@@ -2,13 +2,14 @@ import { PiMagnifyingGlassBold, PiWarningDiamondFill, PiXBold } from "react-icon
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useMemo, useRef, useState } from "react"
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, size, useDismiss, useFloating, useInteractions } from "@floating-ui/react"
 import DropdownMenuItemGroup from "../dropdown-menu-item-group"
 import DropdownSelectionItem from "../dropdown-selection-item"
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext"
 import IconButton from "../icon-button"
 import { useLocation, useNavigate } from "react-router-dom"
+import { sortBy } from "lodash"
 
 type selectionFieldType = 'selection' | "multi-selection"
 export type itemSelectionValue = {txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string}
@@ -104,7 +105,7 @@ const SelectionField = ({
         var count = 0;
 
         if(element){
-            var text = parseValueToShow()
+            var text = valueText
             element.innerHTML = '';
             for (var i = 0; i < text.length; i++) {
                 var newNode = document.createElement('span');
@@ -114,10 +115,10 @@ const SelectionField = ({
                     count++;
                 }
             }
-            element.innerHTML = parseValueToShow();
+            element.innerHTML = valueText;
         }
 
-        let substr = parseValueToShow();
+        let substr = valueText;
         substr = substr.substring(count - 4);
         let sisa = substr.split(',').length - 1;
 
@@ -208,9 +209,9 @@ const SelectionField = ({
         return valueToString.includes(`"value":"${toCheckValue}"`)
     }
 
-    const parseValueToShow = () =>{
+    const valueText = useMemo(()=>{
         if(value.length>0){
-            const tamp = value.map((itm)=>{
+            const tamp = sortBy(value, ['txtLabel']).map((itm)=>{
                 return(itm.txtInFiled?itm.txtInFiled:itm.txtLabel)
             }).join(', ')
     
@@ -218,8 +219,7 @@ const SelectionField = ({
         }else{
             return ' '
         }
-        
-    }
+    },[value])
 
     const clearSelection = () =>{
         if(onChange){
@@ -437,7 +437,7 @@ const SelectionField = ({
                         )
                     } */}
                     <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
-                    <div ref={placeholderElementRef} className='selection-field-input-value'>{parseValueToShow()}</div>
+                    <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
                     <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{txtPlaceholder}</span>
                 </div>
                 {(sufix)&&(

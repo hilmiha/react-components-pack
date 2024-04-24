@@ -1,9 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { LocalContext, LocalContextType } from "../context/local-context";
 import { errorType } from "../../../../components/text-field";
 import { generateErrorState } from "../../../../helper";
 import useFormHook from "../../../../hook/useForm";
 import SelectionField, { selectionValueType } from "../../../../components/selection-field";
+import { sortBy } from "lodash";
+import { provinsiList } from "../data/provinsi-list";
 
 export type formType = {
     selection:selectionValueType
@@ -16,6 +18,8 @@ const ExamplePage = () =>{
     const {
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
+
+	const listProv = useMemo(()=>{return provinsiList},[])
 
     const [form, setForm] = useState<formType>({
         selection:[],
@@ -50,23 +54,7 @@ const ExamplePage = () =>{
                         value={form['selection']}
                         error={formError['selection']}
                         onChange={(newValue)=>{onChange('selection', newValue)}}
-                        valueList={[
-                            {
-                                id:'1',
-                                menu:[
-                                    {
-                                        id:'small-0',
-                                        txtLabel:'Smallest',
-                                        value:'small-0'
-                                    },
-                                    {
-                                        id:'small-1',
-                                        txtLabel:'Small',
-                                        value:'small-1'
-                                    }
-                                ]
-                            }
-                        ]}
+                        valueList={listProv}
                         config={{
                             isMandatory:true,
                             isWithSearch:true
@@ -86,23 +74,7 @@ const ExamplePage = () =>{
                         error={formError['multiSelection']}
                         onChange={(newValue)=>{onChange('multiSelection', newValue)}}
                         onValidate={(errorResult)=>{onValidate('multiSelection', errorResult)}}
-                        valueList={[
-                            {
-                                id:'1',
-                                menu:[
-                                    {
-                                        id:'small-0',
-                                        txtLabel:'Smallest',
-                                        value:'small-0'
-                                    },
-                                    {
-                                        id:'small-1',
-                                        txtLabel:'Small',
-                                        value:'small-1'
-                                    }
-                                ]
-                            }
-                        ]}
+                        valueList={listProv}
                         config={{
                             isMandatory:true,
                             isWithSearch:true

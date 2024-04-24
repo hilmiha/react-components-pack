@@ -9,8 +9,7 @@ export type formType = {
     textField:string
     noSpaceField:string,
     numberFiled:string,
-    numberOnly:string,
-    barebone:string
+    numberOnly:string
 }
 
 const ExamplePage = () =>{
@@ -22,8 +21,7 @@ const ExamplePage = () =>{
         textField:'',
         noSpaceField:'',
         numberFiled:'',
-        numberOnly:'',
-        barebone:''
+        numberOnly:''
     })
 
     const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))

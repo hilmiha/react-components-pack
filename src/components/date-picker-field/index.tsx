@@ -10,6 +10,7 @@ import { format, isDate } from 'date-fns'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import IconButton from '../icon-button'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { sortBy } from 'lodash'
 
 type Props = {
     className?: String
@@ -117,7 +118,7 @@ const DatePickerField = ({
         if(type==='single' && isDate(value)){ 
             return(format(new Date(value), 'dd MMM yyyy'))
         }else if(type==='multiple' && Array.isArray(value)){
-            return(value.map((itm)=>(format(new Date(itm), 'dd MMM yyyy'))).join(', '))
+            return(sortBy(value).map((itm)=>(format(new Date(itm), 'dd MMM yyyy'))).join(', '))
         }else if(type==='range' && isDateRange(value)){
             const from = value.from
             const to = value.to

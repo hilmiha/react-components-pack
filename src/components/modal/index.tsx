@@ -23,7 +23,7 @@ type Props = {
     className?: string
     txtTitle?:string,
     txtContent?:string,
-    contentPage?:JSX.Element,    
+    contentPage?:JSX.Element | ((props?:Record<any,any>)=>JSX.Element),    
     buttonList?:modalButtonType[]
     isCloseClickOutside?:boolean
     isOpen:boolean
@@ -197,7 +197,16 @@ const Modal = ({
                                     {
                                         (contentPage)&&(
                                             <div className='modal-page-content'>
-                                                {contentPage}
+                                                {
+                                                    (contentPage && typeof contentPage === 'function')&&(
+                                                        contentPage()
+                                                    )
+                                                }
+                                                {
+                                                    (contentPage && typeof contentPage !== 'function')&&(
+                                                        contentPage
+                                                    )
+                                                }
                                             </div>
                                         )
                                     }

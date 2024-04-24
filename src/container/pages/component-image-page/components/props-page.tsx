@@ -18,59 +18,38 @@ const PropsPage = () =>{
             </div>
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="txtLabelOrIcon"/>
+                    <PillFlair type="pill" txtLabel="srcImage"/>
                     <PillFlair type="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Text or Icon content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
+                        Source of image.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <div 
-                            style={{
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <PillFlair type="pill" txtLabel="string"/>
-                            <PillFlair type="pill" txtLabel="IconType"/>
-                            <p style={{paddingLeft:'var(--size-4)'}}>Import from "react-icons"</p>
-                        </div>
-                        
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="onClickItem"/>
+                    <PillFlair type="pill" txtLabel="srcImageDark"/>
+                    <PillFlair type="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Handler to be called on dropdown menu item click.
+                        Source of image when page in dark mode.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="function"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>{"( idButton: string ) => void"}</p>
-                        </div>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
@@ -95,121 +74,90 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="appearance"/>
+                    <PillFlair type="pill" txtLabel="alt"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        The button style variation.
+                        HTML alt image tag.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="appearanceIconButtonType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"default"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"primary"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"subtle"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"warning"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"danger"'/>
-                            <p>{'>'}</p>
-                        </div>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="spacing"/>
+                    <PillFlair type="pill" txtLabel="height"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Controls the amount of padding in the button.
+                        CSS height of image.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="spacingButtonType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"default"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"compact"'/>
-                            <p>{'>'}</p>
-                        </div>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isDisabled"/>
+                    <PillFlair type="pill" txtLabel="width"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Disable the button to prevent user interaction.
+                        CSS width of image.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isWithCaret"/>
+                    <PillFlair type="pill" txtLabel="radius"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Add icon caret after the button label.
+                        CSS radius of image.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isCloseAfterSelect"/>
+                    <PillFlair type="pill" txtLabel="objectFit"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Parameter to handle to close or presist dropdown menu when click item menu.
+                        CSS objectFit of image.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
+                        <PillFlair type="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>

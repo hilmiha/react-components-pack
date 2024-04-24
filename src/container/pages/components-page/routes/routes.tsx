@@ -23,11 +23,10 @@ const route = [
     {path: '/date-picker-field/*', component: <DatePickerFieldPage/>},
     {path: '/selection-field/*', component: <SelectionFieldPage/>},
     {path: '/text-field/*', component: <TextFieldPage/>},
-
-    {path: '/image', component: <ImagePage/>},
-    {path: '/modal', component: <ModalPage/>},
-    {path: '/pill-flair', component: <PillFlairPage/>},
-    {path: '/table', component: <TablePage/>}
+    {path: '/image/*', component: <ImagePage/>},
+    {path: '/modal/*', component: <ModalPage/>},
+    {path: '/pill-flair/*', component: <PillFlairPage/>},
+    {path: '/table/*', component: <TablePage/>}
 ];
 
 export default route;

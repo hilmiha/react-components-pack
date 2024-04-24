@@ -13,6 +13,9 @@ const PropsPage = () =>{
 
     return(
         <div className="tab-content">
+            <div style={{marginBottom:'var(--size-5)', maxWidth:'800px'}}>
+                <p className="font-title-large">Main Props</p>
+            </div>
             <div className="props-section">
                 <div className="props-title">
                     <PillFlair type="pill" txtLabel="id"/>

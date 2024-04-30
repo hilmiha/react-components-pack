@@ -1,111 +1,62 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
-import { tableColumsDummny } from "./data/tableData";
-import Table, { tableColumType, tableConfigType, tableDataType } from "../../../components/table";
-import * as contorller from "./controller/controller";
-import useTableHook from "../../../hook/useTableHook";
-
-export type getStateTypes = {
-    tableData: tableDataType[]
-    // setTableData: React.Dispatch<React.SetStateAction<tableDataType[]>>
-    tableDataSelected: string[] 
-    setTableDataSelected: React.Dispatch<React.SetStateAction<string[]>>,
-    tableConfig: tableConfigType
-    // setTableConfig: React.Dispatch<React.SetStateAction<tableConfigType>>
-    // doGetData:boolean
-    // setDoGetData:React.Dispatch<React.SetStateAction<boolean>>
-}
+import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
+import { Navigate, Route, Routes } from "react-router-dom";
+import route from "./routes/routes";
 
 const ComponentTablePage = () =>{
     const {
-        setSidebarMenuListSelected
+        setSidebarMenuListSelected,
+        scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
-    const tableColums:tableColumType[] = useMemo(()=>([...tableColumsDummny]), [])
-
     const {
-        tableData,
-        tableDataSelected,
-        setTableDataSelected,
-        tableConfig,
-        onClickColumn,
-        onChangeMaxRow,
-        onClickPagination
-    } = useTableHook({
-        getTableList: (tableConfig)=>{return contorller.getTableDataApi(tableConfig)}
-    })
-
-    const getState = () =>{
-        return({
-            tableData,
-            tableDataSelected,
-            setTableDataSelected,
-            tableConfig,
-        })
-    }
+        tabSelected,
+        setTabSelected
+    } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
-        console.log(getState())
-    },[tableData])
+        setSidebarMenuListSelected('table')
+    },[])
+
+    useEffect(()=>{
+        scrollToTop()
+    },[tabSelected])
+
     
     return(
         <DetailTemplate 
             title="Table" 
             subTitle="A table displays rows of data with built-in pagination and sorting functionality."
-        >
-            <div className="component-section">
-                <span className="font-title">Default</span>
-                <div className="preview-box">
-                    <div style={{width:'100%'}}>
-                        <Table
-                            tableColums={tableColums}
-                            tableData={tableData}
-                            tableDataSelected={tableDataSelected}
-                            setTableDataSelected={setTableDataSelected}
-                            tableConfig={tableConfig}
-                            isExpandable={true}
-                            isCheckbox={true}
-                            isActionButtons={true}
-                            
-                            onClickRow={(itmRow)=>{contorller.onClickRowItem(itmRow)}}
-                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
-                            onClickPagination={onClickPagination}
-                            onChangeMaxRow={onChangeMaxRow}
-                            onClickColumn={onClickColumn}
-                        />
-                    </div>
-                    
-                </div>
-            </div>
+            tabList={[
+                {id:'example', txtLabel:'Example', to:'example'},
+                {id:'props', txtLabel:'Props', to:'props'},
 
-            <div className="component-section">
-                <span className="font-title">Empty Table</span>
-                <div className="preview-box">
-                    <div style={{width:'100%'}}>
-                        <Table
-                            tableColums={tableColums}
-                            tableData={[]}
-                            tableDataSelected={[]}
-                            tableConfig={{
-                                totalData:0,
-                                maxRow:10,
-                                page:1,
-                                maxPage:1,
-                                sortBy:'status',
-                                isDesc:false,
-                            }}
-                            isExpandable={true}
-                            isCheckbox={true}
-                            isActionButtons={true}
-                        />
-                    </div>
-                    
-                </div>
-            </div>
-            
+            ]}
+            selectedTab={tabSelected}
+            setSelectedTab={setTabSelected}
+        >
+            <Suspense fallback={<></>}>
+                <Routes>
+                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    {
+                        route.map((itmRoute)=>(
+                            <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/> 
+                        ))
+                    }     
+                </Routes>
+            </Suspense>
         </DetailTemplate>
     )
 }   
 
-export default ComponentTablePage
+const HocProvider = ()=>{
+    return(
+        <LocalContextProvider>
+            <ComponentTablePage/>
+        </LocalContextProvider>
+    )
+}
+
+export default HocProvider

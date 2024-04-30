@@ -8,7 +8,6 @@ import route from "./routes/routes";
 const ComponentPillFlairPage = () =>{
     const {
         setSidebarMenuListSelected,
-        setShowSubSubMenu,
         scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 

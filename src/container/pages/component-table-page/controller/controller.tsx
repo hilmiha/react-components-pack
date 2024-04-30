@@ -1,5 +1,5 @@
 import { PiDotsThreeBold } from "react-icons/pi";
-import { getStateTypes } from ".."
+import { getStateTypes } from "../components/example-page"
 import PillFlair from "../../../../components/pill-flair";
 import { tableConfigType, tableDataType } from "../../../../components/table"
 import { tableDataDummy } from "../data/tableData";

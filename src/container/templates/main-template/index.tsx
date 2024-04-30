@@ -57,7 +57,7 @@ const MainTemplate = ({children}:Props) =>{
                     />
                     <div style={{display:`${mediaSize>0?('flex'):('none')}`, flexDirection:'column', justifyContent:'center'}}>
                         <p style={{fontSize:'12px', color:"hsl(var(--color-neutral-1100))"}}>Hilmi's</p>
-                        <PillFlair type='text' txtLabel='React Component Collections' isBold color='info'/>
+                        <PillFlair appearance='text' txtLabel='React Component Collections' isBold color='info'/>
                     </div>
                 </div>
                 <div className='header-menu' style={{display:`${mediaSize>1?('unset'):('none')}`}}>

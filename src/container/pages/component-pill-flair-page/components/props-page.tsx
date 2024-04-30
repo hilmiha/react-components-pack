@@ -18,19 +18,19 @@ const PropsPage = () =>{
             </div>
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="type"/>
+                    <PillFlair appearance="pill" txtLabel="appearance"/>
                     <PillFlair appearance="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        The pill and flair style variation.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair appearance="pill" txtLabel="datePickerType"/>
+                        <PillFlair appearance="pill" txtLabel="appearanceButtonType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -41,23 +41,23 @@ const PropsPage = () =>{
                             }}
                         >
                             <p>One of {'<'}</p>
-                            <PillFlair appearance="pill" color="info" txtLabel='"single"'/>
-                            <PillFlair appearance="pill" color="info" txtLabel='"multiple"'/>
-                            <PillFlair appearance="pill" color="info" txtLabel='"range"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"pill"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"text"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"status"'/>
                             <p>{'>'}</p>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="className"/>
+                    <PillFlair appearance="pill" txtLabel="txtLabel"/>
+                    <PillFlair appearance="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        A string variable representing the class of the component for costum styling.
+                        Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
                     </div>
                 </div>
                 <div className="props-info-section">
@@ -67,21 +67,20 @@ const PropsPage = () =>{
                     </div>
                 </div>
             </div>
-
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="value"/>
+                    <PillFlair appearance="pill" txtLabel="color"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        The pill and flair color variation.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair appearance="pill" txtLabel="datePickerValueType"/>
+                        <PillFlair appearance="pill" txtLabel="pillFlairColor"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -91,26 +90,31 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <p>Import from "/components/date-picker"</p>
+                            <p>One of {'<'}</p>
+                            <PillFlair appearance="pill" color="info" txtLabel='"info"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"success"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"warning"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"danger"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"default"'/>
+                            <p>{'>'}</p>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="onChange"/>
+                    <PillFlair appearance="pill" txtLabel="iconBefore"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Type of value of date to be picked.
+                        Places an icon within the pill flair component, before the pill flair component's text.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair appearance="pill" txtLabel="function"/>
+                        <PillFlair appearance="pill" txtLabel="IconType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -120,62 +124,8 @@ const PropsPage = () =>{
                                 gap:'var(--size-2)'
                             }}
                         >
-                            <p>{"( newValue: datePickerValueType ) => void"}</p>
+                            <p>Import from "react-icons"</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="daysAfterToday"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Number of days after today that can be selected.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair appearance="pill" txtLabel="number"/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="daysBeforeToday"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Number of days before today that can be selected.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair appearance="pill" txtLabel="number"/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="maxSelection"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Number of dates can be selected. Only used when use type "multiple".
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair appearance="pill" txtLabel="number"/>
                     </div>
                 </div>
             </div>

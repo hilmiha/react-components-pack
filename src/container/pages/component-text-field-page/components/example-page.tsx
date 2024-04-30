@@ -39,10 +39,6 @@ const ExamplePage = () =>{
     useEffect(()=>{
         setTabSelected('example')
     },[])
-
-    useEffect(()=>{
-        console.log(form.numberFiled)
-    },[form])
     
     return(
         <div className="tab-content">

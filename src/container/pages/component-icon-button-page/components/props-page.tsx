@@ -18,8 +18,8 @@ const PropsPage = () =>{
             </div>
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="Icon"/>
-                    <PillFlair type="text" color="danger" txtLabel="required"/>
+                    <PillFlair appearance="pill" txtLabel="Icon"/>
+                    <PillFlair appearance="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -30,7 +30,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="IconType"/>
+                        <PillFlair appearance="pill" txtLabel="IconType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -48,7 +48,7 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="onClick"/>
+                    <PillFlair appearance="pill" txtLabel="onClick"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -59,7 +59,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="function"/>
+                        <PillFlair appearance="pill" txtLabel="function"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -77,7 +77,7 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="className"/>
+                    <PillFlair appearance="pill" txtLabel="className"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -88,14 +88,14 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="string"/>
+                        <PillFlair appearance="pill" txtLabel="string"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="appearance"/>
+                    <PillFlair appearance="pill" txtLabel="appearance"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -106,7 +106,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="appearanceIconButtonType"/>
+                        <PillFlair appearance="pill" txtLabel="appearanceIconButtonType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -117,11 +117,11 @@ const PropsPage = () =>{
                             }}
                         >
                             <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"default"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"primary"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"subtle"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"warning"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"danger"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"default"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"primary"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"subtle"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"warning"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"danger"'/>
                             <p>{'>'}</p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="spacing"/>
+                    <PillFlair appearance="pill" txtLabel="spacing"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -141,7 +141,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="spacingButtonType"/>
+                        <PillFlair appearance="pill" txtLabel="spacingButtonType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',
@@ -152,8 +152,8 @@ const PropsPage = () =>{
                             }}
                         >
                             <p>One of {'<'}</p>
-                            <PillFlair type="pill" color="info" txtLabel='"default"'/>
-                            <PillFlair type="pill" color="info" txtLabel='"compact"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"default"'/>
+                            <PillFlair appearance="pill" color="info" txtLabel='"compact"'/>
                             <p>{'>'}</p>
                         </div>
                     </div>
@@ -162,7 +162,7 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isSelected"/>
+                    <PillFlair appearance="pill" txtLabel="isSelected"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -173,14 +173,14 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
+                        <PillFlair appearance="pill" txtLabel="boolean"/>
                     </div>
                 </div>
             </div>
 
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair type="pill" txtLabel="isDisabled"/>
+                    <PillFlair appearance="pill" txtLabel="isDisabled"/>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Description</div>
@@ -191,7 +191,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair type="pill" txtLabel="boolean"/>
+                        <PillFlair appearance="pill" txtLabel="boolean"/>
                     </div>
                 </div>
             </div>

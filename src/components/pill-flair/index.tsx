@@ -2,13 +2,13 @@ import { PiCircleFill } from 'react-icons/pi'
 import { processClassname } from '../../helper'
 import './styles.scss'
 
-type pillFlairType = 'text' | 'pill' | 'status'
+type pillFlairApperanceType = 'text' | 'pill' | 'status'
 type pillFlairColor = 'info' | 'success' | 'warning' | 'danger'
 
 
 type Props = {
     className?:string
-    type:pillFlairType
+    appearance:pillFlairApperanceType
     color?:pillFlairColor
     txtLabel:string
     IconBefore?:JSX.Element,
@@ -16,7 +16,7 @@ type Props = {
 }
 const PillFlair = ({
     className,
-    type,
+    appearance,
     color,
     txtLabel,
     IconBefore,
@@ -25,7 +25,7 @@ const PillFlair = ({
 
     return(
         <>
-            {(type==='pill')&&(
+            {(appearance==='pill')&&(
                 <div
                     className={
                         processClassname(`pill-flair-pill
@@ -38,7 +38,7 @@ const PillFlair = ({
                     {txtLabel}
                 </div>
             )}
-            {(type==='status')&&(
+            {(appearance==='status')&&(
                 <span
                     className={
                         processClassname(`pill-flair-status
@@ -51,7 +51,7 @@ const PillFlair = ({
                     {txtLabel}
                 </span>
             )}
-            {(type==='text')&&(
+            {(appearance==='text')&&(
                 <span
                     className={
                         processClassname(`pill-flair-text

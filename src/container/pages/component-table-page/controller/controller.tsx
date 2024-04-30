@@ -58,19 +58,19 @@ export const getTableData = async(viewState:getStateTypes) =>{
                 switch (itm.status) {
 
                     case '0':
-                        tamp = (<PillFlair color="success" txtLabel={'Active'} type="pill"/>)
+                        tamp = (<PillFlair color="success" txtLabel={'Active'} appearance="pill"/>)
                         break;
 
                     case '1':
-                        tamp = (<PillFlair color="warning" txtLabel={'Suspended'} type="pill"/>)
+                        tamp = (<PillFlair color="warning" txtLabel={'Suspended'} appearance="pill"/>)
                         break;
 
                     case '2':
-                        tamp = (<PillFlair color="danger" txtLabel={'Locked'} type="pill"/>)
+                        tamp = (<PillFlair color="danger" txtLabel={'Locked'} appearance="pill"/>)
                         break;
 
                     case '3':
-                        tamp = (<PillFlair txtLabel={'Inactive'} type="pill"/>)
+                        tamp = (<PillFlair txtLabel={'Inactive'} appearance="pill"/>)
                         break;
                 
                     default:

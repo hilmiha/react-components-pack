@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react"
 import { LocalContext, LocalContextType } from "../context/local-context";
 import { errorType } from "../../../../components/text-field";
 import { generateErrorState } from "../../../../helper";
-import useFormHook from "../../../../hook/useForm";
+import useFormHook from "../../../../hook/useFormHook";
 import SelectionField, { selectionValueType } from "../../../../components/selection-field";
 import { sortBy } from "lodash";
 import { provinsiList } from "../data/provinsi-list";

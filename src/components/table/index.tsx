@@ -500,6 +500,7 @@ const Table = ({
                                                                     onClickItem={(buttonId)=>{thisOnClickAction(buttonId, itmRow)}}
                                                                     isCloseAfterSelect
                                                                     isDisabled={itmButton.isDisabled}
+                                                                    isOnScrollClose={true}
                                                                 />
                                                             )
                                                         }else{
@@ -588,26 +589,26 @@ const Table = ({
                             (tableData.length!==0)&&(
                                 <>
                                     {`Show ${tableConfig.maxRow} item`}
+                                    <DropdownMenu
+                                        txtLabelOrIcon={PiCaretDown}
+                                        appearance='subtle'
+                                        spacing='compact'
+                                        menuList={[
+                                            {
+                                                id:'maxRowSelection',
+                                                menu:[
+                                                    {id:'item10', txtLabel:'10', isSelected:10===tableConfig.maxRow, value:10},
+                                                    {id:'item50', txtLabel:'50', isSelected:50===tableConfig.maxRow, value:50},
+                                                    {id:'item100', txtLabel:'100', isSelected:100===tableConfig.maxRow, value:100}
+                                                ]
+                                            }
+                                        ]}
+                                        onClickItem={(idButton, value)=>{if(typeof value === 'number'){thisOnChangeMaxRow(value)}}}
+                                        isDisabled={tableData.length===0}
+                                    />
                                 </>
                             )
                         }
-                        <DropdownMenu
-                            txtLabelOrIcon={PiCaretDown}
-                            appearance='subtle'
-                            spacing='compact'
-                            menuList={[
-                                {
-                                    id:'maxRowSelection',
-                                    menu:[
-                                        {id:'item10', txtLabel:'10', isSelected:10===tableConfig.maxRow, value:10},
-                                        {id:'item50', txtLabel:'50', isSelected:50===tableConfig.maxRow, value:50},
-                                        {id:'item100', txtLabel:'100', isSelected:100===tableConfig.maxRow, value:100}
-                                    ]
-                                }
-                            ]}
-                            onClickItem={(idButton, value)=>{if(typeof value === 'number'){thisOnChangeMaxRow(value)}}}
-                            isDisabled={tableData.length===0}
-                        />
                     </div>
                 </div>
             )

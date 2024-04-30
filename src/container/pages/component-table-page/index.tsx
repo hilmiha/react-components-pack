@@ -4,16 +4,17 @@ import { MainTemplateContext, MainTemplateContextType } from "../../templates/ma
 import { tableColumsDummny } from "./data/tableData";
 import Table, { tableColumType, tableConfigType, tableDataType } from "../../../components/table";
 import * as contorller from "./controller/controller";
+import useTableHook from "../../../hook/useTableHook";
 
 export type getStateTypes = {
     tableData: tableDataType[]
-    setTableData: React.Dispatch<React.SetStateAction<tableDataType[]>>
+    // setTableData: React.Dispatch<React.SetStateAction<tableDataType[]>>
     tableDataSelected: string[] 
     setTableDataSelected: React.Dispatch<React.SetStateAction<string[]>>,
     tableConfig: tableConfigType
-    setTableConfig: React.Dispatch<React.SetStateAction<tableConfigType>>
-    doGetData:boolean
-    setDoGetData:React.Dispatch<React.SetStateAction<boolean>>
+    // setTableConfig: React.Dispatch<React.SetStateAction<tableConfigType>>
+    // doGetData:boolean
+    // setDoGetData:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ComponentTablePage = () =>{
@@ -22,50 +23,31 @@ const ComponentTablePage = () =>{
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     const tableColums:tableColumType[] = useMemo(()=>([...tableColumsDummny]), [])
-    const [doGetData, setDoGetData] = useState(true)
-    const [tableData, setTableData] = useState<tableDataType[]>([])
-    const [tableDataSelected, setTableDataSelected] = useState<string[]>([])
-    const [tableConfig, setTableConfig] = useState<tableConfigType>({
-        totalData:0,
-        maxRow:10,
-        page:1,
-        maxPage:1,
-        sortBy:'status',
-        isDesc:false,
-    })
 
-    const [tableConfigEmpty] = useState<tableConfigType>({
-        totalData:0,
-        maxRow:10,
-        page:1,
-        maxPage:1,
-        sortBy:'status',
-        isDesc:false,
+    const {
+        tableData,
+        tableDataSelected,
+        setTableDataSelected,
+        tableConfig,
+        onClickColumn,
+        onChangeMaxRow,
+        onClickPagination
+    } = useTableHook({
+        getTableList: (tableConfig)=>{return contorller.getTableDataApi(tableConfig)}
     })
 
     const getState = () =>{
         return({
-            tableData, 
-            setTableData,
-            doGetData, 
-            setDoGetData,
+            tableData,
+            tableDataSelected,
+            setTableDataSelected,
             tableConfig,
-            setTableConfig,
-            tableDataSelected, 
-            setTableDataSelected
         })
     }
 
     useEffect(()=>{
-        setSidebarMenuListSelected('table')
-    },[])
-
-    useEffect(()=>{
-        if(doGetData){
-            contorller.getTableData(getState())
-            setDoGetData(false)
-        }
-    },[doGetData])
+        console.log(getState())
+    },[tableData])
     
     return(
         <DetailTemplate 
@@ -86,11 +68,11 @@ const ComponentTablePage = () =>{
                             isCheckbox={true}
                             isActionButtons={true}
                             
-                            onClickRow={(itmRow)=>{console.log(itmRow)}}
+                            onClickRow={(itmRow)=>{contorller.onClickRowItem(itmRow)}}
                             onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
-                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState())}}
-                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState())}}
-                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState())}}
+                            onClickPagination={onClickPagination}
+                            onChangeMaxRow={onChangeMaxRow}
+                            onClickColumn={onClickColumn}
                         />
                     </div>
                     
@@ -105,17 +87,17 @@ const ComponentTablePage = () =>{
                             tableColums={tableColums}
                             tableData={[]}
                             tableDataSelected={[]}
-                            setTableDataSelected={setTableDataSelected}
-                            tableConfig={tableConfigEmpty}
+                            tableConfig={{
+                                totalData:0,
+                                maxRow:10,
+                                page:1,
+                                maxPage:1,
+                                sortBy:'status',
+                                isDesc:false,
+                            }}
                             isExpandable={true}
                             isCheckbox={true}
                             isActionButtons={true}
-                            
-                            onClickRow={(itmRow)=>{console.log(itmRow)}}
-                            onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
-                            onClickPagination={(idButton)=>{contorller.onClickPagination(idButton, getState())}}
-                            onChangeMaxRow={(newMaxRow)=>{contorller.onChangeMaxRow(newMaxRow, getState())}}
-                            onClickColumn={(columnKey, isDesc)=>{contorller.onClickColumn(columnKey, isDesc, getState())}}
                         />
                     </div>
                     

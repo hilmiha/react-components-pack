@@ -1,7 +1,7 @@
 import { PiDotsThreeBold } from "react-icons/pi";
 import { getStateTypes } from ".."
 import PillFlair from "../../../../components/pill-flair";
-import { tableDataType } from "../../../../components/table"
+import { tableConfigType, tableDataType } from "../../../../components/table"
 import { tableDataDummy } from "../data/tableData";
 
 export const asyncTimeout = (ms: number) => {
@@ -10,12 +10,12 @@ export const asyncTimeout = (ms: number) => {
     });
 };
 
-const simulateBackEndProcess = (viewState:getStateTypes) =>{
+const simulateBackEndProcess = (tableConfig:tableConfigType) =>{
     const allData = [...tableDataDummy].sort((a, b) => {
-        let fa = a[viewState.tableConfig.sortBy].toLowerCase(),
-            fb = b[viewState.tableConfig.sortBy].toLowerCase();
+        let fa = a[tableConfig.sortBy].toLowerCase(),
+            fb = b[tableConfig.sortBy].toLowerCase();
         
-        if(viewState.tableConfig.isDesc){
+        if(tableConfig.isDesc){
             if (fa > fb) {
                 return -1;
             }
@@ -36,18 +36,18 @@ const simulateBackEndProcess = (viewState:getStateTypes) =>{
     });
     
 
-    const startData = ((viewState.tableConfig.page*viewState.tableConfig.maxRow)-viewState.tableConfig.maxRow+1)
-    const endData = Math.min((viewState.tableConfig.page*viewState.tableConfig.maxRow),allData.length)
+    const startData = ((tableConfig.page*tableConfig.maxRow)-tableConfig.maxRow+1)
+    const endData = Math.min((tableConfig.page*tableConfig.maxRow),allData.length)
 
     return({
         data:allData.slice(startData-1, endData),
         totalData:allData.length,
-        totalPage:Math.ceil(allData.length / viewState.tableConfig.maxRow)
+        totalPage:Math.ceil(allData.length / tableConfig.maxRow)
     })
 }
 
-export const getTableData = async(viewState:getStateTypes) =>{
-    const response = simulateBackEndProcess(viewState)
+export const getTableDataApi = async(tableConfig:tableConfigType) =>{
+    const response = simulateBackEndProcess(tableConfig)
     const dataTamp:tableDataType[] = response.data.map((itm)=>{
         return({
             id:itm.id,
@@ -104,73 +104,17 @@ export const getTableData = async(viewState:getStateTypes) =>{
         })
     })
 
-    const tableConfigTamp = {...viewState.tableConfig}
-    tableConfigTamp.totalData = response.totalData
-    tableConfigTamp.maxPage = response.totalPage
-
-    viewState.setTableConfig(tableConfigTamp)
-
-    viewState.setTableData(dataTamp)
-}
-
-export const onClickPagination = (idButton:string, viewState:getStateTypes) =>{
-    const tableConfigTamp = {...viewState.tableConfig}
-    console.log(idButton)
-    switch (idButton) {
-        case 'next':
-            if(tableConfigTamp.page + 1 <= tableConfigTamp.maxPage){
-                tableConfigTamp.page = tableConfigTamp.page + 1
-                viewState.setTableConfig(tableConfigTamp)
-                viewState.setDoGetData(true)
-            }
-            break;
-
-        case 'prev':
-            if(tableConfigTamp.page - 1 > 0){
-                tableConfigTamp.page = tableConfigTamp.page - 1
-                viewState.setTableConfig(tableConfigTamp)
-                viewState.setDoGetData(true)
-            }
-            break;
-
-        case 'first':
-            if(tableConfigTamp.page !== 1){
-                tableConfigTamp.page = 1
-                viewState.setTableConfig(tableConfigTamp)
-                viewState.setDoGetData(true)
-            }
-            break;
-
-        case 'last':
-            if(tableConfigTamp.page !== tableConfigTamp.maxPage){
-                tableConfigTamp.page = tableConfigTamp.maxPage
-                viewState.setTableConfig(tableConfigTamp)
-                viewState.setDoGetData(true)
-            }
-            break;
-    
-        default:
-            break;
+    return {
+        dataTamp: dataTamp,
+        totalData: response.totalData,
+        totalPage: response.totalPage
     }
-}
-
-export const onChangeMaxRow = (newMaxRow:number, viewState:getStateTypes) =>{
-    const tableConfigTamp = {...viewState.tableConfig}
-    tableConfigTamp.page = 1
-    tableConfigTamp.maxRow = newMaxRow
-    viewState.setTableConfig(tableConfigTamp)
-    viewState.setDoGetData(true)
-}
-
-export const onClickColumn = (columnKey:string, isDesc:boolean, viewState:getStateTypes) =>{
-    const tableConfigTamp = {...viewState.tableConfig}
-    tableConfigTamp.page = 1
-    tableConfigTamp.sortBy = columnKey
-    tableConfigTamp.isDesc = isDesc
-    viewState.setTableConfig(tableConfigTamp)
-    viewState.setDoGetData(true)
 }
 
 export const onClickAction = (idButton:string, itmRow:tableDataType, viewState:getStateTypes) =>{
     console.log(idButton, itmRow)
+}
+
+export const onClickRowItem = (itmRow:tableDataType) =>{
+    console.log(itmRow)
 }

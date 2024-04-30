@@ -35,6 +35,7 @@ type Props = {
     isWithCaret?: boolean
     isDisabled?:boolean
     isCloseAfterSelect?:boolean,
+    isOnScrollClose?:boolean
     onClickItem?: (buttonId:string, value?:string | number)=>void
 }
 
@@ -47,6 +48,7 @@ const DropdownMenu = ({
     isWithCaret = false,
     isCloseAfterSelect = false,
     isDisabled,
+    isOnScrollClose = false,
     onClickItem
 }:Props) =>{
     const navigate = useNavigate()
@@ -75,7 +77,9 @@ const DropdownMenu = ({
     }); 
 
     const click = useClick(context);
-    const dismiss = useDismiss(context);
+    const dismiss = useDismiss(context,{
+        ancestorScroll: isOnScrollClose,
+    });
     const role = useRole(context);
 
     const { getReferenceProps, getFloatingProps } = useInteractions([

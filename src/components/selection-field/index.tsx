@@ -91,7 +91,9 @@ const SelectionField = ({
         whileElementsMounted: autoUpdate
     }); 
     
-    const dismiss = useDismiss(context);
+    const dismiss = useDismiss(context,{
+        outsidePressEvent: 'click'
+    });
 
     const { getReferenceProps, getFloatingProps } = useInteractions([
         dismiss
@@ -102,8 +104,9 @@ const SelectionField = ({
     
     function getTitleSuffix() {
         let element:any = placeholderElementRef.current
-        var count = 0;
+        let count = 0;
 
+        let fullHidden = 0 
         if(element){
             var text = valueText
             element.innerHTML = '';
@@ -113,6 +116,8 @@ const SelectionField = ({
                 element.appendChild(newNode);
                 if (newNode.offsetLeft < element.offsetWidth) {
                     count++;
+                }else{
+                    fullHidden++
                 }
             }
             element.innerHTML = valueText;
@@ -122,7 +127,11 @@ const SelectionField = ({
         substr = substr.substring(count - 4);
         let sisa = substr.split(',').length - 1;
 
-        setHidden(sisa);
+        if(fullHidden > 1){
+            setHidden(sisa);
+        }else{
+            setHidden(0);
+        }
     }
 
     const onClickInputField = () =>{

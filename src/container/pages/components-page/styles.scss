@@ -2,7 +2,7 @@
     background: repeating-conic-gradient(hsla(var(--color-neutral-300), 0.2) 0% 25%, hsla(var(--color-neutral-0), 0.5) 0% 50%) 50% / 20px 20px;
     border: 1px solid hsl(var(--color-neutral-300));
     border-radius: var(--size-1);
-    max-width: 800px;
+    max-width: 1000px;
     min-height: 100px;
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@
 }
 
 .props-section{
-    max-width: 800px;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
     gap: var(--size-4);

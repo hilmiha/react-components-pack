@@ -3,8 +3,8 @@ import { errorType } from "../components/text-field";
 type Props = {
     form:Record<any, any>,
     setForm:React.Dispatch<React.SetStateAction<any>>,
-    formError:Record<any, errorType>,
-    setFormError:React.Dispatch<React.SetStateAction<Record<any, errorType>>>,
+    formError?:Record<any, errorType>,
+    setFormError?:React.Dispatch<React.SetStateAction<Record<any, errorType>>>,
 }
 const useFormHook = ({
     form,
@@ -20,21 +20,26 @@ const useFormHook = ({
             return tamp
         })
 
-        if(formError[key].isError){
-            setFormError((prev)=>{
-                const tamp = {...prev}
-                tamp[key] = {isError:false, errorMessage:''}
-                return tamp
-            })
+        if(formError && setFormError){
+            if(formError[key].isError){
+                setFormError((prev)=>{
+                    const tamp = {...prev}
+                    tamp[key] = {isError:false, errorMessage:''}
+                    return tamp
+                })
+            }
         }
+        
     }
 
     const onValidate = (key:string, errorResult:errorType) =>{
-        setFormError((prev)=>{
-            const tamp = {...prev}
-            tamp[key] = errorResult
-            return tamp
-        })
+        if(formError && setFormError){
+            setFormError((prev)=>{
+                const tamp = {...prev}
+                tamp[key] = errorResult
+                return tamp
+            })
+        }
     }
 
     return({

@@ -33,8 +33,8 @@ $fullWidth: 100vw;
 .drawer-box{
     background-color: hsl(var(--color-neutral-100));
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: max-content min-content max-content;
 
 
     &.small{
@@ -86,7 +86,7 @@ $fullWidth: 100vw;
     }
     .drawer-content{
         background-color: hsl(var(--color-neutral-100));
-        padding: var(--size-4) 0px var(--size-4) var(--size-4);
+        padding: var(--size-4);
         flex-grow: 100;
 
 
@@ -98,11 +98,7 @@ $fullWidth: 100vw;
 
     .drawer-button{
         padding: var(--size-4);
-        background-color: hsl(var(--color-neutral-0));
-        border-top: 1px solid hsl(var(--color-neutral-300));
-        position: sticky;
-        bottom: 0;
-        flex-grow: 1;
+        background-color: hsl(var(--color-neutral-100));
     }
 
     &.on-right{

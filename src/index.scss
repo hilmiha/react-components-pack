@@ -33,8 +33,8 @@ code {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: var(--scroll-width);
+  height: var(--scroll-width);
 }
 
 /* Track */

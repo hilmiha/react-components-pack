@@ -1,9 +1,13 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import { LocalContext, LocalContextType } from "../context/local-context";
 import Table, { tableColumType, tableConfigType, tableDataType } from "../../../../components/table";
-import { tableColumsDummny } from "../data/tableData";
+import { tableColumsDummnyNew } from "../data/tableData";
 import useTableHook from "../../../../hook/useTableHook";
 import * as contorller from "../controller/controller";
+import TableNew from "../../../../components/table_new";
+import TableFilter from "./filter-page";
+import Drawer from "../../../../components/drawer";
+import { useNavigate } from "react-router-dom";
 
 export type getStateTypes = {
     tableData: tableDataType[]
@@ -17,11 +21,13 @@ export type getStateTypes = {
 }
 
 const ExamplePage = () =>{
+    const navigate = useNavigate()
     const {
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
 
-    const tableColums:tableColumType[] = useMemo(()=>([...tableColumsDummny]), [])
+    const [tableColumnsNew, setTableColumnsNew] = useState([...tableColumsDummnyNew])
+    const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
 
     const {
         tableData,
@@ -30,9 +36,18 @@ const ExamplePage = () =>{
         tableConfig,
         onClickColumn,
         onChangeMaxRow,
-        onClickPagination
+        onClickPagination,
+        onClickSelect,
+        onClickSelectAll,
+        onApplyFilter,
+        onHideColumn,
     } = useTableHook({
-        getTableList: (tableConfig)=>{return contorller.getTableDataApi(tableConfig)}
+        getTableList: (newTableConfig)=>{return contorller.getTableDataApi(newTableConfig)},
+        tableColumns:tableColumnsNew,
+        initialFilter: {
+            group:[],
+            status:[]
+        }
     })
 
     const getState = () =>{
@@ -53,47 +68,33 @@ const ExamplePage = () =>{
             <div className="component-section">
                 <span className="font-title">Default</span>
                 <div className="preview-box">
-                    <div style={{width:'100%'}}>
-                        <Table
-                            tableColums={tableColums}
+                    <div style={{width:'100%', height:'600px'}}>
+                        <TableNew
+                            tableColums={tableColumnsNew}
                             tableData={tableData}
                             tableDataSelected={tableDataSelected}
-                            setTableDataSelected={setTableDataSelected}
                             tableConfig={tableConfig}
+                            
                             isExpandable={true}
                             isCheckbox={true}
                             isActionButtons={true}
-                            
+
                             onClickRow={(itmRow)=>{contorller.onClickRowItem(itmRow)}}
                             onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
+                            
                             onClickPagination={onClickPagination}
                             onChangeMaxRow={onChangeMaxRow}
                             onClickColumn={onClickColumn}
+                            onClickSelect={onClickSelect}
+                            onClickSelectAll={onClickSelectAll}
+                            onHideColumn={onHideColumn}
+                            onClickOpenFilter={()=>{setIsFilterDrawerOpen(true)}}
                         />
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div className="component-section">
-                <span className="font-title">Empty Table</span>
-                <div className="preview-box">
-                    <div style={{width:'100%'}}>
-                        <Table
-                            tableColums={tableColums}
-                            tableData={[]}
-                            tableDataSelected={[]}
-                            tableConfig={{
-                                totalData:0,
-                                maxRow:10,
-                                page:1,
-                                maxPage:1,
-                                sortBy:'status',
-                                isDesc:false,
-                            }}
-                            isExpandable={true}
-                            isCheckbox={true}
-                            isActionButtons={true}
+                        <TableFilter
+                            filterValue={tableConfig.filter}
+                            isFilterDrawerOpen={isFilterDrawerOpen}
+                            setIsFilterDrawerOpen={setIsFilterDrawerOpen}
+                            onApplyFilter={onApplyFilter}
                         />
                     </div>
                     

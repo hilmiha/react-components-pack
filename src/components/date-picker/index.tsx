@@ -3,6 +3,7 @@ import { addDays, format, isDate, subDays } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import { processClassname } from '../../helper'
 import './styles.scss'
+import { useMemo } from 'react';
 
 export type datePickerType = "single" | "range" | "multiple"
 export type datePickerValueType = Date | Date[] | DateRange | undefined
@@ -14,6 +15,9 @@ type Props = {
     onchange?: (newValue:datePickerValueType)=>void
     daysAfterToday?: number,
     daysBeforeToday?: number,
+    fromDate?:Date,
+    toDate?:Date,
+    defaultMonth?:Date
     maxSelection?: number
 }
 const DatePicker = ({
@@ -23,6 +27,8 @@ const DatePicker = ({
     onchange,
     daysAfterToday,
     daysBeforeToday,
+    fromDate,
+    toDate,
     maxSelection
 }:Props) =>{
 
@@ -41,6 +47,26 @@ const DatePicker = ({
         }
     }
 
+    const fromDateMemo = useMemo(()=>{
+        if(fromDate && !daysBeforeToday){
+            return fromDate
+        }else if(daysBeforeToday){
+            return subDays(new Date(), daysBeforeToday)
+        }else{
+            return undefined
+        }
+    },[])
+
+    const toDateMemo = useMemo(()=>{
+        if(toDate && !daysAfterToday){
+            return toDate
+        }else if(daysAfterToday){
+            return addDays(new Date(), daysAfterToday)
+        }else{
+            return undefined
+        }
+    },[])
+
     return(
         <div
             className={
@@ -51,24 +77,26 @@ const DatePicker = ({
             {
                 (type==='single' && (isDate(value) || !value))&&(
                     <DayPicker 
+                        defaultMonth={(fromDateMemo)?(fromDateMemo):(undefined)}
                         mode={'single'}
                         selected={value}
                         onSelect={(newSelected)=>{thisOnChange(newSelected)}}
                         components={{ DayContent: DateTime }} 
-                        fromDate={(daysBeforeToday!==undefined)?(subDays(new Date(), daysBeforeToday)):(undefined)}
-                        toDate={(daysAfterToday!==undefined)?(addDays(new Date(), daysAfterToday)):(undefined)}
+                        fromDate={fromDateMemo}
+                        toDate={toDateMemo}
                     />
                 )
             }
             {
                 (type==='range' && (isDateRange(value) || !value))&&(
                     <DayPicker 
+                        defaultMonth={(fromDateMemo)?(fromDateMemo):(undefined)}
                         mode={'range'}
                         selected={value}
                         onSelect={(newSelected)=>{thisOnChange(newSelected)}}
                         components={{ DayContent: DateTime }}
-                        fromDate={(daysBeforeToday!==undefined)?(subDays(new Date(), daysBeforeToday)):(undefined)}
-                        toDate={(daysAfterToday!==undefined)?(addDays(new Date(), daysAfterToday)):(undefined)}
+                        fromDate={fromDateMemo}
+                        toDate={toDateMemo}
                         max={maxSelection}
                     />
                 )
@@ -76,12 +104,13 @@ const DatePicker = ({
             {
                 (type==='multiple' && (Array.isArray(value) || !value))&&(
                     <DayPicker 
+                        defaultMonth={(fromDateMemo)?(fromDateMemo):(undefined)}
                         mode={'multiple'}
                         selected={value}
                         onSelect={(newSelected)=>{thisOnChange(newSelected)}}
                         components={{ DayContent: DateTime }}
-                        fromDate={(daysBeforeToday!==undefined)?(subDays(new Date(), daysBeforeToday)):(undefined)}
-                        toDate={(daysAfterToday!==undefined)?(addDays(new Date(), daysAfterToday)):(undefined)}
+                        fromDate={fromDateMemo}
+                        toDate={toDateMemo}
                         max={maxSelection}
                     />
                 )

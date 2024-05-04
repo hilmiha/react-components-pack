@@ -23,10 +23,12 @@ import DropdownManuItem from "../dropdown-menu-item";
 import { processClassname } from "../../helper";
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext";
 import { useLocation, useNavigate } from "react-router-dom";
+import DropdownSelectionItem from "../dropdown-selection-item";
 
-export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number}[]}[]
+export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number | boolean}[]}[]
 
 type Props = {
+    type?: 'checkbox' | 'default'
     className?: string
     txtLabelOrIcon: string | IconType
     menuList?: menuListType
@@ -36,10 +38,11 @@ type Props = {
     isDisabled?:boolean
     isCloseAfterSelect?:boolean,
     isOnScrollClose?:boolean
-    onClickItem?: (buttonId:string, value?:string | number)=>void
+    onClickItem?: (buttonId:string, value?:string | number | boolean)=>void
 }
 
 const DropdownMenu = ({
+    type = 'default',
     className,
     txtLabelOrIcon,
     menuList = [],
@@ -78,6 +81,7 @@ const DropdownMenu = ({
 
     const click = useClick(context);
     const dismiss = useDismiss(context,{
+        outsidePressEvent: 'click',
         ancestorScroll: isOnScrollClose,
     });
     const role = useRole(context);
@@ -88,11 +92,11 @@ const DropdownMenu = ({
         role
     ]);
     
-    const thisOnClick = (buttonId:string, value?:string|number) =>{
+    const thisOnClick = (buttonId:string, value?:string|number|boolean) =>{
         if(onClickItem){
             onClickItem(buttonId, value)
         }
-        if(isCloseAfterSelect || mediaSize<1){
+        if(isCloseAfterSelect || (mediaSize<1 && type!=='checkbox')){
             setIsOpen(false)
         }
     }
@@ -190,12 +194,12 @@ const DropdownMenu = ({
                                     >
                                         {
                                             itmMenuList.menu.map((itmMenu, index)=>(
-                                                <DropdownManuItem
+                                                <DropdownSelectionItem
                                                     key={itmMenu.id}
                                                     txtLabel={itmMenu.txtLabel}
-                                                    spacing={spacing}
-                                                    onClick={()=>{thisOnClick(itmMenu.id, itmMenu?.value)}}
+                                                    onClick={()=>{thisOnClick(itmMenu.id, itmMenu.value)}}
                                                     isDisabled={itmMenu.isDisabled}
+                                                    isWithCheckbox={type==='checkbox'}
                                                     isSelected={itmMenu.isSelected}
                                                 />
                                             ))
@@ -237,12 +241,13 @@ const DropdownMenu = ({
                                             >
                                                 {
                                                     itmMenuList.menu.map((itmMenu, index)=>(
-                                                        <DropdownManuItem
+                                                        <DropdownSelectionItem
                                                             key={itmMenu.id}
                                                             txtLabel={itmMenu.txtLabel}
-                                                            spacing={spacing}
-                                                            onClick={()=>{thisOnClick(itmMenu.id)}}
+                                                            onClick={()=>{thisOnClick(itmMenu.id, itmMenu.value)}}
                                                             isDisabled={itmMenu.isDisabled}
+                                                            isWithCheckbox={type==='checkbox'}
+                                                            isSelected={itmMenu.isSelected}
                                                         />
                                                     ))
                                                 }

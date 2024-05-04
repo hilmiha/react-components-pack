@@ -206,6 +206,7 @@ const Drawer = ({
                                                     txtLabel={itemButton.txtLabel}
                                                     appearance={itemButton.appearance}
                                                     onClick={()=>{thisOnClickButton(itemButton.id)}}
+                                                    isDisabled={itemButton.isDisabled}
                                                 />
                                             ))}
                                         </ButtonGroup>

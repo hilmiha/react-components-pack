@@ -9,25 +9,26 @@ export type errorType = {isError: boolean, errorMessage:string}
 export type valueListItem = {id:string, txtLabel:string, txtSublabel?:string, value?:any, isDisabled?:boolean}
 export type valueList = valueListItem[] | []
 
+export type textFieldConfig = {
+    prefix?: string | JSX.Element,
+    sufix?: string | JSX.Element,
+    maxLength?: number,
+    isMandatory?: boolean,
+    minValue?:number,
+    maxValue?:number,
+    regex?:RegExp | [RegExp, string]
+}
 
-type Props = {
+export type TextFieldProps = {
     className?: string
     type:textFieldType
     value?: valueType
     txtLabel?:string
     txtPlaceholder?:string
     onChange?: (newValue:valueType) => void,
-    onValidate?: (errorResult:errorType, newValue:valueType, config?:Record<any, any>) => void,
+    onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
     error?: errorType
-    config?: {
-        prefix?: string | JSX.Element,
-        sufix?: string | JSX.Element,
-        maxLength?: number,
-        isMandatory?: boolean,
-        minValue?:number,
-        maxValue?:number,
-        regex?:RegExp | [RegExp, string]
-    }
+    config?: textFieldConfig
 }
 
 const TextField = ({
@@ -40,7 +41,7 @@ const TextField = ({
     onValidate,
     config,
     error
-}:Props) =>{
+}:TextFieldProps) =>{
     const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory===true
     const prefix = config?.prefix

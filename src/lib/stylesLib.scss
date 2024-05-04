@@ -21,6 +21,8 @@ html{
     --font-weight-bold: 500;
     --font-weight-balck: 900;
 
+    --scroll-width:6px;
+
     .font-title-largest{
         color: hsl(var(--color-neutral-1100));
         font-size: var(--font-size-largest);

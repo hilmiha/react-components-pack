@@ -1,26 +1,79 @@
-import { useEffect, useState } from "react"
-import { tableConfigType, tableDataType } from "../components/table"
+import { useEffect, useMemo, useState } from "react"
+import { tableColumType, tableConfigType, tableDataType, tableFilterType } from "../components/table_new";
+// import { tableConfigType, tableDataType } from "../components/table"
 
 type useTableProps = {
-    getTableList: (tableConfig:tableConfigType) => Promise<{dataTamp: tableDataType[]; totalData: number; totalPage: number}>
+    getTableList: (tableConfig:tableConfigType) => Promise<{dataTamp: tableDataType[]; totalData: number; totalPage: number}>,
+    tableColumns: tableColumType[]
+    initialFilter: tableFilterType
 }
 
 const useTableHook = ({
-    getTableList
+    getTableList,
+    tableColumns,
+    initialFilter
 }: useTableProps) =>{
     const [tableData, setTableData] = useState<tableDataType[]>([])
     const [tableDataSelected, setTableDataSelected] = useState<string[]>([])
 
     const [doGetData, setDoGetData] = useState(true)
 
+    const sortByDefault = useMemo(()=>{
+        const found = tableColumns.find((element) => element.isDefaultSort);
+        if(found){
+            return(found.key)
+        }else{
+            return ''
+        }
+    },[])
+
     const [tableConfig, setTableConfig] = useState<tableConfigType>({
         totalData:0,
         maxRow:10,
         page:1,
         maxPage:1,
-        sortBy:'status',
+        sortBy:sortByDefault,
         isDesc:false,
+        hiddenColumn:[],
+        filter:initialFilter
     })
+
+    const onClickSelect = (itmRowId:string) =>{
+        let tampIsChecked = tableDataSelected.includes(itmRowId)
+        if(tampIsChecked){
+            setTableDataSelected((prev)=>{
+                const tamp = [...prev]
+                return tamp.filter((x)=>x!==itmRowId)
+            })
+        }else{
+            setTableDataSelected((prev)=>{
+                const tamp = [...prev]
+                tamp.push(itmRowId)
+                return tamp
+            })
+        }
+    }
+
+    const onClickSelectAll = () =>{
+        if(tableDataSelected.length !== tableData.length){
+            setTableDataSelected(tableData.map((itm)=>itm.id))
+        }else{
+            setTableDataSelected([])
+        }
+    }
+
+    const onHideColumn = (tableColumnKey:string) =>{
+        let tampIsChecked = tableConfig.hiddenColumn.includes(tableColumnKey)
+        const tableConfigTamp = {...tableConfig}
+
+        if(tampIsChecked){
+            tableConfigTamp.hiddenColumn = [...tableConfig.hiddenColumn].filter((x)=>x!==tableColumnKey)
+        }else{
+            tableConfigTamp.hiddenColumn = [...tableConfig.hiddenColumn]
+            tableConfigTamp.hiddenColumn.push(tableColumnKey)
+        }
+        setTableConfig(tableConfigTamp)
+    }
 
     const onClickColumn = (columnKey:string, isDesc:boolean) =>{
         const tableConfigTamp = {...tableConfig}
@@ -35,6 +88,16 @@ const useTableHook = ({
         const tableConfigTamp = {...tableConfig}
         tableConfigTamp.page = 1
         tableConfigTamp.maxRow = newMaxRow
+        setTableConfig(tableConfigTamp)
+        setDoGetData(true)
+    }
+
+    const onApplyFilter = (filter:tableFilterType) =>{
+        const tableConfigTamp = {...tableConfig}
+        tableConfigTamp.page = 1
+        tableConfigTamp.filter = filter
+        tableConfigTamp.sortBy = sortByDefault
+        tableConfigTamp.isDesc = false
         setTableConfig(tableConfigTamp)
         setDoGetData(true)
     }
@@ -93,6 +156,10 @@ const useTableHook = ({
         }
     },[doGetData])
 
+    useEffect(()=>{
+        setTableDataSelected([])
+    },[tableConfig])
+
     return({
         tableData,
         setTableData,
@@ -101,7 +168,11 @@ const useTableHook = ({
         setTableDataSelected,
         onClickColumn,
         onChangeMaxRow,
-        onClickPagination
+        onClickPagination,
+        onClickSelect,
+        onClickSelectAll,
+        onHideColumn,
+        onApplyFilter
     })
 }
 

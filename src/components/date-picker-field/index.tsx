@@ -12,7 +12,7 @@ import IconButton from '../icon-button'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { sortBy } from 'lodash'
 
-type Props = {
+export type DatePickerFieldProps = {
     className?: String
     type:datePickerType
     txtLabel?:string
@@ -27,7 +27,10 @@ type Props = {
         isMandatory?: boolean,
         daysAfterToday?: number,
         daysBeforeToday?: number,
-        maxSelection?: number
+        maxSelection?: number,
+        fromDate?:Date,
+        toDate?:Date,
+        defaultMonth?:Date
     }
 }
 
@@ -41,7 +44,7 @@ const DatePickerField = ({
     onValidate,
     error,
     config
-}:Props) =>{
+}:DatePickerFieldProps) =>{
     const navigate = useNavigate()
     const location = useLocation()
     
@@ -71,7 +74,9 @@ const DatePickerField = ({
         whileElementsMounted: autoUpdate
     }); 
 
-    const dismiss = useDismiss(context);
+    const dismiss = useDismiss(context,{
+        outsidePressEvent: 'click'
+    });
 
     const { getReferenceProps, getFloatingProps } = useInteractions([
         dismiss
@@ -265,6 +270,9 @@ const DatePickerField = ({
                     value={value}
                     daysAfterToday={config?.daysAfterToday}
                     daysBeforeToday={config?.daysBeforeToday}
+                    fromDate={config?.fromDate}
+                    toDate={config?.toDate}
+                    defaultMonth={config?.defaultMonth}
                     maxSelection={config?.maxSelection}
                     onchange={(newValue)=>{thisOnChange(newValue)}}
                 />

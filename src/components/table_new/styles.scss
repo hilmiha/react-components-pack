@@ -224,9 +224,9 @@
         }
     
         &.mobile{
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             .table-footer-count{
                 display: none;
@@ -234,10 +234,11 @@
             .table-footer-pagination{
                 justify-content: center;
                 width: fit-content;
+                gap:var(--size-2)
             }
-            .table-footer-maxrow{
-                display: none;
-            }
+            // .table-footer-maxrow{
+            //     display: none;
+            // }
         }
     
         

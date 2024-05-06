@@ -5,7 +5,7 @@ import IconButton, { appearanceIconButtonType } from '../icon-button'
 import DropdownMenu, { menuListType } from '../dropdown-menu'
 import { Fragment, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
-import { PiArrowDown, PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCaretRight, PiCaretUp, PiCaretUpDown, PiCheckBold, PiColumns, PiDotsThree, PiDotsThreeVertical, PiDotsThreeVerticalBold, PiFunnel, PiMagnifyingGlass, PiMinus, PiMinusBold, PiPlus, PiX } from 'react-icons/pi'
+import { PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCaretRight, PiCaretUp, PiCaretUpDown, PiCheckBold, PiColumns, PiFunnel, PiMagnifyingGlass, PiMinus, PiMinusBold, PiPlus, PiRows, PiX } from 'react-icons/pi'
 import { VscCollapseAll, VscExpandAll } from "react-icons/vsc";
 import Button from '../button'
 import TextField, { TextFieldProps } from '../text-field'
@@ -350,35 +350,43 @@ const TableNew = ({
                 ${isFillContainer?('fill-container'):('')}`)  
             } 
             style={{
-                gridTemplateRows:(onHideColumn || onClickOpenFilter)?((mediaSize<1)?('max-content max-content 1fr max-content'):('max-content 1fr max-content')):('1fr max-content')
+                gridTemplateRows:(onDoSearch || onHideColumn || onClickOpenFilter)?('max-content 1fr max-content'):('1fr max-content')
             }}
         >
             {
                 (
+                    onDoSearch ||
                     onHideColumn ||
                     onClickOpenFilter
                 )&&(
                     <div className='tablenew-top'>
                         <div style={{minWidth:'200px', width:'100%', display:'flex', gap:'var(--size-2)'}}>
-                            <TextField
-                                type='text'
-                                txtPlaceholder={searchBarPlaceholder!==undefined?(searchBarPlaceholder):('Search')}
-                                value={form['search']}
-                                onChange={(newValue)=>{onChange('search', newValue)}}
-                                onPressEnter={()=>{thisOnDoSearch()}}
-                                config={{
-                                    sufix:((!form['search'])?(<></>):(<IconButton Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
-                                }}
-                            />
-                            <IconButton
-                                Icon={PiMagnifyingGlass}
-                                isDisabled={false}
-                                onClick={thisOnDoSearch}
-                            />
+                            {
+                                (onDoSearch)&&(
+                                    <Fragment>
+                                        <TextField
+                                            type='text'
+                                            txtPlaceholder={searchBarPlaceholder!==undefined?(searchBarPlaceholder):('Search')}
+                                            value={form['search']}
+                                            onChange={(newValue)=>{onChange('search', newValue)}}
+                                            onPressEnter={()=>{thisOnDoSearch()}}
+                                            config={{
+                                                sufix:((!form['search'])?(<></>):(<IconButton Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
+                                            }}
+                                        />
+                                        <IconButton
+                                            Icon={PiMagnifyingGlass}
+                                            isDisabled={false}
+                                            onClick={thisOnDoSearch}
+                                        />
+                                    </Fragment>
+                                )
+                            }
+                            
                         </div>
                         <div style={{display:'flex', gap:'var(--size-2)'}}>
                             {
-                                {onClickOpenFilter}&&(
+                                (onClickOpenFilter)&&(
                                     <IconButton
                                         Icon={PiFunnel}
                                         isDisabled={false}
@@ -388,87 +396,29 @@ const TableNew = ({
                                 )
                             }
                             {
-                                (mediaSize<1)?(
-                                    <IconButton
-                                        Icon={PiDotsThreeVerticalBold}
-                                        isDisabled={false}
-                                        isSelected={(onHideColumn?((tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)):(false))}
-                                        onClick={()=>{setShowMoreTop((prev)=>(!prev))}}
+                                (onHideColumn)&&(
+                                    <DropdownMenu
+                                        type='checkbox'
+                                        txtLabelOrIcon={PiColumns}
+                                        altTxtLabel='Column Shown'
+                                        onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
+                                        isCloseAfterSelect={false}
+                                        isSelected={(tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)}
+                                        menuList={[
+                                            {
+                                                id:'table-column',
+                                                menu:tableColums.map((item)=>{return({
+                                                    id:item.key,
+                                                    txtLabel:item.txtLabel,
+                                                    isSelected: !tableConfig?.hiddenColumn?.includes(item.key),
+                                                    value:item.isHideable
+                                                })})
+                                            }
+                                        ]}
                                     />
-                                ):(
-                                    <>
-                                        {
-                                            (onHideColumn)&&(
-                                                <DropdownMenu
-                                                    type='checkbox'
-                                                    txtLabelOrIcon={PiColumns}
-                                                    onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
-                                                    isCloseAfterSelect={false}
-                                                    isSelected={(tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)}
-                                                    menuList={[
-                                                        {
-                                                            id:'table-column',
-                                                            title:'Column Shown',
-                                                            menu:tableColums.map((item)=>{return({
-                                                                id:item.key,
-                                                                txtLabel:item.txtLabel,
-                                                                isSelected: !tableConfig?.hiddenColumn?.includes(item.key),
-                                                                value:item.isHideable
-                                                            })})
-                                                        }
-                                                    ]}
-                                                />
-                                            )
-                                        }
-                                    </>
                                 )
                             }
                         </div>
-                    </div>
-                )
-            }
-            {
-                (mediaSize<1 && tableConfig)&&(
-                    <div className='tablenew-top' style={{gap:"var(--size-2)", overflow:'hidden', height:(showMoreTop?('100%'):('0px')), marginBottom:(showMoreTop?('var(--size-4)'):('0px'))}}>
-                        <DropdownMenu
-                            txtLabelOrIcon={'Max Row'}
-                            isWithCaret
-                            menuList={[
-                                {
-                                    id:'maxRowSelection',
-                                    menu:[
-                                        {id:'item10', txtLabel:'10', isSelected:10===tableConfig.maxRow, value:10},
-                                        {id:'item50', txtLabel:'50', isSelected:50===tableConfig.maxRow, value:50},
-                                        {id:'item100', txtLabel:'100', isSelected:100===tableConfig.maxRow, value:100}
-                                    ]
-                                }
-                            ]}
-                            onClickItem={(idButton, value)=>{if(typeof value === 'number'){thisOnChangeMaxRow(value)}}}
-                            isDisabled={tableData.length===0}
-                        />
-                        {
-                            (onHideColumn)&&(
-                                <DropdownMenu
-                                    type='checkbox'
-                                    txtLabelOrIcon={'Column Shown'}
-                                    isWithCaret
-                                    onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
-                                    isCloseAfterSelect={false}
-                                    isSelected={(tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)}
-                                    menuList={[
-                                        {
-                                            id:'table-column',
-                                            menu:tableColums.map((item)=>{return({
-                                                id:item.key,
-                                                txtLabel:item.txtLabel,
-                                                isSelected: !tableConfig?.hiddenColumn?.includes(item.key),
-                                                value:item.isHideable
-                                            })})
-                                        }
-                                    ]}
-                                />
-                            )
-                        }
                     </div>
                 )
             }
@@ -823,9 +773,11 @@ const TableNew = ({
                             {
                                 (tableData.length!==0)&&(
                                     <>
-                                        {`Show ${tableConfig.maxRow} item`}
+                                        
+                                        {(mediaSize >= 1)&&(`Show ${tableConfig.maxRow} item`)}
                                         <DropdownMenu
-                                            txtLabelOrIcon={PiCaretDown}
+                                            txtLabelOrIcon={(mediaSize >= 1)?(PiCaretDown):(PiRows)}
+                                            altTxtLabel='Maximum Row Shown'
                                             appearance='subtle'
                                             spacing='compact'
                                             menuList={[

@@ -31,6 +31,7 @@ type Props = {
     type?: 'checkbox' | 'default'
     className?: string
     txtLabelOrIcon: string | IconType
+    altTxtLabel?: string
     menuList?: menuListType
     appearance?:appearanceIconButtonType
     spacing?: spacingButtonType
@@ -46,6 +47,7 @@ const DropdownMenu = ({
     type = 'default',
     className,
     txtLabelOrIcon,
+    altTxtLabel,
     menuList = [],
     appearance,
     spacing = 'default',
@@ -227,7 +229,7 @@ const DropdownMenu = ({
                                 {...getFloatingProps()}
                             >
                                 <div className="dropdown-menu-mobile-header">
-                                    <span className="dropdown-menu-mobile-header-title">{typeof txtLabelOrIcon === 'string' ? txtLabelOrIcon : 'Options'}</span>
+                                    <span className="dropdown-menu-mobile-header-title">{typeof txtLabelOrIcon === 'string' ? txtLabelOrIcon : altTxtLabel ? altTxtLabel : 'Options'}</span>
                                     <IconButton
                                         Icon={PiXBold}
                                         appearance="subtle"

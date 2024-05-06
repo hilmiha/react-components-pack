@@ -30,7 +30,6 @@
     border: 1px solid hsl(var(--color-neutral-300));
     box-shadow: 1px 1px 4px hsla(var(--color-neutral-600), 0.3);
     border-radius: 4px;
-    gap: 14px;
 
     animation: modal-box-animate 0.3s ease 0s 1 normal both;
     
@@ -46,6 +45,12 @@
         }
     }
 
+    @media screen and (max-width: 767px){
+        border-left: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+    }
+
 
     &.small{
         width: 500px;
@@ -53,23 +58,27 @@
     }
 
     &.large{
-        min-width: 0px;
-        width: 500px;
+        width: 80vw;
         max-width: 720px;
     }
 
     &.full{
         width: 100%;
+        max-height: 100%;
     }
 
     .modal-header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: var(--size-4);
-        background-color: hsla(var(--color-neutral-200), 0.5);
+        padding: var(--size-4) var(--size-6) var(--size-4) var(--size-8);
+        background-color: hsl(var(--color-neutral-100));
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
+
+        @media screen and (max-width: 767px){
+            padding: var(--size-4) var(--size-2) var(--size-4) var(--size-4);
+        }
 
         >svg{
             font-size: var(--font-size-largest);
@@ -89,7 +98,14 @@
     }
 
     .modal-content{
-        padding: var(--size-4);
+        padding: var(--size-6) var(--size-8);
+        background-color: hsla(var(--color-neutral-100), 0.5);
+        max-height: 65vh;
+        overflow: auto;
+
+        @media screen and (max-width: 767px){
+            padding: var(--size-6) var(--size-4);
+        }
         
         .modal-txt-title{
             display: flex;
@@ -108,15 +124,12 @@
         }
 
         .modal-txt-content{
-            margin-top: var(--size-4);
             font-size: var(--font-size-regular);
             color: hsl(var(--color-neutral-1100));
         }
 
-        .modal-page-content{
+        .modal-txt-content+.modal-page-content{
             margin-top: var(--size-4);
-            max-height: 320px;
-            overflow: auto;
         }
 
         .modal-button-list{

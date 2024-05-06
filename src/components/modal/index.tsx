@@ -10,16 +10,18 @@ import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export type modalInfoType = 'info' | 'success' | 'warning' | 'danger'
+export type modalSizeType = 'small' | "large"
 export type modalButtonType = {
     id: string
     txtLabel: string
     appearance?: appearanceButtonType
-    isDisabled?: boolean
+    isDisabled?: boolean,
+    isSelected?:boolean
 }
 
 type Props = {
     id?: string
-    type?:modalInfoType,
+    size?:modalSizeType
     className?: string
     txtTitle?:string,
     txtContent?:string,
@@ -33,13 +35,13 @@ type Props = {
 
 const Modal = ({
     id,
-    type,
+    size = 'small',
     className,
     txtTitle,
     txtContent,
     contentPage,
     buttonList,
-    isCloseClickOutside = false,
+    isCloseClickOutside = true,
     isOpen,
     setIsOpen,
     onClickButton
@@ -59,10 +61,16 @@ const Modal = ({
     });
 
     const dismiss = useDismiss(context, {
+        outsidePressEvent: 'click',
         escapeKey:false,
         outsidePress: (event)=>{
             if(isCloseClickOutside){
+                if(!id){
+                    return true
+                }
+
                 if((event.target as HTMLInputElement).id === id){
+                    thisOnClickButton('*close*')
                     return true
                 }else{
                     return false
@@ -128,67 +136,29 @@ const Modal = ({
                                 className={
                                     processClassname(`modal-box
                                     ${className?(className):('')}
-                                    ${mediaSize<1?('full'):(`small`)}`)  
+                                    ${mediaSize<1?('full'):(size)}`)  
                                 }
                                 ref={refs.setFloating}
                                 {...getFloatingProps()}
                             >
-                                {
-                                    (type)&&(
-                                        <div 
-                                            className={processClassname(`modal-header
-                                            ${type==='danger'?('danger'):('')}
-                                            ${type==='success'?('success'):('')}
-                                            ${type==='warning'?('warning'):('')}
-                                            ${type==='info'?('info'):('')}`)}
-                                        >
-                                            {
-                                                (type==='danger')&&(
-                                                    <PiXCircleBold />
-                                                )
-                                            }
-                                            {
-                                                (type==='success')&&(
-                                                    <PiCheckCircleBold />
-                                                )
-                                            }
-                                            {
-                                                (type==='warning')&&(
-                                                    <PiWarningCircleBold />
-                                                )
-                                            }
-                                            {
-                                                (type==='info')&&(
-                                                    <PiInfoBold />
-                                                )
-                                            }
-                                            <IconButton
-                                                Icon={PiXBold}
-                                                spacing='compact'
-                                                appearance='subtle'
-                                                onClick={()=>{thisOnClickButton('*close*')}}
-                                            />
-                                        </div>
-                                    )
-                                }
-                                <div className='modal-content'>
-                                    <div className='modal-txt-title'>
+                                <div 
+                                    className={'modal-header'}
+                                >
+                                    <div>
                                         {
                                             (txtTitle)&&(
-                                                <span>{txtTitle}</span>
-                                            )
-                                        }
-                                        {
-                                            (!type)&&(
-                                                <IconButton
-                                                    Icon={PiXBold}
-                                                    appearance='subtle'
-                                                    spacing='compact'
-                                                    onClick={()=>{thisOnClickButton('*close*')}}
-                                                />
+                                                <span className='font-title'>{txtTitle}</span>
                                             )
                                         }
                                     </div>
+                                    <IconButton
+                                        Icon={PiXBold}
+                                        spacing='compact'
+                                        appearance='subtle'
+                                        onClick={()=>{thisOnClickButton('*close*')}}
+                                    />
+                                </div>
+                                <div className='modal-content'>
                                     {
                                         (txtContent)&&(
                                             <div className='modal-txt-content'>{txtContent}</div>
@@ -219,6 +189,8 @@ const Modal = ({
                                                         txtLabel={itemButton.txtLabel}
                                                         appearance={itemButton.appearance}
                                                         onClick={()=>{thisOnClickButton(itemButton.id)}}
+                                                        isDisabled={itemButton.isDisabled}
+                                                        isSelected={itemButton.isSelected}
                                                     />
                                                 ))}
                                             </ButtonGroup>

@@ -11,13 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 export type getStateTypes = {
     tableData: tableDataType[]
-    // setTableData: React.Dispatch<React.SetStateAction<tableDataType[]>>
     tableDataSelected: string[] 
     setTableDataSelected: React.Dispatch<React.SetStateAction<string[]>>,
     tableConfig: tableConfigType
-    // setTableConfig: React.Dispatch<React.SetStateAction<tableConfigType>>
-    // doGetData:boolean
-    // setDoGetData:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ExamplePage = () =>{
@@ -43,11 +39,7 @@ const ExamplePage = () =>{
         onHideColumn,
     } = useTableHook({
         getTableList: (newTableConfig)=>{return contorller.getTableDataApi(newTableConfig)},
-        tableColumns:tableColumnsNew,
-        initialFilter: {
-            group:[],
-            status:[]
-        }
+        tableColumns:tableColumnsNew
     })
 
     const getState = () =>{

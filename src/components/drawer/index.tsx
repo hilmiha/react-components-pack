@@ -62,6 +62,7 @@ const Drawer = ({
     });
 
     const dismiss = useDismiss(context, {
+        outsidePressEvent: 'click',
         escapeKey:false,
         outsidePress: (event)=>{
             if(isCloseClickOutside){

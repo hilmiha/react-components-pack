@@ -5,13 +5,13 @@ import { tableColumType, tableConfigType, tableDataType, tableFilterType } from 
 type useTableProps = {
     getTableList: (tableConfig:tableConfigType) => Promise<{dataTamp: tableDataType[]; totalData: number; totalPage: number}>,
     tableColumns: tableColumType[]
-    initialFilter: tableFilterType
+    // initialFilter: tableFilterType
 }
 
 const useTableHook = ({
     getTableList,
     tableColumns,
-    initialFilter
+    // initialFilter
 }: useTableProps) =>{
     const [tableData, setTableData] = useState<tableDataType[]>([])
     const [tableDataSelected, setTableDataSelected] = useState<string[]>([])
@@ -35,7 +35,7 @@ const useTableHook = ({
         sortBy:sortByDefault,
         isDesc:false,
         hiddenColumn:[],
-        filter:initialFilter
+        filter:undefined
     })
 
     const onClickSelect = (itmRowId:string) =>{

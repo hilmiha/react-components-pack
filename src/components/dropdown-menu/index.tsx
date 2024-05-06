@@ -36,6 +36,7 @@ type Props = {
     spacing?: spacingButtonType
     isWithCaret?: boolean
     isDisabled?:boolean
+    isSelected?:boolean
     isCloseAfterSelect?:boolean,
     isOnScrollClose?:boolean
     onClickItem?: (buttonId:string, value?:string | number | boolean)=>void
@@ -50,7 +51,8 @@ const DropdownMenu = ({
     spacing = 'default',
     isWithCaret = false,
     isCloseAfterSelect = false,
-    isDisabled,
+    isDisabled = false,
+    isSelected = false,
     isOnScrollClose = false,
     onClickItem
 }:Props) =>{
@@ -152,6 +154,7 @@ const DropdownMenu = ({
                     spacing={spacing}
                     Icon={txtLabelOrIcon}
                     isDisabled={isDisabled}
+                    isSelected={isSelected}
                 />
             ):(
                 <Button
@@ -166,6 +169,7 @@ const DropdownMenu = ({
                     spacing={spacing}
                     IconAfter={(isWithCaret)?(PiCaretDownBold):(undefined)}
                     isDisabled={isDisabled}
+                    isSelected={isSelected}
                 />
             )}
 

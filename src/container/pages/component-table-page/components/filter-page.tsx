@@ -6,6 +6,8 @@ import { tableFilterType } from "../../../../components/table_new"
 import { GlobalContext, GlobalContextType } from "../../../../context/globalcontext"
 import { datePickerValueType } from "../../../../components/date-picker"
 import DatePickerField from "../../../../components/date-picker-field"
+import Modal from "../../../../components/modal"
+import TextField from "../../../../components/text-field"
 
 type Props = {
     filterValue:tableFilterType
@@ -42,15 +44,19 @@ const TableFilter = ({
         lastUpdateDt:(filterValue?.lastUpdateDt)?(filterValue.lastUpdateDt as datePickerValueType):(undefined),
     })
 
-    const isFormChange = useMemo(()=>{
-        return(JSON.stringify(form)!==JSON.stringify(applyedForm))
-    },[form, applyedForm])
-
     const formDefault = useMemo(():formType=>{return({
         group:[],
         status:[],
         lastUpdateDt:undefined
     })},[])
+
+    const isFormChange = useMemo(()=>{
+        return(JSON.stringify(form)!==JSON.stringify(applyedForm))
+    },[form, applyedForm])
+
+    const isFormEmpty = useMemo(()=>{
+        return(JSON.stringify(form)===JSON.stringify(formDefault))
+    },[form])
 
     const {
         onChange
@@ -61,11 +67,25 @@ const TableFilter = ({
 
     const onClickApply = () =>{
         setApplyedForm({...form})
-        onApplyFilter({...form})
+
+        if(isFormEmpty){
+            onApplyFilter(undefined)
+        }else{
+            onApplyFilter({...form})
+        }
+        
     }
 
     const onClickReset = () =>{
         setForm({...formDefault})
+    }
+
+    const onCancel = () =>{
+        setForm({
+            group:(filterValue?.group)?(filterValue.group as selectionValueType):([]),
+            status:(filterValue?.status)?(filterValue.status as selectionValueType):([]),
+            lastUpdateDt:(filterValue?.lastUpdateDt)?(filterValue.lastUpdateDt as datePickerValueType):(undefined)
+        })
     }
 
     const thisOnClcikButtonDrawer = (idButton:string) =>{
@@ -78,12 +98,8 @@ const TableFilter = ({
             onClickReset()
             return
         }
-        if(idButton==='cancel-filter'){
-            setForm({
-                group:(filterValue?.group)?(filterValue.group as selectionValueType):([]),
-                status:(filterValue?.status)?(filterValue.status as selectionValueType):([]),
-                lastUpdateDt:(filterValue?.lastUpdateDt)?(filterValue.lastUpdateDt as datePickerValueType):(undefined)
-            })
+        if(idButton==='cancel-filter' || idButton==='*close*'){
+            onCancel()
             setIsFilterDrawerOpen(false)
         }
     }
@@ -93,13 +109,13 @@ const TableFilter = ({
     },[])
 
     return(
-        <Drawer
-            id='filter-drawer'
-            txtTitle="Filter"
-            drawerSize="medium"
+        <Modal
+            id="modal-filter"
             isOpen={isFilterDrawerOpen}
             setIsOpen={setIsFilterDrawerOpen}
-            onClickButton={thisOnClcikButtonDrawer}
+            txtTitle="Filter"
+            size="large"
+            isCloseClickOutside={true}
             buttonList={[
                 {
                     id:'apply-filter',
@@ -118,8 +134,9 @@ const TableFilter = ({
                     appearance:"subtle"
                 },
             ]}
+            onClickButton={thisOnClcikButtonDrawer}
             contentPage={
-                <div style={{display:'grid', gridTemplateColumns:(mediaSize<1)?('1fr'):('1fr 1fr'), gap:'var(--size-6)'}}>
+                <div style={{display:'grid', gridTemplateColumns:(mediaSize<1)?('1fr'):('1fr 1fr'), gap:'var(--size-8)', marginBottom:'var(--size-8)'}}>
                     <SelectionField
                         type="multi-selection"
                         txtLabel="Group"

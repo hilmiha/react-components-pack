@@ -341,8 +341,9 @@ const TableNew = ({
                                 value={form['search']}
                                 onChange={(newValue)=>{onChange('search', newValue)}}
                                 config={{
-
+                                    
                                 }}
+                                
                             />
                             <IconButton
                                 Icon={PiMagnifyingGlass}
@@ -355,6 +356,7 @@ const TableNew = ({
                                     <IconButton
                                         Icon={PiFunnel}
                                         isDisabled={false}
+                                        isSelected={(tableConfig?.filter)?(true):(false)}
                                         onClick={thisOnClickOpenFilterDrawer}
                                     />
                                 )
@@ -364,6 +366,7 @@ const TableNew = ({
                                     <IconButton
                                         Icon={PiDotsThreeVerticalBold}
                                         isDisabled={false}
+                                        isSelected={(onHideColumn?((tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)):(false))}
                                         onClick={()=>{setShowMoreTop((prev)=>(!prev))}}
                                     />
                                 ):(
@@ -375,6 +378,7 @@ const TableNew = ({
                                                     txtLabelOrIcon={PiColumns}
                                                     onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
                                                     isCloseAfterSelect={false}
+                                                    isSelected={(tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)}
                                                     menuList={[
                                                         {
                                                             id:'table-column',
@@ -424,6 +428,7 @@ const TableNew = ({
                                     isWithCaret
                                     onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
                                     isCloseAfterSelect={false}
+                                    isSelected={(tableConfig?.hiddenColumn)?(tableConfig.hiddenColumn.length > 0):(false)}
                                     menuList={[
                                         {
                                             id:'table-column',

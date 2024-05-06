@@ -291,7 +291,7 @@
     .field-container{
         background-color: hsl(var(--color-neutral-0));
         border: 1px solid hsl(var(--color-neutral-300));
-        padding: 6px 9px;
+        padding: 0px 9px;
         min-height: 36px;
         box-sizing: border-box;
 
@@ -318,6 +318,10 @@
         &:has(.text-field-input:focus-visible){
             border: 2px solid hsl(var(--color-blue-800));
             padding: 0px 8px;
+        }
+
+        &:has(>.field-prefix-sufix >.icon-button){
+            padding-right: var(--size-1);
         }
     }
 

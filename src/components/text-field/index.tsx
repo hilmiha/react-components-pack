@@ -26,6 +26,7 @@ export type TextFieldProps = {
     txtLabel?:string
     txtPlaceholder?:string
     onChange?: (newValue:valueType) => void,
+    onPressEnter?: ()=>void
     onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
     error?: errorType
     config?: textFieldConfig
@@ -38,6 +39,7 @@ const TextField = ({
     txtPlaceholder,
     value,
     onChange,
+    onPressEnter,
     onValidate,
     config,
     error
@@ -146,6 +148,12 @@ const TextField = ({
         }
     }
 
+    const thisOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>{
+        if(event.key === 'Enter' && onPressEnter){
+            onPressEnter()
+        }
+    }
+
     return(
         <>
             <div 
@@ -176,6 +184,7 @@ const TextField = ({
                         value={processValue(true, value)}
                         onBlur={thisOnBlur}
                         onChange={thisOnChange}
+                        onKeyDown={thisOnKeyDown}
                         type={(type==='text-number'|| type==='text-only-number')?'tel':'text'}
                     />
                     {(sufix)&&(

@@ -22,8 +22,7 @@ const simulateBackEndProcess = (tableConfig:tableConfigType) =>{
     const groupFilter = (tableConfig.filter?.group)?((tableConfig.filter.group as selectionValueType).map((itm)=>itm.value)):([])
     const statusFilter = (tableConfig.filter?.status)?((tableConfig.filter.status as selectionValueType).map((itm)=>itm.value)):([])
     const lastUpdateFilter = (tableConfig.filter?.lastUpdateDt)?(tableConfig.filter.lastUpdateDt as DateRange):(undefined)
-
-
+    const searchKeyFilter = (tableConfig.searchKey)?((tableConfig.searchKey as string).toLowerCase()):('')
 
     const filtered = [...tableDataDummy].filter((item)=>{
         return(
@@ -32,7 +31,8 @@ const simulateBackEndProcess = (tableConfig:tableConfigType) =>{
             ((lastUpdateFilter && lastUpdateFilter.from && lastUpdateFilter.to)?(
                 startOfDay(lastUpdateFilter.from).getTime() <= new Date(parseInt(item.lastUpdateDt)).getTime() &&
                 endOfDay(lastUpdateFilter.to).getTime() >= new Date(parseInt(item.lastUpdateDt)).getTime()
-            ):(true))
+            ):(true)) &&
+            ((searchKeyFilter!=='')?(item.user.toLowerCase().includes(searchKeyFilter) || item.email.toLowerCase().includes(searchKeyFilter)):(true))
         )
     })
     let allData = (tableConfig.sortBy)?(

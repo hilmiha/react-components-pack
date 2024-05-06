@@ -30,6 +30,7 @@ const ExamplePage = () =>{
         tableDataSelected,
         setTableDataSelected,
         tableConfig,
+        onDoSearch,
         onClickColumn,
         onChangeMaxRow,
         onClickPagination,
@@ -73,7 +74,9 @@ const ExamplePage = () =>{
 
                             onClickRow={(itmRow)=>{contorller.onClickRowItem(itmRow)}}
                             onClickAction={(idButton, itmRow)=>{contorller.onClickAction(idButton, itmRow, getState())}}
-                            
+
+                            searchBarPlaceholder={'Search User or Email...'}
+                            onDoSearch={onDoSearch}
                             onClickPagination={onClickPagination}
                             onChangeMaxRow={onChangeMaxRow}
                             onClickColumn={onClickColumn}

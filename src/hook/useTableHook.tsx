@@ -35,7 +35,8 @@ const useTableHook = ({
         sortBy:sortByDefault,
         isDesc:false,
         hiddenColumn:[],
-        filter:undefined
+        filter:undefined,
+        searchKey:''
     })
 
     const onClickSelect = (itmRowId:string) =>{
@@ -142,6 +143,16 @@ const useTableHook = ({
         }
     }
 
+    const onDoSearch = (searchKey:string) =>{
+        const tableConfigTamp = {...tableConfig}
+        tableConfigTamp.searchKey = searchKey
+        tableConfigTamp.page = 1
+        tableConfigTamp.sortBy = sortByDefault
+        tableConfigTamp.isDesc = false
+        setTableConfig(tableConfigTamp)
+        setDoGetData(true)
+    }
+
     useEffect(()=>{
         if(doGetData){
             getTableList(tableConfig).then(({dataTamp, totalData,  totalPage})=>{
@@ -166,6 +177,7 @@ const useTableHook = ({
         tableConfig,
         tableDataSelected, 
         setTableDataSelected,
+        onDoSearch,
         onClickColumn,
         onChangeMaxRow,
         onClickPagination,

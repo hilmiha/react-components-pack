@@ -5,7 +5,7 @@ import IconButton, { appearanceIconButtonType } from '../icon-button'
 import DropdownMenu, { menuListType } from '../dropdown-menu'
 import { Fragment, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
-import { PiArrowDown, PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCaretRight, PiCaretUp, PiCaretUpDown, PiCheckBold, PiColumns, PiDotsThree, PiDotsThreeVertical, PiDotsThreeVerticalBold, PiFunnel, PiMagnifyingGlass, PiMinus, PiMinusBold, PiPlus } from 'react-icons/pi'
+import { PiArrowDown, PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCaretRight, PiCaretUp, PiCaretUpDown, PiCheckBold, PiColumns, PiDotsThree, PiDotsThreeVertical, PiDotsThreeVerticalBold, PiFunnel, PiMagnifyingGlass, PiMinus, PiMinusBold, PiPlus, PiX } from 'react-icons/pi'
 import { VscCollapseAll, VscExpandAll } from "react-icons/vsc";
 import Button from '../button'
 import TextField, { TextFieldProps } from '../text-field'
@@ -34,7 +34,8 @@ export type tableConfigType = {
     isDesc:boolean,
     totalData:number,
     hiddenColumn:string[]
-    filter:tableFilterType
+    filter:tableFilterType,
+    searchKey:string
 }
 export type tableButtonActionType = {
         id:string
@@ -62,13 +63,13 @@ type Props = {
     tableColums:tableColumType[]
     tableData:tableDataType[]
     tableDataSelected?:string[]
-    setTableDataSelected?:React.Dispatch<React.SetStateAction<string[]>>
     tableConfig?:tableConfigType,
     isExpandable?:expandableType
     isHidaPagination?:boolean
     isFillContainer?:boolean
     isCheckbox?:boolean
     isActionButtons?:boolean,
+    searchBarPlaceholder?:string,
     onClickRow?:(itmRow:tableDataType)=>void
     onClickAction?:(idButton:string, itmRow:tableDataType)=>void
     onClickPagination?:(idButton:string)=>void
@@ -78,6 +79,7 @@ type Props = {
     onClickSelectAll?:()=>void,
     onHideColumn?:(tableColumnKey:string)=>void
     onClickOpenFilter?:()=>void
+    onDoSearch?:(searchKey:string)=>void
 }
 
 const TableNew = ({
@@ -85,13 +87,13 @@ const TableNew = ({
     tableColums,
     tableData,
     tableDataSelected = [],
-    setTableDataSelected,
     tableConfig,
     isExpandable,
     isHidaPagination,
     isFillContainer,
     isCheckbox,
     isActionButtons,
+    searchBarPlaceholder,
     onClickRow,
     onClickAction,
     onClickPagination,
@@ -100,7 +102,8 @@ const TableNew = ({
     onClickSelect,
     onClickSelectAll,
     onHideColumn,
-    onClickOpenFilter
+    onClickOpenFilter,
+    onDoSearch
 }:Props) =>{
     const {
         mediaSize
@@ -273,6 +276,28 @@ const TableNew = ({
         }
     }
 
+    const thisOnDoSearch = (searchKey?:string) =>{
+        if(onDoSearch){
+            if(searchKey !== undefined){
+                onChange('search', searchKey)
+
+                if(tableConfig?.searchKey !== searchKey){
+                    onDoSearch(searchKey)
+                }                
+            }else{
+                if(tableConfig?.searchKey !== form['search']){
+                    onDoSearch(form['search'])
+                }
+            }
+        }
+    }
+
+    useEffect(()=>{
+        if(form.search === ''){
+            thisOnDoSearch('')
+        }
+    },[form.search])
+
     useEffect(()=>{
         setShowMoreTop(false)
     },[mediaSize])
@@ -337,17 +362,18 @@ const TableNew = ({
                         <div style={{minWidth:'200px', width:'100%', display:'flex', gap:'var(--size-2)'}}>
                             <TextField
                                 type='text'
-                                txtPlaceholder='Search'
+                                txtPlaceholder={searchBarPlaceholder!==undefined?(searchBarPlaceholder):('Search')}
                                 value={form['search']}
                                 onChange={(newValue)=>{onChange('search', newValue)}}
+                                onPressEnter={()=>{thisOnDoSearch()}}
                                 config={{
-                                    
+                                    sufix:((!form['search'])?(<></>):(<IconButton Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
                                 }}
-                                
                             />
                             <IconButton
                                 Icon={PiMagnifyingGlass}
                                 isDisabled={false}
+                                onClick={thisOnDoSearch}
                             />
                         </div>
                         <div style={{display:'flex', gap:'var(--size-2)'}}>

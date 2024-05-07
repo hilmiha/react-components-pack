@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { tableColumType, tableConfigType, tableDataType, tableFilterType } from "../components/table";
+import { paginationTableButtonType, tableColumType, tableConfigType, tableDataType, tableFilterType } from "../components/table";
 
 type useTableProps = {
     getTableList: (tableConfig:tableConfigType) => Promise<{dataTamp: tableDataType[]; totalData: number; totalPage: number}>,
@@ -100,7 +100,7 @@ const useTableHook = ({
         setDoGetData(true)
     }
 
-    const onClickPagination = (idButton:string) =>{
+    const onClickPagination = (idButton:paginationTableButtonType) =>{
         const tableConfigTamp = {...tableConfig}
         switch (idButton) {
             case 'next':

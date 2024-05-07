@@ -30,7 +30,7 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
-                        <PillFlair appearance="pill" txtLabel="datePickerType"/>
+                        <PillFlair appearance="pill" txtLabel="textFieldType"/>
                         <div 
                             style={{
                                 paddingLeft:'var(--size-4)',

@@ -80,20 +80,14 @@
             padding: var(--size-4) var(--size-2) var(--size-4) var(--size-4);
         }
 
-        >svg{
-            font-size: var(--font-size-largest);
-        }
-        &.danger >svg{
-            color: hsl(var(--color-red-600));
-        }
-        &.success >svg{
-            color: hsl(var(--color-green-600));
-        }
-        &.warning >svg{
-            color: hsl(var(--def-color-yellow-400));
-        }
-        &.info >svg{
-            color: hsl(var(--color-blue-700));
+        .modal-header-title{
+            display: flex;
+            align-items: center;
+            gap:var(--size-4);
+
+            >svg{
+                font-size: 1.8rem;
+            }
         }
     }
 

@@ -62,7 +62,7 @@ export type FilterPageProps = {
     onApplyFilter:(valueFilter:tableFilterType)=>void
     onCloseModal:()=>void
 }
-
+export type paginationTableButtonType = "first" | "prev" | "next" | "last"
 type Props = {
     className?:string,
     tableColums:tableColumType[]
@@ -77,7 +77,7 @@ type Props = {
     searchBarPlaceholder?:string,
     onClickRow?:(itmRow:tableDataType)=>void
     onClickAction?:(idButton:string, itmRow:tableDataType)=>void
-    onClickPagination?:(idButton:string)=>void
+    onClickPagination?:(idButton:paginationTableButtonType)=>void
     onChangeMaxRow?:(newMaxRow:number)=>void
     onClickColumn?:(keyColumn:string, isDesc:boolean)=>void
     onClickSelect?:(itmRowId:string)=>void,
@@ -183,7 +183,7 @@ const Table = ({
         }
     }
 
-    const thisOnClickPagination = (idButton:string) =>{
+    const thisOnClickPagination = (idButton:paginationTableButtonType) =>{
         if(onClickPagination){
             onClickPagination(idButton)
             setRowExpanded([])

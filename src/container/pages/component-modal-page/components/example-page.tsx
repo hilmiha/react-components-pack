@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import Button from "../../../../components/button"
-import { PiMoon, PiSun } from "react-icons/pi"
+import { PiStarFourFill } from "react-icons/pi"
 import { LocalContext, LocalContextType } from "../context/local-context";
-import Image from "../../../../components/image";
-import IconButton from "../../../../components/icon-button";
-import { GlobalContext, GlobalContextType } from "../../../../context/globalcontext";
 import Modal from "../../../../components/modal";
 
 const ExamplePage = () =>{
@@ -13,10 +10,6 @@ const ExamplePage = () =>{
     } = useContext(LocalContext) as LocalContextType;
 
     const [isModalShow, setIsModalShow] = useState(false)
-    const [isModalShowSuccess, setIsModalShowSuccess] = useState(false)
-    const [isModalShowInfo, setIsModalShowInfo] = useState(false)
-    const [isModalShowWarning, setIsModalShowWarning] = useState(false)
-    const [isModalShowDanger, setIsModalShowDanger] = useState(false)
     const [isModalShowContent, setIsModalShowContent] = useState(false)
 
     useEffect(()=>{
@@ -33,6 +26,7 @@ const ExamplePage = () =>{
                         isOpen={isModalShow}
                         setIsOpen={setIsModalShow}
                         txtTitle="Default Modal!"
+                        iconTitle={<PiStarFourFill style={{color:'hsl(var(--color-blue-600))'}}/>}
                         txtContent="This modal is basic. No type yet aplied to this modal."
                         buttonList={[
                             {id:'close', txtLabel:'Close'}
@@ -54,6 +48,7 @@ const ExamplePage = () =>{
                         isOpen={isModalShowContent}
                         setIsOpen={setIsModalShowContent}
                         txtTitle="Page In Modal"
+                        iconTitle={<PiStarFourFill style={{color:'hsl(var(--color-blue-600))'}}/>}
                         txtContent="This modal has a page as its content."
                         contentPage={
                             <div style={{maxHeight:'200px', overflow:'auto'}}>

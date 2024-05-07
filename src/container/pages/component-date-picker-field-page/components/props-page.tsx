@@ -280,6 +280,42 @@ const PropsPage = () =>{
 
             <div className="props-section">
                 <div className="props-title">
+                    <PillFlair appearance="pill" txtLabel="fromDate"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        Start of date opened can be selected. Will override "daysBeforeToday" props.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair appearance="pill" txtLabel="Date"/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair appearance="pill" txtLabel="toDate"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        End of date opened can be selected. Will override "daysAfterToday" props.
+                    </div>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div className="info">
+                        <PillFlair appearance="pill" txtLabel="Date"/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
                     <PillFlair appearance="pill" txtLabel="maxSelection"/>
                 </div>
                 <div className="props-info-section">

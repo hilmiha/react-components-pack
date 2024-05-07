@@ -56,7 +56,7 @@ const ExamplePage = () =>{
             <div className="component-section">
                 <span className="font-title">Default</span>
                 <div className="preview-box">
-                    <div style={{width:'100%', height:'600px'}}>
+                    <div style={{width:'100%', height:'500px'}}>
                         <Table
                             tableColums={tableColumns}
                             tableData={tableData}

@@ -97,13 +97,39 @@ const PropsPage = () =>{
                 <div className="props-info-section">
                     <div className="title">Description</div>
                     <div className="info">
-                        Title of modal.
+                        Title of modal on header.
                     </div>
                 </div>
                 <div className="props-info-section">
                     <div className="title">Type</div>
                     <div className="info">
                         <PillFlair appearance="pill" txtLabel="string"/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="props-section">
+                <div className="props-title">
+                    <PillFlair appearance="pill" txtLabel="txtTitle"/>
+                </div>
+                <div className="props-info-section">
+                    <div className="title">Description</div>
+                    <div className="info">
+                        Icon of modal on header.
+                    </div>
+                </div>
+                
+                <div className="props-info-section">
+                    <div className="title">Type</div>
+                    <div 
+                        style={{
+                            display:'flex',
+                            flexDirection:'column',
+                            gap:'var(--size-2)'
+                        }}
+                    >
+                        <PillFlair appearance="pill" txtLabel="IconType"/>
+                        <PillFlair appearance="pill" txtLabel="JSX.Element"/>
                     </div>
                 </div>
             </div>
@@ -148,40 +174,6 @@ const PropsPage = () =>{
                         >
                             <PillFlair appearance="pill" txtLabel="JSX.Element"/>
                             <PillFlair appearance="pill" txtLabel="( props?: Record< any, any > ) => JSX.Element"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="props-section">
-                <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="type"/>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Description</div>
-                    <div className="info">
-                        Type of modal header.
-                    </div>
-                </div>
-                <div className="props-info-section">
-                    <div className="title">Type</div>
-                    <div className="info">
-                        <PillFlair appearance="pill" txtLabel="modalInfoType"/>
-                        <div 
-                            style={{
-                                paddingLeft:'var(--size-4)',
-                                marginTop:'var(--size-2)',
-                                display:'flex',
-                                flexDirection:'column',
-                                gap:'var(--size-2)'
-                            }}
-                        >
-                            <p>One of {'<'}</p>
-                            <PillFlair appearance="pill" color="info" txtLabel='"info"'/>
-                            <PillFlair appearance="pill" color="info" txtLabel='"success"'/>
-                            <PillFlair appearance="pill" color="info" txtLabel='"warning"'/>
-                            <PillFlair appearance="pill" color="info" txtLabel='"danger"'/>
-                            <p>{'>'}</p>
                         </div>
                     </div>
                 </div>

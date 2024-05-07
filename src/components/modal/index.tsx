@@ -8,6 +8,7 @@ import IconButton from '../icon-button'
 import ButtonGroup from '../button-group'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { IconType } from 'react-icons'
 
 export type modalInfoType = 'info' | 'success' | 'warning' | 'danger'
 export type modalSizeType = 'small' | "large"
@@ -23,7 +24,8 @@ type Props = {
     id?: string
     size?:modalSizeType
     className?: string
-    txtTitle?:string,
+    txtTitle?:string
+    iconTitle?:IconType | JSX.Element
     txtContent?:string,
     contentPage?:JSX.Element | ((props?:Record<any,any>)=>JSX.Element),    
     buttonList?:modalButtonType[]
@@ -38,6 +40,7 @@ const Modal = ({
     size = 'small',
     className,
     txtTitle,
+    iconTitle,
     txtContent,
     contentPage,
     buttonList,
@@ -144,12 +147,18 @@ const Modal = ({
                                 <div 
                                     className={'modal-header'}
                                 >
-                                    <div>
+                                    <div className='modal-header-title'>
                                         {
-                                            (txtTitle)&&(
+                                            (iconTitle && typeof iconTitle !== 'function')&&(
+                                                iconTitle
+                                            )
+                                        }
+                                        {
+                                            (txtTitle && typeof txtTitle === 'string')&&(
                                                 <span className='font-title'>{txtTitle}</span>
                                             )
                                         }
+                                        
                                     </div>
                                     <IconButton
                                         Icon={PiXBold}

@@ -1,7 +1,7 @@
 import { valueList } from "../../../../components/selection-field";
-import { tableColumType as tableColumTypeNew } from "../../../../components/table_new"
+import { tableColumType } from "../../../../components/table"
 
-export const tableColumsDummnyNew:tableColumTypeNew[] = [
+export const tableColumsDummny:tableColumType[] = [
     {
         key:'user',
         txtLabel:'User',

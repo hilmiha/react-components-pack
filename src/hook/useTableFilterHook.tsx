@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react"
-import { tableFilterType } from "../components/table_new"
+import { tableFilterType } from "../components/table"
 import useFormHook from "./useFormHook"
 
 type Props = {

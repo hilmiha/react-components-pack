@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import DatePickerField from "../../../../components/date-picker-field"
 import SelectionField, { selectionValueType } from "../../../../components/selection-field"
-import { FilterPageProps } from "../../../../components/table_new"
+import { FilterPageProps } from "../../../../components/table"
 import { datePickerValueType } from "../../../../components/date-picker"
 import useTableFilterHook from "../../../../hook/useTableFilterHook"
 import { groupList, statusList } from "../data/tableData"

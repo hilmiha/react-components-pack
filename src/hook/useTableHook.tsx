@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { tableColumType, tableConfigType, tableDataType, tableFilterType } from "../components/table_new";
+import { tableColumType, tableConfigType, tableDataType, tableFilterType } from "../components/table";
 
 type useTableProps = {
     getTableList: (tableConfig:tableConfigType) => Promise<{dataTamp: tableDataType[]; totalData: number; totalPage: number}>,

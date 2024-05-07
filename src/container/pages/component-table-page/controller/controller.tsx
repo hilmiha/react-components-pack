@@ -2,7 +2,7 @@ import { PiDotsThreeBold } from "react-icons/pi";
 import { getStateTypes } from "../components/example-page"
 import PillFlair from "../../../../components/pill-flair";
 import { tableDataDummy } from "../data/tableData";
-import { tableConfigType, tableDataType } from "../../../../components/table_new";
+import { tableConfigType, tableDataType } from "../../../../components/table";
 import { selectionValueType } from "../../../../components/selection-field";
 import { capitalize } from "lodash";
 import { endOfDay, format, startOfDay } from "date-fns";

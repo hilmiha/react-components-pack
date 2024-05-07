@@ -1,9 +1,9 @@
 import { useContext, useEffect, useMemo } from "react"
 import { LocalContext, LocalContextType } from "../context/local-context";
-import { tableColumsDummnyNew } from "../data/tableData";
+import { tableColumsDummny } from "../data/tableData";
 import useTableHook from "../../../../hook/useTableHook";
 import * as contorller from "../controller/controller";
-import TableNew, { tableConfigType, tableDataType } from "../../../../components/table_new";
+import Table, { tableConfigType, tableDataType } from "../../../../components/table";
 import FilterForm from "./filter-form";
 
 export type getStateTypes = {
@@ -18,7 +18,7 @@ const ExamplePage = () =>{
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
 
-    const tableColumnsNew = useMemo(()=>{return [...tableColumsDummnyNew]},[])
+    const tableColumns = useMemo(()=>{return [...tableColumsDummny]},[])
 
     const {
         tableData,
@@ -35,7 +35,7 @@ const ExamplePage = () =>{
         onHideColumn,
     } = useTableHook({
         getTableList: (newTableConfig)=>{return contorller.getTableDataApi(newTableConfig)},
-        tableColumns:tableColumnsNew
+        tableColumns:tableColumns
     })
 
     const getState = () =>{
@@ -57,8 +57,8 @@ const ExamplePage = () =>{
                 <span className="font-title">Default</span>
                 <div className="preview-box">
                     <div style={{width:'100%', height:'600px'}}>
-                        <TableNew
-                            tableColums={tableColumnsNew}
+                        <Table
+                            tableColums={tableColumns}
                             tableData={tableData}
                             tableDataSelected={tableDataSelected}
                             tableConfig={tableConfig}

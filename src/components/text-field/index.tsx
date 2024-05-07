@@ -6,8 +6,6 @@ import { useState } from 'react'
 type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number'
 type valueType = string
 export type errorType = {isError: boolean, errorMessage:string}
-export type valueListItem = {id:string, txtLabel:string, txtSublabel?:string, value?:any, isDisabled?:boolean}
-export type valueList = valueListItem[] | []
 
 export type textFieldConfig = {
     prefix?: string | JSX.Element,

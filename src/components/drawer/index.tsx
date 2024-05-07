@@ -5,7 +5,7 @@ import IconButton from '../icon-button'
 import { PiArrowsOut, PiXBold } from 'react-icons/pi'
 import ButtonGroup from '../button-group'
 import Button, { appearanceButtonType } from '../button'
-import { useContext, useEffect, useState } from 'react'
+import { ReactElement, useContext, useEffect, useState } from 'react'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { useLocation, useNavigate } from 'react-router-dom'
 

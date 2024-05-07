@@ -1,0 +1,9 @@
+.filter-popup-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-8);
+
+    @media screen and (max-width: 767px){
+        grid-template-columns: 1fr;
+    }
+}

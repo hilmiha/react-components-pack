@@ -1,5 +1,5 @@
 import { IconType } from 'react-icons'
-import { generateErrorState, processClassname } from '../../helper'
+import { processClassname } from '../../helper'
 import './styles.scss'
 import IconButton, { appearanceIconButtonType } from '../icon-button'
 import DropdownMenu, { menuListType } from '../dropdown-menu'
@@ -8,9 +8,8 @@ import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { PiCaretDoubleLeft, PiCaretDoubleRight, PiCaretDown, PiCaretLeft, PiCaretRight, PiCaretUp, PiCaretUpDown, PiCheckBold, PiColumns, PiFunnel, PiMagnifyingGlass, PiMinus, PiMinusBold, PiPlus, PiRows, PiX } from 'react-icons/pi'
 import { VscCollapseAll, VscExpandAll } from "react-icons/vsc";
 import Button from '../button'
-import TextField, { TextFieldProps } from '../text-field'
+import TextField from '../text-field'
 import useFormHook from '../../hook/useFormHook'
-import Drawer from '../drawer'
 import Modal from '../modal'
 import { selectionValueType } from '../selection-field'
 import { datePickerValueType } from '../date-picker'
@@ -58,6 +57,12 @@ export type tableDataType = {
 
 type expandableType = boolean | 'single'
 
+export type FilterPageProps = {
+    filterValue:tableFilterType
+    onApplyFilter:(valueFilter:tableFilterType)=>void
+    onCloseModal:()=>void
+}
+
 type Props = {
     className?:string,
     tableColums:tableColumType[]
@@ -78,8 +83,9 @@ type Props = {
     onClickSelect?:(itmRowId:string)=>void,
     onClickSelectAll?:()=>void,
     onHideColumn?:(tableColumnKey:string)=>void
-    onClickOpenFilter?:()=>void
     onDoSearch?:(searchKey:string)=>void
+    FilterPage?: (props:FilterPageProps)=>JSX.Element
+    onApplyFilter?:(filter:tableFilterType)=>void
 }
 
 const TableNew = ({
@@ -102,8 +108,9 @@ const TableNew = ({
     onClickSelect,
     onClickSelectAll,
     onHideColumn,
-    onClickOpenFilter,
-    onDoSearch
+    onDoSearch,
+    FilterPage,
+    onApplyFilter
 }:Props) =>{
     const {
         mediaSize
@@ -116,7 +123,7 @@ const TableNew = ({
 
     const [rowExpanded, setRowExpanded] = useState<string[]>([])
 
-    const [showMoreTop, setShowMoreTop] = useState(false)
+    const [isShowFilterDrawer, setIsShowFilterDrawer] = useState(false)
 
     const tableRow:[number, number] = useMemo(()=>{
         if(tableConfig){
@@ -264,12 +271,6 @@ const TableNew = ({
         }
     }
 
-    const thisOnClickOpenFilterDrawer = () =>{
-        if(onClickOpenFilter){
-            onClickOpenFilter()
-        }
-    }
-
     const thisOnClickAction = (idButton:string, itmRow:tableDataType) =>{
         if(onClickAction){
             onClickAction(idButton, itmRow)
@@ -297,10 +298,6 @@ const TableNew = ({
             thisOnDoSearch('')
         }
     },[form.search])
-
-    useEffect(()=>{
-        setShowMoreTop(false)
-    },[mediaSize])
 
     useEffect(()=>{
         if (!tableContentRef.current || !tableDataListRef.current) {
@@ -350,14 +347,14 @@ const TableNew = ({
                 ${isFillContainer?('fill-container'):('')}`)  
             } 
             style={{
-                gridTemplateRows:(onDoSearch || onHideColumn || onClickOpenFilter)?('max-content 1fr max-content'):('1fr max-content')
+                gridTemplateRows:(onDoSearch || onHideColumn || (FilterPage && onApplyFilter))?('max-content 1fr max-content'):('1fr max-content')
             }}
         >
             {
                 (
                     onDoSearch ||
                     onHideColumn ||
-                    onClickOpenFilter
+                    (FilterPage && onApplyFilter)
                 )&&(
                     <div className='tablenew-top'>
                         <div style={{minWidth:'200px', width:'100%', display:'flex', gap:'var(--size-2)'}}>
@@ -386,13 +383,30 @@ const TableNew = ({
                         </div>
                         <div style={{display:'flex', gap:'var(--size-2)'}}>
                             {
-                                (onClickOpenFilter)&&(
-                                    <IconButton
-                                        Icon={PiFunnel}
-                                        isDisabled={false}
-                                        isSelected={(tableConfig?.filter)?(true):(false)}
-                                        onClick={thisOnClickOpenFilterDrawer}
-                                    />
+                                (FilterPage && onApplyFilter)&&(
+                                    <>
+                                        <IconButton
+                                            Icon={PiFunnel}
+                                            isDisabled={false}
+                                            isSelected={(tableConfig?.filter)?(true):(false)}
+                                            onClick={()=>{setIsShowFilterDrawer(true)}}
+                                        />
+                                        <Modal
+                                            id="modal-filter"
+                                            isOpen={isShowFilterDrawer}
+                                            setIsOpen={setIsShowFilterDrawer}
+                                            txtTitle="Filter"
+                                            size="large"
+                                            isCloseClickOutside={true}
+                                            contentPage={
+                                                <FilterPage 
+                                                    filterValue={tableConfig?.filter} 
+                                                    onApplyFilter={onApplyFilter}
+                                                    onCloseModal={()=>{setIsShowFilterDrawer(false)}}
+                                                />
+                                            }
+                                        />
+                                    </>
                                 )
                             }
                             {
@@ -722,7 +736,7 @@ const TableNew = ({
                 </div>
             </div>
             {
-                (tableConfig)&&(
+                (tableConfig && !isHidaPagination)&&(
                     <div 
                         className={
                             processClassname(`table-footer
@@ -800,9 +814,6 @@ const TableNew = ({
                     </div>
                 )
             }
-            {/* <div className='tablenew-footer'>
-                footer
-            </div> */}
         </div>
     )
 }

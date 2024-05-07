@@ -1,17 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
 import { tableColumType, tableConfigType, tableDataType, tableFilterType } from "../components/table_new";
-// import { tableConfigType, tableDataType } from "../components/table"
 
 type useTableProps = {
     getTableList: (tableConfig:tableConfigType) => Promise<{dataTamp: tableDataType[]; totalData: number; totalPage: number}>,
     tableColumns: tableColumType[]
-    // initialFilter: tableFilterType
 }
 
 const useTableHook = ({
     getTableList,
-    tableColumns,
-    // initialFilter
+    tableColumns
 }: useTableProps) =>{
     const [tableData, setTableData] = useState<tableDataType[]>([])
     const [tableDataSelected, setTableDataSelected] = useState<string[]>([])

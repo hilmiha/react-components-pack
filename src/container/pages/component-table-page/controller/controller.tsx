@@ -1,13 +1,11 @@
 import { PiDotsThreeBold } from "react-icons/pi";
 import { getStateTypes } from "../components/example-page"
 import PillFlair from "../../../../components/pill-flair";
-import { tableDataType } from "../../../../components/table"
 import { tableDataDummy } from "../data/tableData";
-import { tableConfigType } from "../../../../components/table_new";
+import { tableConfigType, tableDataType } from "../../../../components/table_new";
 import { selectionValueType } from "../../../../components/selection-field";
 import { capitalize } from "lodash";
 import { endOfDay, format, startOfDay } from "date-fns";
-import { datePickerValueType } from "../../../../components/date-picker";
 import { DateRange } from "react-day-picker";
 
 export const asyncTimeout = (ms: number) => {
@@ -17,8 +15,6 @@ export const asyncTimeout = (ms: number) => {
 };
 
 const simulateBackEndProcess = (tableConfig:tableConfigType) =>{
-    console.log(tableConfig)
-
     const groupFilter = (tableConfig.filter?.group)?((tableConfig.filter.group as selectionValueType).map((itm)=>itm.value)):([])
     const statusFilter = (tableConfig.filter?.status)?((tableConfig.filter.status as selectionValueType).map((itm)=>itm.value)):([])
     const lastUpdateFilter = (tableConfig.filter?.lastUpdateDt)?(tableConfig.filter.lastUpdateDt as DateRange):(undefined)

@@ -1,13 +1,10 @@
-import { useContext, useEffect, useMemo, useState } from "react"
+import { useContext, useEffect, useMemo } from "react"
 import { LocalContext, LocalContextType } from "../context/local-context";
-import Table, { tableColumType, tableConfigType, tableDataType } from "../../../../components/table";
 import { tableColumsDummnyNew } from "../data/tableData";
 import useTableHook from "../../../../hook/useTableHook";
 import * as contorller from "../controller/controller";
-import TableNew from "../../../../components/table_new";
-import TableFilter from "./filter-page";
-import Drawer from "../../../../components/drawer";
-import { useNavigate } from "react-router-dom";
+import TableNew, { tableConfigType, tableDataType } from "../../../../components/table_new";
+import FilterForm from "./filter-form";
 
 export type getStateTypes = {
     tableData: tableDataType[]
@@ -17,13 +14,11 @@ export type getStateTypes = {
 }
 
 const ExamplePage = () =>{
-    const navigate = useNavigate()
     const {
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
 
-    const [tableColumnsNew, setTableColumnsNew] = useState([...tableColumsDummnyNew])
-    const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
+    const tableColumnsNew = useMemo(()=>{return [...tableColumsDummnyNew]},[])
 
     const {
         tableData,
@@ -83,12 +78,8 @@ const ExamplePage = () =>{
                             onClickSelect={onClickSelect}
                             onClickSelectAll={onClickSelectAll}
                             onHideColumn={onHideColumn}
-                            onClickOpenFilter={()=>{setIsFilterDrawerOpen(true)}}
-                        />
-                        <TableFilter
-                            filterValue={tableConfig.filter}
-                            isFilterDrawerOpen={isFilterDrawerOpen}
-                            setIsFilterDrawerOpen={setIsFilterDrawerOpen}
+
+                            FilterPage={FilterForm}
                             onApplyFilter={onApplyFilter}
                         />
                     </div>

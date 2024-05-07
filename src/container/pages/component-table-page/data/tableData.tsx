@@ -1,4 +1,4 @@
-import { tableColumType } from "../../../../components/table";
+import { valueList } from "../../../../components/selection-field";
 import { tableColumType as tableColumTypeNew } from "../../../../components/table_new"
 
 export const tableColumsDummnyNew:tableColumTypeNew[] = [
@@ -27,6 +27,62 @@ export const tableColumsDummnyNew:tableColumTypeNew[] = [
         isCanSort:true,
         isDefaultSort:true,
         isAlignTxtRight:true
+    }
+]
+
+export const groupList:valueList = [
+    {
+        id:'group',
+        menu:[
+            {
+                id:'admin',
+                txtLabel:'Admin',
+                value:'admin'
+            },
+            {
+                id:'business',
+                txtLabel:'Business',
+                value:'business'
+            },
+            {
+                id:'it',
+                txtLabel:'IT',
+                value:'it'
+            },
+            {
+                id:'sales',
+                txtLabel:'Sales',
+                value:'sales'
+            },
+        ]
+    }
+] 
+
+export const statusList:valueList = [
+    {
+        id:'status',
+        menu:[
+            {
+                id:'active',
+                txtLabel:'Active',
+                value:'0'
+            },
+            {
+                id:'inactive',
+                txtLabel:'Inactive',
+                value:'3'
+            },
+            {
+                id:'suspended',
+                txtLabel:'Suspended',
+                value:'1'
+            },
+            {
+                id:'locked',
+                txtLabel:'Locked',
+                value:'2'
+            }
+        ]
     }
 ]
 

@@ -1,0 +1,74 @@
+.toggle-container{
+    display: grid;
+    gap: var(--size-3);
+    width: fit-content;
+    background-color: transparent;
+
+    border: 0px;
+    align-items: center;
+    justify-content: start;
+    text-align: left;
+    padding: 0px;
+
+
+    &.as-button{
+        &:focus-visible{
+            outline-offset: 1.5px;
+            outline: 2px solid hsl(var(--color-blue-800));
+        }
+        &:hover{
+            cursor: pointer;
+        }
+
+        &:disabled{
+            opacity: 0.2;
+            cursor: default;
+        }
+        
+    }
+    
+    .toggle{
+        width: 28px;
+        border-radius: 200px;
+        background-color: hsl(var(--color-neutral-0));
+        border: 1px solid hsl(var(--color-neutral-400));
+        padding: 2px;
+        position: relative;
+        height: 14px;
+
+        transition: background-color 0.3s;
+
+
+        .toggle-circle{
+            background-color: hsl(var(--color-neutral-1100));
+            border-radius: 16px;
+            height: 14px;
+            width: 14px;
+            position: absolute;
+            left: 2px;
+            transition: left 0.3s;
+        }
+
+        &.selected{
+            background-color: hsl(var(--color-blue-700));
+
+            .toggle-circle{
+                background-color: hsl(var(--color-neutral-0));
+                left: 16px;
+            }
+        }
+
+    } 
+    .toggle-text{
+        width: fit-content;
+        .toggle-label{
+            display: block;
+            color:hsl(var(--color-neutral-1100));
+        }
+        .toggle-sublabel{
+            display: block;
+            color:hsl(var(--color-neutral-700));
+            font-size: var(--font-size-small);
+        }
+    }
+}

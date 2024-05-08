@@ -3,46 +3,6 @@
     justify-content: center;
     padding: 0px; 
     align-items: center;
-    
-    .checkbox-container{
-        border: 1px solid hsl(var(--color-neutral-300));
-        background-color: hsl(var(--color-neutral-0));
-        font-size: var(--font-siz-regular);
-        // box-sizing: border-box;
-        padding: 1px;
-        // color: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: fit-content;
-        border-radius: 2px;
-
-        &:disabled{
-            background-color: hsl(var(--color-neutral-700));
-            opacity: 0.4;
-        }
-
-        >svg{
-            fill: transparent;
-        }
-        &.selected{
-            border: 1px solid hsl(var(--color-neutral-300));
-            background-color: hsl(var(--color-blue-700));
-            color: hsl(var(--color-neutral-0));
-
-            >svg{
-                fill: hsl(var(--color-neutral-0));
-            }
-        }
-
-        &:focus-visible{
-            outline-offset: 1.5px;
-            outline: 2px solid hsl(var(--color-blue-800));
-        }
-        &:hover{
-            cursor: pointer;
-        }
-    }
 }
 
 .table{

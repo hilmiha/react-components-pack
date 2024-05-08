@@ -24,12 +24,12 @@ export const provinsiList = [
             },
             {
                 "id": "13",
-                "txtLabel": "Di Yogyakarta",
+                "txtLabel": "DI Yogyakarta",
                 "value": "13"
             },
             {
                 "id": "10",
-                "txtLabel": "Dki Jakarta",
+                "txtLabel": "DKI Jakarta",
                 "value": "10"
             },
             {

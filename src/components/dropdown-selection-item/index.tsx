@@ -1,6 +1,7 @@
 import './styles.scss'
 import { processClassname } from '../../helper'
 import { PiCheckBold } from 'react-icons/pi'
+import Checkbox from '../checkbox'
 
 type Props = {
     className?: string
@@ -39,12 +40,7 @@ const DropdownSelectionItem = ({
         >
             {
                 (isWithCheckbox)&&(
-                    <div className={
-                        processClassname(`dropdown-button-selection-item-checkbox-container
-                        ${isSelected?('selected'):('')}`)
-                    }>
-                        <PiCheckBold/>
-                    </div>
+                    <Checkbox isSelected={isSelected}/>
                 )
             }
             <div className='dropdown-button-item-label-container'>

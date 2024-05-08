@@ -16,6 +16,9 @@ import Button from '../../../components/button';
 import Drawer from '../../../components/drawer';
 import DropdownMenu from '../../../components/dropdown-menu';
 import { MainTemplateContext, MainTemplateContextType } from '../../templates/main-template/context/main-template-context';
+import Checkbox from '../../../components/checkbox';
+import Radio from '../../../components/radio';
+import Toggle from '../../../components/toggle';
 
 const PlaygroundPage = () =>{
     const {
@@ -34,9 +37,29 @@ const PlaygroundPage = () =>{
         setShowSubMenuDrawer('playground')
     },[])
 
+    const [selected, setSelected] = useState(false)
+
 	return (
-		<div>
-			Hello world
+		<div style={{padding:"8px"}}>
+            <div style={{display:'grid', gap:'8px'}}>
+                <Checkbox isSelected={true}/>
+                <Checkbox asButton={true} isSelected={selected} txtLabel='Checkbox' onClick={()=>{setSelected(!selected)}}/>
+                <Checkbox asButton={true} isSelected={selected} txtLabel='Checkbox' onClick={()=>{setSelected(!selected)}} isDisabled/>
+            </div>
+
+            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
+                <Radio isSelected={true}/>
+                <Radio asButton={true} isSelected={selected} txtLabel='Radio' onClick={()=>{setSelected(!selected)}}/>
+                <Radio asButton={true} isSelected={selected} txtLabel='Radio' onClick={()=>{setSelected(!selected)}} isDisabled/>
+            </div>
+
+            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
+                <Toggle isSelected={true}/>
+                <Toggle asButton={true} isSelected={selected} txtLabel='Toggle' onClick={()=>{setSelected(!selected)}}/>
+                <Toggle asButton={true} isSelected={selected} txtLabel='Toggle' onClick={()=>{setSelected(!selected)}} isDisabled/>
+            </div>
+			
+            
 		</div>
 	)
 }

@@ -13,6 +13,7 @@ import useFormHook from '../../hook/useFormHook'
 import Modal from '../modal'
 import { selectionValueType } from '../selection-field'
 import { datePickerValueType } from '../date-picker'
+import Checkbox from '../checkbox'
 
 export type tableColumType = {
     key:string,
@@ -456,6 +457,7 @@ const Table = ({
                                         appearance='subtle'
                                         Icon={rowExpanded.length===0?(VscExpandAll):(VscCollapseAll)}
                                         onClick={thisOnExpandRow}
+                                        isDisabled={tableData.length===0}
                                     />
                                 </div>
                             )
@@ -463,7 +465,13 @@ const Table = ({
                         {
                             (isCheckbox)&&(
                                 <div className='header-cell header-cell-checkbox'>
-                                    <button 
+                                    <Checkbox
+                                        asButton
+                                        isSelected={(tableDataSelected.length === tableData.length)}
+                                        onClick={()=>{thisOnCheckedAll()}}
+                                        isDisabled={tableData.length===0}
+                                    />
+                                    {/* <button 
                                         className={
                                             processClassname(`checkbox-container
                                             ${tableDataSelected.length?('selected'):('')}`)
@@ -481,7 +489,7 @@ const Table = ({
                                                 <PiMinusBold/>
                                             )
                                         }
-                                    </button>
+                                    </button> */}
                                 </div>
                             )
                         }
@@ -583,15 +591,11 @@ const Table = ({
                                             {
                                                 (isCheckbox)&&(
                                                     <div className='data-cell header-cell-checkbox'>
-                                                        <button 
-                                                            className={
-                                                                processClassname(`checkbox-container
-                                                                ${(tableDataSelected.includes(itmRowId))?('selected'):('')}`)
-                                                            }
+                                                        <Checkbox
+                                                            asButton
+                                                            isSelected={tableDataSelected.includes(itmRowId)}
                                                             onClick={()=>{thisOnCheckedItem(itmRowId)}}
-                                                        >
-                                                            <PiCheckBold/>
-                                                        </button>
+                                                        />
                                                     </div>
                                                 )
                                             }

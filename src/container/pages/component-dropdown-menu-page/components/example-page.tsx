@@ -23,12 +23,12 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         menuList={menuList}
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon={PiStarFourFill}
+                        TxtLabelOrIcon={PiStarFourFill}
                         menuList={menuList} 
                     />
                 </div>
@@ -39,31 +39,31 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         appearance="default"
                         menuList={menuList}
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         appearance="primary"
                         menuList={menuList}
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         appearance="warning"
                         menuList={menuList}
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         appearance="danger"
                         menuList={menuList}
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         appearance="subtle"
                         menuList={menuList}
                     />
@@ -75,13 +75,13 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         spacing="default"
                         menuList={menuList}
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         spacing="compact"
                         menuList={menuList}
                     />
@@ -93,7 +93,7 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        txtLabelOrIcon='Open Menu'
+                        TxtLabelOrIcon='Open Menu'
                         spacing="default"
                         isWithCaret
                         menuList={menuList} 

@@ -30,7 +30,7 @@ export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:
 type Props = {
     type?: 'checkbox' | 'default'
     className?: string
-    txtLabelOrIcon: string | IconType
+    TxtLabelOrIcon: string | IconType
     altTxtLabel?: string
     menuList?: menuListType
     appearance?:appearanceIconButtonType
@@ -46,7 +46,7 @@ type Props = {
 const DropdownMenu = ({
     type = 'default',
     className,
-    txtLabelOrIcon,
+    TxtLabelOrIcon,
     altTxtLabel,
     menuList = [],
     appearance,
@@ -144,7 +144,7 @@ const DropdownMenu = ({
 
     return(
         <>  
-            {typeof txtLabelOrIcon !== 'string' ?(
+            {typeof TxtLabelOrIcon !== 'string' ?(
                 <IconButton
                     className={
                         processClassname(`dropdown-menu-button
@@ -154,7 +154,7 @@ const DropdownMenu = ({
                     floatingUi_ref={refs}
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
                     spacing={spacing}
-                    Icon={txtLabelOrIcon}
+                    Icon={TxtLabelOrIcon}
                     isDisabled={isDisabled}
                     isSelected={isSelected}
                 />
@@ -167,7 +167,7 @@ const DropdownMenu = ({
                     appearance={appearance}
                     floatingUi_ref={refs}
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
-                    txtLabel={txtLabelOrIcon}
+                    txtLabel={TxtLabelOrIcon}
                     spacing={spacing}
                     IconAfter={(isWithCaret)?(PiCaretDownBold):(undefined)}
                     isDisabled={isDisabled}
@@ -229,7 +229,14 @@ const DropdownMenu = ({
                                 {...getFloatingProps()}
                             >
                                 <div className="dropdown-menu-mobile-header">
-                                    <span className="dropdown-menu-mobile-header-title">{typeof txtLabelOrIcon === 'string' ? txtLabelOrIcon : altTxtLabel ? altTxtLabel : 'Options'}</span>
+                                    <div style={{display:'flex', gap:"var(--size-2)"}}>
+                                        {
+                                            (typeof TxtLabelOrIcon !== 'string') && (
+                                                <TxtLabelOrIcon size={'1.25rem'}/>
+                                            )
+                                        }
+                                        <span className="dropdown-menu-mobile-header-title">{typeof TxtLabelOrIcon === 'string' ? TxtLabelOrIcon : altTxtLabel ? altTxtLabel : 'Options'}</span>
+                                    </div>
                                     <IconButton
                                         Icon={PiXBold}
                                         appearance="subtle"

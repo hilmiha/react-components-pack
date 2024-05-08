@@ -26,7 +26,7 @@ const DetailTemplate = ({
                 <span className='detail-template-header-subtitle'>{subTitle}</span>
             </div>
             {
-                (tabList)&&(
+                (tabList && selectedTab!==undefined && setSelectedTab)&&(
                     <div className='detail-template-tabs'>
                         <Tabs tabList={tabList} selected={selectedTab} setSelected={setSelectedTab}/>
                     </div>

@@ -396,6 +396,7 @@ const Table = ({
                                             isOpen={isShowFilterDrawer}
                                             setIsOpen={setIsShowFilterDrawer}
                                             txtTitle="Filter"
+                                            iconTitle={<PiFunnel/>}
                                             size="large"
                                             isCloseClickOutside={true}
                                             contentPage={
@@ -413,7 +414,7 @@ const Table = ({
                                 (onHideColumn)&&(
                                     <DropdownMenu
                                         type='checkbox'
-                                        txtLabelOrIcon={PiColumns}
+                                        TxtLabelOrIcon={PiColumns}
                                         altTxtLabel='Column Shown'
                                         onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
                                         isCloseAfterSelect={false}
@@ -694,7 +695,7 @@ const Table = ({
                                                                 return(
                                                                     <DropdownMenu
                                                                         key={itmButton.id}
-                                                                        txtLabelOrIcon={itmButton.txtLabelOrIcon}
+                                                                        TxtLabelOrIcon={itmButton.txtLabelOrIcon}
                                                                         appearance={itmButton.appearance}
                                                                         menuList={itmButton.menuList}
                                                                         spacing='compact'
@@ -790,7 +791,7 @@ const Table = ({
                                         
                                         {(mediaSize >= 1)&&(`Show ${tableConfig.maxRow} item`)}
                                         <DropdownMenu
-                                            txtLabelOrIcon={(mediaSize >= 1)?(PiCaretDown):(PiRows)}
+                                            TxtLabelOrIcon={(mediaSize >= 1)?(PiCaretDown):(PiRows)}
                                             altTxtLabel='Maximum Row Shown'
                                             appearance='subtle'
                                             spacing='compact'

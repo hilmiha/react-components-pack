@@ -18,7 +18,7 @@ const PropsPage = () =>{
             </div>
             <div className="props-section">
                 <div className="props-title">
-                    <PillFlair appearance="pill" txtLabel="txtLabelOrIcon"/>
+                    <PillFlair appearance="pill" txtLabel="TxtLabelOrIcon"/>
                     <PillFlair appearance="text" color="danger" txtLabel="required"/>
                 </div>
                 <div className="props-info-section">

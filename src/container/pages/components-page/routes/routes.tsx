@@ -12,6 +12,7 @@ const ImagePage = React.lazy(() => import('../../component-image-page'));
 const ModalPage = React.lazy(() => import('../../component-modal-page'));
 const PillFlairPage = React.lazy(() => import('../../component-pill-flair-page'));
 const TablePage = React.lazy(() => import('../../component-table-page'));
+const TabsPage = React.lazy(() => import('../../component-tabs-page'));
 
 const route = [
     {path: '/button/*', component: <ButtonPage/>},
@@ -26,7 +27,8 @@ const route = [
     {path: '/image/*', component: <ImagePage/>},
     {path: '/modal/*', component: <ModalPage/>},
     {path: '/pill-flair/*', component: <PillFlairPage/>},
-    {path: '/table/*', component: <TablePage/>}
+    {path: '/table/*', component: <TablePage/>},
+    {path: '/tabs/*', component: <TabsPage/>}
 ];
 
 export default route;

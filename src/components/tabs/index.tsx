@@ -12,8 +12,8 @@ export type tabListItemType = {
 type TabsProps = {
     className?:string
     tabList:tabListItemType[],
-    selected?:string
-    setSelected?:React.Dispatch<React.SetStateAction<string>>
+    selected:string
+    setSelected:React.Dispatch<React.SetStateAction<string>>
 }
 
 const Tabs = ({

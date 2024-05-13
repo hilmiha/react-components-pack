@@ -1,0 +1,18 @@
+@use '../index';
+
+.radio-field{
+    width: 100%;    
+    
+    @include index.field-style;
+
+    .radio-options{
+        display: grid;
+        gap:var(--size-3);
+
+        .radio-child-options{
+            padding-left: var(--size-8);
+            display: grid;
+            gap:var(--size-3);
+        }
+    }
+}

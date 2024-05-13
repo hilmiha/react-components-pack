@@ -9,9 +9,11 @@ import Radio from '../../../components/radio';
 import Toggle from '../../../components/toggle';
 import CheckboxField from '../../../components/checkbox-field';
 import useFormHook from '../../../hook/useFormHook';
+import RadioFiled from '../../../components/radio-field';
 
 type formType = {
-    checkboxValue:string[]
+    checkboxValue:string[],
+    radioValue:string
 }
 const PlaygroundPage = () =>{
     const {
@@ -33,12 +35,8 @@ const PlaygroundPage = () =>{
     const [selected, setSelected] = useState(false)
 
     const [form, setForm] = useState<formType>({
-        checkboxValue:[
-            'option-one',
-            'option-two',
-            'parents3'
-
-        ]
+        checkboxValue:[],
+        radioValue:''
     })
     const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))
 
@@ -120,7 +118,38 @@ const PlaygroundPage = () =>{
                     error={formError['checkboxValue']}
                     config={{
                         isMandatory:true,
-                        maxSelection:1
+                        maxSelection:3
+                    }}
+                />
+            </div>
+
+            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
+                <RadioFiled
+                    value={form['radioValue']}
+                    txtLabel='Radio'
+                    valueList={[
+                        {
+                            id:'parents1',
+                            txtLabel:'Parents 1',
+                            txtSublabel:"ini option one",
+                            value:'parents1',
+                        },
+                        {
+                            id:'parents2',
+                            txtLabel:'Parents 2',
+                            value:'parents2'
+                        },
+                        {
+                            id:'parents3',
+                            txtLabel:'Parents 3',
+                            value:'parents3'
+                        }
+                    ]}
+                    onChange={(newValue)=>{onChange('radioValue', newValue)}}
+                    onValidate={(errorResult)=>{onValidate('radioValue', errorResult)}}
+                    error={formError['radioValue']}
+                    config={{
+                        isMandatory:true,
                     }}
                 />
             </div>

@@ -53,6 +53,10 @@
             }
         }
 
+        &.error{
+            border: 1px solid hsl(var(--color-red-700));
+        }
+        
         &.disabled{
             >svg{
                 fill: transparent;

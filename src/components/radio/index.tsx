@@ -6,17 +6,19 @@ import { PiDotFill } from 'react-icons/pi';
 
 type RadioProps = {
     isSelected:boolean
+    isError?:boolean
     isDisabled?:boolean
     asButton?:boolean
     txtLabel?:string
-    textSubLabel?:string,
+    txtSubLabel?:string,
     onClick?:()=>void
 }
 const Radio = ({
     isSelected,
+    isError,
     isDisabled,
     txtLabel,
-    textSubLabel,
+    txtSubLabel,
     onClick
 }:RadioProps) =>{
 
@@ -32,13 +34,14 @@ const Radio = ({
             <Fragment>
                 <div className={
                     processClassname(`radio
+                    ${isError?('error'):('')}
                     ${isDisabled?('disabled'):('')}
                     ${isSelected?('selected'):('')}`)
                 }>
                     <PiDotFill />
                 </div>
                 {
-                    (txtLabel || textSubLabel)&&(
+                    (txtLabel || txtSubLabel)&&(
                         <div className='radio-text'>
                             {
                                 (txtLabel)&&(
@@ -48,9 +51,9 @@ const Radio = ({
                                 )
                             }
                             {
-                                (textSubLabel)&&(
-                                    <span className='checkbox-sublabel'>
-                                        {textSubLabel}
+                                (txtSubLabel)&&(
+                                    <span className='radio-sublabel'>
+                                        {txtSubLabel}
                                     </span>
                                 )
                             }
@@ -59,13 +62,13 @@ const Radio = ({
                 }
             </Fragment>
         )
-    },[isSelected, txtLabel, textSubLabel, isDisabled])
+    },[isSelected, txtLabel, txtSubLabel, isDisabled, isError])
 
     if(onClick){
         return(
             <button 
                 className='radio-container as-button' 
-                style={{gridTemplateColumns:(txtLabel||textSubLabel)?"min-content 1fr":"min-content"}} 
+                style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}} 
                 onClick={thisOnClick} disabled={isDisabled}
             >
                 {componentInside}
@@ -74,7 +77,7 @@ const Radio = ({
         )
     }else{
         return(
-            <div className='radio-container' style={{gridTemplateColumns:(txtLabel||textSubLabel)?"min-content 1fr":"min-content"}}>
+            <div className='radio-container' style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}}>
                 {componentInside}
             </div>
         )

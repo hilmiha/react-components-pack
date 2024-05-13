@@ -1,24 +1,23 @@
 import './styles.scss'
-import { BsToggleOff } from "react-icons/bs";
 import { processClassname } from "../../helper"
 import { Fragment, useMemo } from 'react'
 
 
-type ToggleProps = {
+type SwitchProps = {
     isSelected:boolean
     isDisabled?:boolean
     asButton?:boolean
     txtLabel?:string
-    textSubLabel?:string,
+    txtSubLabel?:string,
     onClick?:()=>void
 }
-const Toggle = ({
+const Switch = ({
     isSelected,
     isDisabled,
     txtLabel,
-    textSubLabel,
+    txtSubLabel,
     onClick
-}:ToggleProps) =>{
+}:SwitchProps) =>{
 
     const thisOnClick = () =>{
         if(onClick && !isDisabled){
@@ -32,27 +31,27 @@ const Toggle = ({
             <Fragment>
                 <div 
                     className={
-                        processClassname(`toggle
+                        processClassname(`switch
                         ${isDisabled?('disabled'):('')}
                         ${isSelected?('selected'):('')}`)
                     }
                 >
-                    <div className='toggle-circle'></div>
+                    <div className='switch-circle'></div>
                 </div>
                 {
-                    (txtLabel || textSubLabel)&&(
-                        <div className='toggle-text'>
+                    (txtLabel || txtSubLabel)&&(
+                        <div className='switch-text'>
                             {
                                 (txtLabel)&&(
-                                    <span className='toggle-label'>
+                                    <span className='switch-label'>
                                         {txtLabel}
                                     </span>
                                 )
                             }
                             {
-                                (textSubLabel)&&(
-                                    <span className='toggle-sublabel'>
-                                        {textSubLabel}
+                                (txtSubLabel)&&(
+                                    <span className='switch-sublabel'>
+                                        {txtSubLabel}
                                     </span>
                                 )
                             }
@@ -61,13 +60,13 @@ const Toggle = ({
                 }
             </Fragment>
         )
-    },[isSelected, txtLabel, textSubLabel, isDisabled])
+    },[isSelected, txtLabel, txtSubLabel, isDisabled])
 
     if(onClick){
         return(
             <button 
-                className='toggle-container as-button' 
-                style={{gridTemplateColumns:(txtLabel||textSubLabel)?"min-content 1fr":"min-content"}} 
+                className='switch-container as-button' 
+                style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}} 
                 onClick={thisOnClick} disabled={isDisabled}
             >
                 {componentInside}
@@ -76,7 +75,7 @@ const Toggle = ({
         )
     }else{
         return(
-            <div className='toggle-container' style={{gridTemplateColumns:(txtLabel||textSubLabel)?"min-content 1fr":"min-content"}}>
+            <div className='switch-container as-div' style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}}>
                 {componentInside}
             </div>
         )
@@ -84,4 +83,4 @@ const Toggle = ({
     
 }
 
-export default Toggle
+export default Switch

@@ -6,7 +6,7 @@ import { errorType } from '../../../components/text-field';
 import { MainTemplateContext, MainTemplateContextType } from '../../templates/main-template/context/main-template-context';
 import Checkbox from '../../../components/checkbox';
 import Radio from '../../../components/radio';
-import Toggle from '../../../components/toggle';
+import Switch from '../../../components/switch';
 import CheckboxField from '../../../components/checkbox-field';
 import useFormHook from '../../../hook/useFormHook';
 import RadioFiled from '../../../components/radio-field';
@@ -73,9 +73,9 @@ const PlaygroundPage = () =>{
             </div>
 
             <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
-                <Toggle isSelected={true}/>
-                <Toggle isSelected={selected} txtLabel='Toggle' onClick={()=>{setSelected(!selected)}}/>
-                <Toggle isSelected={selected} txtLabel='Toggle' onClick={()=>{setSelected(!selected)}} isDisabled/>
+                <Switch isSelected={true}/>
+                <Switch isSelected={selected} txtLabel='Switch' onClick={()=>{setSelected(!selected)}}/>
+                <Switch isSelected={selected} txtLabel='Switch' onClick={()=>{setSelected(!selected)}} isDisabled/>
             </div>
 
             <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>

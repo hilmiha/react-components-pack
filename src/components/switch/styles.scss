@@ -1,4 +1,4 @@
-.toggle-container{
+.switch-container{
     display: grid;
     gap: var(--size-3);
     width: fit-content;
@@ -26,8 +26,15 @@
         }
         
     }
+
+    &.as-div{
+        &:has(>.disabled){
+            opacity: 0.2;
+            cursor: default;
+        }
+    }
     
-    .toggle{
+    .switch{
         width: 28px;
         border-radius: 200px;
         background-color: hsl(var(--color-neutral-0));
@@ -36,8 +43,8 @@
         position: relative;
         height: 14px;
 
-        .toggle-circle{
-            background-color: hsl(var(--color-neutral-1100));
+        .switch-circle{
+            background-color: hsl(var(--color-neutral-700));
             border-radius: 16px;
             height: 14px;
             width: 14px;
@@ -49,20 +56,20 @@
         &.selected{
             background-color: hsl(var(--color-blue-700));
 
-            .toggle-circle{
+            .switch-circle{
                 background-color: hsl(var(--color-neutral-0));
                 left: 16px;
             }
         }
 
     } 
-    .toggle-text{
+    .switch-text{
         width: fit-content;
-        .toggle-label{
+        .switch-label{
             display: block;
             color:hsl(var(--color-neutral-1100));
         }
-        .toggle-sublabel{
+        .switch-sublabel{
             display: block;
             color:hsl(var(--color-neutral-700));
             font-size: var(--font-size-small);

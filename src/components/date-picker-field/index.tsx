@@ -18,7 +18,7 @@ export type DatePickerFieldProps = {
     txtLabel?:string
     txtPlaceholder?:string
     value:datePickerValueType
-    onChange:(newValue:datePickerValueType) => void ,
+    onChange?:(newValue:datePickerValueType) => void ,
     onValidate?: (errorResult:errorType, newValue:datePickerValueType, config?:Record<any, any>) => void,
     error?: errorType
     config?: {

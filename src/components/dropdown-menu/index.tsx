@@ -19,7 +19,6 @@ import './styles.scss'
 import { IconType } from "react-icons";
 import IconButton, { appearanceIconButtonType } from "../icon-button";
 import DropdownMenuItemGroup from "../dropdown-menu-item-group";
-import DropdownManuItem from "../dropdown-menu-item";
 import { processClassname } from "../../helper";
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext";
 import { useLocation, useNavigate } from "react-router-dom";

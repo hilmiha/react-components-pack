@@ -1,22 +1,25 @@
 import './styles.scss'
-import { PiCheckBold } from "react-icons/pi"
+import { PiCheckBold, PiMinus } from "react-icons/pi"
 import { processClassname } from "../../helper"
-import { Fragment, useMemo } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 
 
 type CheckboxProps = {
     isSelected:boolean
+    isIndeterminate?:boolean
+    isError?:boolean
     isDisabled?:boolean
-    asButton?:boolean
     txtLabel?:string
-    textSubLabel?:string,
+    txtSubLabel?:string,
     onClick?:()=>void
 }
 const Checkbox = ({
     isSelected,
+    isIndeterminate = false,
+    isError = false,
     isDisabled,
     txtLabel,
-    textSubLabel,
+    txtSubLabel,
     onClick
 }:CheckboxProps) =>{
 
@@ -26,19 +29,25 @@ const Checkbox = ({
         }
     }
 
-
     const componentInside = useMemo(()=>{
         return(
             <Fragment>
                 <div className={
                     processClassname(`checkbox
+                    ${isError?('error'):('')}
                     ${isDisabled?('disabled'):('')}
-                    ${isSelected?('selected'):('')}`)
+                    ${(isSelected)?('selected'):('')}`)
                 }>
-                    <PiCheckBold/>
+                    {
+                        (!isIndeterminate)?(
+                            <PiCheckBold/>
+                        ):(
+                            <PiMinus/>
+                        )
+                    }
                 </div>
                 {
-                    (txtLabel || textSubLabel)&&(
+                    (txtLabel || txtSubLabel)&&(
                         <div className='checkbox-text'>
                             {
                                 (txtLabel)&&(
@@ -48,9 +57,9 @@ const Checkbox = ({
                                 )
                             }
                             {
-                                (textSubLabel)&&(
+                                (txtSubLabel)&&(
                                     <span className='checkbox-sublabel'>
-                                        {textSubLabel}
+                                        {txtSubLabel}
                                     </span>
                                 )
                             }
@@ -59,13 +68,13 @@ const Checkbox = ({
                 }
             </Fragment>
         )
-    },[isSelected, txtLabel, textSubLabel, isDisabled])
+    },[isSelected, isIndeterminate, txtLabel, txtSubLabel, isDisabled, isError])
 
     if(onClick){
         return(
             <button 
                 className='checkbox-container as-button' 
-                style={{gridTemplateColumns:(txtLabel||textSubLabel)?"min-content 1fr":"min-content"}} 
+                style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}} 
                 onClick={thisOnClick} disabled={isDisabled}
             >
                 {componentInside}
@@ -74,7 +83,7 @@ const Checkbox = ({
         )
     }else{
         return(
-            <div className='checkbox-container' style={{gridTemplateColumns:(txtLabel||textSubLabel)?"min-content 1fr":"min-content"}}>
+            <div className='checkbox-container as-div' style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}}>
                 {componentInside}
             </div>
         )

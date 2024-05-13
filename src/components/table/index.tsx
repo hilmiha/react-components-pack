@@ -92,7 +92,7 @@ type Props = {
 const Table = ({
     className,
     tableColums,
-    tableData,
+    tableData = [],
     tableDataSelected = [],
     tableConfig,
     isExpandable,
@@ -466,30 +466,11 @@ const Table = ({
                             (isCheckbox)&&(
                                 <div className='header-cell header-cell-checkbox'>
                                     <Checkbox
-                                        asButton
-                                        isSelected={(tableDataSelected.length === tableData.length)}
+                                        isSelected={tableDataSelected.length > 0}
+                                        isIndeterminate={tableDataSelected.length !== tableData.length}
                                         onClick={()=>{thisOnCheckedAll()}}
                                         isDisabled={tableData.length===0}
                                     />
-                                    {/* <button 
-                                        className={
-                                            processClassname(`checkbox-container
-                                            ${tableDataSelected.length?('selected'):('')}`)
-                                        }
-                                        onClick={()=>{thisOnCheckedAll()}}
-                                        disabled={tableData.length===0}
-                                    >
-                                        {
-                                            (tableDataSelected.length === tableData.length)&&(
-                                                <PiCheckBold/>
-                                            )
-                                        }
-                                        {
-                                            (tableDataSelected.length !== tableData.length)&&(
-                                                <PiMinusBold/>
-                                            )
-                                        }
-                                    </button> */}
                                 </div>
                             )
                         }
@@ -592,7 +573,6 @@ const Table = ({
                                                 (isCheckbox)&&(
                                                     <div className='data-cell header-cell-checkbox'>
                                                         <Checkbox
-                                                            asButton
                                                             isSelected={tableDataSelected.includes(itmRowId)}
                                                             onClick={()=>{thisOnCheckedItem(itmRowId)}}
                                                         />

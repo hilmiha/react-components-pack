@@ -19,7 +19,12 @@
         
     }
 
-    
+    &.as-div{
+        &:has(>.disabled){
+            opacity: 0.2;
+            cursor: default;
+        }
+    }
 
     background-color: transparent;
 
@@ -29,7 +34,7 @@
     text-align: left;
     padding: 0px;
     .checkbox{
-        border: 1px solid hsl(var(--color-neutral-300));
+        border: 1px solid hsl(var(--color-neutral-400));
         background-color: hsl(var(--color-neutral-0));
         font-size: var(--font-siz-regular);
         padding: 1px;
@@ -38,8 +43,6 @@
         justify-content: center;
         width: 14px;
         height: 14px;
-    
-        transition: background-color 0.3s;
     
         >svg{
             fill: transparent;
@@ -52,6 +55,10 @@
             >svg{
                 fill: hsl(var(--color-neutral-0));
             }
+        }
+
+        &.error{
+            border: 1px solid hsl(var(--color-red-700));
         }
 
         &.disabled{

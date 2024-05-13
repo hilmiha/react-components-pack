@@ -29,7 +29,7 @@
     text-align: left;
     padding: 0px;
     .radio{
-        border: 1px solid hsl(var(--color-neutral-300));
+        border: 1px solid hsl(var(--color-neutral-400));
         background-color: hsl(var(--color-neutral-0));
         font-size: var(--font-size-regular);
         padding: 1px;
@@ -39,7 +39,6 @@
         width: 14px;
         height: 14px;
         border-radius: 200px;
-        transition: background-color 0.3s;
     
         >svg{
             fill: transparent;

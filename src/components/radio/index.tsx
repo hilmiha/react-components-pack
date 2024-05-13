@@ -77,7 +77,7 @@ const Radio = ({
         )
     }else{
         return(
-            <div className='radio-container' style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}}>
+            <div className='radio-container as-div' style={{gridTemplateColumns:(txtLabel||txtSubLabel)?"min-content 1fr":"min-content"}}>
                 {componentInside}
             </div>
         )

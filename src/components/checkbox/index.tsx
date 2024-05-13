@@ -1,5 +1,5 @@
 import './styles.scss'
-import { PiCheckBold, PiMinus } from "react-icons/pi"
+import { PiCheckBold, PiMinus, PiMinusBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import { Fragment, useEffect, useMemo } from 'react'
 
@@ -42,7 +42,7 @@ const Checkbox = ({
                         (!isIndeterminate)?(
                             <PiCheckBold/>
                         ):(
-                            <PiMinus/>
+                            <PiMinusBold/>
                         )
                     }
                 </div>

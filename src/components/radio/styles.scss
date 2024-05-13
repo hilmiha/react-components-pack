@@ -19,6 +19,13 @@
         
     }
 
+    &.as-div{
+        &:has(>.disabled){
+            opacity: 0.2;
+            cursor: default;
+        }
+    }
+
     
 
     background-color: transparent;

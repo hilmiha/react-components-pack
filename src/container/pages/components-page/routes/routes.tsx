@@ -1,5 +1,6 @@
 import React from 'react';
 const ButtonPage = React.lazy(() => import('../../component-button-page'));
+const ComponentCheckboxPage = React.lazy(() => import('../../component-checkbox-page'));
 const IconButtonPage = React.lazy(() => import('../../component-icon-button-page'));
 const SplitButtonPage = React.lazy(() => import('../../component-split-button'));
 const DatePickerPage = React.lazy(() => import('../../component-date-picker-page'));
@@ -11,11 +12,14 @@ const TextFieldPage = React.lazy(() => import('../../component-text-field-page')
 const ImagePage = React.lazy(() => import('../../component-image-page'));
 const ModalPage = React.lazy(() => import('../../component-modal-page'));
 const PillFlairPage = React.lazy(() => import('../../component-pill-flair-page'));
+const RadioPage = React.lazy(() => import('../../component-radio-page'));
 const TablePage = React.lazy(() => import('../../component-table-page'));
 const TabsPage = React.lazy(() => import('../../component-tabs-page'));
 
 const route = [
     {path: '/button/*', component: <ButtonPage/>},
+    {path: '/checkbox/*', component: <ComponentCheckboxPage/>},
+    {path: '/checkbox-field/*', component: <>Checkbox Field Page</>},
     {path: '/icon-button/*', component: <IconButtonPage/>},
     {path: '/split-button/*', component: <SplitButtonPage/>},
     {path: '/date-picker/*', component: <DatePickerPage/>},
@@ -27,6 +31,8 @@ const route = [
     {path: '/image/*', component: <ImagePage/>},
     {path: '/modal/*', component: <ModalPage/>},
     {path: '/pill-flair/*', component: <PillFlairPage/>},
+    {path: '/radio/*', component: <RadioPage/>},
+    {path: '/radio-field/*', component: <>Radio Field Page</>},
     {path: '/table/*', component: <TablePage/>},
     {path: '/tabs/*', component: <TabsPage/>}
 ];

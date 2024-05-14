@@ -1,0 +1,64 @@
+import { valueListCheckboxField } from "../../../../components/checkbox-field"
+
+export const optionList:valueListCheckboxField = [
+    {
+        id:'asia',
+        txtLabel:'Asia',
+        value:'asia',
+        childMenu:[
+            {
+                id:"china",
+                txtLabel:"China",
+                value:"china"
+            },
+            {
+                id:"india",
+                txtLabel:"India",
+                value:"india"
+            },
+            {
+                id:"japan",
+                txtLabel:"Japan",
+                value:"japan"
+            },
+            {
+                id:"singapore",
+                txtLabel:"Singapore",
+                value:"singapore"
+            }
+        ]
+    },
+    {
+        id:'europe',
+        txtLabel:'Europe',
+        value:'europe',
+        childMenu:[
+            {
+                id:"french",
+                txtLabel:"French",
+                value:"french"
+            },
+            {
+                id:"germany",
+                txtLabel:"Germany",
+                value:"germany"
+            },
+            {
+                id:"spain",
+                txtLabel:"Spain",
+                value:"spain"
+            },
+            {
+                id:"sweden",
+                txtLabel:"Sweden",
+                value:"sweden"
+            }
+        ]
+    },
+    {
+        id:'usa',
+        txtLabel:'United State of America',
+        value:'usa',
+    }
+
+]

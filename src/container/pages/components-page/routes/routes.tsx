@@ -1,6 +1,7 @@
 import React from 'react';
 const ButtonPage = React.lazy(() => import('../../component-button-page'));
-const ComponentCheckboxPage = React.lazy(() => import('../../component-checkbox-page'));
+const CheckboxPage = React.lazy(() => import('../../component-checkbox-page'));
+const CheckboxFieldPage = React.lazy(() => import('../../component-checkbox-field-page'));
 const IconButtonPage = React.lazy(() => import('../../component-icon-button-page'));
 const SplitButtonPage = React.lazy(() => import('../../component-split-button'));
 const DatePickerPage = React.lazy(() => import('../../component-date-picker-page'));
@@ -19,8 +20,8 @@ const TabsPage = React.lazy(() => import('../../component-tabs-page'));
 
 const route = [
     {path: '/button/*', component: <ButtonPage/>},
-    {path: '/checkbox/*', component: <ComponentCheckboxPage/>},
-    {path: '/checkbox-field/*', component: <>Checkbox Field Page</>},
+    {path: '/checkbox/*', component: <CheckboxPage/>},
+    {path: '/checkbox-field/*', component: <CheckboxFieldPage/>},
     {path: '/icon-button/*', component: <IconButtonPage/>},
     {path: '/split-button/*', component: <SplitButtonPage/>},
     {path: '/date-picker/*', component: <DatePickerPage/>},

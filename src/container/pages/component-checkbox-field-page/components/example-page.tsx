@@ -1,0 +1,63 @@
+import { useContext, useEffect, useMemo, useState } from "react"
+import { LocalContext, LocalContextType } from "../context/local-context";
+import TextField, { errorType } from "../../../../components/text-field";
+import { generateErrorState } from "../../../../helper";
+import useFormHook from "../../../../hook/useFormHook";
+import SelectionField, { selectionValueType } from "../../../../components/selection-field";
+import CheckboxField, { valueCheckboxField } from "../../../../components/checkbox-field";
+import { optionList } from "../data/option-list";
+
+export type formType = {
+    checkbox:valueCheckboxField
+}
+
+const ExamplePage = () =>{
+    const {
+        setTabSelected
+    } = useContext(LocalContext) as LocalContextType;
+
+    const [form, setForm] = useState<formType>({
+        checkbox:[]
+    })
+
+    const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))
+    const listValue = useMemo(()=>{
+        return(optionList)
+    },[])
+
+    const {
+        onChange, 
+        onValidate
+    } = useFormHook({
+        form,
+        setForm,
+        formError,
+        setFormError
+    })
+
+    useEffect(()=>{
+        setTabSelected('example')
+    },[])
+    
+    return(
+        <div className="tab-content">
+            <div className="component-section">
+                <span className="font-title">Text</span>
+                <div className="preview-box">
+                    <CheckboxField
+                        txtLabel="Form Checkbox"
+                        value={form['checkbox']}
+                        error={formError['checkbox']}
+                        onChange={(newValue)=>{onChange('checkbox', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('checkbox', errorResult)}}
+                        valueList={listValue}
+                        config={{
+                            isMandatory:true
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+    )
+}
+export default ExamplePage

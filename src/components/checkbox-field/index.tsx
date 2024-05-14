@@ -6,7 +6,7 @@ import { PiWarningDiamondFill } from 'react-icons/pi'
 import Checkbox from '../checkbox'
 import { intersection, pullAll, union } from 'lodash'
 
-type valueCheckboxField = string[]
+export type valueCheckboxField = string[]
 export type valueListItemCheckboxField = {id:string, txtLabel:string, txtSublabel?:string,  isDisabled?:boolean, value:string}
 export type valueListCheckboxField = {id:string, txtLabel:string, txtSublabel?:string, isDisabled?:boolean, value:string, childMenu?:valueListItemCheckboxField[]}[]
 
@@ -117,25 +117,25 @@ const CheckboxField = ({
 
     const validateField = (newValue:valueCheckboxField) =>{
         let tampError:errorType = {isError:false, errorMessage:''}
-        let error = false
-        
-        if(isMandatory && !error){
+        let isError = false
+
+        if(isMandatory && !isError){
             if(newValue.length===0){
-                error=true
+                isError=true
             }
 
-            if(error){
+            if(isError){
                 tampError.isError = true
                 tampError.errorMessage = "This field can't be empty!"
             }
         }
 
-        if(maxSelection && !error){
+        if(maxSelection && !isError){
             if(newValue.length > maxSelection){
-                error=true
+                isError=true
             }
 
-            if(error){
+            if(isError){
                 tampError.isError = true
                 tampError.errorMessage = `Can't select more than ${maxSelection}`
             }
@@ -171,7 +171,6 @@ const CheckboxField = ({
 
         if(onValidate){
             const configTamp = config 
-            console.log(validateField(tampValue))
             onValidate(validateField(tampValue), tampValue, configTamp)
         }
     }

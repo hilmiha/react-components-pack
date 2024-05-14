@@ -75,6 +75,7 @@
     } 
     .checkbox-text{
         width: fit-content;
+        padding-right: var(--size-1);
         .checkbox-label{
             display: block;
             color:hsl(var(--color-neutral-1100));

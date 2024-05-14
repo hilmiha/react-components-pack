@@ -6,9 +6,10 @@ import useFormHook from "../../../../hook/useFormHook";
 import SelectionField, { selectionValueType } from "../../../../components/selection-field";
 import CheckboxField, { valueCheckboxField } from "../../../../components/checkbox-field";
 import { optionList } from "../data/option-list";
+import RadioFiled, { valueRadioField } from "../../../../components/radio-field";
 
 export type formType = {
-    checkbox:valueCheckboxField
+    checkbox:valueRadioField
 }
 
 const ExamplePage = () =>{
@@ -17,7 +18,7 @@ const ExamplePage = () =>{
     } = useContext(LocalContext) as LocalContextType;
 
     const [form, setForm] = useState<formType>({
-        checkbox:[]
+        checkbox:''
     })
 
     const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))
@@ -44,7 +45,7 @@ const ExamplePage = () =>{
             <div className="component-section">
                 <span className="font-title">Default</span>
                 <div className="preview-box">
-                    <CheckboxField
+                    <RadioFiled
                         txtLabel="Form Checkbox"
                         value={form['checkbox']}
                         error={formError['checkbox']}

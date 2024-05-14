@@ -198,6 +198,7 @@ const CheckboxField = ({
                                     key={itmParents.id}
                                     childMenu={itmParents.childMenu}
                                     txtLabel={itmParents.txtLabel}
+                                    txtSublabel={itmParents.txtSublabel}
                                     value={value}
                                     isDisabled={itmParents.isDisabled || isDisabled}
                                     isError={error?.isError}

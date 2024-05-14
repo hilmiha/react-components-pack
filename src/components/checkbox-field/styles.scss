@@ -7,12 +7,12 @@
 
     .checkbox-options{
         display: grid;
-        gap:var(--size-3);
+        gap:var(--size-4);
 
         .checkbox-child-options{
             padding-left: var(--size-8);
             display: grid;
-            gap:var(--size-3);
+            gap:var(--size-4);
         }
     }
 }

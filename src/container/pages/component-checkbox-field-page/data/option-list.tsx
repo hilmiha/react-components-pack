@@ -9,21 +9,25 @@ export const optionList:valueListCheckboxField = [
             {
                 id:"china",
                 txtLabel:"China",
+                txtSublabel:'Regional support.',
                 value:"china"
             },
             {
                 id:"india",
                 txtLabel:"India",
+                txtSublabel:'Regional support.',
                 value:"india"
             },
             {
                 id:"japan",
                 txtLabel:"Japan",
+                txtSublabel:'Regional support.',
                 value:"japan"
             },
             {
                 id:"singapore",
                 txtLabel:"Singapore",
+                txtSublabel:"HQ support",
                 value:"singapore"
             }
         ]
@@ -36,21 +40,25 @@ export const optionList:valueListCheckboxField = [
             {
                 id:"french",
                 txtLabel:"French",
+                txtSublabel:'Regional support.',
                 value:"french"
             },
             {
                 id:"germany",
                 txtLabel:"Germany",
+                txtSublabel:"HQ support",
                 value:"germany"
             },
             {
                 id:"spain",
                 txtLabel:"Spain",
+                txtSublabel:'Regional support.',
                 value:"spain"
             },
             {
                 id:"sweden",
                 txtLabel:"Sweden",
+                txtSublabel:'Regional support.',
                 value:"sweden"
             }
         ]

@@ -4,7 +4,7 @@ import { errorType } from '../text-field'
 import { PiWarningDiamondFill } from 'react-icons/pi'
 import Radio from '../radio'
 
-type valueRadioField = string
+export type valueRadioField = string
 export type valueListRadioField = {id:string, txtLabel:string, txtSublabel?:string, isDisabled?:boolean, value:string}[]
 
 type RadioFieldProps = {

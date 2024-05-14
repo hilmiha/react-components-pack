@@ -25,7 +25,8 @@ const MainTemplate = ({children}:Props) =>{
     } = useContext(GlobalContext) as GlobalContextType;
     
     const {
-        contentPageRef
+        contentPageRef,
+        sidebarMenuList
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
     const navigate = useNavigate()
@@ -71,9 +72,13 @@ const MainTemplate = ({children}:Props) =>{
                     />
                 </div>
             </div>
-            <div className='main-template-sidebar'>
-                <TemplateSidebarMenu onClcikHeaderMenu={onClcikHeaderMenu}/>
-            </div>
+            {
+                (sidebarMenuList.length > 0)&&(
+                    <div className='main-template-sidebar'>
+                        <TemplateSidebarMenu onClcikHeaderMenu={onClcikHeaderMenu}/>
+                    </div>
+                )
+            }
             <div ref={contentPageRef} className='main-template-content'>
                 {children}
             </div>

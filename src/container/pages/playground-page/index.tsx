@@ -10,6 +10,8 @@ import Switch from '../../../components/switch';
 import CheckboxField from '../../../components/checkbox-field';
 import useFormHook from '../../../hook/useFormHook';
 import RadioFiled from '../../../components/radio-field';
+import Accordion from '../../../components/accordion';
+import AccordionItem from '../../../components/accordionItem';
 
 type formType = {
     checkboxValue:string[],
@@ -50,6 +52,8 @@ const PlaygroundPage = () =>{
         setFormError
     })
 
+    const [isOpen, setIsOpen] = useState(['1'])
+    
     useEffect(()=>{
         console.log(form)
     },[form])
@@ -60,101 +64,40 @@ const PlaygroundPage = () =>{
 
 	return (
 		<div style={{padding:"8px"}}>
-            <div style={{display:'grid', gap:'8px'}}>
-                <Checkbox isSelected={true}/>
-                <Checkbox isSelected={selected} txtLabel='Checkbox' onClick={()=>{setSelected(!selected)}}/>
-                <Checkbox isSelected={selected} txtLabel='Checkbox' onClick={()=>{setSelected(!selected)}} isDisabled/>
-            </div>
-
-            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
-                <Radio isSelected={true}/>
-                <Radio isSelected={selected} txtLabel='Radio' onClick={()=>{setSelected(!selected)}}/>
-                <Radio isSelected={selected} txtLabel='Radio' onClick={()=>{setSelected(!selected)}} isDisabled/>
-            </div>
-
-            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
-                <Switch isSelected={true}/>
-                <Switch isSelected={selected} txtLabel='Switch' onClick={()=>{setSelected(!selected)}}/>
-                <Switch isSelected={selected} txtLabel='Switch' onClick={()=>{setSelected(!selected)}} isDisabled/>
-            </div>
-
-            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
-                <CheckboxField
-                    value={form['checkboxValue']}
-                    txtLabel='Checkbox'
-                    valueList={[
-                        {
-                            id:'parents1',
-                            txtLabel:'Parents 1',
-                            value:'parents1',
-                            childMenu:[
-                                {
-                                    id:'option-one',
-                                    txtLabel:'Option One',
-                                    txtSublabel:"ini option one",
-                                    value:'option-one',
-                                },
-                                {
-                                    id:'option-two',
-                                    txtLabel:'Option Two',
-                                    txtSublabel:"ini option two lorem",
-                                    value:'option-two'
-                                }
-                            ]
-                        },
-                        {
-                            id:'parents2',
-                            txtLabel:'Parents 2',
-                            value:'parents2'
-                        },
-                        {
-                            id:'parents3',
-                            txtLabel:'Parents 3',
-                            value:'parents3'
-                        }
-                    ]}
-                    onChange={(newValue)=>{onChange('checkboxValue', newValue)}}
-                    onValidate={(errorResult)=>{onValidate('checkboxValue', errorResult)}}
-                    error={formError['checkboxValue']}
-                    config={{
-                        isMandatory:true,
-                        maxSelection:3
-                    }}
+            <Accordion
+                accordionOpen={isOpen}
+                setAccordionOpen={setIsOpen}
+                isAllowMultipleOpen={false}
+            >
+                <AccordionItem
+                    id='one'
+                    txtLabel='Hello World'      
+                    txtSublabel='asdad ahdgas hgasj'
+                    contentPage={
+                        <p className='font-text'>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore beatae placeat molestias fuga et excepturi nihil culpa, provident vel, enim voluptatum quam incidunt. Necessitatibus animi dolorum omnis minima, possimus ullam?
+                        </p>
+                    }
                 />
-            </div>
-
-            <div style={{display:'grid', gap:'8px',  marginTop:'20px'}}>
-                <RadioFiled
-                    value={form['radioValue']}
-                    txtLabel='Radio'
-                    valueList={[
-                        {
-                            id:'parents1',
-                            txtLabel:'Parents 1',
-                            txtSublabel:"ini option one",
-                            value:'parents1',
-                        },
-                        {
-                            id:'parents2',
-                            txtLabel:'Parents 2',
-                            value:'parents2'
-                        },
-                        {
-                            id:'parents3',
-                            txtLabel:'Parents 3',
-                            value:'parents3'
-                        }
-                    ]}
-                    onChange={(newValue)=>{onChange('radioValue', newValue)}}
-                    onValidate={(errorResult)=>{onValidate('radioValue', errorResult)}}
-                    error={formError['radioValue']}
-                    config={{
-                        isMandatory:true,
-                    }}
+                <AccordionItem
+                    id='two'
+                    txtLabel='Hello World'                    
+                    contentPage={
+                        <p className='font-text'>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore beatae placeat molestias fuga et excepturi nihil culpa, provident vel, enim voluptatum quam incidunt. Necessitatibus animi dolorum omnis minima, possimus ullam?
+                        </p>
+                    }
                 />
-            </div>
-			
-            
+                <AccordionItem
+                    id='three'
+                    txtLabel='Hello World'                    
+                    contentPage={
+                        <p className='font-text'>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore beatae placeat molestias fuga et excepturi nihil culpa, provident vel, enim voluptatum quam incidunt. Necessitatibus animi dolorum omnis minima, possimus ullam?
+                        </p>
+                    }
+                />
+            </Accordion>
 		</div>
 	)
 }

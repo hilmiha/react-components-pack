@@ -55,22 +55,26 @@ const AccordionItem = ({
                     <PiCaretLeftBold/>
                 </div>
             </button>
-            <div 
-                className={
-                    processClassname(`accordion-item-content 
-                    ${isOpen?('isOpen'):('')}`)  
-                } 
-            >
-                <div>
-                    {
-                        (typeof contentPage !== 'function')?(
-                            contentPage
-                        ):(
-                            contentPage()
-                        )
-                    }
-                </div>
-            </div>
+            {
+                (!isDisabled)&&(
+                    <div 
+                        className={
+                            processClassname(`accordion-item-content 
+                            ${isOpen?('isOpen'):('')}`)  
+                        } 
+                    >
+                        <div>
+                            {
+                                (typeof contentPage !== 'function')?(
+                                    contentPage
+                                ):(
+                                    contentPage()
+                                )
+                            }
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }

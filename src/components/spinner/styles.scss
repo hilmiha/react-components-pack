@@ -1,0 +1,35 @@
+/* HTML: <div class="loader"></div> */
+.loader {
+	&.small{
+		width: 20px;
+	}
+	&.medium{
+		width: 35px;
+	}
+	&.large{
+		width: 50px;
+	}
+	aspect-ratio: 1;
+
+	&.default{
+		--_g: no-repeat radial-gradient(farthest-side, hsl(var(--color-neutral-1100)) 94%, transparent);
+	}
+
+	&.dark{
+		--_g: no-repeat radial-gradient(farthest-side, hsl(var(--def-color-neutral-1100)) 94%, transparent);
+	}
+
+	&.light{
+		--_g: no-repeat radial-gradient(farthest-side, hsl(var(--def-color-neutral-0)) 94%, transparent);
+	}
+	background:
+		var(--_g) 0    0,
+		var(--_g) 100% 0,
+		var(--_g) 100% 100%,
+		var(--_g) 0    100%;
+	background-size: 35% 35%;
+	animation: l38 .5s infinite; 
+}
+@keyframes l38 {
+	100% {background-position: 100% 0,100% 100%,0 100%,0 0}
+}

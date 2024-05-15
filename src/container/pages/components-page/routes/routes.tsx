@@ -1,4 +1,5 @@
 import React from 'react';
+const AccordionPage = React.lazy(() => import('../../component-accordion-page'));
 const ButtonPage = React.lazy(() => import('../../component-button-page'));
 const CheckboxPage = React.lazy(() => import('../../component-checkbox-page'));
 const CheckboxFieldPage = React.lazy(() => import('../../component-checkbox-field-page'));
@@ -20,6 +21,7 @@ const TablePage = React.lazy(() => import('../../component-table-page'));
 const TabsPage = React.lazy(() => import('../../component-tabs-page'));
 
 const route = [
+    {path: '/accordion/*', component: <AccordionPage/>},
     {path: '/button/*', component: <ButtonPage/>},
     {path: '/checkbox/*', component: <CheckboxPage/>},
     {path: '/checkbox-field/*', component: <CheckboxFieldPage/>},

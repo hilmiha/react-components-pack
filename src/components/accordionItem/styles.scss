@@ -17,6 +17,10 @@
             background-color: hsla(var(--color-neutral-200),0.8);
         }
 
+        &:disabled{
+            background-color: hsla(var(--color-neutral-200),0.5);
+        }
+
         &:focus-visible{
             outline-offset: 1.5px;
             outline: 2px solid hsl(var(--color-blue-800));

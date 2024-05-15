@@ -3,6 +3,7 @@ export const sidebarManuListDummy = [
         id:'components',
         txtLabel:'Components',
         menuList:[
+            {id:'accordion', txtLabel:'Accordion',to:'/components/accordion'},
             {id:'button-main', txtLabel:'Button', menuList:[
                 {id:'button', txtLabel:'Button', to:'/components/button'},
                 {id:'icon-button', txtLabel:'Icon Button', to:'/components/icon-button'},

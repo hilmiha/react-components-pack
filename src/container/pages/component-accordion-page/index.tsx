@@ -5,10 +5,9 @@ import LocalContextProvider, { LocalContext, LocalContextType } from "./context/
 import { Navigate, Route, Routes } from "react-router-dom";
 import route from "./routes/routes";
 
-const ComponentRadioFieldPage = () =>{
+const ComponentAccordionPage = () =>{
     const {
         setSidebarMenuListSelected,
-        setShowSubSubMenu,
         scrollToTop
     } = useContext(MainTemplateContext) as MainTemplateContextType;
 
@@ -18,18 +17,17 @@ const ComponentRadioFieldPage = () =>{
     } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
-        setSidebarMenuListSelected('radio-field')
-        setShowSubSubMenu('form-field')
+        setSidebarMenuListSelected('accordion')
     },[])
 
     useEffect(()=>{
         scrollToTop()
     },[tabSelected])
-
+    
     return(
         <DetailTemplate 
-            title="Radio Field" 
-            subTitle="A form allows users to input radio."
+            title="Accordion" 
+            subTitle="Accordion display a list of high-level options that can expand/collapse to reveal more information."
             tabList={[
                 {id:'example', txtLabel:'Example', to:'example'},
                 {id:'props', txtLabel:'Props', to:'props'},
@@ -37,7 +35,7 @@ const ComponentRadioFieldPage = () =>{
             ]}
             selectedTab={tabSelected}
             setSelectedTab={setTabSelected}
-        >   
+        >
             <Suspense fallback={<></>}>
                 <Routes>
                     <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
@@ -55,7 +53,7 @@ const ComponentRadioFieldPage = () =>{
 const HocProvider = ()=>{
     return(
         <LocalContextProvider>
-            <ComponentRadioFieldPage/>
+            <ComponentAccordionPage/>
         </LocalContextProvider>
     )
 }

@@ -12,6 +12,7 @@ import useFormHook from '../../../hook/useFormHook';
 import RadioFiled from '../../../components/radio-field';
 import Accordion from '../../../components/accordion';
 import AccordionItem from '../../../components/accordionItem';
+import Spinner from '../../../components/spinner';
 
 type formType = {
     checkboxValue:string[],
@@ -98,6 +99,10 @@ const PlaygroundPage = () =>{
                     }
                 />
             </Accordion>
+            <Spinner type='small'/>
+            <Spinner type='medium'/>
+            <Spinner type='large'/>
+
 		</div>
 	)
 }

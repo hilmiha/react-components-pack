@@ -16,6 +16,7 @@ const ModalPage = React.lazy(() => import('../../component-modal-page'));
 const PillFlairPage = React.lazy(() => import('../../component-pill-flair-page'));
 const RadioFieldPage = React.lazy(() => import('../../component-radio-field-page'));
 const RadioPage = React.lazy(() => import('../../component-radio-page'));
+const SpinnerPage = React.lazy(() => import('../../component-spinner-page'));
 const SwitchPage = React.lazy(() => import('../../component-switch-page'));
 const TablePage = React.lazy(() => import('../../component-table-page'));
 const TabsPage = React.lazy(() => import('../../component-tabs-page'));
@@ -38,6 +39,7 @@ const route = [
     {path: '/pill-flair/*', component: <PillFlairPage/>},
     {path: '/radio/*', component: <RadioPage/>},
     {path: '/radio-field/*', component: <RadioFieldPage/>},
+    {path: '/spinner/*', component: <SpinnerPage/>},
     {path: '/switch/*', component: <SwitchPage/>},
     {path: '/table/*', component: <TablePage/>},
     {path: '/tabs/*', component: <TabsPage/>}

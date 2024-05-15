@@ -1,16 +1,16 @@
 import './styles.scss'
 
 type SpinnerProps = {
-    type?:'small' | 'medium' | 'large'
+    size?:'small' | 'medium' | 'large'
     theme?:'dark' | 'light' | 'default'
 }
 const Spinner = ({
-    type = 'medium',
+    size = 'medium',
     theme = 'default'
 }:SpinnerProps) =>{
 
     return(
-        <div className={`loader ${type} ${theme}`} />
+        <div className={`loader ${size} ${theme}`} />
     )
 }
 

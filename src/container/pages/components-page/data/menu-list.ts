@@ -24,6 +24,7 @@ export const sidebarManuListDummy = [
             {id:'modal', txtLabel:'Modal', to:'/components/modal'},
             {id:'pill-flair', txtLabel:'Pill and Flair', to:'/components/pill-flair'},
             {id:'radio', txtLabel:'Radio',to:'/components/radio'},
+            {id:'spinner', txtLabel:'Spinner',to:'/components/spinner'},
             {id:'switch', txtLabel:'Switch',to:'/components/switch'},
             {id:'table', txtLabel:'Table', to:'/components/table'},
             {id:'tabs', txtLabel:'Tabs', to:'/components/tabs'}

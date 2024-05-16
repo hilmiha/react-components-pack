@@ -2,7 +2,7 @@ import './styles.scss'
 
 type SpinnerProps = {
     size?:'small' | 'medium' | 'large'
-    theme?:'dark' | 'light' | 'default'
+    theme?:'dark' | 'light' | 'default' | 'primary'
 }
 const Spinner = ({
     size = 'medium',

@@ -1,8 +1,5 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { LocalContext, LocalContextType } from "../context/local-context";
-import Checkbox from "../../../../components/checkbox";
-import Accordion from "../../../../components/accordion";
-import AccordionItem from "../../../../components/accordionItem";
 import Spinner from "../../../../components/spinner";
 import IconButton from "../../../../components/icon-button";
 import { PiMoon, PiSun } from "react-icons/pi";
@@ -53,6 +50,20 @@ const ExamplePage = () =>{
                     >
                         <div
                             style={{
+                                padding:'var(--size-6)'
+                            }}
+                        >
+                            <Spinner theme="default"/>
+                        </div>
+                        <div
+                            style={{
+                                padding:'var(--size-6)'
+                            }}
+                        >
+                            <Spinner theme="primary"/>
+                        </div>
+                        <div
+                            style={{
                                 backgroundColor:'hsla(var(--def-color-neutral-dark-100))',
                                 border:'1px solid hsla(var(--color-neutral-300))',
                                 padding:'var(--size-6)',
@@ -60,13 +71,6 @@ const ExamplePage = () =>{
                             }}
                         >
                             <Spinner theme="light"/>
-                        </div>
-                        <div
-                            style={{
-                                padding:'var(--size-6)'
-                            }}
-                        >
-                            <Spinner theme="default"/>
                         </div>
                         <div
                             style={{

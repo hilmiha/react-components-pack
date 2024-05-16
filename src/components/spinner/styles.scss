@@ -12,7 +12,7 @@
 	aspect-ratio: 1;
 
 	&.default{
-		--_g: no-repeat radial-gradient(farthest-side, hsl(var(--color-neutral-1100)) 94%, transparent);
+		--_g: no-repeat radial-gradient(farthest-side, hsla(var(--color-neutral-800),30%) 94%, transparent);
 	}
 
 	&.dark{
@@ -21,6 +21,10 @@
 
 	&.light{
 		--_g: no-repeat radial-gradient(farthest-side, hsl(var(--def-color-neutral-0)) 94%, transparent);
+	}
+
+	&.primary{
+		--_g: no-repeat radial-gradient(farthest-side, hsl(var(--color-blue-600)) 94%, transparent);
 	}
 	background:
 		var(--_g) 0    0,

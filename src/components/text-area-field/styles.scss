@@ -1,0 +1,49 @@
+@use '../index';
+
+.text-area-field{
+    overflow: hidden;
+    width: 100%;
+
+    @include index.field-style;
+
+    >.text-area-field-input-container{
+        max-height: 320px;
+        overflow-y: auto;
+        align-items: flex-start;
+
+        .grow-wrap {
+            display: grid;
+            width: 100%;
+        }
+        .grow-wrap::after {
+            content: attr(data-replicated-value) " ";
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+    
+            visibility: hidden;
+        }
+        .grow-wrap > textarea {
+            resize: none;
+            overflow: hidden;
+        }
+
+        .grow-wrap > textarea,
+        .grow-wrap::after {
+            border: none;
+            margin: 9px 0px;
+            font: inherit;
+            line-height: 20px;
+            grid-area: 1 / 1 / 2 / 2;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .grow-wrap > textarea{
+            padding: 0px;
+            &:focus-visible{
+                outline: none;
+                margin: 8px 0px;
+            }
+        }
+    }
+}

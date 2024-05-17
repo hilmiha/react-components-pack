@@ -19,6 +19,7 @@ export const sidebarManuListDummy = [
                 {id:'selection-field', txtLabel:'Selection Field', to:'/components/selection-field'},
                 {id:'radio-field', txtLabel:'Radio Field', to:'/components/radio-field'},
                 {id:'text-field', txtLabel:'Text Field', to:'/components/text-field'},
+                {id:'text-area-field', txtLabel:'Text Area Field', to:'/components/text-area-field'},
             ]},
             {id:'image', txtLabel:'Image', to:'/components/image'},
             {id:'modal', txtLabel:'Modal', to:'/components/modal'},

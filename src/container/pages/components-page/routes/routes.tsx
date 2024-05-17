@@ -11,6 +11,7 @@ const DropdownMenuPage = React.lazy(() => import('../../component-dropdown-menu-
 const DatePickerFieldPage = React.lazy(() => import('../../component-date-picker-field-page'));
 const SelectionFieldPage = React.lazy(() => import('../../component-selection-field-page'));
 const TextFieldPage = React.lazy(() => import('../../component-text-field-page'));
+const TextAreaFieldPage = React.lazy(() => import('../../component-text-area-field-page'));
 const ImagePage = React.lazy(() => import('../../component-image-page'));
 const ModalPage = React.lazy(() => import('../../component-modal-page'));
 const PillFlairPage = React.lazy(() => import('../../component-pill-flair-page'));
@@ -35,6 +36,7 @@ const route = [
     {path: '/date-picker-field/*', component: <DatePickerFieldPage/>},
     {path: '/selection-field/*', component: <SelectionFieldPage/>},
     {path: '/text-field/*', component: <TextFieldPage/>},
+    {path: '/text-area-field/*', component: <TextAreaFieldPage/>},
     {path: '/image/*', component: <ImagePage/>},
     {path: '/modal/*', component: <ModalPage/>},
     {path: '/pill-flair/*', component: <PillFlairPage/>},

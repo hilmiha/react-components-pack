@@ -15,12 +15,13 @@ type SliderProps = {
     value: valueSliderType
     onChange?:(newValue:valueSliderType)=>void
     isFillContainer?:boolean
-    minLabel?:string
-    maxLabel?:string
+    startContent?: string | JSX.Element | JSX.Element[] | ((props?:Record<any,any>)=>JSX.Element)
+    endContent?: string | JSX.Element | JSX.Element[] | ((props?:Record<any,any>)=>JSX.Element)
     minRange?: number
     maxRange?: number
     markers?:listSliderMaker
     step?:number
+    isDisabled?:boolean
 }
 
 const SliderMarker = ({props, value, markers}:any) =>{
@@ -56,12 +57,13 @@ const Slider = ({
     value,
     onChange,
     isFillContainer,
-    minLabel,
-    maxLabel,
+    startContent,
+    endContent,
     minRange = 0,
     maxRange = 100,
     markers,
-    step = 0.1
+    step = 0.1,
+    isDisabled = false
 }:SliderProps) =>{
     const isRange = useMemo(()=>{
         if(typeof value !== 'number'){
@@ -91,20 +93,32 @@ const Slider = ({
                 ${className?(className):('')}
                 ${orientation?(orientation):('')}
                 ${isFillContainer?('fill-container'):('')}
+                ${isDisabled?('disabled'):('')}
                 ${isRange?('range'):('')}
                 `)  
             }
             style={{
-                gridTemplateColumns:(orientation==='horizontal')?(`${minLabel?('max-content'):('')} 1fr ${maxLabel?('max-content'):('')}`):('unset'),
-                gridTemplateRows:(orientation==='vertical')?(`${minLabel?('max-content'):('')} 1fr ${maxLabel?('max-content'):('')}`):('unset')
+                gridTemplateColumns:(orientation==='horizontal')?(`${startContent?('max-content'):('')} 1fr ${endContent?('max-content'):('')}`):('unset'),
+                gridTemplateRows:(orientation==='vertical')?(`${startContent?('max-content'):('')} 1fr ${endContent?('max-content'):('')}`):('unset')
             }}
         >   
             {
-                (minLabel)&&(
-                    <div className="min-label-container"><span className="font-text">{minLabel}</span></div>
+                (startContent)&&(
+                    <div className="min-label-container">
+                        {
+                            (typeof startContent === 'function')?(
+                                startContent()
+                            ):(typeof startContent === 'string')?(
+                                <span className="font-text">{startContent}</span>
+                            ):(
+                                startContent
+                            )
+                        }
+                    </div>
                 )
             }
             <ReactSlider
+                disabled={isDisabled}
                 value={value}
                 onChange={(newValue)=>{thisOnChange(newValue)}}
                 className={`slider-input`}
@@ -121,8 +135,18 @@ const Slider = ({
                 renderMark={(props) => <SliderMarker key={props.key} props={{...props}} value={value} markers={markers}/>}
             />
             {
-                (maxLabel)&&(
-                    <div className="max-label-container"><span className="font-text">{maxLabel}</span></div>
+                (endContent)&&(
+                    <div className="max-label-container">
+                        {
+                            (typeof endContent === 'function')?(
+                                endContent()
+                            ):(typeof endContent === 'string')?(
+                                <span className="font-text">{endContent}</span>
+                            ):(
+                                endContent
+                            )
+                        }
+                    </div>
                 )
             }
         </div>

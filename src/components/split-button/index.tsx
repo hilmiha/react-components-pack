@@ -14,7 +14,6 @@ type Props = {
     isCloseAfterSelect?:boolean
     onClick?: ()=>void
     onClickItem?: (idButton:string)=>void
-    test?: JSX.Element[]
 }
 
 const SplitButton = ({

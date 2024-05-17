@@ -20,7 +20,7 @@
             width: 100%;
     
             .slider-track{
-                height: var(--size-3);
+                height: var(--size-2);
             }
         }
 
@@ -54,7 +54,7 @@
             width: 100%;
     
             .slider-track{
-                width: var(--size-3);
+                width: var(--size-2);
             }
         }
 
@@ -157,6 +157,10 @@
                 color: hsl(var(--color-neutral-1100));
             }
         }
+    }
+
+    &.disabled{
+        opacity: 0.4;
     }
 }
 

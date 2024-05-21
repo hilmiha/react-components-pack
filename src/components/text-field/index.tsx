@@ -3,7 +3,7 @@ import { formatText, processClassname } from '../../helper'
 import './styles.scss'
 import { useState } from 'react'
 
-type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number'
+type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number' | 'text-number-float'
 type valueType = string
 export type errorType = {isError: boolean, errorMessage:string}
 
@@ -15,6 +15,7 @@ export type textFieldConfig = {
     minValue?:number,
     maxValue?:number,
     regex?:RegExp | [RegExp, string]
+    integralDigit?: 0 | 1 | 2 | 3
 }
 
 export type TextFieldProps = {
@@ -63,6 +64,17 @@ const TextField = ({
             const tampTamp =  (tampValue?(tampValue):('')).toString().replace(/[^0-9]+/g, "")
             const tamp = formatText(type, tampTamp.slice(0,(config?.maxLength)?(config.maxLength):(tampTamp.length)))
             tampValue = tamp.formatedText.replace(/[^0-9]+/g, "")
+            tampMaskedValue= tamp.formatedText
+        }else if(type==='text-number-float'){
+            const tampTampSplit =  (tampValue?(tampValue):('')).toString().replace(/[^0-9,\.]+/g, "").split(',')
+            let tampTamp = ''
+            if(tampTampSplit.length>1){
+                tampTamp = tampTampSplit[0]+','+tampTampSplit[1].slice(0,(config?.integralDigit)?(config.integralDigit):(2))
+            }else{
+                tampTamp = tampTampSplit[0]
+            }
+            const tamp = formatText(type, tampTamp)
+            tampValue = tamp.realValue
             tampMaskedValue= tamp.formatedText
         }else{
             tampValue = (typeof tampValue === 'string')?(tampValue.slice(0,(config?.maxLength)?(config.maxLength):(tampValue.length))):(tampValue)
@@ -132,7 +144,31 @@ const TextField = ({
     }
 
     const thisOnBlur = (event: React.ChangeEvent<HTMLInputElement> | string) =>{
-        const processedValue = processValue(false, (typeof event === 'string')?event:event.target.value)
+        let processedValue = ''
+
+        if(type==='text-number-float'){
+            let valAr = ((typeof event === 'string')?event:event.target.value).split(',')
+            let valStr = ''
+            
+            const oDigit = Array((config?.integralDigit?(config.integralDigit + 1):(3))).join("0")
+
+            if(valAr.length === 1){
+                if(valAr[0]){
+                    valStr = valAr[0]+','+'0'
+                }else{
+                    valStr = valAr[0]
+                }
+            }else{
+                valAr[1] = valAr[1]+oDigit
+                if(parseFloat(valAr[1])===0){
+                    valAr[1] = '0'
+                }
+                valStr = valAr[0] + ',' + valAr[1]
+            }
+            processedValue = processValue(false, valStr)
+        }else{
+            processedValue = processValue(false, (typeof event === 'string')?event:event.target.value)
+        }
 
         const valueTrim = typeof processedValue === 'string'?processedValue.trim():processedValue
         
@@ -183,7 +219,7 @@ const TextField = ({
                         onBlur={thisOnBlur}
                         onChange={thisOnChange}
                         onKeyDown={thisOnKeyDown}
-                        type={(type==='text-number'|| type==='text-only-number')?'tel':'text'}
+                        type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
                     />
                     {(sufix)&&(
                         <span className='field-prefix-sufix'>{sufix}</span>

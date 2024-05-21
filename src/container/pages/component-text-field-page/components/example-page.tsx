@@ -9,6 +9,7 @@ export type formType = {
     textField:string
     noSpaceField:string,
     numberFiled:string,
+    numberFloatField:string,
     numberOnly:string
 }
 
@@ -21,6 +22,7 @@ const ExamplePage = () =>{
         textField:'',
         noSpaceField:'',
         numberFiled:'',
+        numberFloatField:'',
         numberOnly:''
     })
 
@@ -40,6 +42,9 @@ const ExamplePage = () =>{
         setTabSelected('example')
     },[])
     
+    useEffect(()=>{
+        console.log(form)
+    },[form])
     return(
         <div className="tab-content">
             <div className="component-section">
@@ -82,7 +87,7 @@ const ExamplePage = () =>{
                 <span className="font-title">Number</span>
                 <div className="preview-box">
                     <TextField
-                        txtLabel="Form Number Label"
+                        txtLabel="Form Number"
                         txtPlaceholder="Form placeholder..."
                         type="text-number"
                         value={form['numberFiled']}
@@ -90,7 +95,26 @@ const ExamplePage = () =>{
                         onChange={(newValue)=>{onChange('numberFiled', newValue)}}
                         onValidate={(errorResult)=>{onValidate('numberFiled', errorResult)}}
                         config={{
+                            isMandatory:true
+                        }}
+                    />
+                </div>
+            </div>
+
+            <div className="component-section">
+                <span className="font-title">Float Number</span>
+                <div className="preview-box">
+                    <TextField
+                        txtLabel="Form Number Label"
+                        txtPlaceholder="Form placeholder..."
+                        type="text-number-float"
+                        value={form['numberFloatField']}
+                        error={formError['numberFloatField']}
+                        onChange={(newValue)=>{onChange('numberFloatField', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('numberFloatField', errorResult)}}
+                        config={{
                             isMandatory:true,
+                            integralDigit:0
                         }}
                     />
                 </div>

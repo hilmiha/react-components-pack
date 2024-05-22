@@ -11,6 +11,11 @@
         overflow-y: auto;
         align-items: flex-start;
 
+        textarea{
+            background-color: transparent;
+            color: hsl(var(--color-neutral-1100));
+        }
+
         .grow-wrap {
             display: grid;
             width: 100%;

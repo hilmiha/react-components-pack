@@ -1,7 +1,7 @@
 import { PiWarningDiamondFill } from 'react-icons/pi'
 import { formatText, processClassname } from '../../helper'
 import './styles.scss'
-import { useState } from 'react'
+import { LegacyRef, useState } from 'react'
 
 type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number' | 'text-number-float'
 type valueType = string
@@ -19,6 +19,7 @@ export type textFieldConfig = {
 }
 
 export type TextFieldProps = {
+    inputRef?: React.MutableRefObject<HTMLInputElement | undefined>
     className?: string
     type:textFieldType
     value?: valueType
@@ -32,6 +33,7 @@ export type TextFieldProps = {
 }
 
 const TextField = ({
+    inputRef,
     className,
     type = 'text',
     txtLabel,
@@ -189,51 +191,50 @@ const TextField = ({
     }
 
     return(
-        <>
+        <div 
+            className={
+                processClassname(`text-field field
+                ${className?(className):('')}`)  
+            }
+        >
+            {
+                (txtLabel)&&(
+                    <>
+                        <span className='field-label'>{txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}</span>
+                    </>
+                )
+            }
             <div 
                 className={
-                    processClassname(`text-field field
-                    ${className?(className):('')}`)  
+                    processClassname(`text-field-input-container field-container
+                    ${(error?.isError)?('error'):('')}`)  
                 }
             >
-                {
-                    (txtLabel)&&(
-                        <>
-                            <span className='field-label'>{txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}</span>
-                        </>
-                    )
-                }
-                <div 
-                    className={
-                        processClassname(`text-field-input-container field-container
-                        ${(error?.isError)?('error'):('')}`)  
-                    }
-                >
-                    {(prefix)&&(
-                        <span className='field-prefix-sufix'>{prefix}</span>
-                    )}
-                    <input
-                        placeholder={txtPlaceholder}
-                        className={'text-field-input'}
-                        value={processValue(true, value)}
-                        onBlur={thisOnBlur}
-                        onChange={thisOnChange}
-                        onKeyDown={thisOnKeyDown}
-                        type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
-                    />
-                    {(sufix)&&(
-                        <span className='field-prefix-sufix'>{sufix}</span>
-                    )}
-                </div>
-                {
-                    (error?.isError)&&(
-                        <span className='field-error-message'>
-                            <PiWarningDiamondFill/> {error.errorMessage}
-                        </span>
-                    )
-                }
+                {(prefix)&&(
+                    <span className='field-prefix-sufix'>{prefix}</span>
+                )}
+                <input
+                    ref={inputRef?(inputRef as LegacyRef<HTMLInputElement>):undefined}
+                    placeholder={txtPlaceholder}
+                    className={'text-field-input'}
+                    value={processValue(true, value)}
+                    onBlur={thisOnBlur}
+                    onChange={thisOnChange}
+                    onKeyDown={thisOnKeyDown}
+                    type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
+                />
+                {(sufix)&&(
+                    <span className='field-prefix-sufix'>{sufix}</span>
+                )}
             </div>
-        </>
+            {
+                (error?.isError)&&(
+                    <span className='field-error-message'>
+                        <PiWarningDiamondFill/> {error.errorMessage}
+                    </span>
+                )
+            }
+        </div>
     )
 }
 

@@ -25,7 +25,14 @@
             .field-container{
                 border: 0px solid black;
                 padding: 0px;
-                min-height: 32px;
+                min-height: 20px;
+                
+                .text-field-input{
+                    text-align: center;
+                }
+                .text-field-input:focus-visible{
+                    background-color: hsl(var(--color-neutral-300));
+                }
 
                 &:has(.text-field-input:focus-visible){
                     border: 0px;
@@ -36,9 +43,18 @@
 
         .ampm-container{
             width: 25px;
+
             .field-container{
                 border: 0px solid black;
                 padding: 0px;
+                min-height: 20px;
+                
+                .text-field-input{
+                    text-align: center;
+                }
+                .text-field-input:focus-visible{
+                    background-color: hsl(var(--color-neutral-300));
+                }
 
                 &:has(.text-field-input:focus-visible){
                     border: 0px;

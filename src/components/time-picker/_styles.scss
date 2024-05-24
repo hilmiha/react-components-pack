@@ -33,7 +33,7 @@
                 height: 40px;
                 border-radius: 4px;
                 border: 0px;
-
+                color: hsl(var(--color-neutral-1100));
                 background-color: hsla(var(--color-neutral-300), 0);
 
                 &:hover{
@@ -48,7 +48,7 @@
 
                 &.selected{
                     background-color: hsl(var(--color-blue-700));
-                    color: white;
+                    color: hsl(var(--color-neutral-100));
                     font-weight: bold;
                     border-top-left-radius: 15px;
                     border-bottom-right-radius: 15px;

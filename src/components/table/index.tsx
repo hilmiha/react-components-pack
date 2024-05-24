@@ -278,6 +278,11 @@ const Table = ({
         }
     }
 
+    const thisDoSearchKeyDown = (event:React.KeyboardEvent<HTMLInputElement>) =>{
+        if(event.key === 'Enter'){
+            thisOnDoSearch()
+        }
+    }
     const thisOnDoSearch = (searchKey?:string) =>{
         if(onDoSearch){
             if(searchKey !== undefined){
@@ -367,7 +372,7 @@ const Table = ({
                                             txtPlaceholder={searchBarPlaceholder!==undefined?(searchBarPlaceholder):('Search')}
                                             value={form['search']}
                                             onChange={(newValue)=>{onChange('search', newValue)}}
-                                            onPressEnter={()=>{thisOnDoSearch()}}
+                                            onKeyDown={(e)=>{thisDoSearchKeyDown(e)}}
                                             config={{
                                                 sufix:((!form['search'])?(<></>):(<IconButton Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
                                             }}

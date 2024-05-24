@@ -62,8 +62,6 @@ const DivOptions = ({
     const divRef = useRef(null)
     const { focusNext, focusPrev } = useFocusController(divRef)
 
-    const [virtualList, setVirtualList] = useState([...list])
-
     const onKey = (event:React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'ArrowDown') {
             event.preventDefault();
@@ -94,7 +92,7 @@ const DivOptions = ({
         <div className='options-list-container' ref={divRef} onKeyDown={onKey}>
             {
                 (true)&&(
-                    virtualList.map((itm, index)=>(
+                    list.map((itm, index)=>(
                         <ButtonOption 
                             key={index} 
                             label={`${`${itm}`.length===1?(`0${itm}`):(`${itm}`)}`} 
@@ -116,7 +114,7 @@ const TimePicker = ({
     isAmPm = true
 }:TimePickerProps) =>{
 
-    const hourList = Array.apply(null, Array(24)).map(function (x, i) { return i; })
+    const hourList = Array.apply(null, Array(isAmPm?(12):(24))).map(function (x, i) { return i; })
     const minuteList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
     const secondList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
 
@@ -135,7 +133,6 @@ const TimePicker = ({
             setValueSecond(newValue)
         }
     }
-
 
     return(
         <div className='time-picker'>

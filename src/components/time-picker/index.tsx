@@ -2,11 +2,16 @@ import { PiWarningDiamondFill } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
-import { useEffect, useRef, useState } from "react"
+import { LegacyRef, useEffect, useMemo, useRef, useState } from "react"
 import useFormHook from "../../hook/useFormHook"
+import TimePicker from "./_index"
 
 type timeFieldType = 'ampm' | '24hr'
-type timeFieldValueType = Date
+type timeFieldValueType = {
+    hour:number | undefined
+    minute:number | undefined
+    second:number | undefined
+}
 export type timeFieldConfig = {
     minTime?:Date,
     maxTime?:Date,
@@ -17,6 +22,7 @@ type TimeFieldProps = {
     type:timeFieldType
     className?:string
     txtLabel?:string
+    value?:timeFieldValueType
     onChange?: (newValue:timeFieldValueType) => void,
     onValidate?: (errorResult:errorType, newValue:timeFieldValueType, config?:timeFieldConfig) => void,
     error?: errorType
@@ -28,6 +34,7 @@ const TimeField = ({
     type='24hr',
     className,
     txtLabel,
+    value,
     onChange,
     onValidate,
     error,
@@ -40,14 +47,88 @@ const TimeField = ({
     const minuteInputRef = useRef<HTMLInputElement>()
     const secondInputRef = useRef<HTMLInputElement>()
     const ampmInputRef = useRef<HTMLInputElement>()
+    const containerRef = useRef<HTMLDivElement>()
 
+    const [isAm, setIsAm]=useState((value?.hour)?(value.hour>12?(false):(true)):(true))
+    const [isFieldFocus, setIsFieldFocus] = useState(true)
+
+    const valueHourToForm = (hour:number | undefined) =>{
+        if(type==='ampm' && hour!==undefined){
+            if(hour===0){
+                return('12')
+            }if(hour===12){
+                return('12')
+            }else if(hour>12){
+                return(`${(hour-12)}`.length===1?(`0${(hour-12)}`):(`${(hour-12)}`))
+            }else{
+                return(`${(hour)}`.length===1?(`0${(hour)}`):(`${(hour)}`))
+            }
+        }else{
+            return(`${(hour)}`.length===1?(`0${(hour)}`):(`${(hour)}`))
+        }
+    }
+
+    const formToValueHour = (hour:number | undefined) =>{
+        if(type==='ampm' && hour!==undefined){
+            if(hour){
+                if(isAm){
+                    if(hour===12){
+                        return(0)
+                    }else{
+                        return(hour)
+                    }
+                }else{
+                    if(hour===12){
+                        return(12)
+                    }else{
+                        return(hour+12)
+                    }
+                }
+            }
+        }else{
+            if(hour!==undefined){
+                return(hour)
+            }else{
+                return(undefined)
+            }
+        }
+    }
 
     const [form, setForm] = useState({
-        hour:'00',
-        minute:'00',
-        second:'00',
-        ampm:'AM'
+        hour:(value?.hour!==undefined)?(valueHourToForm(value.hour)):('--'),
+        minute:(value?.minute!==undefined)?(`${value.minute}`.length===1?(`0${value.minute}`):(`${value.minute}`)):('--'),
+        second:(value?.second!==undefined)?(`${value.second}`.length===1?(`0${value.second}`):(`${value.second}`)):('--'),
     })
+
+    const prevValue = useMemo(()=>{
+        return({
+            hour:(value?.hour!==undefined)?(valueHourToForm(value.hour)):('--'),
+            minute:(value?.minute!==undefined)?(`${value.minute}`.length===1?(`0${value.minute}`):(`${value.minute}`)):('--'),
+            second:(value?.second!==undefined)?(`${value.second}`.length===1?(`0${value.second}`):(`${value.second}`)):('--'),
+        })
+    },[value])
+
+    const prevAmPm = useMemo(()=>{
+        return(isAm)
+    },[value])
+
+    const onChangeField = ():timeFieldValueType =>{
+        return({
+            hour:(isNaN(parseInt(form.hour))?(undefined):(formToValueHour(parseInt(form.hour)))),
+            minute:(isNaN(parseInt(form.minute))?(undefined):(parseInt(form.minute))),
+            second:(isNaN(parseInt(form.second))?(undefined):(parseInt(form.second)))
+        })
+    }
+
+    useEffect(()=>{
+        if(!isFieldFocus && onChange){
+            if((JSON.stringify(prevValue)!==JSON.stringify(form)) || (prevAmPm !== isAm)){
+                onChange(onChangeField())
+            }else{
+
+            }
+        }
+    },[isFieldFocus])
 
     const {
         onChange:onChangeFormTime
@@ -58,71 +139,170 @@ const TimeField = ({
 
     const thisOnChangeHour = (inputType:'hour' | 'minute' | 'second', newValue:string) =>{
         let maxValue = 0
+        let minValue = 0
+        let newValueNumber = parseInt(newValue.replace(/\-/g, ""))
+
         if(inputType==='hour'){
             if(type==='24hr'){
-                maxValue = 24
+                maxValue = 23
+                minValue = 0
             }else{
                 maxValue = 12
+                minValue = 0
             }
         }else{
             maxValue = 59
         }
+        
+        if(newValueNumber || newValueNumber===0){
+            if(inputType==='hour' && type==='ampm' && newValueNumber===0 && newValue.length>1){
 
-        if(newValue){
-            if(parseInt(newValue)<=maxValue){
-                onChangeFormTime(inputType, newValue)
+            }else{
+                if(newValueNumber<=maxValue && newValueNumber>=minValue){
+                    const tamp = newValue.replace(/[^0-9]+/g, "")
+                    onChangeFormTime(inputType, tamp.substring(tamp.length===3?(1):(0)))
+                }
             }
         }else{
             onChangeFormTime(inputType, '')
         }
     }
-    const thisOnValidateHour = (inputType:'hour' | 'minute' | 'second', newValue:string) =>{
-        let maxValue = 0
+
+    const checkIfFocus = () =>{
+        if(containerRef.current){
+            setIsFieldFocus(containerRef.current.matches(':focus-within:not(:focus)'))
+        }
+    }
+
+    const thisOnValidateHour = (inputType:'hour' | 'minute' | 'second' | 'ampm', newValue:string) =>{
+        if(inputType!=='ampm'){
+            if(hourInputRef.current && inputType==='hour'){
+                hourInputRef.current.type = 'text'
+            }
+            if(minuteInputRef.current && inputType==='minute'){
+                minuteInputRef.current.type = 'text'
+            }
+            if(secondInputRef.current && inputType==='second'){
+                secondInputRef.current.type = 'text'
+            }
+
+            if(newValue){
+                if(type==='ampm' && newValue==='0' && inputType==='hour'){
+                    onChangeFormTime(inputType, '--')
+                }else{
+                    onChangeFormTime(inputType, (newValue.length===1?(`0${newValue}`):(newValue)))
+                }
+            }else{
+                onChangeFormTime(inputType, '--')
+            }
+        }else{
+
+        }
+        
+
+        checkIfFocus()
+    }
+
+    const thisOnChangeAmPm = (newValue:string) =>{
+        if(isAm && newValue.toLowerCase().includes('p')){
+            setIsAm(false)
+        }else if(!isAm && newValue.toLowerCase().includes('a')){
+            setIsAm(true)
+        }
+    }
+
+    const thisOnKeyDown = (event:React.KeyboardEvent<HTMLInputElement>, inputType:'hour' | 'minute' | 'second' | 'ampm') =>{
+        const isKeyNumber = parseInt(event.key)
+        const isSelectAll = (event.target as HTMLInputElement).selectionStart !== (event.target as HTMLInputElement).selectionEnd
+        
+
+        if(inputType==='hour' && (event.keyCode===8 || event.keyCode===32 || event.keyCode===39 || event.keyCode===37 || !isNaN(isKeyNumber))){
+            if(event.keyCode===32){
+                setTimeout(() => {
+                    minuteInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===39 && (form.hour.length===(event.target as HTMLInputElement).selectionEnd || form.hour.length===(event.target as HTMLInputElement).selectionStart)){
+                setTimeout(() => {
+                    minuteInputRef.current?.focus()
+                }, 10);
+            }else if(!isNaN(isKeyNumber) && form.hour.length>1 && form.hour[0]!=='0' && !isSelectAll){
+                setTimeout(() => {
+                    minuteInputRef.current?.focus()
+                    thisOnChangeHour('minute', `${isKeyNumber}`)
+                }, 10);
+            }
+        }else if(inputType==='minute' && (event.keyCode===8 || event.keyCode===32 || event.keyCode===39 || event.keyCode===37 || !isNaN(isKeyNumber))){
+            if(event.keyCode===32){
+                setTimeout(() => {
+                    secondInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===8 && !(event.target as HTMLInputElement).value){
+                setTimeout(() => {
+                    hourInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===39 && (form.minute.length===(event.target as HTMLInputElement).selectionEnd || form.minute.length===(event.target as HTMLInputElement).selectionStart)){
+                setTimeout(() => {
+                    secondInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===37 && ((event.target as HTMLInputElement).selectionEnd===0 || (event.target as HTMLInputElement).selectionStart===0)){
+                setTimeout(() => {
+                    hourInputRef.current?.focus()
+                }, 10);
+            }else if(!isNaN(isKeyNumber) && form.minute.length>1 && form.minute[0]!=='0' && !isSelectAll){
+                setTimeout(() => {
+                    secondInputRef.current?.focus()
+                    thisOnChangeHour('second', `${isKeyNumber}`)
+                }, 10);
+            }
+        }else if(inputType==='second' && (event.keyCode===8 || event.keyCode===32 || event.keyCode===39 || event.keyCode===37)){
+            if(event.keyCode===32){
+                setTimeout(() => {
+                    ampmInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===8 && !(event.target as HTMLInputElement).value){
+                setTimeout(() => {
+                    minuteInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===39 && (form.second.length===(event.target as HTMLInputElement).selectionEnd || form.second.length===(event.target as HTMLInputElement).selectionStart)){
+                setTimeout(() => {
+                    ampmInputRef.current?.focus()
+                }, 10);
+            }else if(event.keyCode===37 && ((event.target as HTMLInputElement).selectionEnd===0 || (event.target as HTMLInputElement).selectionStart===0)){
+                setTimeout(() => {
+                    minuteInputRef.current?.focus()
+                }, 10);
+            }
+        }else if(inputType==='ampm' && (event.keyCode===8 || event.keyCode===37)){
+            if((event.keyCode===37 || event.keyCode===8)){
+                setTimeout(() => {
+                    secondInputRef.current?.focus()
+                }, 10);
+            }
+        }
+    }
+
+    const thisOnFocus = (inputType:'hour' | 'minute' | 'second' | 'ampm') => {
         if(inputType==='hour'){
-            maxValue = 12
-        }else{
-            maxValue = 59
-        }
-
-        if(newValue){
-            if(parseInt(newValue)<=maxValue){
-                onChangeFormTime(inputType, (newValue.length===1?(`0${newValue}`):(newValue)))
+            if(hourInputRef.current){
+                hourInputRef.current.type = 'tel'
             }
-        }else{
-            onChangeFormTime(inputType, '00')
+            hourInputRef.current?.select()
+        }else if(inputType==='minute'){
+            if(minuteInputRef.current){
+                minuteInputRef.current.type = 'tel'
+            }
+            minuteInputRef.current?.select()
+        }else if(inputType==='second'){
+            if(secondInputRef.current){
+                secondInputRef.current.type = 'tel'
+            }
+            secondInputRef.current?.select()
+        }else if(inputType==='ampm'){
+            ampmInputRef.current?.select()
         }
+        checkIfFocus()
     }
 
-    const thisOnChangeAmpm = (newValue:string) =>{
-        console.log(newValue)
-        if(newValue.toLocaleLowerCase().includes('p') && form['ampm']==='AM'){
-            onChangeFormTime('ampm', 'PM')
-        }else if(newValue.toLocaleLowerCase().includes('a') && form['ampm']==='PM'){
-            onChangeFormTime('ampm', 'AM')
-        }
-    }
-
-    useEffect(()=>{
-        if(hourInputRef.current){
-            hourInputRef.current.onfocus = ()=>{
-                hourInputRef.current?.select()
-            }
-        }
-    },[hourInputRef])
-    useEffect(()=>{
-        if(minuteInputRef.current){
-            minuteInputRef.current.onfocus = ()=>{
-                minuteInputRef.current?.select()
-            }
-        }
-    },[minuteInputRef])
-    useEffect(()=>{
-        if(secondInputRef.current){
-            secondInputRef.current.onfocus = ()=>{
-                secondInputRef.current?.select()
-            }
-        }
-    },[secondInputRef])
     return(
         <div 
             className={
@@ -138,6 +318,7 @@ const TimeField = ({
                 )
             }
             <div 
+                ref={containerRef as LegacyRef<HTMLInputElement>}
                 className={
                     processClassname(`text-field-input-container field-container
                     ${(error?.isError)?('error'):('')}`)  
@@ -146,12 +327,14 @@ const TimeField = ({
                 <div className="hour-container">
                     <TextField
                         inputRef={hourInputRef}
-                        type="text-only-number"
+                        type="text-no-space"
                         value={form['hour']}
-                        onChange={(newValue)=>{thisOnChangeHour('hour', newValue)}}
-                        onValidate={(x, newValue)=>{thisOnValidateHour('hour', newValue)}}
+                        onChange={(newValue)=>{thisOnChangeHour('hour', `${newValue}`)}}
+                        onFocus={()=>{thisOnFocus('hour')}}
+                        onKeyDown={(e)=>{thisOnKeyDown(e, 'hour')}}
+                        onBlur={(e)=>{thisOnValidateHour('hour', e.target.value.trim())}}
                         config={{
-                            maxLength:2
+                            maxLength:3
                         }}
                     />
                 </div>
@@ -159,12 +342,14 @@ const TimeField = ({
                 <div className="hour-container">
                     <TextField
                         inputRef={minuteInputRef}
-                        type="text-only-number"
+                        type="text-no-space"
                         value={form['minute']}
-                        onChange={(newValue)=>{thisOnChangeHour('minute', newValue)}}
-                        onValidate={(x, newValue)=>{thisOnValidateHour('minute', newValue)}}
+                        onChange={(newValue)=>{thisOnChangeHour('minute', `${newValue}`)}}
+                        onFocus={()=>{thisOnFocus('minute')}}
+                        onKeyDown={(e)=>{thisOnKeyDown(e, 'minute')}}
+                        onBlur={(e)=>{thisOnValidateHour('minute', e.target.value.trim())}}
                         config={{
-                            maxLength:2
+                            maxLength:3
                         }}
                     />
                 </div>
@@ -175,12 +360,14 @@ const TimeField = ({
                             <div className="hour-container">
                                 <TextField
                                     inputRef={secondInputRef}
-                                    type="text-only-number"
+                                    type="text-no-space"
                                     value={form['second']}
-                                    onChange={(newValue)=>{thisOnChangeHour('second', newValue)}}
-                                    onValidate={(x, newValue)=>{thisOnValidateHour('second', newValue)}}
+                                    onChange={(newValue)=>{thisOnChangeHour('second', `${newValue}`)}}
+                                    onFocus={()=>{thisOnFocus('second')}}
+                                    onKeyDown={(e)=>{thisOnKeyDown(e, 'second')}}
+                                    onBlur={(e)=>{thisOnValidateHour('second', e.target.value.trim())}}
                                     config={{
-                                        maxLength:2
+                                        maxLength:3
                                     }}
                                 />
                             </div>
@@ -189,17 +376,23 @@ const TimeField = ({
                 }
                 {
                     (type==='ampm')&&(
-                        <div className="ampm-container">
-                            <TextField
-                                inputRef={ampmInputRef}
-                                type="text-no-space"
-                                value={form['ampm']}
-                                onChange={(newValue)=>{thisOnChangeAmpm(newValue)}}
-                                config={{
-                                    maxLength:3
-                                }}
-                            />
-                        </div>
+                        <>
+                            <span className="font-text">:</span>
+                            <div className="ampm-container">
+                                <TextField
+                                    inputRef={ampmInputRef}
+                                    type="text-no-space"
+                                    value={isAm?('AM'):('PM')}
+                                    onChange={(newValue)=>{thisOnChangeAmPm(newValue)}}
+                                    onFocus={()=>{thisOnFocus('ampm')}}
+                                    onKeyDown={(e)=>{thisOnKeyDown(e, 'ampm')}}
+                                    onBlur={(e)=>{thisOnValidateHour('ampm', e.target.value.trim())}}
+                                    config={{
+                                        maxLength:3
+                                    }}
+                                />
+                            </div>
+                        </>
                     )
                 }
                 <div 
@@ -216,6 +409,9 @@ const TimeField = ({
                     </span>
                 )
             }
+            <TimePicker
+                isAmPm={true}
+            />
         </div>
     )
 }

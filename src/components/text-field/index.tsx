@@ -26,7 +26,10 @@ export type TextFieldProps = {
     txtLabel?:string
     txtPlaceholder?:string
     onChange?: (newValue:valueType) => void,
-    onPressEnter?: ()=>void
+    onFocus?: (event:React.ChangeEvent<HTMLInputElement>) => void,
+    onBlur?: (event:React.ChangeEvent<HTMLInputElement>) => void,
+    onKeyDown?: (event:React.KeyboardEvent<HTMLInputElement>)=>void
+    onKeyUp?: (event:React.KeyboardEvent<HTMLInputElement>)=>void
     onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
     error?: errorType
     config?: textFieldConfig
@@ -40,7 +43,10 @@ const TextField = ({
     txtPlaceholder,
     value,
     onChange,
-    onPressEnter,
+    onFocus,
+    onBlur,
+    onKeyDown,
+    onKeyUp,
     onValidate,
     config,
     error
@@ -145,11 +151,17 @@ const TextField = ({
         }
     }
 
-    const thisOnBlur = (event: React.ChangeEvent<HTMLInputElement> | string) =>{
+    const thisOnFocus = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        if(onFocus){
+            onFocus(event)
+        }
+    }
+
+    const thisOnBlur = (event: React.ChangeEvent<HTMLInputElement>) =>{
         let processedValue = ''
 
         if(type==='text-number-float'){
-            let valAr = ((typeof event === 'string')?event:event.target.value).split(',')
+            let valAr = (event.target.value).split(',')
             let valStr = ''
             
             const oDigit = Array((config?.integralDigit?(config.integralDigit + 1):(3))).join("0")
@@ -182,11 +194,20 @@ const TextField = ({
             const configTamp = config
             onValidate(validateField(valueTrim), valueTrim, configTamp)
         }
+
+        if(onBlur){
+            onBlur(event)
+        }
     }
 
     const thisOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>{
-        if(event.key === 'Enter' && onPressEnter){
-            onPressEnter()
+        if(onKeyDown){
+            onKeyDown(event)
+        }
+    }
+    const thisOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) =>{
+        if(onKeyUp){
+            onKeyUp(event)
         }
     }
 
@@ -219,8 +240,10 @@ const TextField = ({
                     className={'text-field-input'}
                     value={processValue(true, value)}
                     onBlur={thisOnBlur}
+                    onFocus={thisOnFocus}
                     onChange={thisOnChange}
                     onKeyDown={thisOnKeyDown}
+                    onKeyUp={thisOnKeyUp}
                     type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
                 />
                 {(sufix)&&(

@@ -178,6 +178,11 @@
     .rdp-day_disabled{
         color: hsl(var(--color-neutral-1100));
     }
+    
+    .rdp-nav_icon{
+        height: 10px;
+        width: 10px;
+    }
 }
 
 @media screen and (max-width: 767px) and (max-height: 400px){

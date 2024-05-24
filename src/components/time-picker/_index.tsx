@@ -3,9 +3,13 @@ import './_styles.scss'
 import { MoveFocusInside, useFocusController, useFocusState } from 'react-focus-lock'
 import FocusLock, { AutoFocusInside } from 'react-focus-lock';
 import { processClassname } from '../../helper';
+import { timeFieldValueType } from '.';
 
 type TimePickerProps = {
+    type: 'ampm'|'24hr'
     isAmPm?:boolean
+    value?:timeFieldValueType
+    onChange?:(newValue:timeFieldValueType)=>void
 }
 
 const ButtonOption = ({
@@ -56,10 +60,10 @@ const DivOptions = ({
     onSelect
 }:{
     list:number[],
-    value:number,
+    value:number | undefined,
     onSelect:(newValue:number | string)=>void
 }) =>{
-    const divRef = useRef(null)
+    const divRef = useRef<HTMLDivElement>(null)
     const { focusNext, focusPrev } = useFocusController(divRef)
 
     const onKey = (event:React.KeyboardEvent<HTMLDivElement>) => {
@@ -75,19 +79,30 @@ const DivOptions = ({
 
     const thisOnClick = (newValue:number | string, buttonRef:React.RefObject<HTMLButtonElement>) =>{
         onSelect(newValue)
-
-        if(divRef.current && buttonRef.current){
-            console.log((divRef.current as HTMLElement).scrollHeight)
-            const divComp = (divRef.current as HTMLElement)
-            divComp.scrollTo({
-                top: buttonRef.current.offsetTop,
-                left: 0,
-                behavior: "smooth",
-            })
-
-        }
     }
 
+    useEffect(()=>{
+        if(value){
+            if(divRef.current){
+                const elementButton = (divRef.current.querySelector('.selected') as HTMLButtonElement)
+                if(elementButton){
+                    divRef.current.scrollTo({
+                        top: elementButton.offsetTop,
+                        left: 0,
+                        behavior: "smooth",
+                    })
+                }
+            }
+        }else{
+            if(divRef.current){
+                divRef.current.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "smooth",
+                })
+            }
+        }
+    },[value])
     return(
         <div className='options-list-container' ref={divRef} onKeyDown={onKey}>
             {
@@ -111,37 +126,79 @@ const DivOptions = ({
 }
 
 const TimePicker = ({
-    isAmPm = true
+    type = 'ampm',
+    value,
+    onChange
 }:TimePickerProps) =>{
 
-    const hourList = Array.apply(null, Array(isAmPm?(12):(24))).map(function (x, i) { return i; })
+    const hourList = Array.apply(null, Array(type==='ampm'?(12):(24))).map(function (x, i) { return type==='ampm'?(i+1):(i); })
     const minuteList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
     const secondList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
 
-    const [valueHour, setValueHour] = useState(0)
-    const [valueMinute, setValueMinute] = useState(0)
-    const [valueSecond, setValueSecond] = useState(0)
+    // const [valueHour, setValueHour] = useState<number | undefined>(undefined)
+    // const [valueMinute, setValueMinute] = useState<number | undefined>(undefined)
+    // const [valueSecond, setValueSecond] = useState<number | undefined>(undefined)
 
-    const thisOnSelect = (type:'hour' | 'minute' | 'second', newValue:number|string) =>{
-        if(type==='hour' && typeof newValue === 'number'){
-            setValueHour(newValue)
+    // const thisOnSelect = (type:'hour' | 'minute' | 'second', newValue:number|string) =>{
+    //     if(type==='hour' && typeof newValue === 'number'){
+    //         setValueHour(newValue)
+    //     }
+    //     if(type==='minute' && typeof newValue === 'number'){
+    //         setValueMinute(newValue)
+    //     }
+    //     if(type==='second' && typeof newValue === 'number'){
+    //         setValueSecond(newValue)
+    //     }
+    // }
+    
+    // const onChangeField = ():timeFieldValueType =>{
+    //     return({
+    //         hour:(isNaN(parseInt(form.hour))?(undefined):(formToValueHour(parseInt(form.hour)))),
+    //         minute:(isNaN(parseInt(form.minute))?(undefined):(parseInt(form.minute))),
+    //         second:(isNaN(parseInt(form.second))?(undefined):(parseInt(form.second)))
+    //     })
+    // }
+
+    const thisOnChange = (inputType:'hour'|'minute'|'second', newValue:number | string | undefined) =>{
+        if(onChange && (typeof newValue==='number' || newValue===undefined)){
+            const tamp:timeFieldValueType = {
+                hour:value?.hour,
+                minute:value?.minute,
+                second:value?.second,
+            }
+    
+            tamp[inputType] = newValue
+
+            onChange(tamp)
         }
-        if(type==='minute' && typeof newValue === 'number'){
-            setValueMinute(newValue)
-        }
-        if(type==='second' && typeof newValue === 'number'){
-            setValueSecond(newValue)
+    }
+
+
+
+    const valueHourToForm = (hour:number | undefined) =>{
+        if(type==='ampm' && hour!==undefined){
+            if(hour===0){
+                return(12)
+            }if(hour===12){
+                return(12)
+            }else if(hour>12){
+                return(hour-12)
+            }else{
+                return(hour)
+            }
+        }else{
+            return(hour)
         }
     }
 
     return(
         <div className='time-picker'>
-            <DivOptions list={hourList} value={valueHour} onSelect={(newValue)=>{thisOnSelect('hour', newValue)}}/>
-            <DivOptions list={minuteList} value={valueMinute} onSelect={(newValue)=>{thisOnSelect('minute', newValue)}}/>
-            <DivOptions list={secondList} value={valueSecond} onSelect={(newValue)=>{thisOnSelect('second', newValue)}}/>
+            <DivOptions list={hourList} value={valueHourToForm(value?.hour)} onSelect={(newValue)=>{thisOnChange('hour', newValue)}}/>
+            <DivOptions list={minuteList} value={value?.minute} onSelect={(newValue)=>{thisOnChange('minute', newValue)}}/>
+            <DivOptions list={secondList} value={value?.second} onSelect={(newValue)=>{thisOnChange('second', newValue)}}/>
             
             {
-                (isAmPm)&&(
+                (type==='ampm')&&(
                     <div className='options-list-container'>AM</div>
                 )
             }

@@ -7,7 +7,7 @@ import useFormHook from "../../hook/useFormHook"
 import TimePicker from "./_index"
 
 type timeFieldType = 'ampm' | '24hr'
-type timeFieldValueType = {
+export type timeFieldValueType = {
     hour:number | undefined
     minute:number | undefined
     second:number | undefined
@@ -120,10 +120,23 @@ const TimeField = ({
         })
     }
 
+    const thisOnChange = (valuePicker?:timeFieldValueType) =>{
+        if(onChange && !valuePicker){
+            onChange(onChangeField())
+        }else if(onChange && valuePicker){
+            onChange(valuePicker)
+            setForm({
+                hour:(valuePicker?.hour!==undefined)?(valueHourToForm(valuePicker.hour)):('--'),
+                minute:(valuePicker?.minute!==undefined)?(`${valuePicker.minute}`.length===1?(`0${valuePicker.minute}`):(`${valuePicker.minute}`)):('--'),
+                second:(valuePicker?.second!==undefined)?(`${valuePicker.second}`.length===1?(`0${valuePicker.second}`):(`${valuePicker.second}`)):('--'),
+            })
+        }
+    }
+
     useEffect(()=>{
         if(!isFieldFocus && onChange){
             if((JSON.stringify(prevValue)!==JSON.stringify(form)) || (prevAmPm !== isAm)){
-                onChange(onChangeField())
+                thisOnChange()
             }else{
 
             }
@@ -410,7 +423,9 @@ const TimeField = ({
                 )
             }
             <TimePicker
-                isAmPm={true}
+                type={type}
+                value={value}
+                onChange={(newValue)=>{thisOnChange(newValue)}}
             />
         </div>
     )

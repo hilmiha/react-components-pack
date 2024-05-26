@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext, GlobalContextType } from '../../../context/globalcontext';
 import './styles.scss'
 import { MainTemplateContext, MainTemplateContextType } from '../../templates/main-template/context/main-template-context';
-import TimeField from '../../../components/time-picker';
+import TimeField from '../../../components/time-picker/__index';
 import TimePicker from '../../../components/time-picker/_index';
 import useFormHook from '../../../hook/useFormHook';
+import TimePickerField from '../../../components/time-picker-field';
+import { generateErrorState } from '../../../helper';
 // import TimePicker from '../../../components/time-picker';
 
 const PlaygroundPage = () =>{
@@ -29,11 +31,16 @@ const PlaygroundPage = () =>{
         timeAmpm:{hour:undefined, minute:undefined, second:undefined}
     })
 
+    const [formError, setFormError] = useState(generateErrorState(form))
+
     const {
-        onChange
+        onChange,
+        onValidate
     } = useFormHook({
         form,
-        setForm
+        setForm,
+        formError,
+        setFormError
     })
 
     useEffect(()=>{
@@ -42,23 +49,29 @@ const PlaygroundPage = () =>{
     },[form])
 
 	return (
-		<div style={{padding:"8px"}}>
-            <TimeField
+		<div style={{padding:"8px", display:'grid', gap:'40px'}}>
+            <TimePickerField
+                type='24hr'
+                txtLabel='Start Time'
                 value={form['time']}
                 onChange={(newValue)=>{onChange('time', newValue)}}
-                type='ampm'
-                txtLabel='Time AM/PM'
+                onValidate={(errorResult)=>{onValidate('time',errorResult)}}
+                error={formError['time']}
+                txtPlaceholder='Select Time'
                 config={{
-                    isShowSecond:true
+                    isMandatory:true
                 }}
             />
-            <TimeField
+            <TimePickerField
+                type='ampm'
+                txtLabel='Start Time'
                 value={form['timeAmpm']}
                 onChange={(newValue)=>{onChange('timeAmpm', newValue)}}
-                type='24hr'
-                txtLabel='Time'
+                onValidate={(errorResult)=>{onValidate('timeAmpm',errorResult)}}
+                error={formError['timeAmpm']}
+                txtPlaceholder='Select Time'
                 config={{
-                    isShowSecond:true
+                    isMandatory:true
                 }}
             />
 		</div>

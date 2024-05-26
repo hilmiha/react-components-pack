@@ -1,0 +1,68 @@
+@use '../index';
+@use '../selection-field/styles.scss' as test;
+
+.time-picker-field{
+    overflow: hidden;
+    width: 100%;    
+    
+    @include index.field-style;
+
+    .selection-field-input-container{
+        @include index.selection-field-input-container-style
+    }
+
+    .field-option-dropdown-menu {
+        max-height: 400px;
+        padding: 8px;
+    }
+}
+
+.time-picker-field-dropdown{
+    @include index.field-style;
+
+    .field-option-dropdown-menu{
+        padding: 0px;
+
+        @include test.selection-field-content-style;
+
+        .search-container + .date-picker{
+            padding: var(--size-2) var(--size-3);
+        }
+
+        .date-picker{
+            padding: var(--size-3) var(--size-3);
+        }
+    }
+}
+
+.time-picker-mobile-mobile-view{
+    display: flex;
+    align-items: center;
+
+    .search-container{
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+
+.dropdown-menu-selection-mobile-box{
+    @include index.dropdown-menu-box-style;
+
+    .dropdown-menu-mobile-content{
+        @include test.selection-field-content-style;
+
+        .search-container{
+            padding: var(--size-0) var(--size-4) var(--size-3) var(--size-4);
+        }
+
+        .date-picker{
+            padding-top: var(--size-2)
+        }
+    }
+}
+
+.dropdown-menu-date-picker-mobile-overlay{
+    @include index.dropdown-menu-mobile-overlay-style;
+}

@@ -1,70 +1,17 @@
-@use '../index';
-
-.time-field{
-    overflow: hidden;
-    width: 100%;
-
-    @include index.field-style;
-
-    >.text-field-input-container{
-        gap: 4px;
-        >.text-field-input{
-            background-color: transparent;
-            border: none;
-            outline: none;
-            padding: 0px 0px;
-            font-size: var(--font-size-regular);
-            color: hsl(var(--color-neutral-1100));
-            flex-grow: 1;
-            width: 0px;
+.time-picker{
+    padding: var(--size-4);
+    width: 320px;
+    .time-pick-input{
+        display: flex;
+        gap: var(--size-2);
+        
+        .text-field{
+            width: 50px;
         }
 
-        .hour-container{
-            width: 16px;
-
-            .field-container{
-                border: 0px solid black;
-                padding: 0px;
-                min-height: 20px;
-                
-                .text-field-input{
-                    text-align: center;
-                }
-                .text-field-input:focus-visible{
-                    background-color: hsl(var(--color-neutral-300));
-                }
-
-                &:has(.text-field-input:focus-visible){
-                    border: 0px;
-                    padding: 0px;
-                }
-            }
-        }
-
-        .ampm-container{
-            width: 25px;
-
-            .field-container{
-                border: 0px solid black;
-                padding: 0px;
-                min-height: 20px;
-                
-                .text-field-input{
-                    text-align: center;
-                }
-                .text-field-input:focus-visible{
-                    background-color: hsl(var(--color-neutral-300));
-                }
-
-                &:has(.text-field-input:focus-visible){
-                    border: 0px;
-                    padding: 0px;
-                }
-            }
-        }
-    
-        &:has(.text-field-input:focus-visible){
-            border: 2px solid hsl(var(--color-blue-800));
+        .text-field-input{
+            font-size: var(--size-5);
+            text-align: center;
         }
     }
 }

@@ -3,7 +3,7 @@ import './_styles.scss'
 import { MoveFocusInside, useFocusController, useFocusState } from 'react-focus-lock'
 import FocusLock, { AutoFocusInside } from 'react-focus-lock';
 import { processClassname } from '../../helper';
-import { timeFieldValueType } from '.';
+import { timeFieldValueType } from './__index';
 
 type TimePickerProps = {
     type: 'ampm'|'24hr'
@@ -112,7 +112,7 @@ const DivOptions = ({
                             key={index} 
                             label={`${`${itm}`.length===1?(`0${itm}`):(`${itm}`)}`} 
                             value={itm} 
-                            isAutoFocus={value===itm} 
+                            isAutoFocus={value!==undefined?(value===itm):(index===0)} 
                             isSelected={value===itm} 
                             onClick={(newValue, buttonRef)=>{thisOnClick(newValue, buttonRef)}}
                         />
@@ -125,7 +125,7 @@ const DivOptions = ({
     )
 }
 
-const TimePicker = ({
+const TimePickerWheel = ({
     type = 'ampm',
     value,
     onChange
@@ -134,30 +134,6 @@ const TimePicker = ({
     const hourList = Array.apply(null, Array(type==='ampm'?(12):(24))).map(function (x, i) { return type==='ampm'?(i+1):(i); })
     const minuteList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
     const secondList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
-
-    // const [valueHour, setValueHour] = useState<number | undefined>(undefined)
-    // const [valueMinute, setValueMinute] = useState<number | undefined>(undefined)
-    // const [valueSecond, setValueSecond] = useState<number | undefined>(undefined)
-
-    // const thisOnSelect = (type:'hour' | 'minute' | 'second', newValue:number|string) =>{
-    //     if(type==='hour' && typeof newValue === 'number'){
-    //         setValueHour(newValue)
-    //     }
-    //     if(type==='minute' && typeof newValue === 'number'){
-    //         setValueMinute(newValue)
-    //     }
-    //     if(type==='second' && typeof newValue === 'number'){
-    //         setValueSecond(newValue)
-    //     }
-    // }
-    
-    // const onChangeField = ():timeFieldValueType =>{
-    //     return({
-    //         hour:(isNaN(parseInt(form.hour))?(undefined):(formToValueHour(parseInt(form.hour)))),
-    //         minute:(isNaN(parseInt(form.minute))?(undefined):(parseInt(form.minute))),
-    //         second:(isNaN(parseInt(form.second))?(undefined):(parseInt(form.second)))
-    //     })
-    // }
 
     const thisOnChange = (inputType:'hour'|'minute'|'second', newValue:number | string | undefined) =>{
         if(onChange && (typeof newValue==='number' || newValue===undefined)){
@@ -172,8 +148,6 @@ const TimePicker = ({
             onChange(tamp)
         }
     }
-
-
 
     const valueHourToForm = (hour:number | undefined) =>{
         if(type==='ampm' && hour!==undefined){
@@ -192,18 +166,12 @@ const TimePicker = ({
     }
 
     return(
-        <div className='time-picker'>
+        <div className='time-picker-wheel'>
             <DivOptions list={hourList} value={valueHourToForm(value?.hour)} onSelect={(newValue)=>{thisOnChange('hour', newValue)}}/>
             <DivOptions list={minuteList} value={value?.minute} onSelect={(newValue)=>{thisOnChange('minute', newValue)}}/>
             <DivOptions list={secondList} value={value?.second} onSelect={(newValue)=>{thisOnChange('second', newValue)}}/>
-            
-            {
-                (type==='ampm')&&(
-                    <div className='options-list-container'>AM</div>
-                )
-            }
         </div>
     )
 }
 
-export default TimePicker
+export default TimePickerWheel

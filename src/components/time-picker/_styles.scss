@@ -1,11 +1,12 @@
-.time-picker{
+.time-picker-wheel{
     width: fit-content;
     background-color: hsl(var(--color-neutral-0));
     display: grid;
     grid-auto-flow: column;
+    gap: var(--size-2);
 
     .options-list-container{
-        width: 46px;
+        width: 50px;
         max-height: 148px;
         scroll-snap-type: y proximity;
         overflow: auto;

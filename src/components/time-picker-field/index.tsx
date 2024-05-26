@@ -19,7 +19,8 @@ export type TimePickerFieldProps = {
     onValidate?: (errorResult:errorType, newValue:timePickerValueType, config?:Record<any, any>) => void,
     error?: errorType
     config?: {
-        isMandatory?: boolean
+        isMandatory?: boolean,
+        isHideSecond?:boolean
     }
 }
 
@@ -39,6 +40,7 @@ const TimePickerField = ({
     
     const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory
+    const isHideSecond = config?.isHideSecond
     
     const {
         mediaSize
@@ -150,7 +152,7 @@ const TimePickerField = ({
             value.minute!==undefined &&
             value.second!==undefined 
         ){
-            const tamp = `${convertHour(value.hour)} : ${convertMinute(value.minute)} : ${convertMinute(value.second)}${type==='ampm'?(` ${isAmPm(value.hour)}`):('')}`
+            const tamp = `${convertHour(value.hour)} : ${convertMinute(value.minute)}${isHideSecond?(''):(` : ${convertMinute(value.second)}${type==='ampm'?(` ${isAmPm(value.hour)}`):('')}`)}`
             return tamp
         }
 
@@ -208,10 +210,10 @@ const TimePickerField = ({
                         className={
                             processClassname(`field-option-clear-selection
                             ${(
-                                Array.isArray(value)?(
-                                    value.length===0
-                                ):(
-                                    value===undefined
+                                (
+                                    value.hour===undefined &&
+                                    value.minute===undefined &&
+                                    value.second===undefined
                                 )
                             )?('disabled'):('')}`)  
                         }
@@ -227,11 +229,12 @@ const TimePickerField = ({
                         Clear Selection
                     </button>
                 </div>
-                <div>
+                <div style={{display:'flex', justifyContent:'center'}}>
                     <TimePicker
                         value={value}
                         onChange={thisOnChange}
                         type={type}
+                        isHideSecond={isHideSecond}
                     />
                 </div>
             </>

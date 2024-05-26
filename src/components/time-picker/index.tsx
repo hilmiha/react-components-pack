@@ -15,13 +15,15 @@ export type timePickerValueType = {
 type TimePickerProps = {
     value:timePickerValueType,
     onChange?:(newValue:timePickerValueType)=>void
-    type:'ampm'|'24hr'
+    type:'ampm'|'24hr',
+    isHideSecond?:boolean
 }
 
 const TimePicker = ({
     value,
     onChange,
     type,
+    isHideSecond
 }:TimePickerProps) =>{
 
     const hourInputRef = useRef<HTMLInputElement>()
@@ -29,9 +31,10 @@ const TimePicker = ({
     const secondInputRef = useRef<HTMLInputElement>()
     const containerInputRef = useRef<HTMLDivElement>()
 
+    const [isRendered, setIsRendered] = useState(false)
     const [isAm, setIsAm]=useState((value?.hour)?(value.hour>12?(false):(true)):(true))
 
-    const [isFieldFocus, setIsFieldFocus] = useState(true)
+    const [isFieldFocus, setIsFieldFocus] = useState(false)
 
     const valueHourToForm = (hour:number | undefined) =>{
         if(type==='ampm' && hour!==undefined){
@@ -153,6 +156,16 @@ const TimePicker = ({
         }
     }
 
+    useEffect(()=>{
+        if(isHideSecond){
+            if(!isNaN(parseInt(form.minute)) && form.second!=='00'){
+                onChangeFormTime('second', '00')
+            }else if(isNaN(parseInt(form.minute)) && form.second!=='--'){
+                onChangeFormTime('second', '--')
+            }
+        }
+    },[form.minute])
+
     const thisOnFocus = (inputType:'hour' | 'minute' | 'second') => {
         if(inputType==='hour'){
             if(hourInputRef.current){
@@ -209,7 +222,7 @@ const TimePicker = ({
                 setTimeout(() => {
                     hourInputRef.current?.focus()
                 }, 10);
-            }else if(!isNaN(isKeyNumber) && form.minute.length>1 && form.minute[0]!=='0' && !isSelectAll){
+            }else if(!isNaN(isKeyNumber) && form.minute.length>1 && form.minute[0]!=='0' && !isSelectAll && !isHideSecond){
                 setTimeout(() => {
                     secondInputRef.current?.focus()
                     thisOnChangeHour('second', `${isKeyNumber}`)
@@ -264,16 +277,17 @@ const TimePicker = ({
         if(onChange && !valuePicker){
             onChange(onChangeField())
         }else if(onChange && valuePicker){
-            onChange(valuePicker)
-            console.log({
-                hour:(valuePicker?.hour!==undefined)?(valueHourToForm(valuePicker.hour)):('--'),
-                minute:(valuePicker?.minute!==undefined)?(`${valuePicker.minute}`.length===1?(`0${valuePicker.minute}`):(`${valuePicker.minute}`)):('--'),
-                second:(valuePicker?.second!==undefined)?(`${valuePicker.second}`.length===1?(`0${valuePicker.second}`):(`${valuePicker.second}`)):('--'),
-            })
+            const tamp = {...valuePicker}
+            if(tamp.minute!==undefined && isHideSecond){
+                tamp.second = 0
+            }else if(tamp.minute===undefined && isHideSecond){
+                tamp.second = undefined
+            }
+            onChange(tamp)
             setForm({
-                hour:(valuePicker?.hour!==undefined)?(valueHourToForm(valuePicker.hour)):('--'),
-                minute:(valuePicker?.minute!==undefined)?(`${valuePicker.minute}`.length===1?(`0${valuePicker.minute}`):(`${valuePicker.minute}`)):('--'),
-                second:(valuePicker?.second!==undefined)?(`${valuePicker.second}`.length===1?(`0${valuePicker.second}`):(`${valuePicker.second}`)):('--'),
+                hour:(tamp?.hour!==undefined)?(valueHourToForm(tamp.hour)):('--'),
+                minute:(tamp?.minute!==undefined)?(`${tamp.minute}`.length===1?(`0${tamp.minute}`):(`${tamp.minute}`)):('--'),
+                second:(tamp?.second!==undefined)?(`${tamp.second}`.length===1?(`0${tamp.second}`):(`${tamp.second}`)):('--'),
             })
         }
     }
@@ -284,58 +298,66 @@ const TimePicker = ({
             minute:(value?.minute!==undefined)?(`${value.minute}`.length===1?(`${value.minute}`):(`${value.minute}`)):('--'),
             second:(value?.second!==undefined)?(`${value.second}`.length===1?(`${value.minute}`):(`${value.second}`)):('--'),
         }
-        if(JSON.stringify(form)!==JSON.stringify(tamp) && isFieldFocus){
+        if(JSON.stringify(form)!==JSON.stringify(tamp) && isFieldFocus && isRendered){
             thisOnChange()
         }
     },[form])
 
     useEffect(()=>{
-        thisOnChange()
+        if(!isFieldFocus && isRendered){
+            thisOnChange()
+        }
     },[isAm])
 
     useEffect(()=>{
-        checkIfFocus()
+        setIsRendered(true)
     },[])
 
     return(
         <div className="time-picker">
-            <div className='time-pick-input' ref={containerInputRef as LegacyRef<HTMLInputElement>}>
-                <TextField
-                    inputRef={hourInputRef}
-                    type="text-no-space"
-                    value={form['hour']}
-                    onChange={(newValue)=>{thisOnChangeHour('hour', `${newValue}`)}}
-                    onFocus={()=>{thisOnFocus('hour')}}
-                    onKeyDown={(e)=>{thisOnKeyDown(e, 'hour')}}
-                    onBlur={(e)=>{thisOnValidateHour('hour', e.target.value.trim())}}
-                    config={{
-                        maxLength:3
-                    }}
-                />
-                <TextField
-                    inputRef={minuteInputRef}
-                    type="text-no-space"
-                    value={form['minute']}
-                    onChange={(newValue)=>{thisOnChangeHour('minute', `${newValue}`)}}
-                    onFocus={()=>{thisOnFocus('minute')}}
-                    onKeyDown={(e)=>{thisOnKeyDown(e, 'minute')}}
-                    onBlur={(e)=>{thisOnValidateHour('minute', e.target.value.trim())}}
-                    config={{
-                        maxLength:3
-                    }}
-                />
-                <TextField
-                    inputRef={secondInputRef}
-                    type="text-no-space"
-                    value={form['second']}
-                    onChange={(newValue)=>{thisOnChangeHour('second', `${newValue}`)}}
-                    onFocus={()=>{thisOnFocus('second')}}
-                    onKeyDown={(e)=>{thisOnKeyDown(e, 'second')}}
-                    onBlur={(e)=>{thisOnValidateHour('second', e.target.value.trim())}}
-                    config={{
-                        maxLength:3
-                    }}
-                />
+            <div className='time-pick-input'>
+                <div ref={containerInputRef as LegacyRef<HTMLInputElement>} className='time-pick-input'>
+                    <TextField
+                        inputRef={hourInputRef}
+                        type="text-no-space"
+                        value={form['hour']}
+                        onChange={(newValue)=>{thisOnChangeHour('hour', `${newValue}`)}}
+                        onFocus={()=>{thisOnFocus('hour')}}
+                        onKeyDown={(e)=>{thisOnKeyDown(e, 'hour')}}
+                        onBlur={(e)=>{thisOnValidateHour('hour', e.target.value.trim())}}
+                        config={{
+                            maxLength:3
+                        }}
+                    />
+                    <TextField
+                        inputRef={minuteInputRef}
+                        type="text-no-space"
+                        value={form['minute']}
+                        onChange={(newValue)=>{thisOnChangeHour('minute', `${newValue}`)}}
+                        onFocus={()=>{thisOnFocus('minute')}}
+                        onKeyDown={(e)=>{thisOnKeyDown(e, 'minute')}}
+                        onBlur={(e)=>{thisOnValidateHour('minute', e.target.value.trim())}}
+                        config={{
+                            maxLength:3
+                        }}
+                    />
+                    {
+                        (!isHideSecond)&&(
+                            <TextField
+                                inputRef={secondInputRef}
+                                type="text-no-space"
+                                value={form['second']}
+                                onChange={(newValue)=>{thisOnChangeHour('second', `${newValue}`)}}
+                                onFocus={()=>{thisOnFocus('second')}}
+                                onKeyDown={(e)=>{thisOnKeyDown(e, 'second')}}
+                                onBlur={(e)=>{thisOnValidateHour('second', e.target.value.trim())}}
+                                config={{
+                                    maxLength:3
+                                }}
+                            />
+                        )
+                    }
+                </div>
                 {
                     (
                         type==='ampm'
@@ -351,6 +373,7 @@ const TimePicker = ({
                 <TimePickerWheel
                     type={type}
                     value={value}
+                    isHideSecond={isHideSecond}
                     onChange={(newValue)=>{thisOnChange(newValue)}}
                 />
             </div>

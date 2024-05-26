@@ -10,6 +10,7 @@ type TimePickerProps = {
     isAmPm?:boolean
     value?:timeFieldValueType
     onChange?:(newValue:timeFieldValueType)=>void
+    isHideSecond?:boolean
 }
 
 const ButtonOption = ({
@@ -80,6 +81,11 @@ const DivOptions = ({
     const thisOnClick = (newValue:number | string, buttonRef:React.RefObject<HTMLButtonElement>) =>{
         onSelect(newValue)
     }
+    const [isRendered, setIsRendered] = useState(false)
+
+    useEffect(()=>{
+        setIsRendered(true)
+    },[])
 
     useEffect(()=>{
         if(value){
@@ -89,7 +95,7 @@ const DivOptions = ({
                     divRef.current.scrollTo({
                         top: elementButton.offsetTop,
                         left: 0,
-                        behavior: "smooth",
+                        behavior: ((isRendered)?"smooth":undefined)
                     })
                 }
             }
@@ -98,7 +104,7 @@ const DivOptions = ({
                 divRef.current.scrollTo({
                     top: 0,
                     left: 0,
-                    behavior: "smooth",
+                    behavior: ((isRendered)?"smooth":undefined)
                 })
             }
         }
@@ -128,7 +134,8 @@ const DivOptions = ({
 const TimePickerWheel = ({
     type = 'ampm',
     value,
-    onChange
+    onChange,
+    isHideSecond = false
 }:TimePickerProps) =>{
 
     const hourList = Array.apply(null, Array(type==='ampm'?(12):(24))).map(function (x, i) { return type==='ampm'?(i+1):(i); })
@@ -169,7 +176,11 @@ const TimePickerWheel = ({
         <div className='time-picker-wheel'>
             <DivOptions list={hourList} value={valueHourToForm(value?.hour)} onSelect={(newValue)=>{thisOnChange('hour', newValue)}}/>
             <DivOptions list={minuteList} value={value?.minute} onSelect={(newValue)=>{thisOnChange('minute', newValue)}}/>
-            <DivOptions list={secondList} value={value?.second} onSelect={(newValue)=>{thisOnChange('second', newValue)}}/>
+            {
+                (!isHideSecond)&&(
+                    <DivOptions list={secondList} value={value?.second} onSelect={(newValue)=>{thisOnChange('second', newValue)}}/>
+                )
+            }
         </div>
     )
 }

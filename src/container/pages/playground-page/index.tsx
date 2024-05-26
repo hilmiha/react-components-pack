@@ -59,7 +59,8 @@ const PlaygroundPage = () =>{
                 error={formError['time']}
                 txtPlaceholder='Select Time'
                 config={{
-                    isMandatory:true
+                    isMandatory:true,
+                    isHideSecond:true
                 }}
             />
             <TimePickerField
@@ -71,7 +72,8 @@ const PlaygroundPage = () =>{
                 error={formError['timeAmpm']}
                 txtPlaceholder='Select Time'
                 config={{
-                    isMandatory:true
+                    isMandatory:true,
+                    isHideSecond:true
                 }}
             />
 		</div>

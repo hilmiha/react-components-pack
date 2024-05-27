@@ -38,9 +38,12 @@ export const sidebarManuListDummy = [
         id:'libraries',
         txtLabel:'Libraries',
         menuList:[
-            {id:'react-icons', txtLabel:'React Icons'},
             {id:'floating-ui', txtLabel:'Floating UI'},
             {id:'react-day-picker', txtLabel:'React DayPicker'},
+            {id:'react-focus-lock', txtLabel:'React Focus Lock'},
+            {id:'react-icons', txtLabel:'React Icons'},
+            {id:'react-router-dom', txtLabel:'React Router'},
+            {id:'react-slider', txtLabel:'React Slider'},
         ]
     }
 ]

@@ -40,10 +40,6 @@ const ExamplePage = () =>{
                             {
                                 id:"tabs-tiga",
                                 txtLabel:'Tab Tiga'
-                            },
-                            {
-                                id:"tabs-empat",
-                                txtLabel:'Tab empat'
                             }
                         ]}
                     />
@@ -62,17 +58,12 @@ const ExamplePage = () =>{
                             },
                             {
                                 id:"tabs-dua",
-                                txtLabel:'Tab Dua'                            
+                                txtLabel:'Tab Dua',
+                                isDisabled:true                            
                             },
                             {
                                 id:"tabs-tiga",
-                                txtLabel:'Tab Tiga',
-                                isDisabled:true
-                            },
-                            {
-                                id:"tabs-empat",
-                                txtLabel:'Tab empat',
-                                isDisabled:true
+                                txtLabel:'Tab Tiga'
                             }
                         ]}
                     />

@@ -352,7 +352,7 @@ const TimePicker = ({
                         error={{isError:(error?.hour===true), errorMessage:''}}
                         isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
                     />
-                    <span>:</span>
+                    <span className='font-text'>:</span>
                     <TextField
                         inputRef={minuteInputRef}
                         type="text-no-space"
@@ -370,7 +370,7 @@ const TimePicker = ({
                     {
                         (!isHideSecond)&&(
                             <>
-                                <span>:</span>
+                                <span className='font-text'>:</span>
                                 <TextField
                                     inputRef={secondInputRef}
                                     type="text-no-space"

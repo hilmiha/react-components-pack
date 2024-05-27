@@ -1,11 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { GlobalContext, GlobalContextType } from '../../../context/globalcontext';
 import './styles.scss'
 import { MainTemplateContext, MainTemplateContextType } from '../../templates/main-template/context/main-template-context';
-import useFormHook from '../../../hook/useFormHook';
-import TimePickerField from '../../../components/time-picker-field';
-import { generateErrorState } from '../../../helper';
-import TimePicker from '../../../components/time-picker';
 
 const PlaygroundPage = () =>{
     const {
@@ -24,63 +20,8 @@ const PlaygroundPage = () =>{
         setShowSubMenuDrawer('playground')
     },[])
 
-    const [form, setForm] = useState({
-        time:{hour:23, minute:4, second:0},
-        timeAmpm:{hour:undefined, minute:undefined, second:undefined},
-        timePicker:{hour:undefined, minute:undefined, second:undefined}
-    })
-
-    const [formError, setFormError] = useState(generateErrorState(form))
-
-    const {
-        onChange,
-        onValidate
-    } = useFormHook({
-        form,
-        setForm,
-        formError,
-        setFormError
-    })
-
-    useEffect(()=>{
-        console.log(form.time)
-        console.log(form.timeAmpm)
-    },[form])
-
 	return (
-		<div style={{padding:"8px", display:'grid', gap:'40px'}}>
-            <TimePickerField
-                type='24hr'
-                txtLabel='Start Time'
-                value={form['time']}
-                onChange={(newValue)=>{onChange('time', newValue)}}
-                onValidate={(errorResult)=>{onValidate('time',errorResult)}}
-                error={formError['time']}
-                txtPlaceholder='Select Time'
-                isDisabled
-                config={{
-                    isMandatory:true
-                }}
-            />
-            <TimePickerField
-                type='ampm'
-                txtLabel='Start Time'
-                value={form['timeAmpm']}
-                onChange={(newValue)=>{onChange('timeAmpm', newValue)}}
-                onValidate={(errorResult)=>{onValidate('timeAmpm',errorResult)}}
-                error={formError['timeAmpm']}
-                txtPlaceholder='Select Time'
-                isDisabled
-                config={{
-                    isMandatory:true,
-                    hourList:[1,2,3,4,5]
-                }}
-            />
-            <TimePicker
-                type='ampm'
-                value={form['timePicker']}
-                onChange={(newValue)=>{onChange('timePicker', newValue)}}
-            />
+		<div style={{padding:"8px"}}>
 		</div>
 	)
 }

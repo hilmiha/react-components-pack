@@ -20,6 +20,7 @@ export const sidebarManuListDummy = [
                 {id:'radio-field', txtLabel:'Radio Field', to:'/components/radio-field'},
                 {id:'text-field', txtLabel:'Text Field', to:'/components/text-field'},
                 {id:'text-area-field', txtLabel:'Text Area Field', to:'/components/text-area-field'},
+                {id:'time-picker-field', txtLabel:'Time Picker Field', to:'/components/time-picker-field'},
             ]},
             {id:'image', txtLabel:'Image', to:'/components/image'},
             {id:'modal', txtLabel:'Modal', to:'/components/modal'},
@@ -29,7 +30,8 @@ export const sidebarManuListDummy = [
             {id:'spinner', txtLabel:'Spinner',to:'/components/spinner'},
             {id:'switch', txtLabel:'Switch',to:'/components/switch'},
             {id:'table', txtLabel:'Table', to:'/components/table'},
-            {id:'tabs', txtLabel:'Tabs', to:'/components/tabs'}
+            {id:'tabs', txtLabel:'Tabs', to:'/components/tabs'},
+            {id:'time-picker', txtLabel:'Time Picker', to:'/components/time-picker'}
         ]
     },
     {

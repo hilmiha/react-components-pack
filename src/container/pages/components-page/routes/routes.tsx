@@ -22,6 +22,8 @@ const SpinnerPage = React.lazy(() => import('../../component-spinner-page'));
 const SwitchPage = React.lazy(() => import('../../component-switch-page'));
 const TablePage = React.lazy(() => import('../../component-table-page'));
 const TabsPage = React.lazy(() => import('../../component-tabs-page'));
+const TimePickerPage = React.lazy(() => import('../../component-time-picker-page'));
+const TimePickerFieldPage = React.lazy(() => import('../../component-time-picker-field-page'));
 
 const route = [
     {path: '/accordion/*', component: <AccordionPage/>},
@@ -46,7 +48,9 @@ const route = [
     {path: '/spinner/*', component: <SpinnerPage/>},
     {path: '/switch/*', component: <SwitchPage/>},
     {path: '/table/*', component: <TablePage/>},
-    {path: '/tabs/*', component: <TabsPage/>}
+    {path: '/tabs/*', component: <TabsPage/>},
+    {path: '/time-picker/*', component: <TimePickerPage/>},
+    {path: '/time-picker-field/*', component: <TimePickerFieldPage/>}
 ];
 
 export default route;

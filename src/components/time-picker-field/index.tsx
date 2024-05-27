@@ -18,9 +18,13 @@ export type TimePickerFieldProps = {
     onChange?:(newValue:timePickerValueType) => void ,
     onValidate?: (errorResult:errorType, newValue:timePickerValueType, config?:Record<any, any>) => void,
     error?: errorType
+    isDisabled?:boolean
     config?: {
         isMandatory?: boolean,
-        isHideSecond?:boolean
+        isHideSecond?:boolean,
+        hourList?:number[]
+        minuteList?:number[]
+        secondList?:number[]
     }
 }
 
@@ -33,7 +37,8 @@ const TimePickerField = ({
     onChange,
     onValidate,
     error,
-    config
+    config,
+    isDisabled = false
 }:TimePickerFieldProps) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -95,12 +100,14 @@ const TimePickerField = ({
     }
 
     const thisOnChange = (newValue:timePickerValueType) =>{
-        if(onChange){
-            onChange(newValue)
-        }
-
-        if(!isFieldTouched){
-            setIsFieldTouched(true)
+        if(!isDisabled){
+            if(onChange){
+                onChange(newValue)
+            }
+    
+            if(!isFieldTouched){
+                setIsFieldTouched(true)
+            }
         }
     }
 
@@ -152,7 +159,7 @@ const TimePickerField = ({
             value.minute!==undefined &&
             value.second!==undefined 
         ){
-            const tamp = `${convertHour(value.hour)} : ${convertMinute(value.minute)}${isHideSecond?(''):(` : ${convertMinute(value.second)}${type==='ampm'?(` ${isAmPm(value.hour)}`):('')}`)}`
+            const tamp = `${convertHour(value.hour)} : ${convertMinute(value.minute)}${isHideSecond?(''):(` : ${convertMinute(value.second)}`)}${type==='ampm'?(` ${isAmPm(value.hour)}`):('')}`
             return tamp
         }
 
@@ -163,9 +170,11 @@ const TimePickerField = ({
     },[value])
 
     const onClickInputField = () =>{
-        setIsOpenDropdown(!isOpenDropdown)
-        if(mediaSize<1){
-            navigate(`${location.hash}#modal-selection-open`)
+        if(!isDisabled){
+            setIsOpenDropdown(!isOpenDropdown)
+            if(mediaSize<1){
+                navigate(`${location.hash}#modal-selection-open`)
+            }
         }
     }
 
@@ -229,12 +238,26 @@ const TimePickerField = ({
                         Clear Selection
                     </button>
                 </div>
-                <div style={{display:'flex', justifyContent:'center'}}>
+                <div
+                    className={
+                        processClassname(`time-picker-popup-content
+                        ${mediaSize<1?('mobile'):('')}`)  
+                    }
+                    // style={{display:'flex', justifyContent:'center'}}
+                >
                     <TimePicker
                         value={value}
                         onChange={thisOnChange}
                         type={type}
                         isHideSecond={isHideSecond}
+                        hourListConst={config?.hourList}
+                        minuteListConst={config?.minuteList}
+                        secondListConst={config?.secondList}
+                        error={{
+                            hour:(error?.isError && value.hour===undefined && isMandatory),
+                            minute:(error?.isError && value.minute===undefined && isMandatory),
+                            second:(error?.isError && value.second===undefined && isMandatory)
+                        }}
                     />
                 </div>
             </>
@@ -257,10 +280,12 @@ const TimePickerField = ({
             <button 
                 className={
                     processClassname(`selection-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}`)  
+                    ${(error?.isError)?('error'):('')}
+                    ${(isDisabled)?('disabled'):('')}`)  
                 }
                 ref={refs.setReference} {...getReferenceProps()}
                 onClick={onClickInputField}
+                disabled={isDisabled}
             >
                 <div className="selection-field-input">
                     {

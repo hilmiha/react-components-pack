@@ -66,3 +66,13 @@
 .dropdown-menu-date-picker-mobile-overlay{
     @include index.dropdown-menu-mobile-overlay-style;
 }
+
+.time-picker-popup-content{
+    display: flex;
+    justify-content: center;
+    padding: var(--size-3);
+
+    &.mobile{
+        padding: var(--size-2);
+    }
+}

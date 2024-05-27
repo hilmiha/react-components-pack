@@ -323,6 +323,22 @@
         &:has(>.field-prefix-sufix >.icon-button){
             padding-right: var(--size-1);
         }
+
+        &.disabled{
+            border: 1px solid hsl(var(--color-neutral-200));
+            background-color: hsl(var(--color-neutral-100));
+            cursor: default;
+            
+            .text-field-input{
+                color: hsla(var(--color-neutral-1100), 0.5);
+            }
+
+            .selection-field-input{
+                .selection-field-input-value{
+                    color: hsla(var(--color-neutral-1100), 0.5);
+                }
+            }            
+        }
     }
 
     .field-option-dropdown-menu{

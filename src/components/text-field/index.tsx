@@ -33,6 +33,7 @@ export type TextFieldProps = {
     onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
     error?: errorType
     config?: textFieldConfig
+    isDisabled?:boolean
 }
 
 const TextField = ({
@@ -49,7 +50,8 @@ const TextField = ({
     onKeyUp,
     onValidate,
     config,
-    error
+    error,
+    isDisabled = false
 }:TextFieldProps) =>{
     const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory===true
@@ -140,14 +142,16 @@ const TextField = ({
     }
 
     const thisOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
-        const newValue = processValue(false, event.target.value)
+        if(!isDisabled){
+            const newValue = processValue(false, event.target.value)
 
-        if(onChange && newValue!==value){
-            onChange(newValue)
-        }
+            if(onChange && newValue!==value){
+                onChange(newValue)
+            }
 
-        if(!isFieldTouched){
-            setIsFieldTouched(true)
+            if(!isFieldTouched){
+                setIsFieldTouched(true)
+            }
         }
     }
 
@@ -228,7 +232,8 @@ const TextField = ({
             <div 
                 className={
                     processClassname(`text-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}`)  
+                    ${(error?.isError)?('error'):('')}
+                    ${(isDisabled)?('disabled'):('')}`)  
                 }
             >
                 {(prefix)&&(
@@ -245,13 +250,14 @@ const TextField = ({
                     onKeyDown={thisOnKeyDown}
                     onKeyUp={thisOnKeyUp}
                     type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
+                    disabled={isDisabled}
                 />
                 {(sufix)&&(
                     <span className='field-prefix-sufix'>{sufix}</span>
                 )}
             </div>
             {
-                (error?.isError)&&(
+                (error?.isError && error.errorMessage)&&(
                     <span className='field-error-message'>
                         <PiWarningDiamondFill/> {error.errorMessage}
                     </span>

@@ -2,7 +2,7 @@ import { LegacyRef, useEffect, useMemo, useRef, useState } from 'react'
 import './styles.scss'
 import TextField from '../text-field'
 import useFormHook from '../../hook/useFormHook'
-import TimePickerWheel from './_index'
+import TimePickerWheel from './TimePickerWheel'
 import ButtonGroup from '../button-group'
 import Button from '../button'
 
@@ -17,13 +17,25 @@ type TimePickerProps = {
     onChange?:(newValue:timePickerValueType)=>void
     type:'ampm'|'24hr',
     isHideSecond?:boolean
+    error?:{
+        hour?:boolean
+        minute?:boolean
+        second?:boolean
+    }
+    hourListConst?:number[]
+    minuteListConst?:number[]
+    secondListConst?:number[]
 }
 
 const TimePicker = ({
     value,
     onChange,
     type,
-    isHideSecond
+    isHideSecond,
+    error,
+    hourListConst,
+    minuteListConst,
+    secondListConst
 }:TimePickerProps) =>{
 
     const hourInputRef = useRef<HTMLInputElement>()
@@ -265,12 +277,21 @@ const TimePicker = ({
         checkIfFocus()
     }
 
-    const onChangeField = ():timePickerValueType =>{
-        return({
-            hour:(isNaN(parseInt(form.hour))?(undefined):(formToValueHour(parseInt(form.hour)))),
-            minute:(isNaN(parseInt(form.minute))?(undefined):(parseInt(form.minute))),
-            second:(isNaN(parseInt(form.second))?(undefined):(parseInt(form.second)))
-        })
+    const onChangeField = (newValue?:timePickerValueType):timePickerValueType =>{
+        if(newValue){
+            return({
+                hour:(newValue.hour===undefined?(undefined):(newValue.hour===value.hour?(newValue.hour):(formToValueHour(newValue.hour)))),
+                minute:newValue.minute,
+                second:newValue.second
+            })
+        }else{
+            return({
+                hour:(isNaN(parseInt(form.hour))?(undefined):(formToValueHour(parseInt(form.hour)))),
+                minute:(isNaN(parseInt(form.minute))?(undefined):(parseInt(form.minute))),
+                second:(isNaN(parseInt(form.second))?(undefined):(parseInt(form.second)))
+            })
+        }
+        
     }
 
     const thisOnChange = (valuePicker?:timePickerValueType) =>{
@@ -283,7 +304,7 @@ const TimePicker = ({
             }else if(tamp.minute===undefined && isHideSecond){
                 tamp.second = undefined
             }
-            onChange(tamp)
+            onChange(onChangeField(tamp))
             setForm({
                 hour:(tamp?.hour!==undefined)?(valueHourToForm(tamp.hour)):('--'),
                 minute:(tamp?.minute!==undefined)?(`${tamp.minute}`.length===1?(`0${tamp.minute}`):(`${tamp.minute}`)):('--'),
@@ -328,7 +349,10 @@ const TimePicker = ({
                         config={{
                             maxLength:3
                         }}
+                        error={{isError:(error?.hour===true), errorMessage:''}}
+                        isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
                     />
+                    <span>:</span>
                     <TextField
                         inputRef={minuteInputRef}
                         type="text-no-space"
@@ -340,21 +364,29 @@ const TimePicker = ({
                         config={{
                             maxLength:3
                         }}
+                        error={{isError:(error?.minute===true), errorMessage:''}}
+                        isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
                     />
                     {
                         (!isHideSecond)&&(
-                            <TextField
-                                inputRef={secondInputRef}
-                                type="text-no-space"
-                                value={form['second']}
-                                onChange={(newValue)=>{thisOnChangeHour('second', `${newValue}`)}}
-                                onFocus={()=>{thisOnFocus('second')}}
-                                onKeyDown={(e)=>{thisOnKeyDown(e, 'second')}}
-                                onBlur={(e)=>{thisOnValidateHour('second', e.target.value.trim())}}
-                                config={{
-                                    maxLength:3
-                                }}
-                            />
+                            <>
+                                <span>:</span>
+                                <TextField
+                                    inputRef={secondInputRef}
+                                    type="text-no-space"
+                                    value={form['second']}
+                                    onChange={(newValue)=>{thisOnChangeHour('second', `${newValue}`)}}
+                                    onFocus={()=>{thisOnFocus('second')}}
+                                    onKeyDown={(e)=>{thisOnKeyDown(e, 'second')}}
+                                    onBlur={(e)=>{thisOnValidateHour('second', e.target.value.trim())}}
+                                    config={{
+                                        maxLength:3
+                                    }}
+                                    error={{isError:(error?.second===true), errorMessage:''}}
+                                    isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
+                                />
+                            </>
+                            
                         )
                     }
                 </div>
@@ -375,6 +407,9 @@ const TimePicker = ({
                     value={value}
                     isHideSecond={isHideSecond}
                     onChange={(newValue)=>{thisOnChange(newValue)}}
+                    hourListConst={hourListConst}
+                    minuteListConst={minuteListConst}
+                    secondListConst={secondListConst}
                 />
             </div>
         </div>

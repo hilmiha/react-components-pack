@@ -1,16 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
-import './_styles.scss'
-import { MoveFocusInside, useFocusController, useFocusState } from 'react-focus-lock'
-import FocusLock, { AutoFocusInside } from 'react-focus-lock';
+import { useEffect, useMemo, useRef, useState } from 'react'
+import './TimePickerWheelStyles.scss'
+import { useFocusController, useFocusState } from 'react-focus-lock'
 import { processClassname } from '../../helper';
-import { timeFieldValueType } from './__index';
+import { timePickerValueType } from './index';
+import { intersection } from 'lodash';
 
 type TimePickerProps = {
     type: 'ampm'|'24hr'
     isAmPm?:boolean
-    value?:timeFieldValueType
-    onChange?:(newValue:timeFieldValueType)=>void
+    value?:timePickerValueType
+    onChange?:(newValue:timePickerValueType)=>void
     isHideSecond?:boolean
+    hourListConst?:number[]
+    minuteListConst?:number[]
+    secondListConst?:number[]
 }
 
 const ButtonOption = ({
@@ -41,7 +44,8 @@ const ButtonOption = ({
             <button 
                 className={
                     processClassname(`time-picker-option
-                    ${isSelected?('selected'):('')}`)  
+                    ${isSelected?('selected'):('')}
+                    ${isDisabled?('disabled'):('')}`)  
                 } 
                 tabIndex={(active || isAutoFocus) ? undefined : -1} 
                 onFocus={onFocus} 
@@ -125,8 +129,8 @@ const DivOptions = ({
                     ))
                 )
             }
-            <ButtonOption label='-' value={''}/>
-            <ButtonOption label='-' value={''}/>
+            <ButtonOption label='-' value={''} isDisabled/>
+            <ButtonOption label='-' value={''} isDisabled/>
         </div>
     )
 }
@@ -135,23 +139,39 @@ const TimePickerWheel = ({
     type = 'ampm',
     value,
     onChange,
-    isHideSecond = false
+    isHideSecond = false,
+    hourListConst = Array.apply(null, Array(24)).map(function (x, i) { return i; }),
+    minuteListConst = Array.apply(null, Array(60)).map(function (x, i) { return i; }),
+    secondListConst = Array.apply(null, Array(60)).map(function (x, i) { return i; })
 }:TimePickerProps) =>{
 
-    const hourList = Array.apply(null, Array(type==='ampm'?(12):(24))).map(function (x, i) { return type==='ampm'?(i+1):(i); })
-    const minuteList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
-    const secondList = Array.apply(null, Array(60)).map(function (x, i) { return i; })
+    const hourList = useMemo(()=>{
+        return intersection(
+            Array.apply(null, Array(type==='ampm'?(12):(24))).map(function (x, i) { return type==='ampm'?(i+1):(i); }),
+            hourListConst
+        )
+    },[type, hourListConst])
+    const minuteList = useMemo(()=>{
+        return intersection(
+            Array.apply(null, Array(60)).map(function (x, i) { return i; }),
+            minuteListConst
+        )
+    },[minuteListConst])
+    const secondList = useMemo(()=>{
+        return intersection(
+            Array.apply(null, Array(60)).map(function (x, i) { return i; }),
+            secondListConst
+        )
+    },[secondListConst])
 
     const thisOnChange = (inputType:'hour'|'minute'|'second', newValue:number | string | undefined) =>{
         if(onChange && (typeof newValue==='number' || newValue===undefined)){
-            const tamp:timeFieldValueType = {
+            const tamp:timePickerValueType = {
                 hour:value?.hour,
                 minute:value?.minute,
                 second:value?.second,
             }
-    
             tamp[inputType] = newValue
-
             onChange(tamp)
         }
     }
@@ -175,10 +195,14 @@ const TimePickerWheel = ({
     return(
         <div className='time-picker-wheel'>
             <DivOptions list={hourList} value={valueHourToForm(value?.hour)} onSelect={(newValue)=>{thisOnChange('hour', newValue)}}/>
+            <span style={{color:"transparent"}}>:</span>
             <DivOptions list={minuteList} value={value?.minute} onSelect={(newValue)=>{thisOnChange('minute', newValue)}}/>
             {
                 (!isHideSecond)&&(
-                    <DivOptions list={secondList} value={value?.second} onSelect={(newValue)=>{thisOnChange('second', newValue)}}/>
+                    <>
+                        <span style={{color:"transparent"}}>:</span>
+                        <DivOptions list={secondList} value={value?.second} onSelect={(newValue)=>{thisOnChange('second', newValue)}}/>
+                    </>
                 )
             }
         </div>

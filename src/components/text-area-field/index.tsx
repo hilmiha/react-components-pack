@@ -21,10 +21,10 @@ export type TextFieldProps = {
     txtLabel?:string
     txtPlaceholder?:string
     onChange?: (newValue:valueType) => void,
-    onPressEnter?: ()=>void
     onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
     error?: errorType
     config?: textFieldConfig
+    isDisabled ?: boolean
 }
 
 const TextAreaField = ({
@@ -34,9 +34,9 @@ const TextAreaField = ({
     txtPlaceholder,
     value = '',
     onChange,
-    onPressEnter,
     onValidate,
     config,
+    isDisabled = false,
     error
 }:TextFieldProps) =>{
     const [isFieldTouched, setIsFieldTouched] = useState(false);
@@ -135,14 +135,22 @@ const TextAreaField = ({
                 {
                     (txtLabel)&&(
                         <>
-                            <span className='field-label'>{txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}</span>
+                            <span 
+                                className={
+                                    processClassname(`field-label
+                                    ${(isDisabled)?('disabled'):('')}`)  
+                                }
+                            >
+                                {txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}
+                            </span>
                         </>
                     )
                 }
                 <div 
                     className={
                         processClassname(`text-area-field-input-container field-container
-                        ${(error?.isError)?('error'):('')}`)  
+                        ${(error?.isError)?('error'):('')}
+                        ${(isDisabled)?('disabled'):('')}`)  
                     }
                 >
                     <div className="grow-wrap" ref={growContainer}>
@@ -153,6 +161,7 @@ const TextAreaField = ({
                             onBlur={thisOnBlur}
                             value={processValue(true, value)}
                             rows={initialLine}
+                            disabled={isDisabled}
                         ></textarea>
                     </div>
                 </div>

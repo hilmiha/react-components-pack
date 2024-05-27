@@ -92,6 +92,21 @@ const ExamplePage = () =>{
                     />
                 </div>
             </div>
+            <div className="component-section">
+                <span className="font-title">Disabled</span>
+                <div className="preview-box">
+                    <TextAreaField
+                        type="text"
+                        txtLabel="Form Text Area Label"
+                        txtPlaceholder="Form placeholder..."
+                        value={''}
+                        config={{
+                            isMandatory:true
+                        }}
+                        isDisabled
+                    />
+                </div>
+            </div>
         </div>
     )
 }

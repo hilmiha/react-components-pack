@@ -4,6 +4,7 @@ import TextField, { errorType } from "../../../../components/text-field";
 import { generateErrorState } from "../../../../helper";
 import useFormHook from "../../../../hook/useFormHook";
 import SelectionField, { selectionValueType } from "../../../../components/selection-field";
+import Switch from "../../../../components/switch";
 
 export type formType = {
     textField:string
@@ -131,6 +132,22 @@ const ExamplePage = () =>{
                         error={formError['numberOnly']}
                         onChange={(newValue)=>{onChange('numberOnly', newValue)}}
                         onValidate={(errorResult)=>{onValidate('numberOnly', errorResult)}}
+                        config={{
+                            isMandatory:true
+                        }}
+                    />
+                </div>
+            </div>
+
+            <div className="component-section">
+                <span className="font-title">Disabled</span>
+                <div className="preview-box">
+                    <TextField
+                        type="text"
+                        txtLabel="Form Text Label"
+                        txtPlaceholder="Form placeholder..."
+                        value={''}
+                        isDisabled={true}
                         config={{
                             isMandatory:true
                         }}

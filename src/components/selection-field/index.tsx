@@ -35,6 +35,7 @@ type Props = {
         isWithSearch?:boolean,
         isForceMobile?:boolean
     }
+    isDisabled?:boolean
 }
 const SelectionField = ({
     className,
@@ -46,7 +47,8 @@ const SelectionField = ({
     onValidate,
     valueList = [],
     error,
-    config
+    config,
+    isDisabled=false
 }:Props) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -135,9 +137,11 @@ const SelectionField = ({
     }
 
     const onClickInputField = () =>{
-        setIsOpenDropdown(!isOpenDropdown)
-        if(mediaSize<1){
-            navigate(`${location.hash}#modal-selection-open`)
+        if(!isDisabled){
+            setIsOpenDropdown(!isOpenDropdown)
+            if(mediaSize<1){
+                navigate(`${location.hash}#modal-selection-open`)
+            }
         }
     }
     const validateField = (value:selectionValueType) =>{
@@ -416,35 +420,31 @@ const SelectionField = ({
             {
                 (txtLabel)&&(
                     <>
-                        <span className='field-label'>{txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}</span>
+                        <span 
+                            className={
+                                processClassname(`field-label
+                                ${(isDisabled)?('disabled'):('')}`)  
+                            }
+                        >
+                            {txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}
+                        </span>
                     </>
                 )
             }
             <button 
                 className={
                     processClassname(`selection-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}`)  
+                    ${(error?.isError)?('error'):('')}
+                    ${(isDisabled)?('disabled'):('')}`)  
                 }
                 ref={refs.setReference} {...getReferenceProps()}
                 onClick={onClickInputField}
+                disabled={isDisabled}
             >
                 {(prefix)&&(
                     <span className='field-prefix-sufix'>{prefix}</span>
                 )}
                 <div className="selection-field-input">
-                    {/* {
-                        (config?.placeholder && value.length===0)&&(
-                            <span className='field-placeholder'>{config.placeholder}</span>
-                        )
-                    }
-                    {
-                        (value.length>0)&&(
-                            <>
-                                <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>and {hidden} more</span>
-                                <p ref={placeholderElementRef} className='selection-field-input-value'>{parseValueToShow()}</p>
-                            </>
-                        )
-                    } */}
                     <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
                     <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
                     <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{txtPlaceholder}</span>

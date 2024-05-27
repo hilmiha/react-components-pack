@@ -92,6 +92,21 @@ const ExamplePage = () =>{
                     />
                 </div>
             </div>
+            <div className="component-section">
+                <span className="font-title">Disabled</span>
+                <div className="preview-box">
+                    <DatePickerField
+                        txtLabel="Form Date Label"
+                        txtPlaceholder="Select date..."
+                        type="single"
+                        value={undefined}
+                        config={{
+                            isMandatory:true
+                        }}
+                        isDisabled
+                    />
+                </div>
+            </div>
         </div>
     )
 }

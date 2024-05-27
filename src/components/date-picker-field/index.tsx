@@ -32,6 +32,7 @@ export type DatePickerFieldProps = {
         toDate?:Date,
         defaultMonth?:Date
     }
+    isDisabled?:boolean
 }
 
 const DatePickerField = ({
@@ -43,7 +44,8 @@ const DatePickerField = ({
     onChange,
     onValidate,
     error,
-    config
+    config,
+    isDisabled = false
 }:DatePickerFieldProps) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -138,9 +140,11 @@ const DatePickerField = ({
     },[value])
 
     const onClickInputField = () =>{
-        setIsOpenDropdown(!isOpenDropdown)
-        if(mediaSize<1){
-            navigate(`${location.hash}#modal-selection-open`)
+        if(!isDisabled){
+            setIsOpenDropdown(!isOpenDropdown)
+            if(mediaSize<1){
+                navigate(`${location.hash}#modal-selection-open`)
+            }
         }
     }
 
@@ -289,17 +293,26 @@ const DatePickerField = ({
             {
                 (txtLabel)&&(
                     <>
-                        <span className='field-label'>{txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}</span>
+                        <span 
+                            className={
+                                processClassname(`field-label
+                                ${(isDisabled)?('disabled'):('')}`)  
+                            }
+                        >
+                            {txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}
+                        </span>
                     </>
                 )
             }
             <button 
                 className={
                     processClassname(`selection-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}`)  
+                    ${(error?.isError)?('error'):('')}
+                    ${(isDisabled)?('disabled'):('')}`)  
                 }
                 ref={refs.setReference} {...getReferenceProps()}
                 onClick={onClickInputField}
+                disabled={isDisabled}
             >
                 {(prefix)&&(
                     <span className='field-prefix-sufix'>{prefix}</span>

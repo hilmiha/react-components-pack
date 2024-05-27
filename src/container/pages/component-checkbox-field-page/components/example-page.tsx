@@ -45,7 +45,7 @@ const ExamplePage = () =>{
                 <span className="font-title">Default</span>
                 <div className="preview-box">
                     <CheckboxField
-                        txtLabel="Form Checkbox"
+                        txtLabel="Form Checkbox Label"
                         value={form['checkbox']}
                         error={formError['checkbox']}
                         onChange={(newValue)=>{onChange('checkbox', newValue)}}
@@ -54,6 +54,20 @@ const ExamplePage = () =>{
                         config={{
                             isMandatory:true
                         }}
+                    />
+                </div>
+            </div>
+            <div className="component-section">
+                <span className="font-title">Disabled</span>
+                <div className="preview-box">
+                    <CheckboxField
+                        txtLabel="Form Checkbox Label"
+                        value={[]}
+                        valueList={listValue}
+                        config={{
+                            isMandatory:true
+                        }}
+                        isDisabled
                     />
                 </div>
             </div>

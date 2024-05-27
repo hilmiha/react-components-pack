@@ -251,6 +251,10 @@
         display: block;
         margin-bottom: var(--size-2);
         font-weight: var(--font-weight-bold);
+
+        &.disabled{
+            color: hsla(var(--color-neutral-1000), 0.5);
+        }
     }
 
     ::placeholder {

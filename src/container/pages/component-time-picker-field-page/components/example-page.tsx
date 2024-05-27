@@ -11,8 +11,7 @@ const ExamplePage = () =>{
 
     const [form, setForm] = useState({
         time:{hour:undefined, minute:undefined, second:undefined},
-        timeAmpm:{hour:undefined, minute:undefined, second:undefined},
-        timeDisabled:{hour:12, minute:45, second:32}
+        timeAmpm:{hour:undefined, minute:undefined, second:undefined}
     })
 
     const [formError, setFormError] = useState(generateErrorState(form))
@@ -38,7 +37,7 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <TimePickerField
                         type='24hr'
-                        txtLabel='Form Time'
+                        txtLabel='Form Time Label'
                         value={form['time']}
                         onChange={(newValue)=>{onChange('time', newValue)}}
                         onValidate={(errorResult)=>{onValidate('time',errorResult)}}
@@ -55,7 +54,7 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <TimePickerField
                         type='ampm'
-                        txtLabel='Form Time'
+                        txtLabel='Form Time Label'
                         value={form['timeAmpm']}
                         onChange={(newValue)=>{onChange('timeAmpm', newValue)}}
                         onValidate={(errorResult)=>{onValidate('timeAmpm',errorResult)}}
@@ -73,11 +72,8 @@ const ExamplePage = () =>{
                 <div className="preview-box">
                     <TimePickerField
                         type='24hr'
-                        txtLabel='Form Time'
-                        value={form['timeDisabled']}
-                        onChange={(newValue)=>{onChange('timeDisabled', newValue)}}
-                        onValidate={(errorResult)=>{onValidate('timeDisabled',errorResult)}}
-                        error={formError['timeDisabled']}
+                        txtLabel='Form Time Label'
+                        value={{hour:undefined, minute:undefined, second:undefined}}
                         txtPlaceholder='Select Time'
                         isDisabled
                         config={{

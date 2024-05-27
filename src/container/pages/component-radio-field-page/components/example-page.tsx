@@ -58,6 +58,20 @@ const ExamplePage = () =>{
                     />
                 </div>
             </div>
+            <div className="component-section">
+                <span className="font-title">Disabled</span>
+                <div className="preview-box">
+                    <RadioFiled
+                        txtLabel="Form Checkbox"
+                        value={''}
+                        valueList={listValue}
+                        config={{
+                            isMandatory:true
+                        }}
+                        isDisabled
+                    />
+                </div>
+            </div>
         </div>
     )
 }

@@ -48,7 +48,7 @@ const ExamplePage = () =>{
                 <span className="font-title">Single Selection</span>
                 <div className="preview-box">
                     <SelectionField
-                        txtLabel="Single Selection"
+                        txtLabel="Single Selection Label"
                         txtPlaceholder="Form placeholder..."
                         type="selection"
                         value={form['selection']}
@@ -67,7 +67,7 @@ const ExamplePage = () =>{
                 <span className="font-title">Multiple Selection</span>
                 <div className="preview-box">
                     <SelectionField
-                        txtLabel="Multiple Selection"
+                        txtLabel="Multiple Selection Label"
                         txtPlaceholder="Form placeholder..."
                         type="multi-selection"
                         value={form['multiSelection']}
@@ -79,6 +79,22 @@ const ExamplePage = () =>{
                             isMandatory:true,
                             isWithSearch:true
                         }}
+                    />
+                </div>
+            </div>
+            <div className="component-section">
+                <span className="font-title">Disabled</span>
+                <div className="preview-box">
+                    <SelectionField
+                        txtLabel="Form  Label"
+                        txtPlaceholder="Form placeholder..."
+                        type="selection"
+                        value={[]}
+                        valueList={listProv}
+                        config={{
+                            isMandatory:true
+                        }}
+                        isDisabled
                     />
                 </div>
             </div>

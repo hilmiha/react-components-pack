@@ -273,7 +273,14 @@ const TimePickerField = ({
             {
                 (txtLabel)&&(
                     <>
-                        <span className='field-label'>{txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}</span>
+                        <span 
+                            className={
+                                processClassname(`field-label
+                                ${(isDisabled)?('disabled'):('')}`)  
+                            }
+                        >
+                            {txtLabel}{isMandatory&&(<span className='field-label-asteric'>*</span>)}
+                        </span>
                     </>
                 )
             }

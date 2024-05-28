@@ -3,7 +3,7 @@ import './styles.scss'
 import { errorType } from '../text-field'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react'
-import { PiWarningDiamondFill, PiXBold } from 'react-icons/pi'
+import { PiWarningDiamondFill, PiX, PiXBold } from 'react-icons/pi'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import IconButton from '../icon-button'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -204,12 +204,18 @@ const TimePickerField = ({
         }
     },[mediaSize])
 
-    const clearSelection = () =>{
+    const clearSelection = (isFormButton?:boolean) =>{
         thisOnChange({
             hour:undefined,
             minute:undefined,
             second:undefined
         })
+        if(isFormButton){
+            let formField = refs.domReference.current as HTMLButtonElement
+            setTimeout(() => {
+                formField.focus()
+            }, 10);
+        }
     }
     const calendarContent = () =>{
         return(
@@ -226,7 +232,7 @@ const TimePickerField = ({
                                 )
                             )?('disabled'):('')}`)  
                         }
-                        onClick={clearSelection}
+                        onClick={()=>{clearSelection()}}
                         disabled={
                             Array.isArray(value)?(
                                 value.length===0
@@ -284,29 +290,43 @@ const TimePickerField = ({
                     </>
                 )
             }
-            <button 
-                className={
-                    processClassname(`selection-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}
-                    ${(isDisabled)?('disabled'):('')}`)  
+            <div style={{position:'relative'}}>
+                <button 
+                    className={
+                        processClassname(`selection-field-input-container field-container
+                        ${(error?.isError)?('error'):('')}
+                        ${(isDisabled)?('disabled'):('')}`)  
+                    }
+                    ref={refs.setReference} {...getReferenceProps()}
+                    onClick={onClickInputField}
+                    disabled={isDisabled}
+                >
+                    <div className="selection-field-input">
+                        {
+                            (txtPlaceholder && !valueText)&&(
+                                <span className='field-placeholder'>{txtPlaceholder}</span>
+                            )
+                        }
+                        {
+                            (valueText)&&(
+                                <span className='selection-field-input-value'>{valueText}</span>
+                            )
+                        }
+                    </div>
+                </button>
+                {
+                    (valueText && !isOpenDropdown && !isDisabled)&&(
+                        <IconButton
+                            className="clear-button"
+                            appearance="subtle"
+                            spacing="compact"
+                            onClick={()=>{clearSelection(true)}}
+                            Icon={PiX}
+                        />
+                    )
                 }
-                ref={refs.setReference} {...getReferenceProps()}
-                onClick={onClickInputField}
-                disabled={isDisabled}
-            >
-                <div className="selection-field-input">
-                    {
-                        (txtPlaceholder && !valueText)&&(
-                            <span className='field-placeholder'>{txtPlaceholder}</span>
-                        )
-                    }
-                    {
-                        (valueText)&&(
-                            <span className='selection-field-input-value'>{valueText}</span>
-                        )
-                    }
-                </div>
-            </button>
+            </div>
+            
 
             {(isOpenDropdown && mediaSize>0) && (
                 <FloatingPortal>

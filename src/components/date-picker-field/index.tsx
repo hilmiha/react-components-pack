@@ -5,7 +5,7 @@ import { isDateRange } from 'react-day-picker'
 import { errorType } from '../text-field'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react'
-import { PiWarningDiamondFill, PiXBold } from 'react-icons/pi'
+import { PiWarningDiamondFill, PiX, PiXBold } from 'react-icons/pi'
 import { format, isDate } from 'date-fns'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import IconButton from '../icon-button'
@@ -23,7 +23,6 @@ export type DatePickerFieldProps = {
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
-        sufix?: string | JSX.Element,
         isMandatory?: boolean,
         daysAfterToday?: number,
         daysBeforeToday?: number,
@@ -53,7 +52,6 @@ const DatePickerField = ({
     const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory
     const prefix = config?.prefix
-    const sufix = config?.sufix
 
     const {
         mediaSize
@@ -234,8 +232,17 @@ const DatePickerField = ({
         }
     },[])
 
-    const clearSelection = () =>{
-        thisOnChange(undefined)
+    const clearSelection = (isFormButton?:boolean) =>{
+        if(onChange){
+            thisOnChange(undefined)
+
+            if(isFormButton){
+                let formField = refs.domReference.current as HTMLButtonElement
+                setTimeout(() => {
+                    formField.focus()
+                }, 10);
+            }
+        }
     }
     const calendarContent = () =>{
         return(
@@ -254,7 +261,7 @@ const DatePickerField = ({
                                         )
                                     )?('disabled'):('')}`)  
                                 }
-                                onClick={clearSelection}
+                                onClick={()=>{clearSelection(false)}}
                                 disabled={
                                     Array.isArray(value)?(
                                         value.length===0
@@ -304,50 +311,61 @@ const DatePickerField = ({
                     </>
                 )
             }
-            <button 
-                className={
-                    processClassname(`selection-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}
-                    ${(isDisabled)?('disabled'):('')}`)  
+            <div style={{position:'relative'}}>
+                <button 
+                    className={
+                        processClassname(`selection-field-input-container field-container
+                        ${(error?.isError)?('error'):('')}
+                        ${(isDisabled)?('disabled'):('')}`)  
+                    }
+                    ref={refs.setReference} {...getReferenceProps()}
+                    onClick={onClickInputField}
+                    disabled={isDisabled}
+                >
+                    {(prefix)&&(
+                        <span className='field-prefix-sufix'>{prefix}</span>
+                    )}
+                    <div className="selection-field-input">
+                        {
+                            (type!=='multiple')&&(
+                                <>
+                                    {
+                                        (txtPlaceholder && !valueText)&&(
+                                            <span className='field-placeholder'>{txtPlaceholder}</span>
+                                        )
+                                    }
+                                    {
+                                        (valueText)&&(
+                                            <span className='selection-field-input-value'>{valueText}</span>
+                                        )
+                                    }
+                                </>
+                            )
+                        }
+                        {
+                            (type==='multiple')&&(
+                                <>
+                                    <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
+                                    <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
+                                    <span className='field-placeholder' style={{display:`${value!==undefined && (Array.isArray(value)?(value.length>0):(false))?('none'):('unset')}`}}>{txtPlaceholder}</span>
+                                </>
+                            )
+                        }
+                    </div>
+                </button>
+                {
+                    (valueText && !isOpenDropdown && !isDisabled)&&(
+                        <IconButton
+                            className="clear-button"
+                            appearance="subtle"
+                            spacing="compact"
+                            onClick={()=>{clearSelection(true)}}
+                            Icon={PiX}
+                        />
+                    )
                 }
-                ref={refs.setReference} {...getReferenceProps()}
-                onClick={onClickInputField}
-                disabled={isDisabled}
-            >
-                {(prefix)&&(
-                    <span className='field-prefix-sufix'>{prefix}</span>
-                )}
-                <div className="selection-field-input">
-                    {
-                        (type!=='multiple')&&(
-                            <>
-                                {
-                                    (txtPlaceholder && !valueText)&&(
-                                        <span className='field-placeholder'>{txtPlaceholder}</span>
-                                    )
-                                }
-                                {
-                                    (valueText)&&(
-                                        <span className='selection-field-input-value'>{valueText}</span>
-                                    )
-                                }
-                            </>
-                        )
-                    }
-                    {
-                        (type==='multiple')&&(
-                            <>
-                                <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
-                                <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
-                                <span className='field-placeholder' style={{display:`${value!==undefined && (Array.isArray(value)?(value.length>0):(false))?('none'):('unset')}`}}>{txtPlaceholder}</span>
-                            </>
-                        )
-                    }
-                </div>
-                {(sufix)&&(
-                    <span className='field-prefix-sufix'>{sufix}</span>
-                )}
-            </button>
+            </div>
+            
 
             {(isOpenDropdown && mediaSize>0) && (
                 <FloatingPortal>

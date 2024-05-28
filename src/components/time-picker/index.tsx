@@ -351,6 +351,7 @@ const TimePicker = ({
                         }}
                         error={{isError:(error?.hour===true), errorMessage:''}}
                         isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
+                        isShowClear={false}
                     />
                     <span className='font-text'>:</span>
                     <TextField
@@ -366,6 +367,7 @@ const TimePicker = ({
                         }}
                         error={{isError:(error?.minute===true), errorMessage:''}}
                         isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
+                        isShowClear={false}
                     />
                     {
                         (!isHideSecond)&&(
@@ -384,6 +386,7 @@ const TimePicker = ({
                                     }}
                                     error={{isError:(error?.second===true), errorMessage:''}}
                                     isDisabled={(hourListConst!==undefined || minuteListConst!==undefined || secondListConst!==undefined)}
+                                    isShowClear={false}
                                 />
                             </>
                             

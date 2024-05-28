@@ -373,8 +373,9 @@ const Table = ({
                                             value={form['search']}
                                             onChange={(newValue)=>{onChange('search', newValue)}}
                                             onKeyDown={(e)=>{thisDoSearchKeyDown(e)}}
+                                            isShowClear={false}
                                             config={{
-                                                sufix:((!form['search'])?(<></>):(<IconButton Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
+                                                sufix:((!form['search'])?(<></>):(<IconButton className='clear-button' Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
                                             }}
                                         />
                                         <IconButton

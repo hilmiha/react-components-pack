@@ -26,6 +26,7 @@ export type TextFieldProps = {
     error?: errorType
     config?: textFieldConfig
     isDisabled ?: boolean
+    isShowClear ?: boolean
 }
 
 const TextAreaField = ({
@@ -38,6 +39,7 @@ const TextAreaField = ({
     onValidate,
     config,
     isDisabled = false,
+    isShowClear = true,
     error
 }:TextFieldProps) =>{
     const [isFieldTouched, setIsFieldTouched] = useState(false);
@@ -165,6 +167,7 @@ const TextAreaField = ({
                     <div 
                         className={
                             processClassname(`text-area-field-input-container field-container
+                            ${(isShowClear)?('is-show-clear'):('')}
                             ${(error?.isError)?('error'):('')}
                             ${(isDisabled)?('disabled'):('')}`)  
                         }
@@ -183,7 +186,7 @@ const TextAreaField = ({
                         </div>
                     </div>
                     {
-                        (value && !isDisabled)&&(
+                        (value && !isDisabled && isShowClear)&&(
                             <IconButton
                                 className="clear-button"
                                 appearance="subtle"

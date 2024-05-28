@@ -35,6 +35,7 @@ type Props = {
         isForceMobile?:boolean
     }
     isDisabled?:boolean
+    isShowClear?:boolean
 }
 const SelectionField = ({
     className,
@@ -47,7 +48,8 @@ const SelectionField = ({
     valueList = [],
     error,
     config,
-    isDisabled=false
+    isDisabled=false,
+    isShowClear=true
 }:Props) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -338,6 +340,7 @@ const SelectionField = ({
                                         config={{
                                             sufix:<PiMagnifyingGlassBold />
                                         }}
+                                        isShowClear={false}
                                     />
                                 )
                             }
@@ -439,6 +442,7 @@ const SelectionField = ({
                 <button 
                     className={
                         processClassname(`selection-field-input-container field-container
+                        ${(isShowClear)?('is-show-clear'):('')}
                         ${(error?.isError)?('error'):('')}
                         ${(isDisabled)?('disabled'):('')}`)  
                     }
@@ -457,7 +461,7 @@ const SelectionField = ({
                     </div>
                 </button>
                 {
-                    (value.length>0 && !isOpenDropdown && !isDisabled)&&(
+                    (value.length>0 && !isOpenDropdown && !isDisabled && isShowClear)&&(
                         <IconButton
                             className="clear-button"
                             appearance="subtle"

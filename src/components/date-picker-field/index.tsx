@@ -32,6 +32,7 @@ export type DatePickerFieldProps = {
         defaultMonth?:Date
     }
     isDisabled?:boolean
+    isShowClear?:boolean
 }
 
 const DatePickerField = ({
@@ -44,7 +45,8 @@ const DatePickerField = ({
     onValidate,
     error,
     config,
-    isDisabled = false
+    isDisabled = false,
+    isShowClear = true
 }:DatePickerFieldProps) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -315,6 +317,7 @@ const DatePickerField = ({
                 <button 
                     className={
                         processClassname(`selection-field-input-container field-container
+                        ${(isShowClear)?('is-show-clear'):('')}
                         ${(error?.isError)?('error'):('')}
                         ${(isDisabled)?('disabled'):('')}`)  
                     }
@@ -354,7 +357,7 @@ const DatePickerField = ({
                     </div>
                 </button>
                 {
-                    (valueText && !isOpenDropdown && !isDisabled)&&(
+                    (valueText && !isOpenDropdown && !isDisabled && isShowClear)&&(
                         <IconButton
                             className="clear-button"
                             appearance="subtle"

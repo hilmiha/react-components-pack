@@ -262,12 +262,10 @@ const TextField = ({
                 <div 
                     className={
                         processClassname(`text-field-input-container field-container
+                        ${(isShowClear)?('is-show-clear'):('')}
                         ${(error?.isError)?('error'):('')}
                         ${(isDisabled)?('disabled'):('')}`)  
                     }
-                    style={{
-                        paddingRight:(isShowClear)?(undefined):('9px')
-                    }}
                 >
                     {(prefix)&&(
                         <span className='field-prefix-sufix'>{prefix}</span>

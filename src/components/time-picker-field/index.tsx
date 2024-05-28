@@ -19,6 +19,7 @@ export type TimePickerFieldProps = {
     onValidate?: (errorResult:errorType, newValue:timePickerValueType, config?:Record<any, any>) => void,
     error?: errorType
     isDisabled?:boolean
+    isShowClear?:boolean
     config?: {
         isMandatory?: boolean,
         isHideSecond?:boolean,
@@ -38,7 +39,8 @@ const TimePickerField = ({
     onValidate,
     error,
     config,
-    isDisabled = false
+    isDisabled = false,
+    isShowClear = true
 }:TimePickerFieldProps) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -294,6 +296,7 @@ const TimePickerField = ({
                 <button 
                     className={
                         processClassname(`selection-field-input-container field-container
+                        ${(isShowClear)?('is-show-clear'):('')}
                         ${(error?.isError)?('error'):('')}
                         ${(isDisabled)?('disabled'):('')}`)  
                     }
@@ -315,7 +318,7 @@ const TimePickerField = ({
                     </div>
                 </button>
                 {
-                    (valueText && !isOpenDropdown && !isDisabled)&&(
+                    (valueText && !isOpenDropdown && !isDisabled && isShowClear)&&(
                         <IconButton
                             className="clear-button"
                             appearance="subtle"

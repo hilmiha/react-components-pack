@@ -1,8 +1,9 @@
-import { PiWarningDiamondFill } from 'react-icons/pi'
+import { PiWarningDiamondFill, PiX } from 'react-icons/pi'
 import { formatText, processClassname } from '../../helper'
 import './styles.scss'
 import { useEffect, useRef, useState } from 'react'
 import { errorType } from '../text-field'
+import IconButton from '../icon-button'
 
 type textAreaFieldType = 'text' | 'text-no-space' | 'text-only-number'
 type valueType = string
@@ -40,6 +41,7 @@ const TextAreaField = ({
     error
 }:TextFieldProps) =>{
     const [isFieldTouched, setIsFieldTouched] = useState(false);
+    const inputRef = useRef(null)
     const growContainer = useRef<HTMLInputElement>(null)
     const isMandatory = config?.isMandatory===true
     const initialLine = config?.initialLine?(config.initialLine):(3)
@@ -103,6 +105,19 @@ const TextAreaField = ({
         }
     }
 
+    const thisOnClear = () =>{
+        if(onChange){
+            onChange('')
+        }
+        
+        if(inputRef.current){
+            let formField = inputRef.current as HTMLTextAreaElement
+            setTimeout(() => {
+                formField.focus()
+            }, 10);
+        }
+    }
+
     const thisOnBlur = (event: React.ChangeEvent<HTMLTextAreaElement>) =>{
         const processedValue = processValue(false, (typeof event === 'string')?event:event.target.value)
 
@@ -146,25 +161,40 @@ const TextAreaField = ({
                         </>
                     )
                 }
-                <div 
-                    className={
-                        processClassname(`text-area-field-input-container field-container
-                        ${(error?.isError)?('error'):('')}
-                        ${(isDisabled)?('disabled'):('')}`)  
-                    }
-                >
-                    <div className="grow-wrap" ref={growContainer}>
-                        <textarea 
-                            placeholder={txtPlaceholder}
-                            className='text-field-input' 
-                            onChange={thisOnChange} 
-                            onBlur={thisOnBlur}
-                            value={processValue(true, value)}
-                            rows={initialLine}
-                            disabled={isDisabled}
-                        ></textarea>
+                <div style={{position:'relative'}}>
+                    <div 
+                        className={
+                            processClassname(`text-area-field-input-container field-container
+                            ${(error?.isError)?('error'):('')}
+                            ${(isDisabled)?('disabled'):('')}`)  
+                        }
+                    >
+                        <div className="grow-wrap" ref={growContainer}>
+                            <textarea 
+                                ref={inputRef}
+                                placeholder={txtPlaceholder}
+                                className='text-field-input' 
+                                onChange={thisOnChange} 
+                                onBlur={thisOnBlur}
+                                value={processValue(true, value)}
+                                rows={initialLine}
+                                disabled={isDisabled}
+                            ></textarea>
+                        </div>
                     </div>
+                    {
+                        (value && !isDisabled)&&(
+                            <IconButton
+                                className="clear-button"
+                                appearance="subtle"
+                                spacing="compact"
+                                onClick={thisOnClear}
+                                Icon={PiX}
+                            />
+                        )
+                    }
                 </div>
+                
                 {
                     (error?.isError)&&(
                         <span className='field-error-message'>

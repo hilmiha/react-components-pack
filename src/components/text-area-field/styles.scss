@@ -6,7 +6,7 @@
 
     @include index.field-style;
 
-    >.text-area-field-input-container{
+    .text-area-field-input-container{
         max-height: 320px;
         overflow-y: auto;
         align-items: flex-start;

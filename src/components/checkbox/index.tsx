@@ -1,7 +1,7 @@
 import './styles.scss'
-import { PiCheckBold, PiMinus, PiMinusBold } from "react-icons/pi"
+import { PiCheckBold, PiMinusBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
-import { Fragment, useEffect, useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 
 
 type CheckboxProps = {

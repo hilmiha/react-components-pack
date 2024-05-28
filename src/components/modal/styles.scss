@@ -89,6 +89,12 @@
                 font-size: var(--size-5);
             }
         }
+
+        >div{
+            svg{
+                color: hsl(var(--color-neutral-1100));
+            }
+        }
     }
 
     .modal-content{

@@ -1,7 +1,8 @@
-import { PiWarningDiamondFill } from 'react-icons/pi'
+import { PiWarningDiamondFill, PiX } from 'react-icons/pi'
 import { formatText, processClassname } from '../../helper'
 import './styles.scss'
-import { LegacyRef, useState } from 'react'
+import { LegacyRef, useRef, useState } from 'react'
+import IconButton from '../icon-button'
 
 type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number' | 'text-number-float'
 type valueType = string
@@ -34,6 +35,7 @@ export type TextFieldProps = {
     error?: errorType
     config?: textFieldConfig
     isDisabled?:boolean
+    isShowClear?:boolean
 }
 
 const TextField = ({
@@ -51,9 +53,11 @@ const TextField = ({
     onValidate,
     config,
     error,
-    isDisabled = false
+    isDisabled = false,
+    isShowClear = true
 }:TextFieldProps) =>{
     const [isFieldTouched, setIsFieldTouched] = useState(false);
+    const inputDefRef = useRef(null)
     const isMandatory = config?.isMandatory===true
     const prefix = config?.prefix
     const sufix = config?.sufix
@@ -155,6 +159,24 @@ const TextField = ({
         }
     }
 
+    const thisOnClear = () =>{
+        if(onChange){
+            onChange('')
+        }
+        
+        if(inputRef?.current){
+            let formField = inputRef.current as HTMLInputElement
+            setTimeout(() => {
+                formField.focus()
+            }, 10);
+        }else if(inputDefRef.current){
+            let formField = inputDefRef.current as HTMLInputElement
+            setTimeout(() => {
+                formField.focus()
+            }, 10);
+        }
+    }
+
     const thisOnFocus = (event: React.ChangeEvent<HTMLInputElement>) =>{
         if(onFocus){
             onFocus(event)
@@ -236,33 +258,50 @@ const TextField = ({
                     </>
                 )
             }
-            <div 
-                className={
-                    processClassname(`text-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}
-                    ${(isDisabled)?('disabled'):('')}`)  
+            <div style={{position:'relative'}}>
+                <div 
+                    className={
+                        processClassname(`text-field-input-container field-container
+                        ${(error?.isError)?('error'):('')}
+                        ${(isDisabled)?('disabled'):('')}`)  
+                    }
+                    style={{
+                        paddingRight:(isShowClear)?(undefined):('9px')
+                    }}
+                >
+                    {(prefix)&&(
+                        <span className='field-prefix-sufix'>{prefix}</span>
+                    )}
+                    <input
+                        ref={inputRef?(inputRef as LegacyRef<HTMLInputElement>):inputDefRef}
+                        placeholder={txtPlaceholder}
+                        className={'text-field-input'}
+                        value={processValue(true, value)}
+                        onBlur={thisOnBlur}
+                        onFocus={thisOnFocus}
+                        onChange={thisOnChange}
+                        onKeyDown={thisOnKeyDown}
+                        onKeyUp={thisOnKeyUp}
+                        type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
+                        disabled={isDisabled}
+                    />
+                    {(sufix)&&(
+                        <span className='field-prefix-sufix'>{sufix}</span>
+                    )}
+                </div>
+                {
+                    (value && !isDisabled && isShowClear)&&(
+                        <IconButton
+                            className="clear-button"
+                            appearance="subtle"
+                            spacing="compact"
+                            onClick={thisOnClear}
+                            Icon={PiX}
+                        />
+                    )
                 }
-            >
-                {(prefix)&&(
-                    <span className='field-prefix-sufix'>{prefix}</span>
-                )}
-                <input
-                    ref={inputRef?(inputRef as LegacyRef<HTMLInputElement>):undefined}
-                    placeholder={txtPlaceholder}
-                    className={'text-field-input'}
-                    value={processValue(true, value)}
-                    onBlur={thisOnBlur}
-                    onFocus={thisOnFocus}
-                    onChange={thisOnChange}
-                    onKeyDown={thisOnKeyDown}
-                    onKeyUp={thisOnKeyUp}
-                    type={(type==='text-number'|| type==='text-only-number' || type==='text-number-float')?'tel':'text'}
-                    disabled={isDisabled}
-                />
-                {(sufix)&&(
-                    <span className='field-prefix-sufix'>{sufix}</span>
-                )}
             </div>
+            
             {
                 (error?.isError && error.errorMessage)&&(
                     <span className='field-error-message'>

@@ -1,4 +1,4 @@
-import { PiMagnifyingGlassBold, PiWarningDiamondFill, PiXBold } from "react-icons/pi"
+import { PiMagnifyingGlassBold, PiWarningDiamondFill, PiX, PiXBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
@@ -29,7 +29,6 @@ type Props = {
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
-        sufix?: string | JSX.Element,
         maxSelection?: number,
         isMandatory?: boolean,
         isWithSearch?:boolean,
@@ -56,7 +55,6 @@ const SelectionField = ({
     const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory
     const prefix = config?.prefix
-    const sufix = config?.sufix
     const [hidden, setHidden] = useState(0)
 
     const {
@@ -234,9 +232,15 @@ const SelectionField = ({
         }
     },[value])
 
-    const clearSelection = () =>{
+    const clearSelection = (isFormButton?:boolean) =>{
         if(onChange){
             onChange([])
+        }
+        if(isFormButton){
+            let formField = refs.domReference.current as HTMLButtonElement
+            setTimeout(() => {
+                formField.focus()
+            }, 10);
         }
         setSearchFieldValue('')
         setSearchResult([])
@@ -345,7 +349,7 @@ const SelectionField = ({
                                             processClassname(`field-option-clear-selection
                                             ${value.length===0?('disabled'):('')}`)  
                                         }
-                                        onClick={clearSelection}
+                                        onClick={()=>{clearSelection()}}
                                         disabled={value.length===0}
                                     >
                                         Clear Selection
@@ -431,28 +435,40 @@ const SelectionField = ({
                     </>
                 )
             }
-            <button 
-                className={
-                    processClassname(`selection-field-input-container field-container
-                    ${(error?.isError)?('error'):('')}
-                    ${(isDisabled)?('disabled'):('')}`)  
+            <div style={{position:'relative'}}>
+                <button 
+                    className={
+                        processClassname(`selection-field-input-container field-container
+                        ${(error?.isError)?('error'):('')}
+                        ${(isDisabled)?('disabled'):('')}`)  
+                    }
+                    ref={refs.setReference} 
+                    {...getReferenceProps()}
+                    onClick={onClickInputField}
+                    disabled={isDisabled}
+                >
+                    {(prefix)&&(
+                        <span className='field-prefix-sufix'>{prefix}</span>
+                    )}
+                    <div className="selection-field-input">
+                        <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
+                        <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
+                        <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{txtPlaceholder}</span>
+                    </div>
+                </button>
+                {
+                    (value.length>0 && !isOpenDropdown && !isDisabled)&&(
+                        <IconButton
+                            className="clear-button"
+                            appearance="subtle"
+                            spacing="compact"
+                            onClick={()=>{clearSelection(true)}}
+                            Icon={PiX}
+                        />
+                    )
                 }
-                ref={refs.setReference} {...getReferenceProps()}
-                onClick={onClickInputField}
-                disabled={isDisabled}
-            >
-                {(prefix)&&(
-                    <span className='field-prefix-sufix'>{prefix}</span>
-                )}
-                <div className="selection-field-input">
-                    <span style={{float:"right", color:(hidden===0)?("transparent"):('hsl(var(--color-neutral-1100))')}}>{`and ${hidden} more`}</span>
-                    <div ref={placeholderElementRef} className='selection-field-input-value'>{valueText}</div>
-                    <span className='field-placeholder' style={{display:`${value.length>0?('none'):('unset')}`}}>{txtPlaceholder}</span>
-                </div>
-                {(sufix)&&(
-                    <span className='field-prefix-sufix'>{sufix}</span>
-                )}
-            </button>
+            </div>
+            
 
             {(isOpenDropdown && mediaSize>0 && !config?.isForceMobile) && (
                 <FloatingPortal>

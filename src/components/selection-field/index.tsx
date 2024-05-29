@@ -2,14 +2,15 @@ import { PiMagnifyingGlassBold, PiWarningDiamondFill, PiX, PiXBold } from "react
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
-import { useContext, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, autoUpdate, flip, offset, shift, size, useDismiss, useFloating, useInteractions } from "@floating-ui/react"
 import DropdownMenuItemGroup from "../dropdown-menu-item-group"
 import DropdownSelectionItem from "../dropdown-selection-item"
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext"
 import IconButton from "../icon-button"
 import { useLocation, useNavigate } from "react-router-dom"
-import { sortBy } from "lodash"
+import { debounce, sortBy } from "lodash"
+import Skeleton from "../skeleton"
 
 type selectionFieldType = 'selection' | "multi-selection"
 export type itemSelectionValue = {txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string}
@@ -24,8 +25,12 @@ type Props = {
     txtLabel?:string
     txtPlaceholder?:string
     onChange?: (newValue:selectionValueType) => void,
+    onLoadMore?:()=>void,
+    onAsyncSearch?:(searchKey:string)=>void
+    isAsyncSearchReady?:boolean
     onValidate?: (errorResult:errorType, newValue:selectionValueType, config?:Record<any, any>) => void,
-    valueList:valueList
+    valueList:valueList,
+    isValueListCompleted?:boolean
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
@@ -44,8 +49,12 @@ const SelectionField = ({
     txtLabel,
     txtPlaceholder,
     onChange,
+    onLoadMore,
+    onAsyncSearch,
+    isAsyncSearchReady,
     onValidate,
     valueList = [],
+    isValueListCompleted = true,
     error,
     config,
     isDisabled=false,
@@ -64,7 +73,7 @@ const SelectionField = ({
     } = useContext(GlobalContext) as GlobalContextType;
 
     const [searchFieldValue, setSearchFieldValue] = useState('')
-    const [searchResult, setSearchResult] = useState<valueList>([])
+    const [searchResult, setSearchResult] = useState<valueList | undefined>(undefined)
     const [resized, setResized] = useState(false)
 
     //---- Start of Popup thingy 
@@ -244,32 +253,67 @@ const SelectionField = ({
                 formField.focus()
             }, 10);
         }
-        setSearchFieldValue('')
-        setSearchResult([])
-    }
 
-    const onChangeSearch = (newSearchKey:string) =>{
-        setSearchFieldValue(newSearchKey)
-
-        let tampSearchResult:valueList = []
-        if(newSearchKey.length>2){
-            valueList.forEach((valueGroup)=>{
-                const tampItemMenu = valueGroup.menu.filter((itm)=>(
-                    itm.txtLabel.toLocaleLowerCase().includes(newSearchKey.toLocaleLowerCase())||
-                    itm.txtSublabel?.toLocaleLowerCase().includes(newSearchKey.toLocaleLowerCase())
-                ))
-                if(tampItemMenu.length){
-                    tampSearchResult.push({
-                        ...valueGroup,
-                        menu:[...tampItemMenu]
-                    })
-                }
-            })
-            setSearchResult(tampSearchResult)
+        if(onAsyncSearch){
+            if(searchResult && isAsyncSearchReady){
+                setSearchFieldValue('')
+                onAsyncSearch('')
+            }
         }else{
-            setSearchResult(tampSearchResult)
+            setSearchFieldValue('')
+            setSearchResult(undefined)
         }
     }
+
+    const thisOnSearch = (newSearchKey:string, isClear?:boolean) =>{
+        if(onAsyncSearch){
+            if(newSearchKey.length>2){
+                onAsyncSearch(newSearchKey)
+            }else if(isClear){
+                onAsyncSearch('')
+            }
+        }
+    }
+    const debounceFn = useCallback(debounce(thisOnSearch, 1000), []);
+
+    const onChangeSearch = (newSearchKey:string) =>{
+        if(!onAsyncSearch){
+            setSearchFieldValue(newSearchKey)
+            let tampSearchResult:valueList = []
+            if(newSearchKey.length>2){
+                valueList.forEach((valueGroup)=>{
+                    const tampItemMenu = valueGroup.menu.filter((itm)=>(
+                        itm.txtLabel.toLocaleLowerCase().includes(newSearchKey.toLocaleLowerCase())||
+                        itm.txtSublabel?.toLocaleLowerCase().includes(newSearchKey.toLocaleLowerCase())
+                    ))
+                    if(tampItemMenu.length){
+                        tampSearchResult.push({
+                            ...valueGroup,
+                            menu:[...tampItemMenu]
+                        })
+                    }
+                })
+                setSearchResult(tampSearchResult)
+            }else{
+                setSearchResult(tampSearchResult)
+            }
+        }else{
+            if(isAsyncSearchReady){
+                setSearchFieldValue(newSearchKey)
+                debounceFn(newSearchKey, searchResult!==undefined)
+            }
+        }
+    }
+
+    useEffect(()=>{
+        if(onAsyncSearch){
+            if(searchFieldValue.length>2){
+                setSearchResult([...valueList])
+            }else{
+                setSearchResult(undefined)
+            }
+        }
+    },[valueList])
 
     useEffect(()=>{
         if(!location.hash.includes('#modal-selection-open')){
@@ -320,18 +364,39 @@ const SelectionField = ({
     },[])
 
     useEffect(()=>{
-        setSearchFieldValue('')
-        setSearchResult([])
+        if(onAsyncSearch){
+            if(searchResult){
+                onChangeSearch('')
+            }
+        }else{
+            setSearchFieldValue('')
+            setSearchResult(undefined)
+        }
     },[isOpenDropdown])
+
+    const refLoader = useRef<HTMLDivElement>(null)
+    const refListConatinet = useRef<HTMLDivElement>(null)
+
+    const onThisLoadMore = debounce(()=>{
+        const element= refListConatinet.current
+        if(
+            element && 
+            !isValueListCompleted &&
+            Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 148 &&
+            onLoadMore
+        ){
+            onLoadMore()
+        }
+    },100)
 
     const selectionContent = () =>{
         return(
             <>
                 {
-                    (config?.isWithSearch || type==="multi-selection")&&(
+                    (config?.isWithSearch || onAsyncSearch || type==="multi-selection")&&(
                         <div className="search-container">
                             {
-                                (config?.isWithSearch)&&(
+                                (config?.isWithSearch || onAsyncSearch)&&(
                                     <TextField
                                         type="text"
 						                txtPlaceholder='Search list'
@@ -362,9 +427,9 @@ const SelectionField = ({
                         </div>
                     )
                 }
-                <div className="item-selection-container">
+                <div ref={refListConatinet} className="item-selection-container" onScroll={()=>{onThisLoadMore()}}>
                     {
-                        (searchFieldValue.length>2)?(
+                        (searchFieldValue.length>2 && !onAsyncSearch && searchResult)?(
                             searchResult.map((itmValueGroup, index)=>(
                                 <DropdownMenuItemGroup 
                                     key={itmValueGroup.id}
@@ -410,6 +475,39 @@ const SelectionField = ({
                                     }
                                 </DropdownMenuItemGroup>
                             ))
+                        )
+                    }
+                    {
+                        (!isValueListCompleted)&&(
+                            <div ref={refLoader} className="skeleton-container-options">
+                                {
+                                    (type==='multi-selection')?(
+                                        <>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton width={18} height={18}/><Skeleton/>
+                                            </div>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton width={18} height={18}/><Skeleton/>
+                                            </div>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton width={18} height={18}/><Skeleton/>
+                                            </div>
+                                        </>
+                                    ):(
+                                        <>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton/>
+                                            </div>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton/>
+                                            </div>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton/>
+                                            </div>
+                                        </>
+                                    )
+                                }
+                            </div>
                         )
                     }
                 </div>

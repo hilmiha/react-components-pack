@@ -263,7 +263,7 @@ const SelectionField = ({
             if(
                 element && 
                 !isValueListCompleted &&
-                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 148 &&
+                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 186 &&
                 element.scrollTop!==0 &&
                 isAsyncListReady
             ){
@@ -277,7 +277,7 @@ const SelectionField = ({
             if(
                 element && 
                 !isValueListSearchCompleted &&
-                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 148 &&
+                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 186 &&
                 element.scrollTop!==0 &&
                 isAsyncListReady
             ){
@@ -594,9 +594,15 @@ const SelectionField = ({
                                             <div className="skeleton-option-item">
                                                 <Skeleton width={18} height={18}/><Skeleton/>
                                             </div>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton width={18} height={18}/><Skeleton/>
+                                            </div>
                                         </>
                                     ):(
                                         <>
+                                            <div className="skeleton-option-item">
+                                                <Skeleton/>
+                                            </div>
                                             <div className="skeleton-option-item">
                                                 <Skeleton/>
                                             </div>

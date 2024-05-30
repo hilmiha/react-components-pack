@@ -3,14 +3,15 @@ import { LocalContext, LocalContextType } from "../context/local-context";
 import { errorType } from "../../../../components/text-field";
 import { generateErrorState } from "../../../../helper";
 import useFormHook from "../../../../hook/useFormHook";
-import SelectionField, { selectionValueType } from "../../../../components/selection-field";
+import SelectionField, { selectionValueType, valueList } from "../../../../components/selection-field";
 import { sortBy } from "lodash";
-import { provinsiList } from "../data/provinsi-list";
+import { kota, provinsiList } from "../data/provinsi-list";
+import * as contorller from "../controller/controller";
 
 export type formType = {
     selection:selectionValueType
     multiSelection:selectionValueType
-    mobileSelection:selectionValueType
+    asyncList:selectionValueType
 
 }
 
@@ -20,11 +21,12 @@ const ExamplePage = () =>{
     } = useContext(LocalContext) as LocalContextType;
 
 	const listProv = useMemo(()=>{return provinsiList},[])
+    const [listAsync, setListAsync] = useState<valueList>([])
 
     const [form, setForm] = useState<formType>({
         selection:[],
         multiSelection:[],
-        mobileSelection:[]
+        asyncList:[]
     })
     const [formError, setFormError] = useState<Record<keyof formType, errorType>>(generateErrorState(form))
 
@@ -41,7 +43,7 @@ const ExamplePage = () =>{
     useEffect(()=>{
         setTabSelected('example')
     },[])
-    
+   
     return(
         <div className="tab-content">
             <div className="component-section">
@@ -75,6 +77,27 @@ const ExamplePage = () =>{
                         onChange={(newValue)=>{onChange('multiSelection', newValue)}}
                         onValidate={(errorResult)=>{onValidate('multiSelection', errorResult)}}
                         valueList={listProv}
+                        config={{
+                            isMandatory:true,
+                            isWithSearch:true
+                        }}
+                    />
+                </div>
+            </div>
+            <div className="component-section">
+                <span className="font-title">Async List Value</span>
+                <div className="preview-box">
+                    <SelectionField
+                        txtLabel="Selection Label"
+                        txtPlaceholder="Form placeholder..."
+                        type="multi-selection"
+                        value={form['asyncList']}
+                        error={formError['asyncList']}
+                        onChange={(newValue)=>{onChange('asyncList', newValue)}}
+                        onValidate={(errorResult)=>{onValidate('asyncList', errorResult)}}
+                        getListAsync = {(page, searchKey)=>{return contorller.getValueListAsync(page,searchKey)}}
+                        valueList={listAsync}
+                        setValueList={setListAsync}
                         config={{
                             isMandatory:true,
                             isWithSearch:true

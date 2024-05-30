@@ -43,8 +43,36 @@
 
     .item-selection-container{
         max-height: 240px;
+        
+        @media screen and (max-width: 767px){
+            min-height: 240px;
+        }
+        @media screen and (max-width: 767px) and (max-height: 400px){
+            min-height: 140px;
+        }
         flex-grow: 1;
         overflow: auto;
+
+        &:has(.item-selection-empty){
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .item-selection-empty{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: var(--size-4);
+                padding: var(--size-10) var(--size-2);;
+                >svg{
+                    color:hsl(var(--color-blue-700))
+                }
+                .font-text{
+                    color:hsl(var(--color-neutral-700))
+                }
+            }
+        }
 
         .skeleton-container-options{
             display: flex;

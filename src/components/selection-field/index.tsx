@@ -1,4 +1,4 @@
-import { PiMagnifyingGlassBold, PiWarningDiamondFill, PiX, PiXBold } from "react-icons/pi"
+import { PiClover, PiCloverBold, PiListMagnifyingGlass, PiMagnifyingGlassBold, PiWarningDiamondFill, PiX, PiXBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
@@ -25,12 +25,10 @@ type Props = {
     txtLabel?:string
     txtPlaceholder?:string
     onChange?: (newValue:selectionValueType) => void,
-    onLoadMore?:()=>void,
-    onAsyncSearch?:(searchKey:string)=>void
-    isAsyncSearchReady?:boolean
+    getListAsync?: (pageNumber:number, searchKey?:string)=>Promise<{list: valueListItem[]; pageNumber:number;  searchKey:string|undefined; totalPage: number}>
     onValidate?: (errorResult:errorType, newValue:selectionValueType, config?:Record<any, any>) => void,
     valueList:valueList,
-    isValueListCompleted?:boolean
+    setValueList?:React.Dispatch<React.SetStateAction<valueList>>
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
@@ -49,12 +47,10 @@ const SelectionField = ({
     txtLabel,
     txtPlaceholder,
     onChange,
-    onLoadMore,
-    onAsyncSearch,
-    isAsyncSearchReady,
+    getListAsync,
     onValidate,
     valueList = [],
-    isValueListCompleted = true,
+    setValueList,
     error,
     config,
     isDisabled=false,
@@ -73,7 +69,7 @@ const SelectionField = ({
     } = useContext(GlobalContext) as GlobalContextType;
 
     const [searchFieldValue, setSearchFieldValue] = useState('')
-    const [searchResult, setSearchResult] = useState<valueList | undefined>(undefined)
+    const [searchResult, setSearchResult] = useState<valueList>([])
     const [resized, setResized] = useState(false)
 
     //---- Start of Popup thingy 
@@ -243,6 +239,115 @@ const SelectionField = ({
         }
     },[value])
 
+    //Async Functions ====
+    const refLoader = useRef<HTMLDivElement>(null)
+    const refListConatinet = useRef<HTMLDivElement>(null)
+
+    const [doGetListAsync, setDoGetListAsync] = useState(true)
+    const [isAsyncListReady, setIsAsyncListReady] = useState(false)
+
+    const [asyncListConfig, setAsyncListConfig] = useState({
+        page:1,
+        maxPage:0,
+    })
+    const [asyncListSearchConfig, setAsyncListSearchConfig] = useState({
+        page:1,
+        maxPage:0,
+    })
+    const [isValueListCompleted, setIsValueListCompleted] = useState(getListAsync?(false):(true))
+    const [isValueListSearchCompleted, setIsValueListSearchCompleted] = useState(getListAsync?(false):(true))
+
+    const onThisLoadMore = debounce(()=>{
+        const element= refListConatinet.current
+        if(searchFieldValue.length<=2){
+            if(
+                element && 
+                !isValueListCompleted &&
+                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 148 &&
+                element.scrollTop!==0 &&
+                isAsyncListReady
+            ){
+                const tampAsyncListConfig = {...asyncListConfig}
+                tampAsyncListConfig.page = asyncListConfig.page + 1
+                setAsyncListConfig(tampAsyncListConfig)
+                setIsAsyncListReady(false)
+                setDoGetListAsync(true)
+            }
+        }else{
+            if(
+                element && 
+                !isValueListSearchCompleted &&
+                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 148 &&
+                element.scrollTop!==0 &&
+                isAsyncListReady
+            ){
+                const tampAsyncListConfig = {...asyncListSearchConfig}
+                tampAsyncListConfig.page = asyncListSearchConfig.page + 1
+                setAsyncListSearchConfig(tampAsyncListConfig)
+                setIsAsyncListReady(false)
+                setDoGetListAsync(true)
+            }
+        }
+    },300)
+
+    useEffect(()=>{
+        if(getListAsync && doGetListAsync && setValueList){
+            getListAsync((searchFieldValue.length>2)?(asyncListSearchConfig.page):(asyncListConfig.page), searchFieldValue).then(({list, pageNumber, searchKey, totalPage})=>{
+                console.log(list)
+
+                if(searchFieldValue.length<=2){
+                    let tamp = []
+                    if(valueList.length){            
+                        tamp = [...valueList[0].menu, ...list]
+                    }else{
+                        tamp = [...list]
+                    }
+
+                    if(tamp.length>0){
+                        setValueList([
+                            {
+                                id:"1",
+                                menu:tamp
+                            }
+                        ])
+                    }else{
+                        setValueList([])
+                    }
+                    
+
+                    if(pageNumber===totalPage|| tamp.length===0){
+                        setIsValueListCompleted(true)
+                    }
+                }else{
+                    let tamp = []
+                    if(pageNumber>1 && searchResult.length && searchResult[0].menu.length>1){
+                        tamp = [...searchResult[0].menu, ...list]
+                    }else{
+                        tamp = [...list]
+                    }
+                    
+                    if(tamp.length>0){
+                        setSearchResult([
+                            {
+                                id:"1",
+                                menu:tamp
+                            }
+                        ])
+                    }else{
+                        setSearchResult([])
+                    }
+
+                    if(pageNumber===totalPage || tamp.length===0){
+                        setIsValueListSearchCompleted(true)
+                    }
+                }
+                setIsAsyncListReady(true)
+                setDoGetListAsync(false)
+            })
+        }
+    },[doGetListAsync])
+    //Async Functions =====
+
     const clearSelection = (isFormButton?:boolean) =>{
         if(onChange){
             onChange([])
@@ -254,30 +359,29 @@ const SelectionField = ({
             }, 10);
         }
 
-        if(onAsyncSearch){
-            if(searchResult && isAsyncSearchReady){
-                setSearchFieldValue('')
-                onAsyncSearch('')
-            }
-        }else{
-            setSearchFieldValue('')
-            setSearchResult(undefined)
-        }
+        setSearchFieldValue('')
+        setSearchResult([])
     }
 
-    const thisOnSearch = (newSearchKey:string, isClear?:boolean) =>{
-        if(onAsyncSearch){
-            if(newSearchKey.length>2){
-                onAsyncSearch(newSearchKey)
-            }else if(isClear){
-                onAsyncSearch('')
-            }
+    const thisOnSearch = (isClear:boolean) =>{
+        setAsyncListSearchConfig({
+            page:1,
+            maxPage:0
+        })
+        if(isClear){
+            setSearchResult([])
+            setIsValueListSearchCompleted(false)
+        }else{
+            setSearchResult([])
+            setIsValueListSearchCompleted(false)
+            setIsAsyncListReady(false)
+            setDoGetListAsync(true)
         }
     }
-    const debounceFn = useCallback(debounce(thisOnSearch, 1000), []);
+    const debounceFn = useCallback(debounce(thisOnSearch, 500), []);
 
     const onChangeSearch = (newSearchKey:string) =>{
-        if(!onAsyncSearch){
+        if(!getListAsync){
             setSearchFieldValue(newSearchKey)
             let tampSearchResult:valueList = []
             if(newSearchKey.length>2){
@@ -297,23 +401,22 @@ const SelectionField = ({
             }else{
                 setSearchResult(tampSearchResult)
             }
+            setIsValueListSearchCompleted(true)
         }else{
-            if(isAsyncSearchReady){
+            if(isAsyncListReady){
                 setSearchFieldValue(newSearchKey)
-                debounceFn(newSearchKey, searchResult!==undefined)
+                debounceFn(newSearchKey.length<=2)
+
+                if(newSearchKey.length===0 && searchResult){
+                    setTimeout(() => {
+                        setSearchResult([])
+                        setIsValueListSearchCompleted(false)
+                        refListConatinet.current?.scrollTo(0,0)
+                    }, 10);
+                }
             }
         }
     }
-
-    useEffect(()=>{
-        if(onAsyncSearch){
-            if(searchFieldValue.length>2){
-                setSearchResult([...valueList])
-            }else{
-                setSearchResult(undefined)
-            }
-        }
-    },[valueList])
 
     useEffect(()=>{
         if(!location.hash.includes('#modal-selection-open')){
@@ -364,39 +467,25 @@ const SelectionField = ({
     },[])
 
     useEffect(()=>{
-        if(onAsyncSearch){
-            if(searchResult){
-                onChangeSearch('')
-            }
-        }else{
+        // if(onAsyncSearch){
+        //     if(searchResult){
+        //         onChangeSearch('')
+        //     }
+        // }else{
             setSearchFieldValue('')
-            setSearchResult(undefined)
-        }
+            setSearchResult([])
+            setIsValueListSearchCompleted(false)
+        // }
     },[isOpenDropdown])
-
-    const refLoader = useRef<HTMLDivElement>(null)
-    const refListConatinet = useRef<HTMLDivElement>(null)
-
-    const onThisLoadMore = debounce(()=>{
-        const element= refListConatinet.current
-        if(
-            element && 
-            !isValueListCompleted &&
-            Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 148 &&
-            onLoadMore
-        ){
-            onLoadMore()
-        }
-    },100)
 
     const selectionContent = () =>{
         return(
             <>
                 {
-                    (config?.isWithSearch || onAsyncSearch || type==="multi-selection")&&(
+                    (config?.isWithSearch || getListAsync || type==="multi-selection")&&(
                         <div className="search-container">
                             {
-                                (config?.isWithSearch || onAsyncSearch)&&(
+                                (config?.isWithSearch || getListAsync)&&(
                                     <TextField
                                         type="text"
 						                txtPlaceholder='Search list'
@@ -429,29 +518,42 @@ const SelectionField = ({
                 }
                 <div ref={refListConatinet} className="item-selection-container" onScroll={()=>{onThisLoadMore()}}>
                     {
-                        (searchFieldValue.length>2 && !onAsyncSearch && searchResult)?(
-                            searchResult.map((itmValueGroup, index)=>(
-                                <DropdownMenuItemGroup 
-                                    key={itmValueGroup.id}
-                                    txtLabel={itmValueGroup.title}
-                                    isHasSeparator={index > 0}
-                                >
-                                    {
-                                        itmValueGroup.menu.map((itmValue, index)=>(
-                                            <DropdownSelectionItem
-                                                className='field-option-dropdown-item-menu'
-                                                key={itmValue.id}
-                                                txtLabel={itmValue.txtLabel}
-                                                txtSublabel={itmValue.txtSublabel}
-                                                onClick={()=>{thisOnClickManuItem(itmValue)}}
-                                                isSelected={isSelected(itmValue.value)}
-                                                isDisabled={itmValue.isDisabled}
-                                                isWithCheckbox={type==='multi-selection'}
-                                            />
-                                        ))
-                                    }
-                                </DropdownMenuItemGroup>
-                            ))
+                        (searchFieldValue.length>2)?(
+                            <>
+                                {
+                                    searchResult.map((itmValueGroup, index)=>(
+                                        <DropdownMenuItemGroup 
+                                            key={itmValueGroup.id}
+                                            txtLabel={itmValueGroup.title}
+                                            isHasSeparator={index > 0}
+                                        >
+                                            {
+                                                itmValueGroup.menu.map((itmValue, index)=>(
+                                                    <DropdownSelectionItem
+                                                        className='field-option-dropdown-item-menu'
+                                                        key={itmValue.id}
+                                                        txtLabel={itmValue.txtLabel}
+                                                        txtSublabel={itmValue.txtSublabel}
+                                                        onClick={()=>{thisOnClickManuItem(itmValue)}}
+                                                        isSelected={isSelected(itmValue.value)}
+                                                        isDisabled={itmValue.isDisabled}
+                                                        isWithCheckbox={type==='multi-selection'}
+                                                    />
+                                                ))
+                                            }
+                                        </DropdownMenuItemGroup>
+                                    ))
+                                }
+                                {
+                                    (searchResult.length===0 && isValueListSearchCompleted)&&(
+                                        <div className="item-selection-empty">
+                                            <PiListMagnifyingGlass size={40}/>
+                                            <p className="font-title">No Result Found</p>
+                                            <p className="font-text">Try another search</p>
+                                        </div>
+                                    )
+                                }
+                            </>
                         ):(
                             valueList.map((itmValueGroup, index)=>(
                                 <DropdownMenuItemGroup 
@@ -478,7 +580,7 @@ const SelectionField = ({
                         )
                     }
                     {
-                        (!isValueListCompleted)&&(
+                        ((searchFieldValue.length>2 && getListAsync)?(!isValueListSearchCompleted):(!isValueListCompleted))&&(
                             <div ref={refLoader} className="skeleton-container-options">
                                 {
                                     (type==='multi-selection')?(

@@ -12,6 +12,7 @@
         min-height: 56px;
         align-items: center;
         border-bottom: 1px solid hsl(var(--color-neutral-300));
+        background-color: hsl(var(--color-neutral-0));
 
         .header-logo{
             padding-left: var(--size-4);
@@ -41,7 +42,6 @@
         }
     }
     .main-template-content{
-        height: calc(100vh - 56.8px);
         overflow: auto;
     }
 

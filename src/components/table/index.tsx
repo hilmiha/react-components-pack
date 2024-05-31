@@ -146,14 +146,22 @@ const Table = ({
 
         let isFirst = true
         tableColums.forEach((itmColumn, index)=>{
-            if(!tableConfig?.hiddenColumn.includes(itmColumn.key)){
+            if(tableConfig?.hiddenColumn){
+                if(!tableConfig?.hiddenColumn.includes(itmColumn.key)){
+                    if(typeof itmColumn.size === 'string'){
+                        tamp.push(isFirst?(`minmax(${itmColumn.size}, 1fr)`):(itmColumn.size))
+                    }else{
+                        tamp.push(`minmax(${itmColumn.size.min}, ${isFirst?('1fr'):(itmColumn.size.size)})`)
+                    }
+                }
+                isFirst = false
+            }else{
                 if(typeof itmColumn.size === 'string'){
-                    tamp.push(isFirst?(`minmax(${itmColumn.size}, 1fr)`):(itmColumn.size))
+                    tamp.push(itmColumn.size)
                 }else{
-                    tamp.push(`minmax(${itmColumn.size.min}, ${isFirst?('1fr'):(itmColumn.size.size)})`)
+                    tamp.push(`minmax(${itmColumn.size.min}, ${(itmColumn.size.size)})`)
                 }
             }
-            
         })
 
         return tamp.join(' ')
@@ -548,6 +556,7 @@ const Table = ({
                                     <div 
                                         className={
                                             processClassname(`table-data-row
+                                            ${(onClickRow)?('has-hover'):('')}
                                             ${(tableDataSelected.includes(itmRowId))?('selected-row'):('')}`)
                                         }
                                         style={{

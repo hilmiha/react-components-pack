@@ -263,7 +263,7 @@ const SelectionField = ({
             if(
                 element && 
                 !isValueListCompleted &&
-                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 186 &&
+                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 320 &&
                 element.scrollTop!==0 &&
                 isAsyncListReady
             ){
@@ -277,7 +277,7 @@ const SelectionField = ({
             if(
                 element && 
                 !isValueListSearchCompleted &&
-                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 186 &&
+                Math.abs(element.scrollHeight - (element.scrollTop + element.clientHeight)) <= 320 &&
                 element.scrollTop!==0 &&
                 isAsyncListReady
             ){

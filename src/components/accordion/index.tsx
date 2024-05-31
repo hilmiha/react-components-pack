@@ -52,11 +52,11 @@ const Accordion = ({
     };
 
     return(
-        <Fragment>
+        <div className='accordion'>
             {
                 renderChildren()
             }
-        </Fragment>
+        </div>
     )
 }
 

@@ -1,0 +1,16 @@
+.code-block{
+    max-height: 500px;
+    overflow: auto;
+    border-radius: var(--size-1);
+    border: 1px solid hsl(var(--color-neutral-300));
+    >pre{
+        margin:0px !important;
+        background-color: hsl(var(--color-neutral-0)) !important;
+        span{
+            background-color: hsl(var(--color-neutral-0)) !important;
+        }
+    }
+    span{
+        font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace
+    }
+}

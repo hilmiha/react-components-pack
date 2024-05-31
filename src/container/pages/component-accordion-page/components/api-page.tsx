@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import { LocalContext, LocalContextType } from "../context/local-context";
 import PillFlair from "../../../../components/pill-flair";
 
-const PropsPage = () =>{
+const ApiPage = () =>{
     const {
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
 
     useEffect(()=>{
-        setTabSelected('props')
+        setTabSelected('api')
     },[])
 
     return(
@@ -19,4 +19,4 @@ const PropsPage = () =>{
         </div>
     )
 }
-export default PropsPage
+export default ApiPage

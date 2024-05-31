@@ -89,7 +89,7 @@
                 background-color: hsla(var(--color-neutral-100), 0.5);
                 border: 2px solid transparent;
 
-                &:hover{
+                &.has-hover:hover{
                     background-color: hsla(var(--color-neutral-300), 0.5);
                 }
 

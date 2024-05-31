@@ -13,9 +13,9 @@ html{
 
     --font-size-small: 12px; //14px
     --font-size-regular: 14px; //14px
-    --font-size-large: var(--size-4); //20px
-    --font-size-larger: var(--size-5); //24px
-    --font-size-largest: var(--size-6); //28px
+    --font-size-large: var(--size-5); //20px
+    --font-size-larger: var(--size-6); //24px
+    --font-size-largest: var(--size-7); //28px
 
     --font-weight-regular: 300;
     --font-weight-bold: 500;
@@ -51,6 +51,15 @@ html{
         color: hsl(var(--color-neutral-1100));
         font-size: var(--font-size-regular);
         font-weight: var(--font-weight-regular);
+    }
+    
+    line-height: 20px;
+
+    .font-code{
+        color: hsl(var(--color-neutral-1100));
+        font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+        background-color: hsl(var(--color-blue-100));
+        padding: 0px var(--size-2);
     }
 
     --def-color-neutral-0: 0, 0%, 100%; //#FFFFFF;

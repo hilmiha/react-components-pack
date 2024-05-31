@@ -1,5 +1,5 @@
 .pill-flair-text{
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--size-2);
 
@@ -24,7 +24,7 @@
 }
 
 .pill-flair-status{
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--size-2);
     color:hsl(var(--color-neutral-1100));
@@ -51,7 +51,7 @@
 }
 
 .pill-flair-pill{
-    display: flex;
+    display: inline-flex;
     gap: var(--size-2);
     align-items: center;
     width: fit-content;

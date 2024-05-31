@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react'
 import Tabs, { tabListItemType } from '../../../components/tabs'
 import './styles.scss'
+import Button from '../../../components/button'
+import ButtonGroup from '../../../components/button-group'
 
 type Props = {
     title?:string
     subTitle?:string
+    headerAdditionaContent?:JSX.Element | JSX.Element[]
     tabList?:tabListItemType[]
     selectedTab?:string
     setSelectedTab?: React.Dispatch<React.SetStateAction<string>>
@@ -14,6 +17,7 @@ type Props = {
 const DetailTemplate = ({
     title,
     subTitle,
+    headerAdditionaContent,
     tabList,
     selectedTab,
     setSelectedTab,
@@ -24,6 +28,16 @@ const DetailTemplate = ({
             <div className="detail-template-header">
                 <span className='detail-template-header-title'>{title}</span>
                 <span className='detail-template-header-subtitle'>{subTitle}</span>
+                {
+                    (headerAdditionaContent)&&(
+                        <div className="detail-template-header-adition">
+                            {
+                                headerAdditionaContent
+                            }
+                        </div>
+                    )
+                }
+                
             </div>
             {
                 (tabList && selectedTab!==undefined && setSelectedTab)&&(

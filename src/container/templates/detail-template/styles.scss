@@ -20,6 +20,10 @@
         margin-top: var(--size-4);
         animation: fadeIn 0.3s ease 0s 1 normal forwards;
     }
+
+    .detail-template-header-adition{
+        margin-top: var(--size-4);
+    }
 }
 
 .detail-template-header:has(+.detail-template-tabs){

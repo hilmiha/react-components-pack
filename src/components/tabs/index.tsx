@@ -9,9 +9,10 @@ export type tabListItemType = {
     to?:string,
     isDisabled?:boolean
 }
+export type tabListType = tabListItemType[]
 type TabsProps = {
     className?:string
-    tabList:tabListItemType[],
+    tabList:tabListType,
     selected:string
     setSelected:React.Dispatch<React.SetStateAction<string>>
 }

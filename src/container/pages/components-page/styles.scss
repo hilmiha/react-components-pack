@@ -23,11 +23,8 @@
 .component-section{
     max-width: 1000px;
     min-height: 100px;
-
-    >.tabs{
-        border-bottom: 0px;
-    }
 }
+
 .component-section+.component-section{
     margin-top: var(--size-10);
 }

@@ -1,0 +1,24 @@
+.component-props-detail-template{
+    .prop-title{
+        border-bottom: 1px solid hsl(var(--color-neutral-400));
+        padding-bottom: var(--size-2);
+    }
+    .prop-detail{
+        display: grid;
+        gap: var(--size-2);
+        margin-top: var(--size-4);
+
+        .prop-detail-row{
+            display: grid;
+            grid-template-columns: 90px 1fr;
+
+            .prop-detail-row-content{
+                max-width: 100%;
+                overflow: auto;
+            }
+        }
+    }
+    &+.component-props-detail-template{
+        margin-top: var(--size-10);
+    }
+}

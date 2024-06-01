@@ -9,7 +9,7 @@ export type AccordionItemItemType = {
     isDisabled?:boolean
     isOpen?:boolean,
     onClick?:(id:string)=>void
-    txtLabel?:string,
+    txtLabel:string,
     txtSublabel?:string,
     contentPage: JSX.Element | JSX.Element[] | ((props?:Record<any,any>)=>JSX.Element)
 }

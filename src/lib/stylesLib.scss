@@ -56,10 +56,11 @@ html{
     line-height: 20px;
 
     .font-code{
-        color: hsl(var(--color-neutral-1100));
+        color: hsl(var(--color-blue-900));
         font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
         background-color: hsl(var(--color-blue-100));
         padding: 0px var(--size-2);
+        width: fit-content;
     }
 
     --def-color-neutral-0: 0, 0%, 100%; //#FFFFFF;

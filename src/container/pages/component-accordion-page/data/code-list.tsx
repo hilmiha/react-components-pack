@@ -1,4 +1,8 @@
-export const codePreview = `const Example = () =>{
+export const codePreview = `import { useState } from "react"
+import Accordion from "components/accordion"
+import AccordionItem from "components/accordionItem"
+
+const Example = () =>{
 
 	const [opened, setOpened] = useState<string[]>([])
 
@@ -32,7 +36,11 @@ export const codePreview = `const Example = () =>{
 	)
 }`
 
-export const codeMultiExtendedPreview = `const Example = () =>{
+export const codeMultiExtendedPreview = `import { useState } from "react"
+import Accordion from "components/accordion"
+import AccordionItem from "components/accordionItem"
+
+const Example = () =>{
 
 	const [opened, setOpened] = useState<string[]>([])
 
@@ -67,7 +75,11 @@ export const codeMultiExtendedPreview = `const Example = () =>{
 	)
 }`
 
-export const codeSublabelPreview = `const Example = () =>{
+export const codeSublabelPreview = `import { useState } from "react"
+import Accordion from "components/accordion"
+import AccordionItem from "components/accordionItem"
+
+const Example = () =>{
 
 	const [opened, setOpened] = useState<string[]>([])
 
@@ -88,7 +100,11 @@ export const codeSublabelPreview = `const Example = () =>{
 	)
 }`
 
-export const codeDisabledPreview = `const Example = () =>{
+export const codeDisabledPreview = `import { useState } from "react"
+import Accordion from "components/accordion"
+import AccordionItem from "components/accordionItem"
+
+const Example = () =>{
 
 	const [opened, setOpened] = useState<string[]>([])
 

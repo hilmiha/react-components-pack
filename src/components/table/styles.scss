@@ -145,12 +145,20 @@
                         border-left-color: hsl(var(--color-blue-700));
                     }
                 }
+
+                &+.table-data-row{
+                    border-top-color: hsla(var(--color-neutral-300), 0.5);
+                }
             }
 
             .table-data-row-expandable{
                 padding: var(--size-4);
                 border-left: 2px solid transparent;
                 background-color: hsla(var(--color-neutral-0), 0.9);
+
+                &+.table-data-row{
+                    border-top-color: hsla(var(--color-neutral-300), 0.5);
+                }
             }
         }
     }

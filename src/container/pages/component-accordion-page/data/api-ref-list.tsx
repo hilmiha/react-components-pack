@@ -7,7 +7,7 @@ export const accordionApiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`string[]`,
         default:'-',
-        desc:<p className="font-text">List of expanded accordion item id's.</p>
+        desc:<p className="font-text">Array of IDs for the expanded <span className="font-code">{`<AccordionItem/>`}</span> components. Controls which items are open.</p>
     },
     {
         id:'2',
@@ -15,7 +15,8 @@ export const accordionApiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`React.Dispatch<React.SetStateAction<string[]>>`,
         default:'-',
-        desc:<p className="font-text">React set-state that change value of<span className="font-code">accordionOpen</span>.</p>
+        // 
+        desc:<p className="font-text">State setter function to update the <span className="font-code">{`accordionOpen`}</span> array, managing the expanded state of <span className="font-code">{`<AccordionItem/>`}</span> components.</p>
     },
     {
         id:'3',
@@ -23,14 +24,14 @@ export const accordionApiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`JSX.Element | JSX.Element[]`,
         default:'-',
-        desc:<p className="font-text">Lis of <span className="font-code">{`<AccordionItem/>`}</span> components.</p>
+        desc:<p className="font-text">The <span className="font-code">{`<AccordionItem/>`}</span> components to be rendered within the <span className="font-code">{`<Accordion/>`}</span>. Each child represents an individual item in the accordion.</p>
     },
     {
         id:'4',
         propName:'isAllowMultipleOpen',
         type:`boolean`,
         default:'false',
-        desc:<p className="font-text">When <span className="font-code">true</span>, allow to expand multiple <span className="font-code">{`<AccordionItem/>`}</span> at a time</p>
+        desc:<p className="font-text">Allows multiple <span className="font-code">{`<AccordionItem/>`}</span> components to be expanded simultaneously when set to <span className="font-code">{`true`}</span>.</p>
     }
 ]
 
@@ -41,7 +42,7 @@ export const accordionItemApiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`string`,
         default:'-',
-        desc:<p className="font-text">Identifier to be used for distinguish expanded and collapsed element.</p>
+        desc:<p className="font-text">A unique identifier for the <span className="font-code">{`<AccordionItem/>`}</span> component. This ID is used to manage the expanded state within the parent <span className="font-code">{`<Accordion/>`}</span> component.</p>
     },
     {
         id:'2',
@@ -49,7 +50,7 @@ export const accordionItemApiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`string`,
         default:'-',
-        desc:<p className="font-text">Label of <span className="font-code">{`<AccordionItem/>`}</span> header.</p>
+        desc:<p className="font-text">This label is displayed as the header or title of the item, which users click to expand or collapse the content.</p>
     },
     {
         id:'3',
@@ -57,7 +58,7 @@ export const accordionItemApiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`JSX.Element | JSX.Element[] | ((props?:Record<any,any>)=>JSX.Element)`,
         default:'-',
-        desc:<p className="font-text">Content of <span className="font-code">{`<AccordionItem/>`}</span>.</p>
+        desc:<p className="font-text">The content to be displayed when the <span className="font-code">{`<AccordionItem/>`}</span> is expanded.</p>
     },
     {
         id:'4',
@@ -65,7 +66,7 @@ export const accordionItemApiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`string`,
         default:'-',
-        desc:<p className="font-text">Sublabel of <span className="font-code">{`<AccordionItem/>`}</span> header.</p>
+        desc:<p className="font-text">n additional text sublabel for the <span className="font-code">{`<AccordionItem/>`}</span>. This sublabel provides supplementary information and is typically displayed below the main label.</p>
     },
     {
         id:'5',
@@ -73,24 +74,6 @@ export const accordionItemApiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`boolean`,
         default:'-',
-        desc:<p className="font-text">When <span className="font-code">true</span> interaction and focus for the element will be disabled.</p>
-    },
-    {
-        id:'6',
-        propName:'isOpen',
-        isMandatory:false,
-        type:`boolean`,
-        default:'-',
-        desc:<p className="font-text">When <span className="font-code">true</span> element will show it's <span className="font-code">contentPage</span>. This prop will be automatically manage by <span className="font-code">{`<Accordion/>`}</span> component.</p>
-    },
-    {
-        id:'7',
-        propName:'onClick',
-        isMandatory:false,
-        type:`function`,
-        typeAdition:<span className="font-code">{`(id: string) => void`}</span>,
-        default:'-',
-        desc:<p className="font-text">Function that will change the value of <span className="font-code">isOpen</span>. This prop will be automatically manage by <span className="font-code">{`<Accordion/>`}</span> component.</p>
-    },
-    
+        desc:<p className="font-text">When true, the <span className="font-code">{`<AccordionItem/>`}</span> is disabled and cannot be expanded or collapsed by user interaction.</p>
+    }
 ]

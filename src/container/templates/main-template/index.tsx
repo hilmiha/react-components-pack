@@ -66,7 +66,7 @@ const MainTemplate = ({children}:Props) =>{
                 </div>
                 <div className='header-theme'>
                     <IconButton
-                        Icon={isDarkmode?(PiMoon):(PiSun)}
+                        Icon={isDarkmode?(<PiMoon/>):(<PiSun/>)}
                         spacing='compact'
                         onClick={changeTheme}
                     />

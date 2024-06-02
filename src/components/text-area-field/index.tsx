@@ -192,7 +192,7 @@ const TextAreaField = ({
                                 appearance="subtle"
                                 spacing="compact"
                                 onClick={thisOnClear}
-                                Icon={PiX}
+                                Icon={<PiX/>}
                             />
                         )
                     }

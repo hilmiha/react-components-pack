@@ -52,7 +52,21 @@ html{
         font-size: var(--font-size-regular);
         font-weight: var(--font-weight-regular);
     }
-    
+
+    .font-link{
+        color: hsl(var(--color-blue-700));
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+
+        &:focus-visible{
+            outline-offset: 1.5px;
+            outline: 2px solid hsl(var(--color-blue-800));
+        }
+    }
+
     line-height: 20px;
 
     .font-code{

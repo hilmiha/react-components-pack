@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons'
 import { processClassname } from '../../helper'
 import './styles.scss'
 import IconButton, { appearanceIconButtonType } from '../icon-button'
@@ -41,9 +40,9 @@ export type tableButtonActionType = {
         id:string
         type:'icon-button' | 'button' | 'dropdown-menu'
         isDisabled?:boolean
-        IconBefore?:IconType
-        IconAfter?:IconType
-        txtLabelOrIcon:string | IconType
+        IconBefore?:JSX.Element
+        IconAfter?:JSX.Element
+        txtLabelOrIcon:string | JSX.Element
         appearance?:appearanceIconButtonType
         menuList?:menuListType
     }
@@ -383,11 +382,11 @@ const Table = ({
                                             onKeyDown={(e)=>{thisDoSearchKeyDown(e)}}
                                             isShowClear={false}
                                             config={{
-                                                sufix:((!form['search'])?(<></>):(<IconButton className='clear-button' Icon={PiX} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
+                                                sufix:((!form['search'])?(<></>):(<IconButton className='clear-button' Icon={<PiX/>} spacing='compact' appearance='subtle' onClick={()=>{thisOnDoSearch('')}}/>))
                                             }}
                                         />
                                         <IconButton
-                                            Icon={PiMagnifyingGlass}
+                                            Icon={<PiMagnifyingGlass/>}
                                             isDisabled={false}
                                             onClick={thisOnDoSearch}
                                         />
@@ -401,7 +400,7 @@ const Table = ({
                                 (FilterPage && onApplyFilter)&&(
                                     <>
                                         <IconButton
-                                            Icon={PiFunnel}
+                                            Icon={<PiFunnel/>}
                                             isDisabled={false}
                                             isSelected={(tableConfig?.filter)?(true):(false)}
                                             onClick={()=>{setIsShowFilterDrawer(true)}}
@@ -429,7 +428,7 @@ const Table = ({
                                 (onHideColumn)&&(
                                     <DropdownMenu
                                         type='checkbox'
-                                        TxtLabelOrIcon={PiColumns}
+                                        TxtLabelOrIcon={<PiColumns/>}
                                         altTxtLabel='Column Shown'
                                         onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
                                         isCloseAfterSelect={false}
@@ -469,7 +468,7 @@ const Table = ({
                                     <IconButton
                                         spacing='compact'
                                         appearance='subtle'
-                                        Icon={rowExpanded.length===0?(VscExpandAll):(VscCollapseAll)}
+                                        Icon={rowExpanded.length===0?(<VscExpandAll/>):(<VscCollapseAll/>)}
                                         onClick={thisOnExpandRow}
                                         isDisabled={tableData.length===0}
                                     />
@@ -575,7 +574,7 @@ const Table = ({
                                                         className='data-cell'
                                                     >
                                                         <IconButton
-                                                            Icon={rowExpanded.includes(itmRowId)?PiMinus:PiPlus}
+                                                            Icon={rowExpanded.includes(itmRowId)?<PiMinus/>:<PiPlus/>}
                                                             appearance='subtle'
                                                             spacing='compact'
                                                             onClick={()=>{onExpandClick(itmRowId)}}
@@ -673,8 +672,8 @@ const Table = ({
                                                                         spacing='compact'
                                                                         appearance={itmButton.appearance}
                                                                         txtLabel={itmButton.txtLabelOrIcon}
-                                                                        IconBefore={itmButton.IconBefore as IconType}
-                                                                        IconAfter={itmButton.IconAfter as IconType}
+                                                                        IconBefore={itmButton.IconBefore}
+                                                                        IconAfter={itmButton.IconAfter}
                                                                         onClick={()=>{thisOnClickAction(itmButton.id, itmRow)}}
                                                                         isDisabled={itmButton.isDisabled}
                                                                     />
@@ -685,7 +684,7 @@ const Table = ({
                                                                         key={itmButton.id}
                                                                         spacing='compact'
                                                                         appearance={itmButton.appearance}
-                                                                        Icon={itmButton.txtLabelOrIcon as IconType}
+                                                                        Icon={itmButton.txtLabelOrIcon}
                                                                         onClick={()=>{thisOnClickAction(itmButton.id, itmRow)}}
                                                                         isDisabled={itmButton.isDisabled}
                                                                     />
@@ -754,14 +753,14 @@ const Table = ({
                         </div>
                         <div className='table-footer-pagination'>
                             <IconButton
-                                Icon={PiCaretDoubleLeft}
+                                Icon={<PiCaretDoubleLeft/>}
                                 appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('first')}}
                                 isDisabled={tableData.length===0}
                             />
                             <IconButton
-                                Icon={PiCaretLeft}
+                                Icon={<PiCaretLeft/>}
                                 appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('prev')}}
@@ -769,14 +768,14 @@ const Table = ({
                             />
                             {`Page ${tableConfig.page} / ${tableConfig.maxPage}`}
                             <IconButton
-                                Icon={PiCaretRight}
+                                Icon={<PiCaretRight/>}
                                 appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('next')}}
                                 isDisabled={tableData.length===0}
                             />
                             <IconButton
-                                Icon={PiCaretDoubleRight}
+                                Icon={<PiCaretDoubleRight/>}
                                 appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('last')}}
@@ -790,7 +789,7 @@ const Table = ({
                                         
                                         {(mediaSize >= 1)&&(`Show ${tableConfig.maxRow} item`)}
                                         <DropdownMenu
-                                            TxtLabelOrIcon={(mediaSize >= 1)?(PiCaretDown):(PiRows)}
+                                            TxtLabelOrIcon={(mediaSize >= 1)?(<PiCaretDown/>):(<PiRows/>)}
                                             altTxtLabel='Maximum Row Shown'
                                             appearance='subtle'
                                             spacing='compact'

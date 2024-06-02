@@ -74,6 +74,6 @@ export const accordionItemApiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`boolean`,
         default:'-',
-        desc:<p className="font-text">When true, the <span className="font-code">{`<AccordionItem/>`}</span> is disabled and cannot be expanded or collapsed by user interaction.</p>
+        desc:<p className="font-text">When <span className="font-code">true</span>, the <span className="font-code">{`<AccordionItem/>`}</span> is disabled and cannot be expanded or collapsed by user interaction.</p>
     }
 ]

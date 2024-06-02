@@ -41,7 +41,7 @@ const ExamplePage = () =>{
                 <span className="font-title">Theme</span>
                 <div className="preview-box" style={{flexDirection:'column'}}>
                     <IconButton
-                        Icon={isDarkmode?(PiMoon):(PiSun)}
+                        Icon={isDarkmode?(<PiMoon/>):(<PiSun/>)}
                         spacing='compact'
                         onClick={changeTheme}
                     />

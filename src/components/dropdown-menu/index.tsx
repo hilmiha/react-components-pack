@@ -16,7 +16,6 @@ import {
     FloatingOverlay
 } from "@floating-ui/react";
 import './styles.scss'
-import { IconType } from "react-icons";
 import IconButton, { appearanceIconButtonType } from "../icon-button";
 import DropdownMenuItemGroup from "../dropdown-menu-item-group";
 import { processClassname } from "../../helper";
@@ -29,7 +28,7 @@ export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:
 type Props = {
     type?: 'checkbox' | 'default'
     className?: string
-    TxtLabelOrIcon: string | IconType
+    TxtLabelOrIcon: string | JSX.Element
     altTxtLabel?: string
     menuList?: menuListType
     appearance?:appearanceIconButtonType
@@ -168,7 +167,7 @@ const DropdownMenu = ({
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
                     txtLabel={TxtLabelOrIcon}
                     spacing={spacing}
-                    IconAfter={(isWithCaret)?(PiCaretDownBold):(undefined)}
+                    IconAfter={(isWithCaret)?(<PiCaretDownBold/>):(undefined)}
                     isDisabled={isDisabled}
                     isSelected={isSelected}
                 />
@@ -231,13 +230,13 @@ const DropdownMenu = ({
                                     <div style={{display:'flex', gap:"var(--size-2)"}}>
                                         {
                                             (typeof TxtLabelOrIcon !== 'string') && (
-                                                <TxtLabelOrIcon size={'1.25rem'}/>
+                                                TxtLabelOrIcon
                                             )
                                         }
                                         <span className="dropdown-menu-mobile-header-title">{typeof TxtLabelOrIcon === 'string' ? TxtLabelOrIcon : altTxtLabel ? altTxtLabel : 'Options'}</span>
                                     </div>
                                     <IconButton
-                                        Icon={PiXBold}
+                                        Icon={<PiXBold/>}
                                         appearance="subtle"
                                         spacing="compact"
                                         onClick={()=>{setIsOpen(false)}}

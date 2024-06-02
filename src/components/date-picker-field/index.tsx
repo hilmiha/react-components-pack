@@ -363,7 +363,7 @@ const DatePickerField = ({
                             appearance="subtle"
                             spacing="compact"
                             onClick={()=>{clearSelection(true)}}
-                            Icon={PiX}
+                            Icon={<PiX/>}
                         />
                     )
                 }
@@ -401,7 +401,7 @@ const DatePickerField = ({
                                 <div className="dropdown-menu-mobile-header">
                                     <span className="dropdown-menu-mobile-header-title">{txtLabel?txtLabel:'Options'}</span>
                                     <IconButton
-                                        Icon={PiXBold}
+                                        Icon={<PiXBold/>}
                                         appearance="subtle"
                                         spacing="compact"
                                         onClick={onCloseDropdown}

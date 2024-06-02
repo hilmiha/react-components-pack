@@ -5,16 +5,16 @@ import React, { Fragment, useState } from 'react'
 import { AccordionItemItemType } from '../accordionItem'
 
 type AccordionType = {
-    isAllowMultipleOpen?:boolean
     accordionOpen:string[],
     setAccordionOpen:React.Dispatch<React.SetStateAction<string[]>>
-    children: JSX.Element[] | JSX.Element
+    children: JSX.Element[] | JSX.Element,
+    isAllowMultipleOpen?:boolean
 }
 const Accordion = ({
-    isAllowMultipleOpen = false,
     accordionOpen,
     setAccordionOpen,
-    children
+    children,
+    isAllowMultipleOpen = false
 }:AccordionType) =>{
 
     

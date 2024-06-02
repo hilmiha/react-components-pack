@@ -51,7 +51,7 @@ const TemplateDrawerMenu = ({
     return(
         <>
             <IconButton
-                Icon={PiList}
+                Icon={<PiList/>}
                 spacing='compact'
                 onClick={()=>{setIsMainMenuDrawerOpen(!isMainMenuDrawerOpen)}}
             />
@@ -77,7 +77,7 @@ const TemplateDrawerMenu = ({
                                             {
                                                 (itmHeaderMenu.subMenu)&&(
                                                     <IconButton
-                                                        Icon={PiCaretDown}
+                                                        Icon={<PiCaretDown/>}
                                                         spacing='compact'
                                                         onClick={()=>{onClickOpenMoreMenu(itmHeaderMenu.id)}}
                                                     />

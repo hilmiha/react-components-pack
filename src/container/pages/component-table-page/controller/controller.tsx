@@ -125,7 +125,7 @@ export const getTableDataApi = async(tableConfig:tableConfigType) =>{
                 {
                     id:'delete3', 
                     type:'dropdown-menu', 
-                    txtLabelOrIcon:PiDotsThreeBold, 
+                    txtLabelOrIcon:<PiDotsThreeBold/>, 
                     appearance:'default',
                     menuList:[
                         {

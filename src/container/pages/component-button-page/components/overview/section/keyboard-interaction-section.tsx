@@ -23,12 +23,12 @@ const KeyboardInteractionSection = () =>{
                         {
                             id:'space',
                             key:(<div style={{height:'100%'}}><PillFlair txtLabel={'Space'} appearance="pill"/></div>),
-                            desc:'When focus is on an Accordion Item header of a collapsed section, expands the section. When focus is on an Accordion Item header of an expanded section, collapse the section.'
+                            desc:<p>When focus is on the component, will fires the function on <span className="font-code">onClick</span> prop.</p>
                         },
                         {
                             id:'enter',
                             key:(<div style={{height:'100%'}}><PillFlair txtLabel={'Enter'} appearance="pill"/></div>),
-                            desc:'When focus is on an Accordion Item header of a collapsed section, expands the section. When focus is on an Accordion Item header of an expanded section, collapse the section.'
+                            desc:<p>When focus is on the component, will fires the function on <span className="font-code">onClick</span> prop.</p>
                         },
                         {
                             id:'tab',

@@ -11,9 +11,7 @@ const SublabelItemSection = () =>{
     return(
         <div className="component-section">
             <span className="font-title-large">Sublabel item header</span>
-            <div className="desc-box">
-                <p className="font-text">Use the <span className="font-code">txtSublabel</span> prop on the Accordion Item component to add sublabel on the header.</p>
-            </div>
+            <p className="font-text">Use the <span className="font-code">txtSublabel</span> prop on the Accordion Item component to add sublabel on the header.</p>
             <PreviewNCode
                 code={codeSublabelPreview}
                 language="tsx"

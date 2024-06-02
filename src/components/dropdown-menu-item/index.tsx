@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons'
 import { processClassname } from '../../helper'
 import './styles.scss'
 import { spacingButtonType } from '../button'
@@ -7,7 +6,7 @@ export type Props = {
     className?: string
     txtLabel?: string
     txtSublabel?: string
-    IconBefore?: IconType
+    IconBefore?: JSX.Element
     isDisabled?: boolean
     isSelected?: boolean
     spacing?: spacingButtonType
@@ -44,7 +43,9 @@ const DropdownManuItem = ({
             {
                 (IconBefore)&&(
                     <div className='dropdown-button-item-icon-container'>
-                        <IconBefore className='button-icon-before'/>
+                        {
+                            IconBefore
+                        }
                     </div>
                 )
             }

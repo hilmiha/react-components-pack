@@ -168,7 +168,7 @@ const Drawer = ({
                                             {
                                                 (mediaSize>0)&&(
                                                     <IconButton
-                                                        Icon={PiArrowsOut}
+                                                        Icon={<PiArrowsOut/>}
                                                         spacing='compact'
                                                         appearance='subtle'
                                                         onClick={onClickMaximize}
@@ -176,7 +176,7 @@ const Drawer = ({
                                                 )
                                             }
                                             <IconButton
-                                                Icon={PiXBold}
+                                                Icon={<PiXBold/>}
                                                 spacing='compact'
                                                 appearance='subtle'
                                                 onClick={()=>{thisOnClickButton('*close*')}}

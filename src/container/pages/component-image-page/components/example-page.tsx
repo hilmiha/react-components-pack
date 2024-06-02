@@ -40,7 +40,7 @@ const ExamplePage = () =>{
                 <span className="font-title">With Darkmode Version</span>
                 <div className="preview-box" style={{flexDirection:'column'}}>
                     <IconButton
-                        Icon={isDarkmode?(PiMoon):(PiSun)}
+                        Icon={isDarkmode?(<PiMoon/>):(<PiSun/>)}
                         spacing='compact'
                         onClick={changeTheme}
                     />

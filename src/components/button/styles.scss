@@ -4,21 +4,67 @@
     border: 0px;
     cursor: pointer;
     border-radius: var(--size-1);
-    font-size: var(--font-size-regular);
-    font-weight: var(--font-weight-bold);
     display: flex;
     align-items: center;
-    min-width:max-content;
-    gap: var(--size-2);
+    justify-content: center;
+    min-width:50px;
+    
 
-    >.button-icon-before {
-        font-size: var(--font-size-large);
-    }
-    >.button-icon-after {
-        font-size: var(--font-size-large);
+    .button-label{
+        display: flex;
+        align-items: center;
+        gap: var(--size-2);
+        width: fit-content;
+        position: relative;
+
+        >span{
+            font-size: var(--font-size-regular);
+            font-weight: var(--font-weight-bold);
+        }
+        >.button-icon-before {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            
+            >svg{
+                height: var(--font-size-large);
+                width: var(--font-size-large);
+            }
+        }
+        >.button-icon-after {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            >svg{
+                height: var(--font-size-large);
+                width: var(--font-size-large);
+            }
+        }
+
+        &.loading{
+            >span{
+                opacity: 0;
+            }
+            >.button-icon-before {
+                opacity: 0;
+            }
+            >.button-icon-after {
+                opacity: 0;
+            }
+        }
+
+        >.spinner-container{
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
-    &.fill-Container{
+    &.full-width{
         width: 100%;
         justify-content: center;
     }
@@ -31,6 +77,13 @@
     &.compact-spacing{
         height: var(--size-8);
         padding: 0px var(--size-2);
+    }
+
+    &.none-spacing{
+        min-width: fit-content;
+        width: fit-content;
+        height: fit-content;
+        padding: 0px;
     }
     
     @include index.button-appearance;

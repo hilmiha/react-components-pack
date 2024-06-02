@@ -59,7 +59,7 @@ const SplitButton = ({
                 spacing={spacing}
                 isCloseAfterSelect={isCloseAfterSelect}
                 onClickItem={(buttonId)=>{thisOnClickItem(buttonId)}}
-                TxtLabelOrIcon={PiCaretDownBold}
+                TxtLabelOrIcon={<PiCaretDownBold/>}
             />
         </div>
     )

@@ -11,9 +11,7 @@ const MultipleExpanded = () =>{
     return(
         <div className="component-section">
             <span className="font-title-large">Multiple item extended at a time</span>
-            <div className="desc-box">
-                <p className="font-text">Use the <span className="font-code">isAllowMultipleOpen</span> prop on the Accordion component to allow multiple panel of Accordion Item to be expanded at a time.</p>
-            </div>
+            <p className="font-text">Use the <span className="font-code">isAllowMultipleOpen</span> prop on the Accordion component to allow multiple panel of Accordion Item to be expanded at a time.</p>
             <PreviewNCode
                 code={codeMultiExtendedPreview}
                 language="tsx"

@@ -3,12 +3,11 @@ import './styles.scss'
 import { FloatingFocusManager, FloatingOverlay, FloatingPortal, useDismiss, useFloating, useInteractions, } from '@floating-ui/react'
 import Button, { appearanceButtonType } from '../button'
 import { processClassname } from '../../helper'
-import { PiCheckCircleBold, PiInfoBold, PiWarningCircleBold, PiXBold, PiXCircleBold } from 'react-icons/pi'
+import { PiXBold } from 'react-icons/pi'
 import IconButton from '../icon-button'
 import ButtonGroup from '../button-group'
 import { GlobalContext, GlobalContextType } from '../../context/globalcontext'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { IconType } from 'react-icons'
 
 export type modalInfoType = 'info' | 'success' | 'warning' | 'danger'
 export type modalSizeType = 'small' | "large"
@@ -25,7 +24,7 @@ type Props = {
     size?:modalSizeType
     className?: string
     txtTitle?:string
-    iconTitle?:IconType | JSX.Element
+    iconTitle?: JSX.Element
     txtContent?:string,
     contentPage?:JSX.Element | ((props?:Record<any,any>)=>JSX.Element),    
     buttonList?:modalButtonType[]
@@ -161,7 +160,7 @@ const Modal = ({
                                         
                                     </div>
                                     <IconButton
-                                        Icon={PiXBold}
+                                        Icon={<PiXBold/>}
                                         spacing='compact'
                                         appearance='subtle'
                                         onClick={()=>{thisOnClickButton('*close*')}}

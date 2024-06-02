@@ -1,9 +1,10 @@
-import { IconType } from 'react-icons';
 import './styles.scss';
 import { ExtendedRefs, ReferenceType } from '@floating-ui/react';
-import React from 'react';
+import { useContext } from 'react';
+import Spinner from 'components/spinner';
+import { GlobalContext, GlobalContextType } from 'context/globalcontext';
 
-export type spacingButtonType = "default" | "compact"
+export type spacingButtonType = "default" | "compact" | "none"
 export type appearanceButtonType = "default" | "primary" | "subtle" | "link" | "subtle-link" | "warning" | "danger"
 
 export interface Props{
@@ -11,11 +12,12 @@ export interface Props{
     txtLabel: string,
     spacing?: spacingButtonType,
     appearance?: appearanceButtonType,
-    isFillContainer?: boolean,
+    isFullWidth?: boolean,
     isDisabled?: boolean,
     isSelected?: boolean,
-    IconBefore?: IconType,
-    IconAfter?: IconType,
+    isLoading?: boolean,
+    IconBefore?: JSX.Element,
+    IconAfter?: JSX.Element,
     onClick?: () => void,
 
     floatingUi_ref?:ExtendedRefs<ReferenceType>,
@@ -27,9 +29,10 @@ const Button = ({
     txtLabel = "",
     spacing = 'default',
     appearance = 'default',
-    isFillContainer = false,
+    isFullWidth = false,
     isDisabled = false,
     isSelected = false,
+    isLoading = false,
     IconBefore,
     IconAfter,
     onClick,
@@ -37,9 +40,9 @@ const Button = ({
     floatingUi_ref,
     floatingUi_getReferenceProps
 }:Props) =>{
-    
+    const{ isDarkmode } = useContext(GlobalContext) as GlobalContextType
     const thisOnClick = () =>{
-        if(!isDisabled && onClick){
+        if(!isDisabled && !isLoading && onClick){
             onClick()
         }
     }
@@ -52,25 +55,39 @@ const Button = ({
                 ${className?(className):('')}
                 ${spacing?(`${spacing}-spacing`):('')}
                 ${appearance?(`${appearance}-appearance`):('')}
-                ${isFillContainer?('fill-Container'):('')}
-                ${isDisabled?('disabled'):('')}
+                ${isFullWidth?('full-width'):('')}
+                ${(isDisabled||isLoading)?('disabled'):('')}
                 ${isSelected?('selected'):('')}`)  
             } 
             onClick={thisOnClick}
-            disabled={isDisabled}
+            disabled={isDisabled || isLoading}
             {...floatingUi_getReferenceProps}
         >   
-            {
-                (IconBefore)&&(
-                    <IconBefore className='button-icon-before'/>
-                )
-            }
-            {txtLabel}
-            {
-                (IconAfter)&&(
-                    <IconAfter className='button-icon-after'/>
-                )
-            }
+            <div 
+                className={
+                    processClassname(`button-label
+                    ${(isLoading)?('loading'):('')}`)
+                }
+            >
+                {
+                    (IconBefore)&&(
+                        <span className='button-icon-before'>{IconBefore}</span>
+                    )
+                }
+                <span>{txtLabel}</span>
+                {
+                    (IconAfter)&&(
+                        <span className='button-icon-after'>{IconAfter}</span>
+                    )
+                }
+                {
+                    (isLoading)&&(
+                        <div className='spinner-container'>
+                            <Spinner size='small' theme={isDarkmode?('light'):('dark')}/>
+                        </div>
+                    )
+                }
+            </div>
         </button>
     )
 }

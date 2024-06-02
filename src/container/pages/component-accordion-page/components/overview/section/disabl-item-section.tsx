@@ -11,9 +11,7 @@ const DisableItemSection = () =>{
     return(
         <div className="component-section">
             <span className="font-title-large">Disabled item header</span>
-            <div className="desc-box">
-                <p className="font-text">Use the <span className="font-code">isDisabled</span> prop on the Accordion Item component to disable interaction and focus.</p>
-            </div>
+            <p className="font-text">Use the <span className="font-code">isDisabled</span> prop on the Accordion Item component to disable interaction and focus.</p>
             <PreviewNCode
                 code={codeDisabledPreview}
                 language="tsx"

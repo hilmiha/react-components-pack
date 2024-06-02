@@ -28,7 +28,7 @@ const ExamplePage = () =>{
                     />
                     <DropdownMenu 
                         onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        TxtLabelOrIcon={PiStarFourFill}
+                        TxtLabelOrIcon={<PiStarFourFill/>}
                         menuList={menuList} 
                     />
                 </div>

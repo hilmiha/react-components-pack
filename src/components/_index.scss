@@ -171,9 +171,9 @@
         justify-content: center;
         align-items: center;
 
-        >.button-icon-before{
-            width: fit-content;
-            font-size: var(--font-size-large);
+        >svg{
+            height: var(--font-size-large);
+            width: var(--font-size-large);
         }
     }
 }

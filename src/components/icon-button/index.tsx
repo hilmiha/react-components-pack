@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons';
 import './styles.scss';
 import { processClassname } from '../../helper';
 import { ExtendedRefs, ReferenceType } from '@floating-ui/react';
@@ -12,7 +11,7 @@ interface Props{
     appearance?:appearanceIconButtonType
     isDisabled?: boolean
     isSelected?: boolean
-    Icon: IconType
+    Icon: JSX.Element
     onClick?: () => void
 
     floatingUi_ref?:ExtendedRefs<ReferenceType>,
@@ -54,7 +53,9 @@ const IconButton = ({
 
             {...floatingUi_getReferenceProps}
         >
-            <Icon/>
+            {
+                Icon
+            }
         </button>
     )
 }

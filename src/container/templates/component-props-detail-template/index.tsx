@@ -24,7 +24,7 @@ const ComponentPropsDetailTemplate = ({
                                 <span className="font-code">{itm.propName}</span>
                                 {
                                     (itm.isMandatory)&&(
-                                        <span style={{color:'hsl(var(--color-blue-900))'}}>*</span>
+                                        <span style={{color:'hsl(var(--color-red-800))', marginLeft:"var(--size-6)"}}>Required</span>
                                     )
                                 }
                             </p>

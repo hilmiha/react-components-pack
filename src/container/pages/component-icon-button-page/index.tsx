@@ -2,8 +2,10 @@ import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import route from "./routes/routes";
+import ButtonGroup from "components/button-group";
+import Button from "components/button";
 
 const ComponentIconButtonPage = () =>{
     const {
@@ -16,6 +18,13 @@ const ComponentIconButtonPage = () =>{
         tabSelected,
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
+
+    const navigate = useNavigate()
+    
+    const onClickButton = (to:string) =>{
+        setTabSelected(to)
+        navigate(to)
+    }
 
     useEffect(()=>{
         setSidebarMenuListSelected('icon-button')
@@ -30,17 +39,26 @@ const ComponentIconButtonPage = () =>{
         <DetailTemplate 
             title="Icon Button" 
             subTitle="An icon-only button lets people take a common and recognizable action where space is limited."
-            tabList={[
-                {id:'example', txtLabel:'Example', to:'example'},
-                {id:'props', txtLabel:'Props', to:'props'},
-
-            ]}
-            selectedTab={tabSelected}
-            setSelectedTab={setTabSelected}
+            headerAdditionaContent={
+                <ButtonGroup>
+                    <Button
+                        txtLabel='Overview'
+                        spacing='compact'
+                        onClick={()=>{onClickButton('overview')}}
+                        isSelected={tabSelected==='overview'}
+                    />
+                    <Button
+                        txtLabel='API Reference'
+                        spacing='compact'
+                        onClick={()=>{onClickButton('api')}}
+                        isSelected={tabSelected==='api'}
+                    />
+                </ButtonGroup>
+            }
         >
             <Suspense fallback={<></>}>
                 <Routes>
-                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    <Route key={''} path={'/*'} element={<Navigate to="overview" replace />}/>
                     {
                         route.map((itmRoute)=>(
                             <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/> 

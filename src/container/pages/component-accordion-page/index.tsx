@@ -53,8 +53,6 @@ const ComponentAccordionPage = () =>{
                     />
                 </ButtonGroup>
             }
-            selectedTab={tabSelected}
-            setSelectedTab={setTabSelected}
         >
             <Suspense fallback={<></>}>
                 <Routes>

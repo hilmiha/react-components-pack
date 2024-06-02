@@ -72,5 +72,13 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         type:`JSX.Element`,
         default:'-',
         desc:<p className="font-text">Display an icon after the text. Icon components are imported from the <a className="font-link" href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a> library.</p>
+    },
+    {
+        id:'10',
+        propName:'onClick',
+        isMandatory:false,
+        type:`() => void`,
+        default:'"default"',
+        desc:<p className="font-text">Callback function triggered when the <span className="font-code">{`<Button/>`}</span> component is clicked.</p>
     }
 ]

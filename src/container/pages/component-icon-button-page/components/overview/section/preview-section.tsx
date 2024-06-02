@@ -1,6 +1,7 @@
 import { codePreview } from "../../../data/code-list"
 import PreviewNCode from "components/preview-n-code"
-import Button from "components/button"
+import IconButton from "components/icon-button"
+import { PiStarFourFill } from "react-icons/pi"
 
 const PreviewSection = () =>{
 
@@ -10,10 +11,11 @@ const PreviewSection = () =>{
                 code={codePreview}
                 language=""
             >
-                <Button
-                    txtLabel="Button"
+                <IconButton
+                    Icon={<PiStarFourFill/>}
                 />
             </PreviewNCode>
+            <p className="font-text">Icon components are imported from the <a className="font-link" href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a> library.</p>
         </div>
     )
 }

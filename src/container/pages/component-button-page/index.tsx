@@ -55,12 +55,10 @@ const ComponentButtonPage = () =>{
                     />
                 </ButtonGroup>
             }
-            selectedTab={tabSelected}
-            setSelectedTab={setTabSelected}
         >
             <Suspense fallback={<></>}>
                 <Routes>
-                    <Route key={''} path={'/'} element={<Navigate to="overview" replace />}/>
+                    <Route key={''} path={'/*'} element={<Navigate to="overview" replace />}/>
                     {
                         route.map((itmRoute)=>(
                             <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/>      

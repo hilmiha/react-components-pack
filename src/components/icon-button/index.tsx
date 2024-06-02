@@ -2,6 +2,9 @@ import './styles.scss';
 import { processClassname } from '../../helper';
 import { ExtendedRefs, ReferenceType } from '@floating-ui/react';
 import { spacingButtonType } from '../button';
+import { GlobalContext, GlobalContextType } from 'context/globalcontext';
+import { useContext } from 'react';
+import Spinner from 'components/spinner';
 
 export type appearanceIconButtonType = "default" | "primary" | "subtle" | "warning" | "danger"
 
@@ -11,6 +14,7 @@ interface Props{
     appearance?:appearanceIconButtonType
     isDisabled?: boolean
     isSelected?: boolean
+    isLoading?:boolean
     Icon: JSX.Element
     onClick?: () => void
 
@@ -25,11 +29,13 @@ const IconButton = ({
     appearance = 'default',
     isDisabled = false,
     isSelected = false,
+    isLoading = false,
     onClick,
 
     floatingUi_ref,
     floatingUi_getReferenceProps
 }:Props) =>{
+    const{ isDarkmode } = useContext(GlobalContext) as GlobalContextType
 
     const thisOnClick = () =>{
         if(!isDisabled && onClick){
@@ -45,16 +51,20 @@ const IconButton = ({
                 ${className?(className):('')}
                 ${spacing?(`${spacing}-spacing`):('')}
                 ${appearance?(`${appearance}-appearance`):('')}
-                ${isDisabled?('disabled'):('')}
+                ${(isDisabled||isLoading)?('disabled'):('')}
                 ${isSelected?('selected'):('')}`)
             } 
             onClick={thisOnClick}
-            disabled={isDisabled}
+            disabled={isDisabled || isLoading}
 
             {...floatingUi_getReferenceProps}
         >
             {
-                Icon
+                (isLoading)?(
+                    <Spinner size='small' theme={isDarkmode?('light'):('dark')}/>
+                ):(
+                    Icon
+                )
             }
         </button>
     )

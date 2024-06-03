@@ -87,19 +87,6 @@ const ExamplePage = () =>{
                     />
                 </div>
             </div>
-
-            <div className="component-section">
-                <span className="font-title">With Charet</span>
-                <div className="preview-box">
-                    <DropdownMenu 
-                        onClickItem={(buttonId)=>{console.log(buttonId)}}
-                        TxtLabelOrIcon='Open Menu'
-                        spacing="default"
-                        isWithCaret
-                        menuList={menuList} 
-                    />
-                </div>
-            </div>
         </div>
     )
 }

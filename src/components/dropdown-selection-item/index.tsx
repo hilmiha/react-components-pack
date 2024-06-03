@@ -10,6 +10,7 @@ type Props = {
     isDisabled?: boolean
     isSelected?: boolean
     isWithCheckbox?: boolean
+    IconBefore?: JSX.Element
     spacing?:'compact'|'default'
     onClick?: () => void
 }
@@ -21,6 +22,7 @@ const DropdownSelectionItem = ({
     isDisabled = false,
     isSelected = false,
     isWithCheckbox = false,
+    IconBefore,
     spacing = 'default',
     onClick
 }:Props) =>{
@@ -41,15 +43,25 @@ const DropdownSelectionItem = ({
             onClick={thisOnClick}
             disabled={isDisabled}
         >
-            {
-                (isWithCheckbox)&&(
-                    <Checkbox isSelected={isSelected}/>
-                )
-            }
-            <div className='dropdown-button-item-label-container'>
-                {(txtLabel)&&(<span className='dropdown-button-item-label'>{txtLabel}</span>)}
-                {(txtSublabel)&&(<span className='dropdown-button-item-sublabel'>{txtSublabel}</span>)}
+            <div>
+                {
+                    (isWithCheckbox)&&(
+                        <Checkbox isSelected={isSelected}/>
+                    )
+                }
+                {
+                    (IconBefore)&&(
+                        <div className='dropdown-button-icon-label-container'>
+                            {IconBefore}
+                        </div>
+                    )
+                }
+                <div className='dropdown-button-item-label-container'>
+                    {(txtLabel)&&(<span className='dropdown-button-item-label'>{txtLabel}</span>)}
+                    {(txtSublabel)&&(<span className='dropdown-button-item-sublabel'>{txtSublabel}</span>)}
+                </div>
             </div>
+            
         </button>
     )
 }

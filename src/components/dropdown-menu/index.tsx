@@ -26,8 +26,9 @@ import DropdownSelectionItem from "../dropdown-selection-item";
 export type menuListItemType = {
     id:string, 
     txtLabel:string, 
-    isDisabled?:boolean, 
-    isSelected?:boolean, 
+    txtSublabel?:string
+    isDisabled?:boolean
+    IconBefore?:JSX.Element
     value?:string | number | boolean
 }
 export type menuListType = {id:string, title?:string, menu:menuListItemType[]}[]
@@ -38,9 +39,9 @@ type Props = {
     TxtLabelOrIcon: string | JSX.Element
     altTxtLabel?: string
     menuList?: menuListType | menuListItemType[]
+    menuListSelected?: string[]
     appearance?:appearanceIconButtonType
     spacing?: 'compact' | 'default'
-    isWithCaret?: boolean
     isDisabled?:boolean
     isSelected?:boolean
     isCloseAfterSelect?:boolean,
@@ -54,9 +55,9 @@ const DropdownMenu = ({
     TxtLabelOrIcon,
     altTxtLabel,
     menuList = [],
+    menuListSelected = [],
     appearance,
     spacing = 'default',
-    isWithCaret = false,
     isCloseAfterSelect = false,
     isDisabled = false,
     isSelected = false,
@@ -91,14 +92,14 @@ const DropdownMenu = ({
     const [isOpen, setIsOpen] = useState(false);
 
     const { refs, floatingStyles, context } = useFloating({
-        placement:'bottom-start',
+        placement:(typeof TxtLabelOrIcon === 'string')?('bottom-end'):('bottom-start'),
         open: isOpen,
         onOpenChange: setIsOpen,
         middleware: [
             offset(8),
             shift(),
             flip({
-                fallbackPlacements:['bottom-start', 'bottom-end', "bottom", 'top-start', 'top-end', "top", "right-start", 'right-end', "left-start", "left-end"],
+                fallbackPlacements:['bottom-end', 'bottom-start', "bottom", 'top-start', 'top-end', "top", "right-start", 'right-end', "left-start", "left-end"],
                 padding: 10,
             })
         ],
@@ -191,7 +192,7 @@ const DropdownMenu = ({
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
                     txtLabel={TxtLabelOrIcon}
                     spacing={spacing}
-                    IconAfter={(isWithCaret)?(<PiCaretDownBold/>):(undefined)}
+                    IconAfter={<PiCaretDownBold/>}
                     isDisabled={isDisabled}
                     isSelected={isSelected}
                 />
@@ -228,7 +229,9 @@ const DropdownMenu = ({
                                                     onClick={()=>{thisOnClick(itmMenu.id, itmMenu.value)}}
                                                     isDisabled={itmMenu.isDisabled}
                                                     isWithCheckbox={type==='checkbox'}
-                                                    isSelected={itmMenu.isSelected}
+                                                    isSelected={menuListSelected.includes(itmMenu.id)}
+                                                    IconBefore={itmMenu.IconBefore}
+                                                    txtSublabel={itmMenu.txtSublabel}
                                                     spacing={spacing}
                                                 />
                                             ))
@@ -252,7 +255,7 @@ const DropdownMenu = ({
                                 {...getFloatingProps()}
                             >
                                 <div className="dropdown-menu-mobile-header">
-                                    <div style={{display:'flex', gap:"var(--size-2)"}}>
+                                    <div style={{display:'flex', gap:"var(--size-2)", alignItems:'center'}}>
                                         {
                                             (typeof TxtLabelOrIcon !== 'string') && (
                                                 TxtLabelOrIcon
@@ -283,7 +286,9 @@ const DropdownMenu = ({
                                                             onClick={()=>{thisOnClick(itmMenu.id, itmMenu.value)}}
                                                             isDisabled={itmMenu.isDisabled}
                                                             isWithCheckbox={type==='checkbox'}
-                                                            isSelected={itmMenu.isSelected}
+                                                            isSelected={menuListSelected.includes(itmMenu.id)}
+                                                            IconBefore={itmMenu.IconBefore}
+                                                            txtSublabel={itmMenu.txtSublabel}
                                                         />
                                                     ))
                                                 }

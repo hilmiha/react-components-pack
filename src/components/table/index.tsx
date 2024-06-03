@@ -439,11 +439,11 @@ const Table = ({
                                                 menu:tableColums.map((item)=>{return({
                                                     id:item.key,
                                                     txtLabel:item.txtLabel,
-                                                    isSelected: !tableConfig?.hiddenColumn?.includes(item.key),
-                                                    value:item.isHideable
+                                                    value:item.isHideable,
                                                 })})
                                             }
                                         ]}
+                                        menuListSelected={tableColums.filter((itm)=>!tableConfig?.hiddenColumn?.includes(itm.key)).map(itm=>itm.key)}
                                     />
                                 )
                             }
@@ -794,15 +794,11 @@ const Table = ({
                                             appearance='subtle'
                                             spacing='compact'
                                             menuList={[
-                                                {
-                                                    id:'maxRowSelection',
-                                                    menu:[
-                                                        {id:'item10', txtLabel:'10', isSelected:10===tableConfig.maxRow, value:10},
-                                                        {id:'item50', txtLabel:'50', isSelected:50===tableConfig.maxRow, value:50},
-                                                        {id:'item100', txtLabel:'100', isSelected:100===tableConfig.maxRow, value:100}
-                                                    ]
-                                                }
+                                                {id:'10', txtLabel:'10', value:10},
+                                                {id:'50', txtLabel:'50', value:50},
+                                                {id:'100', txtLabel:'100', value:100}
                                             ]}
+                                            menuListSelected={[`${tableConfig.maxRow}`]}
                                             onClickItem={(idButton, value)=>{if(typeof value === 'number'){thisOnChangeMaxRow(value)}}}
                                             isDisabled={tableData.length===0}
                                         />

@@ -1,13 +1,15 @@
+import Accordion from 'components/accordion'
 import './styles.scss'
+import AccordionItem from 'components/accordionItem'
+import { useState } from 'react'
 export type listCompPropsDetail = {
     id:string,
     propName:string
     isMandatory?:boolean,
     type?:string
-    typeAdition?: string | JSX.Element
     default?:string
     desc?:string | JSX.Element
-    example?:JSX.Element
+    additionInfo?: string | JSX.Element
 }
 type props = {
     listProps:listCompPropsDetail[]
@@ -15,6 +17,9 @@ type props = {
 const ComponentPropsDetailTemplate = ({
     listProps
 }:props) =>{
+
+    const [isShowAddInfo, setIsShowAddInfo] = useState<string[]>([])
+
     return(
         <>
             {
@@ -38,22 +43,6 @@ const ComponentPropsDetailTemplate = ({
                                         <span className='font-title'>Type</span>
                                         <div className='prop-detail-row-content' style={{maxWidth:'100%', overflow:'auto'}}>
                                             <span className='font-code'>{itm.type}</span>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                            {
-                                (itm.typeAdition)&&(
-                                    <div className='prop-detail-row'>
-                                        <span className='font-title'></span>
-                                        <div className='prop-detail-row-content' style={{maxWidth:'100%', overflow:'auto'}}>
-                                            {
-                                                (typeof itm.typeAdition === 'string')?(
-                                                    <span className='font-text'>{itm.typeAdition}</span>
-                                                ):(
-                                                    <>{itm.typeAdition}</>
-                                                )
-                                            }
                                         </div>
                                     </div>
                                 )
@@ -85,12 +74,23 @@ const ComponentPropsDetailTemplate = ({
                                 )
                             }
                             {
-                                (itm.example)&&(
-                                    <div className='prop-detail-row'>
-                                        <span className='font-title'>Example</span>
-                                        <div className='prop-detail-row-content' style={{maxWidth:'100%', overflow:'auto'}}>
-                                            {itm.example}
-                                        </div>
+                                (itm.additionInfo)&&(
+                                    <div className='prop-detail-row-content' style={{maxWidth:'100%', overflow:'auto', marginTop:'var(--size-2)', padding:'2px'}}>
+                                        <Accordion
+                                            accordionOpen={isShowAddInfo}
+                                            setAccordionOpen={setIsShowAddInfo}
+                                        >
+                                            <AccordionItem
+                                                id='o'
+                                                contentPage={
+                                                    (typeof itm.additionInfo === 'string')?(
+                                                        <span className='font-text'>{itm.additionInfo}</span>
+                                                    ):(itm.additionInfo)
+                                                }
+                                                txtLabel='Addtional information'
+                                            />
+                                        </Accordion>
+                                        
                                     </div>
                                 )
                             }

@@ -427,7 +427,7 @@ const Table = ({
                             {
                                 (onHideColumn)&&(
                                     <DropdownMenu
-                                        type='checkbox'
+                                        isWithCheckbox={true}
                                         TxtLabelOrIcon={<PiColumns/>}
                                         altTxtLabel='Column Shown'
                                         onClickItem={(buttonId, isHideable)=>{thisOnHideColumn(buttonId, isHideable)}}
@@ -695,7 +695,7 @@ const Table = ({
                                                                         key={itmButton.id}
                                                                         TxtLabelOrIcon={itmButton.txtLabelOrIcon}
                                                                         appearance={itmButton.appearance}
-                                                                        menuList={itmButton.menuList}
+                                                                        menuList={itmButton.menuList?itmButton.menuList:[]}
                                                                         spacing='compact'
                                                                         onClickItem={(buttonId)=>{thisOnClickAction(buttonId, itmRow)}}
                                                                         isCloseAfterSelect

@@ -34,11 +34,10 @@ export type menuListItemType = {
 export type menuListType = {id:string, title?:string, menu:menuListItemType[]}[]
 
 type Props = {
-    type?: 'checkbox' | 'default'
     className?: string
     TxtLabelOrIcon: string | JSX.Element
     altTxtLabel?: string
-    menuList?: menuListType | menuListItemType[]
+    menuList: menuListType | menuListItemType[]
     menuListSelected?: string[]
     appearance?:appearanceIconButtonType
     spacing?: 'compact' | 'default'
@@ -46,22 +45,23 @@ type Props = {
     isSelected?:boolean
     isCloseAfterSelect?:boolean,
     isOnScrollClose?:boolean
+    isWithCheckbox?:boolean
     onClickItem?: (buttonId:string, value?:string | number | boolean)=>void
 }
 
 const DropdownMenu = ({
-    type = 'default',
     className,
     TxtLabelOrIcon,
     altTxtLabel,
     menuList = [],
     menuListSelected = [],
-    appearance,
+    appearance = 'default',
     spacing = 'default',
     isCloseAfterSelect = false,
+    isOnScrollClose = false,
     isDisabled = false,
     isSelected = false,
-    isOnScrollClose = false,
+    isWithCheckbox = false,
     onClickItem
 }:Props) =>{
     const navigate = useNavigate()
@@ -99,7 +99,7 @@ const DropdownMenu = ({
             offset(8),
             shift(),
             flip({
-                fallbackPlacements:['bottom-end', 'bottom-start', "bottom", 'top-start', 'top-end', "top", "right-start", 'right-end', "left-start", "left-end"],
+                fallbackPlacements:['bottom-end', 'bottom-start', "bottom", 'top-end', 'top-start', "top", "right-start", 'right-end', "left-start", "left-end"],
                 padding: 10,
             })
         ],
@@ -123,7 +123,7 @@ const DropdownMenu = ({
         if(onClickItem){
             onClickItem(buttonId, value)
         }
-        if(isCloseAfterSelect || (mediaSize<1 && type!=='checkbox')){
+        if(isCloseAfterSelect || (mediaSize<1 && !isWithCheckbox)){
             setIsOpen(false)
         }
     }
@@ -179,7 +179,7 @@ const DropdownMenu = ({
                     spacing={spacing}
                     Icon={TxtLabelOrIcon}
                     isDisabled={isDisabled}
-                    isSelected={isSelected}
+                    isSelected={isOpen || isSelected}
                 />
             ):(
                 <Button
@@ -194,7 +194,7 @@ const DropdownMenu = ({
                     spacing={spacing}
                     IconAfter={<PiCaretDownBold/>}
                     isDisabled={isDisabled}
-                    isSelected={isSelected}
+                    isSelected={isOpen || isSelected}
                 />
             )}
 
@@ -228,7 +228,7 @@ const DropdownMenu = ({
                                                     txtLabel={itmMenu.txtLabel}
                                                     onClick={()=>{thisOnClick(itmMenu.id, itmMenu.value)}}
                                                     isDisabled={itmMenu.isDisabled}
-                                                    isWithCheckbox={type==='checkbox'}
+                                                    isWithCheckbox={isWithCheckbox}
                                                     isSelected={menuListSelected.includes(itmMenu.id)}
                                                     IconBefore={itmMenu.IconBefore}
                                                     txtSublabel={itmMenu.txtSublabel}
@@ -285,7 +285,7 @@ const DropdownMenu = ({
                                                             txtLabel={itmMenu.txtLabel}
                                                             onClick={()=>{thisOnClick(itmMenu.id, itmMenu.value)}}
                                                             isDisabled={itmMenu.isDisabled}
-                                                            isWithCheckbox={type==='checkbox'}
+                                                            isWithCheckbox={isWithCheckbox}
                                                             isSelected={menuListSelected.includes(itmMenu.id)}
                                                             IconBefore={itmMenu.IconBefore}
                                                             txtSublabel={itmMenu.txtSublabel}

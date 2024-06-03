@@ -13,7 +13,7 @@ const ApperanceVariationSection = () =>{
     return(
         <div className="component-section">
             <span className="font-title-large">Apperance variation</span>
-            <p className="font-text">Icon Button component supports various appearance styles through the <span className="font-code">appearance</span> prop, allowing you to customize its look to fit different contexts. Below are examples of each variation:</p>
+            <p className="font-text">Icon Button component supports various appearance styles through the <span className="font-code">appearance</span> prop, allowing customization of its look to fit different contexts. Below are examples of each variation:</p>
             <Accordion
                 accordionOpen={open}
                 setAccordionOpen={setOpen}

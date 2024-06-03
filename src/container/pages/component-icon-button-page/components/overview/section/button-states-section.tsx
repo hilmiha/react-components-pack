@@ -13,7 +13,7 @@ const ButtonStatesSection = () =>{
             <div style={{marginLeft:'var(--size-4)', display:'grid', gap:'var(--size-6)'}}>
                 <div style={{display:'grid', gap:'var(--size-2)'}}>
                     <span className="font-title">Selected state</span>
-                    <p className="font-text">Indicating the button is currently chosen or active</p>
+                    <p className="font-text">Indicating the button is currently chosen or active using <span className="font-code">isSelected</span> prop</p>
                     <PreviewNCode
                         code={codePreviewIsSelectedButton}
                         language=""
@@ -26,7 +26,7 @@ const ButtonStatesSection = () =>{
                 </div>
                 <div style={{display:'grid', gap:'var(--size-2)'}}>
                     <span className="font-title">Loading state</span>
-                    <p className="font-text">Showing a spinner to indicate a background process.</p>
+                    <p className="font-text">Showing a spinner to indicate a background process using <span className="font-code">isLoading</span> prop.</p>
                     <PreviewNCode
                         code={codePreviewIsLoadingButton}
                         language=""
@@ -39,7 +39,7 @@ const ButtonStatesSection = () =>{
                 </div>
                 <div style={{display:'grid', gap:'var(--size-2)'}}>
                     <span className="font-title">Disabled state</span>
-                    <p className="font-text">Indicating the button is inactive and cannot be clicked.</p>
+                    <p className="font-text">Indicating the button is inactive and cannot be clicked using <span className="font-code">isDisabled</span> prop.</p>
                     <PreviewNCode
                         code={codePreviewIsDisabledButton}
                         language=""

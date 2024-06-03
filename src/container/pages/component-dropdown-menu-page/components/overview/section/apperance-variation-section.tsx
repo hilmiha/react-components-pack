@@ -1,9 +1,10 @@
+import { useState } from "react"
 import Accordion from "components/accordion"
 import AccordionItem from "components/accordionItem"
-import { codePreviewDangerButton, codePreviewDefaultButton, codePreviewLinkButton, codePreviewPrimaryButton, codePreviewSubtleButton, codePreviewSubtleLinkButton, codePreviewWarningButton } from "../../../data/code-list"
-import { useState } from "react"
+import { codePreviewDangerButton, codePreviewDefaultButton, codePreviewPrimaryButton, codePreviewSubtleButton, codePreviewWarningButton } from "../../../data/code-list"
 import PreviewNCode from "components/preview-n-code"
-import Button from "components/button"
+import DropdownMenu from "components/dropdown-menu"
+import { listMenu } from "../../../data/menuList"
 
 const ApperanceVariationSection = () =>{
 
@@ -12,7 +13,7 @@ const ApperanceVariationSection = () =>{
     return(
         <div className="component-section">
             <span className="font-title-large">Apperance variation</span>
-            <p className="font-text">Button component supports various appearance styles through the <span className="font-code">appearance</span> prop, allowing customization of its look to fit different contexts. Below are examples of each variation:</p>
+            <p className="font-text">Dropdown menu component supports various appearance styles through the <span className="font-code">appearance</span> prop, allowing customization of its look to fit different contexts. Below are examples of each variation:</p>
             <Accordion
                 accordionOpen={open}
                 setAccordionOpen={setOpen}
@@ -26,9 +27,10 @@ const ApperanceVariationSection = () =>{
                             code={codePreviewDefaultButton}
                             language=""
                         >
-                            <Button
-                                txtLabel="Button"
+                            <DropdownMenu
+                                TxtLabelOrIcon="Open Menu"
                                 appearance="default"
+                                menuList={listMenu}
                             />
                         </PreviewNCode>
                     }
@@ -41,9 +43,10 @@ const ApperanceVariationSection = () =>{
                             code={codePreviewPrimaryButton}
                             language=""
                         >
-                            <Button
-                                txtLabel="Button"
+                            <DropdownMenu
+                                TxtLabelOrIcon="Open Menu"
                                 appearance="primary"
+                                menuList={listMenu}
                             />
                         </PreviewNCode>
                     }
@@ -56,9 +59,10 @@ const ApperanceVariationSection = () =>{
                             code={codePreviewWarningButton}
                             language=""
                         >
-                            <Button
-                                txtLabel="Button"
+                            <DropdownMenu
+                                TxtLabelOrIcon="Open Menu"
                                 appearance="warning"
+                                menuList={listMenu}
                             />
                         </PreviewNCode>
                     }
@@ -71,9 +75,10 @@ const ApperanceVariationSection = () =>{
                             code={codePreviewDangerButton}
                             language=""
                         >
-                            <Button
-                                txtLabel="Button"
+                            <DropdownMenu
+                                TxtLabelOrIcon="Open Menu"
                                 appearance="danger"
+                                menuList={listMenu}
                             />
                         </PreviewNCode>
                     }
@@ -86,39 +91,10 @@ const ApperanceVariationSection = () =>{
                             code={codePreviewSubtleButton}
                             language=""
                         >
-                            <Button
-                                txtLabel="Button"
+                            <DropdownMenu
+                                TxtLabelOrIcon="Open Menu"
                                 appearance="subtle"
-                            />
-                        </PreviewNCode>
-                    }
-                />
-                <AccordionItem
-                    id='link'
-                    txtLabel='Link Apperance'
-                    contentPage={
-                        <PreviewNCode
-                            code={codePreviewLinkButton}
-                            language=""
-                        >
-                            <Button
-                                txtLabel="Button"
-                                appearance="link"
-                            />
-                        </PreviewNCode>
-                    }
-                />
-                <AccordionItem
-                    id='subtle-link'
-                    txtLabel='Subtle link Apperance'
-                    contentPage={
-                        <PreviewNCode
-                            code={codePreviewSubtleLinkButton}
-                            language=""
-                        >
-                            <Button
-                                txtLabel="Button"
-                                appearance="subtle-link"
+                                menuList={listMenu}
                             />
                         </PreviewNCode>
                     }

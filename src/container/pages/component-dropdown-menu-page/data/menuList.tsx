@@ -1,18 +1,16 @@
-import { menuListType } from "../../../../components/dropdown-menu";
+import { menuListItemType } from "components/dropdown-menu";
 
-
-export const listOfMenu:menuListType = [
+export const listMenu: menuListItemType[] = [
     {
-        id:'menu-1',
-        menu:[
-            {id:'edit', txtLabel:'Edit'}
-        ]
+        id:"itm-1",
+        txtLabel:'Menu One'
     },
     {
-        id:'menu-2',
-        menu:[
-            {id:'delete', txtLabel:'Delete'},
-            {id:'report', txtLabel:'Report'}
-        ]
+        id:"itm-2",
+        txtLabel:'Menu Two'
+    },
+    {
+        id:"itm-3",
+        txtLabel:'Menu Three'
     }
 ]

@@ -3,7 +3,7 @@ import { LocalContext, LocalContextType } from "../context/local-context";
 import { errorType } from "../../../../components/text-field";
 import { generateErrorState } from "../../../../helper";
 import useFormHook from "../../../../hook/useFormHook";
-import SelectionField, { selectionValueType, valueList } from "../../../../components/selection-field";
+import SelectionField, { selectionValueType, valueList, valueListItem } from "../../../../components/selection-field";
 import { sortBy } from "lodash";
 import { kota, provinsiList } from "../data/provinsi-list";
 import * as contorller from "../controller/controller";
@@ -21,7 +21,7 @@ const ExamplePage = () =>{
     } = useContext(LocalContext) as LocalContextType;
 
 	const listProv = useMemo(()=>{return provinsiList},[])
-    const [listAsync, setListAsync] = useState<valueList>([])
+    const [listAsync, setListAsync] = useState<valueListItem[]>([])
 
     const [form, setForm] = useState<formType>({
         selection:[],

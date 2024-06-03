@@ -1,3 +1,4 @@
+import CodeBlock from "components/code-block"
 import { listCompPropsDetail } from "container/templates/component-props-detail-template"
 
 export const buttonApiRefList:listCompPropsDetail[] = [
@@ -79,6 +80,6 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`() => void`,
         default:'"default"',
-        desc:<p className="font-text">Callback function triggered when the <span className="font-code">{`<Button/>`}</span> component is clicked.</p>
+        desc:<p className="font-text">Callback function triggered when the <span className="font-code">{`<Button/>`}</span> component is clicked.</p>,
     }
 ]

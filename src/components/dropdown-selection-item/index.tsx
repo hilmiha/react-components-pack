@@ -10,6 +10,7 @@ type Props = {
     isDisabled?: boolean
     isSelected?: boolean
     isWithCheckbox?: boolean
+    spacing?:'compact'|'default'
     onClick?: () => void
 }
 
@@ -20,6 +21,7 @@ const DropdownSelectionItem = ({
     isDisabled = false,
     isSelected = false,
     isWithCheckbox = false,
+    spacing = 'default',
     onClick
 }:Props) =>{
     const thisOnClick = () =>{
@@ -32,6 +34,7 @@ const DropdownSelectionItem = ({
             className={
                 processClassname(`dropdown-button-selection-item subtle-appearance
                 ${className?(className):('')}
+                ${spacing?(spacing):('')}
                 ${isDisabled?('disabled'):('')}
                 ${isSelected?('selected'):('')}`)
             }

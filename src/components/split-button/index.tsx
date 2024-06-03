@@ -1,17 +1,19 @@
 import { PiCaretDownBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import Button, { spacingButtonType } from "../button"
-import DropdownMenu, { menuListType } from "../dropdown-menu"
+import DropdownMenu, { menuListItemType, menuListType } from "../dropdown-menu"
 import { appearanceIconButtonType } from "../icon-button"
 import './styles.scss'
 
 type Props = {
     className?: string
     txtLabel: string
-    spacing?: spacingButtonType
+    spacing?: "default" | "compact"
     appearance?: appearanceIconButtonType
-    menuList: menuListType
+    menuList: menuListType | menuListItemType[]
     isCloseAfterSelect?:boolean
+    isLoading?:boolean
+    isDisabled?:boolean
     onClick?: ()=>void
     onClickItem?: (idButton:string)=>void
 }
@@ -23,6 +25,8 @@ const SplitButton = ({
     appearance,
     menuList = [],
     isCloseAfterSelect = false,
+    isLoading=false,
+    isDisabled=false,
     onClick,
     onClickItem
 }:Props) =>{
@@ -51,6 +55,8 @@ const SplitButton = ({
                 txtLabel={txtLabel}
                 appearance={appearance}
                 spacing={spacing}
+                isDisabled={isDisabled}
+                isLoading={isLoading}
                 onClick={()=>{thisOnClick()}}
             />
             <DropdownMenu
@@ -58,6 +64,7 @@ const SplitButton = ({
                 appearance={appearance}
                 spacing={spacing}
                 isCloseAfterSelect={isCloseAfterSelect}
+                isDisabled={isLoading || isDisabled}
                 onClickItem={(buttonId)=>{thisOnClickItem(buttonId)}}
                 TxtLabelOrIcon={<PiCaretDownBold/>}
             />

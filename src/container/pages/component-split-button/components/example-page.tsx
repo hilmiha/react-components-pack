@@ -20,7 +20,29 @@ const ExamplePage = () =>{
                 <span className="font-title">Default</span>
                 <div className="preview-box">
                     <SplitButton 
-                        txtLabel="Main Button" 
+                        txtLabel="Main Button"
+                        menuList={menuList}
+                    />
+                </div>
+            </div>
+
+            <div className="component-section">
+                <span className="font-title">Default</span>
+                <div className="preview-box">
+                    <SplitButton 
+                        txtLabel="Main Button"
+                        isDisabled
+                        menuList={menuList}
+                    />
+                </div>
+            </div>
+
+            <div className="component-section">
+                <span className="font-title">Default</span>
+                <div className="preview-box">
+                    <SplitButton 
+                        txtLabel="Main Button"
+                        isLoading
                         menuList={menuList}
                     />
                 </div>

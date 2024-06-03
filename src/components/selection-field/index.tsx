@@ -27,8 +27,8 @@ type Props = {
     onChange?: (newValue:selectionValueType) => void,
     getListAsync?: (pageNumber:number, searchKey?:string)=>Promise<{list: valueListItem[]; pageNumber:number;  searchKey:string|undefined; totalPage: number}>
     onValidate?: (errorResult:errorType, newValue:selectionValueType, config?:Record<any, any>) => void,
-    valueList:valueList,
-    setValueList?:React.Dispatch<React.SetStateAction<valueList>>
+    valueList:valueList | valueListItem[],
+    setValueList?:React.Dispatch<React.SetStateAction<valueListItem[]>>
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
@@ -58,6 +58,21 @@ const SelectionField = ({
 }:Props) =>{
     const navigate = useNavigate()
     const location = useLocation()
+
+    const valueListProcessed = useMemo(()=>{
+        if(valueList.length>0){
+            if((valueList as valueList)[0].menu){
+                return valueList as valueList
+            }else{
+                return([{
+                    id:'o',
+                    menu: valueList as valueListItem[]
+                }])
+            }
+        }else{
+            return([])
+        }
+    },[valueList])
 
     const [isFieldTouched, setIsFieldTouched] = useState(false);
     const isMandatory = config?.isMandatory
@@ -297,19 +312,14 @@ const SelectionField = ({
 
                 if(searchFieldValue.length<=2){
                     let tamp = []
-                    if(valueList.length){            
-                        tamp = [...valueList[0].menu, ...list]
+                    if(valueListProcessed.length){            
+                        tamp = [...valueListProcessed[0].menu, ...list]
                     }else{
                         tamp = [...list]
                     }
 
                     if(tamp.length>0){
-                        setValueList([
-                            {
-                                id:"1",
-                                menu:tamp
-                            }
-                        ])
+                        setValueList(tamp)
                     }else{
                         setValueList([])
                     }
@@ -385,7 +395,7 @@ const SelectionField = ({
             setSearchFieldValue(newSearchKey)
             let tampSearchResult:valueList = []
             if(newSearchKey.length>2){
-                valueList.forEach((valueGroup)=>{
+                valueListProcessed.forEach((valueGroup)=>{
                     const tampItemMenu = valueGroup.menu.filter((itm)=>(
                         itm.txtLabel.toLocaleLowerCase().includes(newSearchKey.toLocaleLowerCase())||
                         itm.txtSublabel?.toLocaleLowerCase().includes(newSearchKey.toLocaleLowerCase())
@@ -555,7 +565,7 @@ const SelectionField = ({
                                 }
                             </>
                         ):(
-                            valueList.map((itmValueGroup, index)=>(
+                            valueListProcessed.map((itmValueGroup, index)=>(
                                 <DropdownMenuItemGroup 
                                     key={itmValueGroup.id}
                                     txtLabel={itmValueGroup.title}

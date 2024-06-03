@@ -1,6 +1,6 @@
 import { PiCaretDownBold, PiXBold } from "react-icons/pi"
 import Button, { spacingButtonType } from "../button"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { 
     useFloating,
     autoUpdate,
@@ -23,16 +23,23 @@ import { GlobalContext, GlobalContextType } from "../../context/globalcontext";
 import { useLocation, useNavigate } from "react-router-dom";
 import DropdownSelectionItem from "../dropdown-selection-item";
 
-export type menuListType = {id:string, title?:string, menu:{id:string, txtLabel:string, isDisabled?:boolean, isSelected?:boolean, value?:string | number | boolean}[]}[]
+export type menuListItemType = {
+    id:string, 
+    txtLabel:string, 
+    isDisabled?:boolean, 
+    isSelected?:boolean, 
+    value?:string | number | boolean
+}
+export type menuListType = {id:string, title?:string, menu:menuListItemType[]}[]
 
 type Props = {
     type?: 'checkbox' | 'default'
     className?: string
     TxtLabelOrIcon: string | JSX.Element
     altTxtLabel?: string
-    menuList?: menuListType
+    menuList?: menuListType | menuListItemType[]
     appearance?:appearanceIconButtonType
-    spacing?: spacingButtonType
+    spacing?: 'compact' | 'default'
     isWithCaret?: boolean
     isDisabled?:boolean
     isSelected?:boolean
@@ -59,6 +66,23 @@ const DropdownMenu = ({
     const navigate = useNavigate()
     const location = useLocation()
     const [isRendered, setIsRendered] = useState(false)
+
+    const menuListProcessed = useMemo(()=>{
+        if(menuList.length>0){
+            if((menuList as menuListType)[0].menu){
+                return menuList as menuListType
+            }else{
+                return([
+                    {
+                        id:'o',
+                        menu:menuList as menuListItemType[]
+                    }
+                ])
+            }
+        }else{
+            return([])
+        }
+    },[menuList])
 
     const {
         mediaSize
@@ -190,7 +214,7 @@ const DropdownMenu = ({
                             {...getFloatingProps()}
                         >
                             {
-                                menuList.map((itmMenuList, index)=>(
+                                menuListProcessed.map((itmMenuList, index)=>(
                                     <DropdownMenuItemGroup 
                                         key={itmMenuList.id}
                                         txtLabel={itmMenuList.title}
@@ -205,6 +229,7 @@ const DropdownMenu = ({
                                                     isDisabled={itmMenu.isDisabled}
                                                     isWithCheckbox={type==='checkbox'}
                                                     isSelected={itmMenu.isSelected}
+                                                    spacing={spacing}
                                                 />
                                             ))
                                         }
@@ -244,7 +269,7 @@ const DropdownMenu = ({
                                 </div>
                                 <div className="dropdown-menu-mobile-content">
                                     {
-                                        menuList.map((itmMenuList, index)=>(
+                                        menuListProcessed.map((itmMenuList, index)=>(
                                             <DropdownMenuItemGroup 
                                                 key={itmMenuList.id}
                                                 txtLabel={itmMenuList.title}

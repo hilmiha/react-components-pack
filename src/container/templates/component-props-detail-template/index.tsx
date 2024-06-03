@@ -7,6 +7,7 @@ export type listCompPropsDetail = {
     typeAdition?: string | JSX.Element
     default?:string
     desc?:string | JSX.Element
+    example?:JSX.Element
 }
 type props = {
     listProps:listCompPropsDetail[]
@@ -83,9 +84,17 @@ const ComponentPropsDetailTemplate = ({
                                     </div>
                                 )
                             }
+                            {
+                                (itm.example)&&(
+                                    <div className='prop-detail-row'>
+                                        <span className='font-title'>Example</span>
+                                        <div className='prop-detail-row-content' style={{maxWidth:'100%', overflow:'auto'}}>
+                                            {itm.example}
+                                        </div>
+                                    </div>
+                                )
+                            }
                         </div>
-                        
-                        
                     </div>
                 ))
             }

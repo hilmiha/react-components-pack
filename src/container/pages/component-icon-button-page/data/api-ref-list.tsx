@@ -54,7 +54,7 @@ export const apiRefList:listCompPropsDetail[] = [
         propName:'onClick',
         isMandatory:false,
         type:`() => void`,
-        default:'"default"',
+        default:'-',
         desc:<p className="font-text">Callback function triggered when the <span className="font-code">{`<IconButton/>`}</span> component is clicked.</p>
     }
 ]

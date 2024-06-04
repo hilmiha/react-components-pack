@@ -79,7 +79,7 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         propName:'onClick',
         isMandatory:false,
         type:`() => void`,
-        default:'"default"',
+        default:'-',
         desc:<p className="font-text">Callback function triggered when the <span className="font-code">{`<Button/>`}</span> component is clicked.</p>,
     }
 ]

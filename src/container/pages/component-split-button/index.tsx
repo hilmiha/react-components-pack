@@ -54,17 +54,10 @@ const ComponentSplitButtonPage = () =>{
                     />
                 </ButtonGroup>
             }
-            tabList={[
-                {id:'example', txtLabel:'Example', to:'example'},
-                {id:'props', txtLabel:'Props', to:'props'},
-
-            ]}
-            selectedTab={tabSelected}
-            setSelectedTab={setTabSelected}
         >
             <Suspense fallback={<></>}>
                 <Routes>
-                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    <Route key={''} path={'/*'} element={<Navigate to="overview" replace />}/>
                     {
                         route.map((itmRoute)=>(
                             <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/> 

@@ -198,7 +198,7 @@ const DropdownMenu = ({
                 />
             )}
 
-            {(isOpen && mediaSize>0) && (
+            {(isOpen && mediaSize>0 && !isDisabled) && (
                 <FloatingPortal>
                     <FloatingFocusManager 
                         context={context} 
@@ -243,7 +243,7 @@ const DropdownMenu = ({
                     </FloatingFocusManager>
                 </FloatingPortal>
             )}
-            {(isOpen && mediaSize<1) && (
+            {(isOpen && mediaSize<1 && !isDisabled) && (
                 <FloatingPortal>
                     <FloatingOverlay className="dropdown-menu-mobile-overlay" lockScroll>
                         <FloatingFocusManager context={context}>

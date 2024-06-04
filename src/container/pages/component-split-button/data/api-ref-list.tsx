@@ -4,11 +4,11 @@ import ManuListPropInfo from "../components/api-ref/additional-info/menuList-pro
 export const apiRefList:listCompPropsDetail[] = [
     {
         id:'1',
-        propName:'TxtLabelOrIcon',
+        propName:'txtLabel',
         isMandatory:true,
-        type:`string | JSX.Element`,
+        type:`string`,
         default:'-',
-        desc:<p className="font-text">The text or Icon component displayed on the dropdown button. Icon components are imported from the <a className="font-link" href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a> library.</p>
+        desc:<p className="font-text">The text displayed on the main action button of <span className="font-code">{`<SplitButton/>`}</span> component.</p>
     },
     {
         id:'2',
@@ -16,7 +16,7 @@ export const apiRefList:listCompPropsDetail[] = [
         isMandatory:true,
         type:`menuListType | menuListItemType[]`,
         default:'[]',
-        desc:<p className="font-text">List of menu items to display in the dropdown menu.</p>,
+        desc:<p className="font-text">List of menu items to display in the dropdown menu. Type is imported from <span className="font-code">"components/dropdown-menu"</span></p>,
         additionInfo:<ManuListPropInfo/>,
     },
     {
@@ -25,15 +25,15 @@ export const apiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`"default" | "primary" | "warning" | "danger" | "subtle" `,
         default:'"default"',
-        desc:<p className="font-text">Determines the visual style of the dropdown button of <span className="font-code">{`<DropdownMenu/>`}</span> component.</p>
+        desc:<p className="font-text">Determines the visual style of the <span className="font-code">{`<SplitButton/>`}</span> component.</p>
     },
     {
         id:'4',
-        propName:'isSelected',
+        propName:'isLoading',
         isMandatory:false,
         type:`boolean`,
         default:'false',
-        desc:<p className="font-text">When <span className="font-code">true</span>, the dropdown button will indicates it is selected or active.</p>
+        desc:<p className="font-text">When <span className="font-code">true</span>, the main action button of <span className="font-code">{`<SplitButton/>`}</span> component will show a spinner on to indicate a background process and dropdown button will be inactive and cannot be clicked.</p>
     },
     {
         id:'5',
@@ -41,7 +41,7 @@ export const apiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`boolean`,
         default:'false',
-        desc:<p className="font-text">When <span className="font-code">true</span>, the dropdown button will be inactive and cannot be clicked.</p>
+        desc:<p className="font-text">When <span className="font-code">true</span>, the <span className="font-code">{`<SplitButton/>`}</span> component will be inactive and cannot be clicked.</p>
     },
     {
         id:'6',
@@ -49,7 +49,7 @@ export const apiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`"default" | "compact"`,
         default:'"default"',
-        desc:<p className="font-text">Adjusts the padding of the <span className="font-code">{`<DropdownMenu/>`}</span> component.</p>
+        desc:<p className="font-text">Adjusts the padding of the <span className="font-code">{`<SplitButton/>`}</span> component.</p>
     },
     {
         id:'8',
@@ -76,20 +76,12 @@ export const apiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">When <span className="font-code">true</span>, closes the dropdown menu when a menu item is clicked.</p>,
     },
     {
-        id:'11',
-        propName:'isWithCheckbox',
+        id:'7',
+        propName:'onClick',
         isMandatory:false,
-        type:`boolean`,
-        default:'false',
-        desc:<p className="font-text">When <span className="font-code">true</span>, adds a checkbox to each menu item.</p>,
-    },
-    {
-        id:'12',
-        propName:'menuListSelected',
-        isMandatory:false,
-        type:`string[]`,
+        type:`() => void`,
         default:'-',
-        desc:<p className="font-text">An array of menu item IDs that will have a selected appearance. Items will also be checked if <span className="font-code">isWithCheckbox</span> is set to <span className="font-code">true</span>.</p>,
+        desc:<p className="font-text">Callback function triggered when the main action button is clicked.</p>,
     },
     {
         id:'7',
@@ -97,6 +89,6 @@ export const apiRefList:listCompPropsDetail[] = [
         isMandatory:false,
         type:`(buttonId:string, value?:string | number | boolean) => void`,
         default:'-',
-        desc:<p className="font-text">Callback function triggered when the dropdown menu item is clicked.</p>,
+        desc:<p className="font-text">Callback function triggered when the dropdown menu item is clicked. Receives the <span className="font-code">buttonId</span> and an optional <span className="font-code">value</span> of the clicked menu item.</p>,
     },
 ]

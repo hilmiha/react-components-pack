@@ -1,349 +1,275 @@
-export const codePreview = `import DropdownMenu from "components/dropdown-menu"
+export const codePreview = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			menuList={listMenu}
 		/>
 	)
 }`
 
-export const codePreviewIconAsLabel = `import DropdownMenu from "components/dropdown-menu"
-import { PiStarFourFill } from "react-icons/pi"
+export const codePreviewDefaultButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon={<PiStarFourFill/>}
-			menuList={listMenu}
-		/>
-	)
-}`
-
-export const codePreviewDefaultButton = `import DropdownMenu from "components/dropdown-menu"
-import { menuListItemType } from "components/dropdown-menu";
-
-const Example = () =>{
-
-	const listMenu: menuListItemType[] = [
-		{
-			id:"itm-1",
-			txtLabel:"Menu One"
-		},
-		{
-			id:"itm-2",
-			txtLabel:"Menu Two"
-		},
-		{
-			id:"itm-3",
-			txtLabel:"Menu Three"
-		}
-	]
-
-	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			appearance="default" // set button apperance to default
 			menuList={listMenu}
 		/>
 	)
 }`
 
-export const codePreviewPrimaryButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewPrimaryButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			appearance="primary" // set button apperance to primary
 			menuList={listMenu}
 		/>
 	)
 }`
 
-export const codePreviewWarningButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewWarningButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			appearance="warning" // set button apperance to warning
 			menuList={listMenu}
 		/>
 	)
 }`
 
-export const codePreviewDangerButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewDangerButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			appearance="danger" // set button apperance to danger
 			menuList={listMenu}
 		/>
 	)
 }`
 
-export const codePreviewSubtleButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewSubtleButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			appearance="subtle" // set button apperance to subtle
 			menuList={listMenu}
 		/>
 	)
 }`
 
-export const codePreviewIsSelectedButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewIsLoadingButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			menuList={listMenu}
-			isSelected={true}
+			isLoading={true}
 		/>
 	)
 }`
 
-export const codePreviewIsDisabledButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewIsDisabledButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
+		<SplitButton
+			txtLabel="Main Action"
 			menuList={listMenu}
 			isDisabled={true}
 		/>
 	)
 }`
 
-export const codePreviewIsSpacingButton = `import DropdownMenu from "components/dropdown-menu"
+export const codePreviewIsSpacingButton = `import SplitButton from "components/split-button"
 import { menuListItemType } from "components/dropdown-menu";
 
 const Example = () =>{
 	
-	const listMenu: menuListItemType[] = [
+	onst listMenu: menuListItemType[] = [
 		{
 			id:"itm-1",
-			txtLabel:"Menu One"
+			txtLabel:"Action One"
 		},
 		{
 			id:"itm-2",
-			txtLabel:"Menu Two"
+			txtLabel:"Action Two"
 		},
 		{
 			id:"itm-3",
-			txtLabel:"Menu Three"
+			txtLabel:"Action Three"
 		}
 	]
 
 	return(
 		<div
 			style={{
-				display:'flex',
-				justifyContent:'center',
-				alignItems:'center',
-				flexWrap:'wrap',
-				gap:'12px'
+				display:"flex",
+				justifyContent:"center",
+				alignItems:"center",
+				flexWrap:"wrap",
+				gap:"12px"
 			}}
 		>
-			<DropdownMenu
-				TxtLabelOrIcon="Open Menu"
+			<SplitButton
+				txtLabel="Main Action"
 				menuList={listMenu}
 				spacing="default" //set button padding to be default
 			/>
-			<DropdownMenu
-				TxtLabelOrIcon="Open Menu"
+			<SplitButton
+				txtLabel="Main Action"
 				menuList={listMenu}
 				spacing="compact" //set button padding to be compact
 			/>
-			/>
 		</div>
-	)
-}`
-
-export const codePreviewAsSelection = `import DropdownMenu from "components/dropdown-menu"
-import { menuListItemType } from "components/dropdown-menu";
-
-const Example = () =>{
-
-	const listMenu: menuListItemType[] = [
-		{
-			id:"itm-1",
-			txtLabel:"Menu One"
-		},
-		{
-			id:"itm-2",
-			txtLabel:"Menu Two"
-		},
-		{
-			id:"itm-3",
-			txtLabel:"Menu Three"
-		}
-	]
-
-	const [menuSelected, setMenuSelected] = useState<string[]>([])
-
-    const onMenuSelected = (buttonId:string) =>{
-        setMenuSelected((prev)=>{
-            if(prev.includes(buttonId)){
-                return(prev.filter((itm)=>itm!==buttonId))
-            }else{
-                return([...prev, buttonId])
-            }
-        })
-    }
-
-	return(
-		<DropdownMenu
-			TxtLabelOrIcon="Open Menu"
-			menuList={listMenu}
-			menuListSelected={menuSelected}
-			isWithCheckbox={true}
-			isSelected={menuSelected.length>0}
-			onClickItem={(buttonId)=>{onMenuSelected(buttonId)}}
-		/>
 	)
 }`
 

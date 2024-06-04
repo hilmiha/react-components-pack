@@ -1,4 +1,4 @@
-import { menuListType } from "../../../../components/dropdown-menu";
+import { menuListItemType, menuListType } from "../../../../components/dropdown-menu";
 
 
 export const listOfMenu:menuListType = [
@@ -24,4 +24,19 @@ export const listOfMenu:menuListType = [
             }
         ]
     },
+]
+
+export const listMenu: menuListItemType[] = [
+    {
+        id:"itm-1",
+        txtLabel:'Action One'
+    },
+    {
+        id:"itm-2",
+        txtLabel:'Action Two'
+    },
+    {
+        id:"itm-3",
+        txtLabel:'Action Three'
+    }
 ]

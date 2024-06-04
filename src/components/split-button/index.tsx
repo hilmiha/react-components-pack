@@ -8,10 +8,12 @@ import './styles.scss'
 type Props = {
     className?: string
     txtLabel: string
+    altTxtLabel?: string
     spacing?: "default" | "compact"
     appearance?: appearanceIconButtonType
     menuList: menuListType | menuListItemType[]
     isCloseAfterSelect?:boolean
+    isOnScrollClose?:boolean
     isLoading?:boolean
     isDisabled?:boolean
     onClick?: ()=>void
@@ -21,10 +23,12 @@ type Props = {
 const SplitButton = ({
     className,
     txtLabel,
+    altTxtLabel,
     spacing = 'default',
     appearance,
     menuList = [],
     isCloseAfterSelect = false,
+    isOnScrollClose = false,
     isLoading=false,
     isDisabled=false,
     onClick,
@@ -64,9 +68,11 @@ const SplitButton = ({
                 appearance={appearance}
                 spacing={spacing}
                 isCloseAfterSelect={isCloseAfterSelect}
+                isOnScrollClose={isOnScrollClose}
                 isDisabled={isLoading || isDisabled}
                 onClickItem={(buttonId)=>{thisOnClickItem(buttonId)}}
                 TxtLabelOrIcon={<PiCaretDownBold/>}
+                altTxtLabel={altTxtLabel}
             />
         </div>
     )

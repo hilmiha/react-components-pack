@@ -52,7 +52,7 @@ export const apiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">Adjusts the padding of the <span className="font-code">{`<SplitButton/>`}</span> component.</p>
     },
     {
-        id:'8',
+        id:'7',
         propName:'altTxtLabel',
         isMandatory:false,
         type:`string`,
@@ -60,7 +60,7 @@ export const apiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">Overrides the default "Options" label in the header when the dropdown menu is displayed as a drawer on mobile view.</p>,
     },
     {
-        id:'9',
+        id:'8',
         propName:'isOnScrollClose',
         isMandatory:false,
         type:`boolean`,
@@ -68,7 +68,7 @@ export const apiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">When <span className="font-code">true</span>, closes the dropdown menu when the screen is scrolled.</p>,
     },
     {
-        id:'10',
+        id:'9',
         propName:'isCloseAfterSelect',
         isMandatory:false,
         type:`boolean`,
@@ -76,7 +76,7 @@ export const apiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">When <span className="font-code">true</span>, closes the dropdown menu when a menu item is clicked.</p>,
     },
     {
-        id:'7',
+        id:'10',
         propName:'onClick',
         isMandatory:false,
         type:`() => void`,
@@ -84,7 +84,7 @@ export const apiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">Callback function triggered when the main action button is clicked.</p>,
     },
     {
-        id:'7',
+        id:'11',
         propName:'onClickItem',
         isMandatory:false,
         type:`(buttonId:string, value?:string | number | boolean) => void`,

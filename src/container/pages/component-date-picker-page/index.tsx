@@ -2,8 +2,10 @@ import { Suspense, useContext, useEffect } from "react";
 import DetailTemplate from "../../templates/detail-template"
 import { MainTemplateContext, MainTemplateContextType } from "../../templates/main-template/context/main-template-context";
 import LocalContextProvider, { LocalContext, LocalContextType } from "./context/local-context";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import route from "./routes/routes";
+import ButtonGroup from "components/button-group";
+import Button from "components/button";
 
 const ComponentDatePickerPage = () =>{
     const {
@@ -15,6 +17,13 @@ const ComponentDatePickerPage = () =>{
         tabSelected,
         setTabSelected
     } = useContext(LocalContext) as LocalContextType;
+
+    const navigate = useNavigate()
+    
+    const onClickButton = (to:string) =>{
+        setTabSelected(to)
+        navigate(to)
+    }
 
     useEffect(()=>{
         setSidebarMenuListSelected('date-picker')
@@ -28,6 +37,22 @@ const ComponentDatePickerPage = () =>{
         <DetailTemplate 
             title="Date Picker" 
             subTitle="A date picker allows the user to select an associated date."
+            headerAdditionaContent={
+                <ButtonGroup>
+                    <Button
+                        txtLabel='Overview'
+                        spacing='compact'
+                        onClick={()=>{onClickButton('overview')}}
+                        isSelected={tabSelected==='overview'}
+                    />
+                    <Button
+                        txtLabel='API Reference'
+                        spacing='compact'
+                        onClick={()=>{onClickButton('api')}}
+                        isSelected={tabSelected==='api'}
+                    />
+                </ButtonGroup>
+            }
             tabList={[
                 {id:'example', txtLabel:'Example', to:'example'},
                 {id:'props', txtLabel:'Props', to:'props'},
@@ -38,7 +63,7 @@ const ComponentDatePickerPage = () =>{
         >
             <Suspense fallback={<></>}>
                 <Routes>
-                    <Route key={''} path={'/'} element={<Navigate to="example" replace />}/>
+                    <Route key={''} path={'/*'} element={<Navigate to="overview" replace />}/>
                     {
                         route.map((itmRoute)=>(
                             <Route key={itmRoute.path} path={itmRoute.path} element={itmRoute.component}/>

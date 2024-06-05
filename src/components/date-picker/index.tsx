@@ -1,22 +1,21 @@
-import { DayContent, DayContentProps, DayPicker, DateRange, isDateRange } from 'react-day-picker';
-import { addDays, format, isDate, subDays } from 'date-fns';
+import { DayContent, DayContentProps, DayPicker, DateRange, isDateRange, DayOfWeek, isDayOfWeekType } from 'react-day-picker';
+import { addDays, areIntervalsOverlapping, eachDayOfInterval, format, formatDate, isDate, isMonday, isSaturday, isSunday, isTuesday, subDays } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import { processClassname } from '../../helper'
 import './styles.scss'
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 export type datePickerType = "single" | "range" | "multiple"
 export type datePickerValueType = Date | Date[] | DateRange | undefined
-
+export type datePickerDisabledDateType = Date | {from:Date, to:Date} | DayOfWeek
 type Props = {
     className?: string,
     value?: datePickerValueType,
     type: datePickerType,
     onchange?: (newValue:datePickerValueType)=>void
-    daysAfterToday?: number,
-    daysBeforeToday?: number,
     fromDate?:Date,
     toDate?:Date,
+    disabledDate?:datePickerDisabledDateType[]
     defaultMonth?:Date
     maxSelection?: number
 }
@@ -25,47 +24,63 @@ const DatePicker = ({
     type = 'single',
     value,
     onchange,
-    daysAfterToday,
-    daysBeforeToday,
     fromDate,
     toDate,
+    disabledDate,
     maxSelection
 }:Props) =>{
-
-    function DateTime(props: DayContentProps) {
-        const dateTime = format(props.date, 'yyyy-MM-dd');
-        return (
-            <time dateTime={dateTime}>
-                <DayContent {...props} />
-            </time>
-        );
-    }
 
     const thisOnChange = (newSelected: datePickerValueType) =>{
         if(onchange){
             onchange(newSelected)
+
+            // THIS WILL FILTER DISABLED DATE BETWEEN DATE RANGE AS THE VALUE... NEED MORE EXPLORATION ON BUSINESS RULES
+            // if(type==='range' && disabledDate && disabledDate?.length>0 && isDateRange(newSelected)){
+            //     if(newSelected.from){
+            //         const datesBetween = eachDayOfInterval({ start: newSelected.from, end: newSelected.to?(newSelected.to):(newSelected.from) });
+            //         const dateToDisabled:Number[] = []
+                    
+            //         disabledDate.forEach((itmDis)=>{
+            //             if(isDate(itmDis)){
+            //                 if(newSelected.from && areIntervalsOverlapping({start:itmDis, end:itmDis},{start:newSelected.from, end:newSelected.to?(newSelected.to):(newSelected.from)})){
+            //                     dateToDisabled.push(itmDis.getTime())
+            //                 }
+            //             }else if(isDateRange(itmDis)){
+            //                 if(newSelected.from && areIntervalsOverlapping({start:itmDis.from, end:itmDis.to},{start:newSelected.from, end:newSelected.to?(newSelected.to):(newSelected.from)})){
+            //                     eachDayOfInterval({start:itmDis.from, end:itmDis.to}).forEach((itm)=>{dateToDisabled.push(itm.getTime())})
+            //                 }
+            //             }else{
+            //                 datesBetween.forEach((itm)=>{
+            //                     itmDis.dayOfWeek.forEach((day)=>{
+            //                         if(day === parseInt(formatDate(itm,'e'))-1){
+            //                             dateToDisabled.push(itm.getTime())
+            //                         }
+            //                     })
+            //                 })
+            //             }
+            //         })
+                    
+            //         if(dateToDisabled.length>0){
+            //             onchange(datesBetween.filter((itm)=>{
+            //                 if(dateToDisabled.includes(itm.getTime())){
+            //                     return false
+            //                 }else{
+            //                     return true
+            //                 }
+            //             }))
+            //         }else{
+            //             onchange(newSelected)
+            //         }
+                    
+            //     }else{
+            //         onchange(undefined)
+            //     }
+            // }else{
+            //     onchange(newSelected)
+            // }
+            // THIS WILL FILTER DISABLED DATE BETWEEN DATE RANGE AS THE VALUE... NEED MORE EXPLORATION ON BUSINESS RULES
         }
     }
-
-    const fromDateMemo = useMemo(()=>{
-        if(fromDate && !daysBeforeToday){
-            return fromDate
-        }else if(daysBeforeToday){
-            return subDays(new Date(), daysBeforeToday)
-        }else{
-            return undefined
-        }
-    },[])
-
-    const toDateMemo = useMemo(()=>{
-        if(toDate && !daysAfterToday){
-            return toDate
-        }else if(daysAfterToday){
-            return addDays(new Date(), daysAfterToday)
-        }else{
-            return undefined
-        }
-    },[])
 
     return(
         <div
@@ -77,26 +92,26 @@ const DatePicker = ({
             {
                 (type==='single' && (isDate(value) || !value))&&(
                     <DayPicker 
-                        defaultMonth={(fromDateMemo)?(fromDateMemo):(undefined)}
+                        defaultMonth={(fromDate && toDate)?(fromDate):(new Date())}
                         mode={'single'}
                         selected={value}
                         onSelect={(newSelected)=>{thisOnChange(newSelected)}}
-                        components={{ DayContent: DateTime }} 
-                        fromDate={fromDateMemo}
-                        toDate={toDateMemo}
+                        disabled={disabledDate}
+                        fromDate={fromDate}
+                        toDate={toDate}
                     />
                 )
             }
             {
-                (type==='range' && (isDateRange(value) || !value))&&(
+                (type==='range' && (isDateRange(value) || Array.isArray(value) || !value))&&(
                     <DayPicker 
-                        defaultMonth={(fromDateMemo)?(fromDateMemo):(undefined)}
+                        defaultMonth={(fromDate && toDate)?(fromDate):(new Date())}
                         mode={'range'}
-                        selected={value}
+                        selected={value?(Array.isArray(value)?({from:value[0], to:value[value.length-1]}):(value)):(undefined)}
                         onSelect={(newSelected)=>{thisOnChange(newSelected)}}
-                        components={{ DayContent: DateTime }}
-                        fromDate={fromDateMemo}
-                        toDate={toDateMemo}
+                        fromDate={fromDate}
+                        toDate={toDate}
+                        disabled={disabledDate}
                         max={maxSelection}
                     />
                 )
@@ -104,13 +119,12 @@ const DatePicker = ({
             {
                 (type==='multiple' && (Array.isArray(value) || !value))&&(
                     <DayPicker 
-                        defaultMonth={(fromDateMemo)?(fromDateMemo):(undefined)}
+                        defaultMonth={(fromDate && toDate)?(fromDate):(new Date())}
                         mode={'multiple'}
                         selected={value}
                         onSelect={(newSelected)=>{thisOnChange(newSelected)}}
-                        components={{ DayContent: DateTime }}
-                        fromDate={fromDateMemo}
-                        toDate={toDateMemo}
+                        fromDate={fromDate}
+                        toDate={toDate}
                         max={maxSelection}
                     />
                 )

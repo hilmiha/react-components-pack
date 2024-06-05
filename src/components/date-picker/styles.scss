@@ -43,7 +43,7 @@
         margin: 2px;
     }
 
-    .rdp-cell:has(>.rdp-day_range_middle)+.rdp-cell:has(>.rdp-day_range_middle), .rdp-cell:has(>.rdp-day_range_start)+.rdp-cell:has(>.rdp-day_range_middle){
+    .rdp-cell:has(>.rdp-day_range_middle):not(:has(>.rdp-day_disabled))+.rdp-cell:has(>.rdp-day_range_middle):not(:has(>.rdp-day_disabled)), .rdp-cell:has(>.rdp-day_range_start)+.rdp-cell:has(>.rdp-day_range_middle):not(:has(>.rdp-day_disabled)){
         position: relative;
         &::before{
             content: " ";
@@ -62,7 +62,7 @@
         }
     }
     
-    .rdp-cell:has(>.rdp-day_range_middle)+.rdp-cell:has(>.rdp-day_range_end:not(.rdp-day_range_start)):not(:first-child), .rdp-cell:has(>.rdp-day_range_start):not(.rdp-day_range_end)+.rdp-cell:has(>.rdp-day_range_end:not(.rdp-day_range_start)){
+    .rdp-cell:has(>.rdp-day_range_middle):not(:has(>.rdp-day_disabled))+.rdp-cell:has(>.rdp-day_range_end:not(.rdp-day_range_start)):not(:first-child), .rdp-cell:has(>.rdp-day_range_start):not(.rdp-day_range_end)+.rdp-cell:has(>.rdp-day_range_end:not(.rdp-day_range_start)){
         position: relative;
         &::before{
             content: " ";
@@ -113,9 +113,7 @@
             // z-index: 10000000000;
         }
         
-        >time{
-            font-weight: var(--font-weight-bold);
-        }
+        font-weight: var(--font-weight-bold);
 
         
     }
@@ -124,9 +122,7 @@
         color: hsl(var(--color-neutral-0));
         border-top-left-radius: 15px;
         border-bottom-right-radius: 15px;
-        >time{
-            font-weight: var(--font-weight-bold);
-        }
+        font-weight: var(--font-weight-bold);
 
         &:hover{
             background-color: hsl(var(--color-blue-800));
@@ -176,7 +172,13 @@
     }
 
     .rdp-day_disabled{
+        opacity: 0.25;
         color: hsl(var(--color-neutral-1100));
+        font-weight: var(--font-weight-regular);
+        background-color: transparent;
+        &:hover{
+            background-color: transparent;
+        }
     }
     
     .rdp-nav_icon{

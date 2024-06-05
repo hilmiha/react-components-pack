@@ -3,7 +3,7 @@ import { listCompPropsDetail } from "container/templates/component-props-detail-
 
 export const buttonApiRefList:listCompPropsDetail[] = [
     {
-        id:'3',
+        id:'1',
         propName:'isSelected',
         isMandatory:true,
         type:`boolean`,
@@ -11,7 +11,7 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">When <span className="font-code">true</span>, the <span className="font-code">{`<Checkbox/>`}</span> component will indicates it is selected.</p>
     },
     {
-        id:'1',
+        id:'2',
         propName:'txtLabel',
         isMandatory:false,
         type:`string`,
@@ -19,7 +19,7 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">The text displayed next after the <span className="font-code">{`<Checkbox/>`}</span> component.</p>
     },
     {
-        id:'1',
+        id:'3',
         propName:'txtSubLabel',
         isMandatory:false,
         type:`string`,
@@ -27,7 +27,7 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">The text displayed below <span className="font-code">txtLabel</span> of the <span className="font-code">{`<Checkbox/>`}</span> component.</p>
     },
     {
-        id:'5',
+        id:'4',
         propName:'isDisabled',
         isMandatory:false,
         type:`boolean`,
@@ -35,7 +35,7 @@ export const buttonApiRefList:listCompPropsDetail[] = [
         desc:<p className="font-text">When <span className="font-code">true</span>, the <span className="font-code">{`<Checkbox/>`}</span> component will be inactive and cannot be clicked.</p>
     },
     {
-        id:'10',
+        id:'5',
         propName:'onClick',
         isMandatory:false,
         type:`() => void`,

@@ -24,8 +24,6 @@ export type DatePickerFieldProps = {
     config?: {
         prefix?: string | JSX.Element,
         isMandatory?: boolean,
-        daysAfterToday?: number,
-        daysBeforeToday?: number,
         maxSelection?: number,
         fromDate?:Date,
         toDate?:Date,
@@ -281,8 +279,6 @@ const DatePickerField = ({
                 <DatePicker
                     type={type}
                     value={value}
-                    daysAfterToday={config?.daysAfterToday}
-                    daysBeforeToday={config?.daysBeforeToday}
                     fromDate={config?.fromDate}
                     toDate={config?.toDate}
                     defaultMonth={config?.defaultMonth}

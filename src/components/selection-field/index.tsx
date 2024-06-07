@@ -1,4 +1,4 @@
-import { PiClover, PiCloverBold, PiListMagnifyingGlass, PiMagnifyingGlassBold, PiWarningDiamondFill, PiX, PiXBold } from "react-icons/pi"
+import { PiCaretDown, PiClover, PiCloverBold, PiListMagnifyingGlass, PiMagnifyingGlassBold, PiWarningDiamondFill, PiX, PiXBold } from "react-icons/pi"
 import { processClassname } from "../../helper"
 import TextField, { errorType } from "../text-field"
 import './styles.scss'
@@ -687,6 +687,9 @@ const SelectionField = ({
                         />
                     )
                 }
+                <div className="caret-selection">
+                    <PiCaretDown/>
+                </div>
             </div>
             
 

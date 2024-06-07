@@ -1,7 +1,7 @@
 import { PiCaretLeftBold } from 'react-icons/pi'
 import { processClassname } from '../../helper'
 import './styles.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export type AccordionItemItemType = {
     className?: string,
@@ -29,6 +29,17 @@ const AccordionItem = ({
             onClick(id)
         }
     }
+    
+    const [hide, setHide] = useState(false)
+    useEffect(()=>{
+        if(isOpen){
+            setHide(true)
+        }else{
+            setTimeout(() => {
+                setHide(false)
+            }, 300);
+        }
+    },[isOpen])
     return(
         <div 
             className={
@@ -63,7 +74,11 @@ const AccordionItem = ({
                             ${isOpen?('isOpen'):('')}`)  
                         } 
                     >
-                        <div>
+                        <div
+                            style={{
+                                display:(hide)?('block'):('none')
+                            }}
+                        >
                             {
                                 (typeof contentPage !== 'function')?(
                                     contentPage

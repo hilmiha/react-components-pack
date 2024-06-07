@@ -32,6 +32,7 @@ type Props = {
     isOpen:boolean
     setIsOpen:React.Dispatch<React.SetStateAction<boolean>>
     onClickButton?:(idButton:string)=>void
+    onCloseModal?:()=>void
 }
 
 const Modal = ({
@@ -46,7 +47,8 @@ const Modal = ({
     isCloseClickOutside = true,
     isOpen,
     setIsOpen,
-    onClickButton
+    onClickButton,
+    onCloseModal
 }:Props) =>{
     const navigate = useNavigate()
     const location = useLocation()
@@ -78,7 +80,7 @@ const Modal = ({
                     return false
                 }
             }else{
-                return true
+                return false
             }
             
         }
@@ -102,15 +104,18 @@ const Modal = ({
         navigate(`${location.hash}#modal-open${(id)?(`-${id}`):('')}`)
     }
 
-    const onCloseModal = () =>{
+    const thisOnCloseModal = () =>{
         if(location.hash.includes(`#modal-open${(id)?(`-${id}`):('')}`)){
             navigate(-1)
+        }
+        if(onCloseModal){
+            onCloseModal()
         }
     }
 
     useEffect(()=>{
         if(!isOpen && isRendered){
-            onCloseModal()
+            thisOnCloseModal()
         }
         
         if(isOpen){

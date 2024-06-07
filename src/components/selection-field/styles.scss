@@ -97,6 +97,22 @@
 
     .selection-field-input-container{
         @include index.selection-field-input-container-style;
+
+    }
+    .caret-selection{
+        position: absolute;
+        top:0px;
+        right: 9px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        >svg{
+            color: hsl(var(--color-neutral-1100));
+        }
+    }
+    
+    .clear-button{
+        right: 30px
     }
 }
 

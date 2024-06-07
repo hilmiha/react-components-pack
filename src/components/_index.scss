@@ -223,7 +223,7 @@
 
     .dropdown-menu-mobile-header{
         border-radius: var(--size-1) var(--size-1) 0px 0px;
-        background-color: hsl(var(--color-neutral-100));
+        background-color: hsla(var(--color-neutral-200),0.8);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -311,7 +311,7 @@
 
     .field-container{
         background-color: hsl(var(--color-neutral-0));
-        border: 1px solid hsl(var(--color-neutral-300));
+        border: 1px solid hsl(var(--color-neutral-400));
         padding: 0px 9px;
         &.is-show-clear{
             padding-right: 42px;
@@ -375,6 +375,10 @@
         width: var(--size-6);
         min-width: var(--size-6);
         height: var(--size-6);
+        >svg{
+            height: var(--size-4);
+            width: var(--size-4);
+        }
     }
 
     .field-option-dropdown-menu{

@@ -11,14 +11,15 @@
         border: 0px;
         border-radius: var(--size-1);
         cursor: pointer;
-        background-color: hsla(var(--color-neutral-200),0.5);
+        background-color: hsla(var(--color-neutral-200),0.8);
 
         &:hover{
-            background-color: hsla(var(--color-neutral-200),0.8);
+            background-color: hsla(var(--color-neutral-300),0.5);
         }
 
         &:disabled{
-            background-color: hsla(var(--color-neutral-200),0.5);
+            background-color: hsl(var(--color-neutral-300));
+            opacity: 0.4;
         }
 
         &:focus-visible{
@@ -47,13 +48,6 @@
         }
     }
 
-    &.disabled{
-        .accordion-item-button{
-            opacity: 50%;
-            cursor: default;
-        }
-    }
-
     .accordion-item-content{
         display: grid;
         grid-template-rows: 0fr;
@@ -64,7 +58,7 @@
             padding: 0px var(--size-4);
             opacity: 0;
             overflow: hidden;
-            transition: opacity 0.3s ease-out, padding 0.3s ease-out;
+            transition: opacity 0.3s ease-out, padding 0.3s ease-out; 
         }
 
         &.isOpen {

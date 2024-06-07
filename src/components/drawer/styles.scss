@@ -56,7 +56,7 @@ $fullWidth: 100vw;
 
     
     .drawer-header{
-        background-color: hsl(var(--color-neutral-100));
+        background-color: hsla(var(--color-neutral-200), 0.8);
         padding: var(--size-4);
         display: flex;
         justify-content: space-between;

@@ -3,9 +3,7 @@ import './App.scss'
 import Modal from './components/modal';
 import { useContext, useEffect } from 'react';
 import { GlobalContext, GlobalContextType } from './context/globalcontext';
-import MainTemplate from './container/templates/main-template';
-import PlaygroundPage from './container/pages/playground-page';
-import ComponentsPage from './container/pages/components-page';
+import Main from 'container/pages';
 
 function App() {
 	const navigate = useNavigate()
@@ -27,13 +25,9 @@ function App() {
 
 	return (
 		<div className='App'>
-			<MainTemplate>
-				<Routes location={previousLocation || location}>
-					<Route path="/" element={<Navigate to={'/components'}/>}/>
-					<Route path="/components/*" element={<ComponentsPage />}/>
-					<Route path="/playground/*" element={<PlaygroundPage />}/>
-				</Routes>
-			</MainTemplate>
+			<Routes location={previousLocation || location}>
+				<Route path="/*" element={<Main/>}/>
+			</Routes>
 			
 			
 			<Modal

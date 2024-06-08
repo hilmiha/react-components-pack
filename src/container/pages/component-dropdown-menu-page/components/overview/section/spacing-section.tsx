@@ -32,6 +32,11 @@ const SpacingSection = () =>{
                         menuList={listMenu}
                         spacing="compact"
                     />
+                    <DropdownMenu
+                        TxtLabelOrIcon={'Open Menu'}
+                        menuList={listMenu}
+                        spacing="none"
+                    />
                 </div>
             </PreviewNCode>
         </div>

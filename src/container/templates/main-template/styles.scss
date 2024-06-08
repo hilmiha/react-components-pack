@@ -33,12 +33,13 @@
         }
     }
     .main-template-sidebar{
+        border-right: 1px solid hsl(var(--color-neutral-300));
+
         >div{
             height: calc(100vh - 56.8px);
             position: sticky;
             top: 56.8px;
             overflow: auto;
-            border-right: 1px solid hsl(var(--color-neutral-300));
         }
     }
     .main-template-content{

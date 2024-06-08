@@ -47,7 +47,7 @@ export const apiRefList:listCompPropsDetail[] = [
         id:'6',
         propName:'spacing',
         isMandatory:false,
-        type:`"default" | "compact"`,
+        type:`"default" | "compact" | "none`,
         default:'"default"',
         desc:<p className="font-text">Adjusts the padding of the <span className="font-code">{`<DropdownMenu/>`}</span> component.</p>
     },

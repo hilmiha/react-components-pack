@@ -9,11 +9,11 @@ import DropdownSelectionItem from "../dropdown-selection-item"
 import { GlobalContext, GlobalContextType } from "../../context/globalcontext"
 import IconButton from "../icon-button"
 import { useLocation, useNavigate } from "react-router-dom"
-import { debounce, sortBy } from "lodash"
+import { debounce, difference, sortBy } from "lodash"
 import Skeleton from "../skeleton"
 
 type selectionFieldType = 'selection' | "multi-selection"
-export type itemSelectionValue = {txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string}
+export type itemSelectionValue = string
 export type selectionValueType = itemSelectionValue[]
 export type valueListItem = {id:string, txtLabel:string, txtSublabel?:string, txtInFiled?:string, value:string, isDisabled?:boolean}
 export type valueList = {id:string, title?:string, menu:valueListItem[]}[]
@@ -55,7 +55,7 @@ const SelectionField = ({
     config,
     isDisabled=false,
     isShowClear=true
-}:Props) =>{
+}:Props) => {
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -188,20 +188,11 @@ const SelectionField = ({
         }
     }
 
-    const thisOnClickManuItem = (itemValue:itemSelectionValue) =>{
+    const thisOnClickManuItem = (itemValue:valueListItem) =>{
         if(type==='selection'){
             if(onChange){
                 if(itemValue.value){
-                    let tampNewItem:itemSelectionValue = {
-                        txtLabel:itemValue.txtLabel,
-                        value:itemValue.value,
-                    }
-                    if(itemValue.txtInFiled){
-                        tampNewItem.txtInFiled = itemValue.txtInFiled
-                    }
-                    if(itemValue.txtSublabel){
-                        tampNewItem.txtSublabel = itemValue.txtSublabel
-                    }
+                    let tampNewItem:itemSelectionValue = itemValue.value
                     onChange([tampNewItem])
                 }else{
                     onChange([])
@@ -212,24 +203,13 @@ const SelectionField = ({
             if(onChange){
                 let tampNewValue = [...value]
                 if(isSelected(itemValue.value)){
-                    tampNewValue = tampNewValue.filter((itm)=>(itm.value!==itemValue.value))
+                    tampNewValue = tampNewValue.filter((itm)=>(itm!==itemValue.value))
+                    onChange(tampNewValue)
                 }else{
-                    let tampNewItem:itemSelectionValue = {
-                        txtLabel:itemValue.txtLabel,
-                        value:itemValue.value,
-                    }
-                    if(itemValue.txtInFiled){
-                        tampNewItem.txtInFiled = itemValue.txtInFiled
-                    }
-                    if(itemValue.txtSublabel){
-                        tampNewItem.txtSublabel = itemValue.txtSublabel
-                    }
-                    tampNewValue.push(tampNewItem)
+                    tampNewValue.push(itemValue.value)
+                    onChange(tampNewValue)
                 }
-
-                onChange(tampNewValue)
             }
-            
         }
 
         if(!isFieldTouched){
@@ -238,21 +218,48 @@ const SelectionField = ({
     }
 
     const isSelected = (toCheckValue:string) =>{
-        const valueToString = JSON.stringify(value);
-        return valueToString.includes(`"value":"${toCheckValue}"`)
+        return(value.includes(toCheckValue))
     }
 
     const valueText = useMemo(()=>{
         if(value.length>0){
-            const tamp = sortBy(value, ['txtLabel']).map((itm)=>{
+            let tamp:valueListItem[] = []
+            
+            if(valueList.length>0 && (valueList as valueList)[0].menu){
+                (valueList as valueList).forEach((itm)=>{
+                    itm.menu.forEach((itmValue)=>{
+                        if(value.includes(itmValue.value)){
+                            tamp.push(itmValue)
+                        }
+                    })
+                    
+                })
+            }else{
+                (valueList as valueListItem[]).forEach((itm)=>{
+                    if(value.includes(itm.value)){
+                        tamp.push(itm)
+                    }
+                })
+            }
+
+            let tampValueLoadingString = difference(value, (tamp.map(itm=>itm.value)))
+            tampValueLoadingString.map(itm=>{
+                tamp.push({
+                    id:`tamp-${itm}`,
+                    txtLabel:itm,
+                    value:itm
+                })
+            })
+            
+            const tampString = sortBy(tamp, ['txtLabel']).map((itm)=>{
                 return(itm.txtInFiled?itm.txtInFiled:itm.txtLabel)
             }).join(', ')
-    
-            return tamp
+
+            return tampString
         }else{
             return ' '
         }
-    },[value])
+    },[value, valueList])
 
     //Async Functions ====
     const refLoader = useRef<HTMLDivElement>(null)
@@ -657,7 +664,7 @@ const SelectionField = ({
             <div style={{position:'relative'}}>
                 <button 
                     className={
-                        processClassname(`selection-field-input-container field-container
+                        processClassname(`field-container selection-field-input-container
                         ${(isShowClear)?('is-show-clear'):('')}
                         ${(error?.isError)?('error'):('')}
                         ${(isDisabled)?('disabled'):('')}`)  

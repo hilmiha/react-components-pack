@@ -15,8 +15,8 @@ export const asyncTimeout = (ms: number) => {
 };
 
 const simulateBackEndProcess = (tableConfig:tableConfigType) =>{
-    const groupFilter = (tableConfig.filter?.group)?((tableConfig.filter.group as selectionValueType).map((itm)=>itm.value)):([])
-    const statusFilter = (tableConfig.filter?.status)?((tableConfig.filter.status as selectionValueType).map((itm)=>itm.value)):([])
+    const groupFilter = (tableConfig.filter?.group)?((tableConfig.filter.group as selectionValueType).map((itm)=>itm)):([])
+    const statusFilter = (tableConfig.filter?.status)?((tableConfig.filter.status as selectionValueType).map((itm)=>itm)):([])
     const lastUpdateFilter = (tableConfig.filter?.lastUpdateDt)?(tableConfig.filter.lastUpdateDt as DateRange):(undefined)
     const searchKeyFilter = (tableConfig.searchKey)?((tableConfig.searchKey as string).toLowerCase()):('')
 

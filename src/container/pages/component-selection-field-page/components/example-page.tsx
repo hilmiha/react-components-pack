@@ -43,7 +43,7 @@ const ExamplePage = () =>{
     useEffect(()=>{
         setTabSelected('example')
     },[])
-   
+
     return(
         <div className="tab-content">
             <div className="component-section">

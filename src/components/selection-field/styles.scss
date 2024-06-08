@@ -98,6 +98,9 @@
     .selection-field-input-container{
         @include index.selection-field-input-container-style;
 
+        &.is-show-clear{
+            padding-right: 60px;
+        }
     }
     .caret-selection{
         position: absolute;

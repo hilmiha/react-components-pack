@@ -40,12 +40,13 @@ type Props = {
     menuList: menuListType | menuListItemType[]
     menuListSelected?: string[]
     appearance?:appearanceIconButtonType
-    spacing?: 'compact' | 'default'
+    spacing?: 'compact' | 'default' | 'none'
     isDisabled?:boolean
     isSelected?:boolean
     isCloseAfterSelect?:boolean,
     isOnScrollClose?:boolean
     isWithCheckbox?:boolean
+    isWithCaret?:boolean
     onClickItem?: (buttonId:string, value?:string | number | boolean)=>void
 }
 
@@ -62,6 +63,7 @@ const DropdownMenu = ({
     isDisabled = false,
     isSelected = false,
     isWithCheckbox = false,
+    isWithCaret = true,
     onClickItem
 }:Props) =>{
     const navigate = useNavigate()
@@ -192,7 +194,7 @@ const DropdownMenu = ({
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
                     txtLabel={TxtLabelOrIcon}
                     spacing={spacing}
-                    IconAfter={<PiCaretDownBold/>}
+                    IconAfter={isWithCaret?(<PiCaretDownBold/>):undefined}
                     isDisabled={isDisabled}
                     isSelected={isOpen || isSelected}
                 />
@@ -232,7 +234,7 @@ const DropdownMenu = ({
                                                     isSelected={menuListSelected.includes(itmMenu.id)}
                                                     IconBefore={itmMenu.IconBefore}
                                                     txtSublabel={itmMenu.txtSublabel}
-                                                    spacing={spacing}
+                                                    spacing={spacing==='default'?('default'):('compact')}
                                                 />
                                             ))
                                         }

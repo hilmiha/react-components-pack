@@ -16,6 +16,7 @@ type Props = {
     isOnScrollClose?:boolean
     isLoading?:boolean
     isDisabled?:boolean
+    IconBefore?:JSX.Element
     onClick?: ()=>void
     onClickItem?: (idButton:string)=>void
 }
@@ -31,6 +32,7 @@ const SplitButton = ({
     isOnScrollClose = false,
     isLoading=false,
     isDisabled=false,
+    IconBefore,
     onClick,
     onClickItem
 }:Props) =>{
@@ -61,6 +63,7 @@ const SplitButton = ({
                 spacing={spacing}
                 isDisabled={isDisabled}
                 isLoading={isLoading}
+                IconBefore={IconBefore}
                 onClick={()=>{thisOnClick()}}
             />
             <DropdownMenu

@@ -145,7 +145,7 @@ const Table = ({
 
         let isFirst = true
         tableColums.forEach((itmColumn, index)=>{
-            if(tableConfig?.hiddenColumn){
+            if(tableConfig?.hiddenColumn && tableConfig.hiddenColumn.length>0){
                 if(!tableConfig?.hiddenColumn.includes(itmColumn.key)){
                     if(typeof itmColumn.size === 'string'){
                         tamp.push(isFirst?(`minmax(${itmColumn.size}, 1fr)`):(itmColumn.size))
@@ -370,7 +370,7 @@ const Table = ({
                     (FilterPage && onApplyFilter)
                 )&&(
                     <div className='table-top'>
-                        <div style={{minWidth:'200px', width:'100%', display:'flex', gap:'var(--size-2)'}}>
+                        <div style={{minWidth:'200px', width:'100%', maxWidth:'500px', display:'flex', gap:'var(--size-2)'}}>
                             {
                                 (onDoSearch)&&(
                                     <Fragment>
@@ -754,14 +754,12 @@ const Table = ({
                         <div className='table-footer-pagination'>
                             <IconButton
                                 Icon={<PiCaretDoubleLeft/>}
-                                appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('first')}}
                                 isDisabled={tableData.length===0}
                             />
                             <IconButton
                                 Icon={<PiCaretLeft/>}
-                                appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('prev')}}
                                 isDisabled={tableData.length===0}
@@ -769,14 +767,12 @@ const Table = ({
                             {`Page ${tableConfig.page} / ${tableConfig.maxPage}`}
                             <IconButton
                                 Icon={<PiCaretRight/>}
-                                appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('next')}}
                                 isDisabled={tableData.length===0}
                             />
                             <IconButton
                                 Icon={<PiCaretDoubleRight/>}
-                                appearance='subtle'
                                 spacing='compact'
                                 onClick={()=>{thisOnClickPagination('last')}}
                                 isDisabled={tableData.length===0}
@@ -791,7 +787,6 @@ const Table = ({
                                         <DropdownMenu
                                             TxtLabelOrIcon={(mediaSize >= 1)?(<PiCaretDown/>):(<PiRows/>)}
                                             altTxtLabel='Maximum Row Shown'
-                                            appearance='subtle'
                                             spacing='compact'
                                             menuList={[
                                                 {id:'10', txtLabel:'10', value:10},

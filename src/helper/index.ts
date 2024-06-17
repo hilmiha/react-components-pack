@@ -2,7 +2,7 @@ export const processClassname = (className:string):string =>{
     return className.replace(/\n/g,' ').replace(/\s+/g,' ').trim()
 }
 
-type formatTextType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number' | 'text-number-float'
+type formatTextType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number' | 'text-number-float' | 'text-no-breakline'
 
 export const formatText = (type:formatTextType, value:string | number) =>{
     let formatedText:any = ''
@@ -11,6 +11,11 @@ export const formatText = (type:formatTextType, value:string | number) =>{
     switch (type) {
         case 'text-no-space':
             formatedText = (value && typeof value==='string')?value.replace(/\s/g, ''):''
+            realValue = formatedText
+            break;
+        
+        case 'text-no-breakline':
+            formatedText = (value && typeof value==='string')?value.replace(/(\r\n|\n|\r)/gm, ""):''
             realValue = formatedText
             break;
         

@@ -19,6 +19,12 @@
         .grow-wrap {
             display: grid;
             width: 100%;
+            padding: 7px 0px;
+            box-sizing: border-box;
+
+            &:has(textarea:focus-visible){
+                padding: 6px 0px 6.5px 0px;
+            }
         }
         .grow-wrap::after {
             content: attr(data-replicated-value) " ";
@@ -35,7 +41,6 @@
         .grow-wrap > textarea,
         .grow-wrap::after {
             border: none;
-            margin: 9px 0px;
             font: inherit;
             line-height: 20px;
             grid-area: 1 / 1 / 2 / 2;
@@ -47,7 +52,6 @@
             padding: 0px;
             &:focus-visible{
                 outline: none;
-                margin: 8px 0px;
             }
         }
     }

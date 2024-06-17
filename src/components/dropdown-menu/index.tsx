@@ -1,4 +1,4 @@
-import { PiCaretDownBold, PiXBold } from "react-icons/pi"
+import { PiCaretDown, PiCaretDownBold, PiXBold } from "react-icons/pi"
 import Button, { spacingButtonType } from "../button"
 import React, { useEffect, useMemo, useState } from "react"
 import { 
@@ -194,7 +194,7 @@ const DropdownMenu = ({
                     floatingUi_getReferenceProps = {{...getReferenceProps()}}
                     txtLabel={TxtLabelOrIcon}
                     spacing={spacing}
-                    IconAfter={isWithCaret?(<PiCaretDownBold/>):undefined}
+                    IconAfter={isWithCaret?(<PiCaretDown/>):undefined}
                     isDisabled={isDisabled}
                     isSelected={isOpen || isSelected}
                 />

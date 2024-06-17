@@ -20,6 +20,7 @@ export type DatePickerFieldProps = {
     value:datePickerValueType
     onChange?:(newValue:datePickerValueType) => void ,
     onValidate?: (errorResult:errorType, newValue:datePickerValueType, config?:Record<any, any>) => void,
+    validateTrigger?: 0 | 1
     error?: errorType
     config?: {
         prefix?: string | JSX.Element,
@@ -41,6 +42,7 @@ const DatePickerField = ({
     txtPlaceholder,
     onChange,
     onValidate,
+    validateTrigger = 0,
     error,
     config,
     isDisabled = false,
@@ -236,6 +238,11 @@ const DatePickerField = ({
         if(onChange){
             thisOnChange(undefined)
 
+            if(onValidate){
+                const configTamp = config
+                onValidate(validateField(undefined), undefined, configTamp)
+            }
+
             if(isFormButton){
                 let formField = refs.domReference.current as HTMLButtonElement
                 setTimeout(() => {
@@ -244,6 +251,15 @@ const DatePickerField = ({
             }
         }
     }
+
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            setIsFieldTouched(true)
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
+        }
+    },[validateTrigger])
+
     const calendarContent = () =>{
         return(
             <>

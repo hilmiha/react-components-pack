@@ -3,6 +3,7 @@ import { processClassname } from "../../helper"
 import { errorType } from '../text-field'
 import { PiWarningDiamondFill } from 'react-icons/pi'
 import Radio from '../radio'
+import { useEffect } from 'react'
 
 export type valueRadioField = string
 export type valueListRadioField = {id:string, txtLabel:string, txtSublabel?:string, isDisabled?:boolean, value:string}[]
@@ -13,6 +14,7 @@ type RadioFieldProps = {
     value:valueRadioField
     onChange?:(newValue:valueRadioField) => void ,
     onValidate?: (errorResult:errorType, newValue:valueRadioField, config?:Record<any, any>) => void,
+    validateTrigger?: 0 | 1
     valueList:valueListRadioField
     error?: errorType
     isDisabled?:boolean
@@ -27,6 +29,7 @@ const RadioFiled = ({
     value = '',
     onChange,
     onValidate,
+    validateTrigger = 0,
     valueList = [],
     isDisabled = false,
     error,
@@ -70,6 +73,13 @@ const RadioFiled = ({
             onValidate(validateField(tampValue), tampValue, configTamp)
         }
     }
+
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
+        }
+    },[validateTrigger])
 
     return(
         <div

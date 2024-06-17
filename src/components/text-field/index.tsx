@@ -1,7 +1,7 @@
 import { PiWarningDiamondFill, PiX } from 'react-icons/pi'
 import { formatText, processClassname } from '../../helper'
 import './styles.scss'
-import { LegacyRef, useRef, useState } from 'react'
+import { LegacyRef, useEffect, useRef, useState } from 'react'
 import IconButton from '../icon-button'
 
 type textFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-number' | 'text-number-float'
@@ -32,6 +32,7 @@ export type TextFieldProps = {
     onKeyDown?: (event:React.KeyboardEvent<HTMLInputElement>)=>void
     onKeyUp?: (event:React.KeyboardEvent<HTMLInputElement>)=>void
     onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
+    validateTrigger?:0 | 1 
     error?: errorType
     config?: textFieldConfig
     isDisabled?:boolean
@@ -51,6 +52,7 @@ const TextField = ({
     onKeyDown,
     onKeyUp,
     onValidate,
+    validateTrigger = 0,
     config,
     error,
     isDisabled = false,
@@ -236,6 +238,14 @@ const TextField = ({
             onKeyUp(event)
         }
     }
+
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            setIsFieldTouched(true)
+            const configTamp = config
+            onValidate(validateField(value?(value):('')), value?(value):(''), configTamp)
+        }
+    },[validateTrigger])
 
     return(
         <div 

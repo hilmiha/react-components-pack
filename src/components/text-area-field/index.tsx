@@ -5,13 +5,14 @@ import { useEffect, useRef, useState } from 'react'
 import { errorType } from '../text-field'
 import IconButton from '../icon-button'
 
-type textAreaFieldType = 'text' | 'text-no-space' | 'text-only-number'
+type textAreaFieldType = 'text' | 'text-no-space' | 'text-only-number' | 'text-no-breakline'
 type valueType = string
 
 export type textFieldConfig = {
     maxLength?: number,
     isMandatory?: boolean,
-    initialLine?: number
+    initialLine?: number,
+    maxHeight?:number
     regex?:RegExp | [RegExp, string]
 }
 
@@ -23,6 +24,7 @@ export type TextFieldProps = {
     txtPlaceholder?:string
     onChange?: (newValue:valueType) => void,
     onValidate?: (errorResult:errorType, newValue:valueType, config?:textFieldConfig) => void,
+    validateTrigger?:0 | 1 
     error?: errorType
     config?: textFieldConfig
     isDisabled ?: boolean
@@ -37,6 +39,7 @@ const TextAreaField = ({
     value = '',
     onChange,
     onValidate,
+    validateTrigger = 0,
     config,
     isDisabled = false,
     isShowClear = true,
@@ -57,6 +60,10 @@ const TextAreaField = ({
             tampValue = tamp.realValue
             tampMaskedValue= tamp.formatedText
         }else if(type==='text-only-number' && typeof tampValue === 'string'){
+            const tamp = formatText(type, tampValue.slice(0,(config?.maxLength)?(config.maxLength):(tampValue.length)))
+            tampValue = tamp.realValue
+            tampMaskedValue= tamp.formatedText
+        }else if(type==='text-no-breakline'){
             const tamp = formatText(type, tampValue.slice(0,(config?.maxLength)?(config.maxLength):(tampValue.length)))
             tampValue = tamp.realValue
             tampMaskedValue= tamp.formatedText
@@ -141,6 +148,14 @@ const TextAreaField = ({
         }
     },[growContainer, value])
 
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            setIsFieldTouched(true)
+            const configTamp = config
+            onValidate(validateField(value?(value):('')), value?(value):(''), configTamp)
+        }
+    },[validateTrigger])
+
     return(
         <>
             <div 
@@ -171,6 +186,9 @@ const TextAreaField = ({
                             ${(error?.isError)?('error'):('')}
                             ${(isDisabled)?('disabled'):('')}`)  
                         }
+                        style={{
+                            maxHeight:(config?.maxHeight)?(`${config.maxHeight}px`):('320px')
+                        }}
                     >
                         <div className="grow-wrap" ref={growContainer}>
                             <textarea 

@@ -3,7 +3,7 @@ import { processClassname } from '../../helper'
 import './styles.scss'
 
 type pillFlairApperanceType = 'text' | 'pill' | 'status'
-type pillFlairColor = 'info' | 'success' | 'warning' | 'danger'
+type pillFlairColor = 'info' | 'success' | 'warning' | 'danger' | 'default'
 
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 const PillFlair = ({
     className,
     appearance,
-    color,
+    color='default',
     txtLabel,
     IconBefore,
     isBold
@@ -31,7 +31,7 @@ const PillFlair = ({
                         processClassname(`pill-flair-pill
                         ${className?(className):('')}
                         ${isBold?('bold'):('')}
-                        ${color?(color):('')}`)  
+                        ${(color!=='default')?(color):('')}`)  
                     } 
                 >
                     {IconBefore}

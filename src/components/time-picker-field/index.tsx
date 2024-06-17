@@ -17,6 +17,7 @@ export type TimePickerFieldProps = {
     value:timePickerValueType
     onChange?:(newValue:timePickerValueType) => void ,
     onValidate?: (errorResult:errorType, newValue:timePickerValueType, config?:Record<any, any>) => void,
+    validateTrigger?: 0 | 1
     error?: errorType
     isDisabled?:boolean
     isShowClear?:boolean
@@ -37,6 +38,7 @@ const TimePickerField = ({
     txtPlaceholder,
     onChange,
     onValidate,
+    validateTrigger = 0,
     error,
     config,
     isDisabled = false,
@@ -212,6 +214,17 @@ const TimePickerField = ({
             minute:undefined,
             second:undefined
         })
+
+        if(onValidate){
+            const configTamp = config
+            const emptyValue={
+                hour:undefined,
+                minute:undefined,
+                second:undefined
+            }
+            onValidate(validateField(emptyValue), emptyValue, configTamp)
+        }
+
         if(isFormButton){
             let formField = refs.domReference.current as HTMLButtonElement
             setTimeout(() => {
@@ -219,6 +232,15 @@ const TimePickerField = ({
             }, 10);
         }
     }
+
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            setIsFieldTouched(true)
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
+        }
+    },[validateTrigger])
+
     const calendarContent = () =>{
         return(
             <>

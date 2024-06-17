@@ -1,6 +1,11 @@
 .button-group{
     display: flex;
+    flex-wrap: wrap;
     justify-content: left;
     align-items: center;
-    gap:var(--size-2)
+    gap:var(--size-2);
+    
+    &.layout-end{
+        justify-content: right;
+    }
 }

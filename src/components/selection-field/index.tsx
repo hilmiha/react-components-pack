@@ -27,6 +27,7 @@ type Props = {
     onChange?: (newValue:selectionValueType) => void,
     getListAsync?: (pageNumber:number, searchKey?:string)=>Promise<{list: valueListItem[]; pageNumber:number;  searchKey:string|undefined; totalPage: number}>
     onValidate?: (errorResult:errorType, newValue:selectionValueType, config?:Record<any, any>) => void,
+    validateTrigger?: 0 | 1
     valueList:valueList | valueListItem[],
     setValueList?:React.Dispatch<React.SetStateAction<valueListItem[]>>
     error?: errorType
@@ -49,6 +50,7 @@ const SelectionField = ({
     onChange,
     getListAsync,
     onValidate,
+    validateTrigger = 0,
     valueList = [],
     setValueList,
     error,
@@ -369,6 +371,11 @@ const SelectionField = ({
         if(onChange){
             onChange([])
         }
+
+        if(onValidate){
+            const configTamp = config
+            onValidate(validateField([]), [], configTamp)
+        }
         if(isFormButton){
             let formField = refs.domReference.current as HTMLButtonElement
             setTimeout(() => {
@@ -494,6 +501,14 @@ const SelectionField = ({
             setIsValueListSearchCompleted(false)
         // }
     },[isOpenDropdown])
+
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            setIsFieldTouched(true)
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
+        }
+    },[validateTrigger])
 
     const selectionContent = () =>{
         return(

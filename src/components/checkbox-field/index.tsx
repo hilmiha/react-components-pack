@@ -16,6 +16,7 @@ type CheckboxFieldProps = {
     value:valueCheckboxField
     onChange?:(newValue:valueCheckboxField) => void ,
     onValidate?: (errorResult:errorType, newValue:valueCheckboxField, config?:Record<any, any>) => void,
+    validateTrigger?: 0 | 1
     valueList:valueListCheckboxField
     error?: errorType
     isDisabled?:boolean
@@ -107,6 +108,7 @@ const CheckboxField = ({
     value = [],
     onChange,
     onValidate,
+    validateTrigger = 0,
     valueList = [],
     isDisabled = false,
     error,
@@ -174,6 +176,13 @@ const CheckboxField = ({
             onValidate(validateField(tampValue), tampValue, configTamp)
         }
     }
+
+    useEffect(()=>{
+        if(validateTrigger!==0 && onValidate){
+            const configTamp = config
+            onValidate(validateField(value), value, configTamp)
+        }
+    },[validateTrigger])
 
     return(
         <div
